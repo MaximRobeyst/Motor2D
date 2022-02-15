@@ -66,7 +66,7 @@ void dae::Minigin::LoadGame() const
 	scene.Add(go);
 
 	auto font = ResourceManager::GetInstance().LoadFont("Lingua.otf", 36);
-	auto to = std::make_shared<TextComponent>("Programming 4 Assignment", font);
+	auto to = std::make_shared<TextComponent>(go.get(), "Programming 4 Assignment", font);
 	to->SetPosition(80, 20);
 	//scene.Add(to);
 }

@@ -23,3 +23,8 @@ void dae::GameObject::Render() const
 	}
 
 }
+
+void dae::GameObject::AddComponent(Component* component)
+{
+	m_pComponents.push_back(component);
+}

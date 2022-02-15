@@ -9,10 +9,11 @@ namespace dae
 
 	class Font;
 	class Texture2D;
-	class GameObject;
+
 	class TextComponent final : public Component
 	{
 	public:
+		//TextComponent(dae::GameObject* pGameObject, const std::string& text, const std::shared_ptr<Font>& font);
 		explicit TextComponent(dae::GameObject* pGameObject, const std::string& text, const std::shared_ptr<Font>& font);
 		virtual ~TextComponent() = default;
 		TextComponent(const TextComponent & other) = delete;

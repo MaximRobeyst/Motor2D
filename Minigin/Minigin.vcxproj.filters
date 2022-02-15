@@ -18,9 +18,6 @@
     <ClInclude Include="Transform.h">
       <Filter>Component Files</Filter>
     </ClInclude>
-    <ClInclude Include="TextObject.h">
-      <Filter>Component Files</Filter>
-    </ClInclude>
     <ClInclude Include="SceneObject.h">
       <Filter>Component Files</Filter>
     </ClInclude>
@@ -60,6 +57,9 @@
     <ClInclude Include="Component.h">
       <Filter>Component Files</Filter>
     </ClInclude>
+    <ClInclude Include="TextObject.h">
+      <Filter>Component Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MiniginPCH.cpp">
@@ -92,13 +92,13 @@
     <ClCompile Include="Transform.cpp">
       <Filter>Component Files</Filter>
     </ClCompile>
-    <ClCompile Include="TextObject.cpp">
-      <Filter>Component Files</Filter>
-    </ClCompile>
     <ClCompile Include="Texture2D.cpp">
       <Filter>Engine Files</Filter>
     </ClCompile>
     <ClCompile Include="ResourceManager.cpp">
+      <Filter>Engine Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TextObject.cpp">
       <Filter>Engine Files</Filter>
     </ClCompile>
   </ItemGroup>

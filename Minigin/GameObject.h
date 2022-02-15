@@ -4,6 +4,7 @@
 #include "Component.h"
 
 #include <memory>
+#include <vector>
 
 namespace dae
 {
@@ -22,26 +23,15 @@ namespace dae
 		void Update() override;
 		void Render() const override;
 
-		template<typename T>
-		T* AddComponent(T* component)
-		{
-			m_pComponents.push_back(component);
-		}
+		void AddComponent(Component* component);
 		template<typename T>
 		T* GetComponent() const
 		{
 			for (auto component : m_pComponents)
 			{
-
+				if (typeid(component) == typeid(T))
+					static_cast<T*>(component);
 			}
-
-			auto component = std::find(m_pComponents.begin(), m_pComponents.end(), [](Component* component) {
-				return typeid(component) == typeid(T);
-				});
-
-			if (*component != nullptr)
-				return static_cast<T*>(component);
-
 			return nullptr;
 		}
 
