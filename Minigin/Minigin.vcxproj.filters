@@ -63,6 +63,12 @@
     <ClInclude Include="SpriteRendererComponent.h">
       <Filter>Component Files</Filter>
     </ClInclude>
+    <ClInclude Include="FPSComponent.h">
+      <Filter>Component Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Time.h">
+      <Filter>Engine Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MiniginPCH.cpp">
@@ -105,6 +111,12 @@
       <Filter>Component Files</Filter>
     </ClCompile>
     <ClCompile Include="SpriteRendererComponent.cpp">
+      <Filter>Engine Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FPSComponent.cpp">
+      <Filter>Component Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Time.cpp">
       <Filter>Engine Files</Filter>
     </ClCompile>
   </ItemGroup>

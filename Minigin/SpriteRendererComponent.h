@@ -15,6 +15,8 @@ namespace dae
 		SpriteRendererComponent& operator=(const SpriteRendererComponent& other) = delete;
 		SpriteRendererComponent& operator=(SpriteRendererComponent&& other) = delete;
 
+		void SetTexture(const std::shared_ptr<Texture2D>& texture);
+
 		void Update() override;
 		void Render() const override;
 	private:

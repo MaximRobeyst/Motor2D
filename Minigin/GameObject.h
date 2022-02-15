@@ -39,7 +39,7 @@ namespace dae
 			for (auto& component : m_pComponents)
 			{
 				T* comp{ dynamic_cast<T*>(component) };
-				if (component != nullptr)
+				if (comp != nullptr)
 					return comp;
 			}
 			return nullptr;

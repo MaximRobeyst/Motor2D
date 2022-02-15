@@ -9,6 +9,8 @@
 #include "GameObject.h"
 #include "Scene.h"
 #include "SpriteRendererComponent.h"
+#include "Time.h"
+#include "FPSComponent.h"
 
 using namespace std;
 
@@ -66,16 +68,30 @@ void dae::Minigin::LoadGame() const
 	scene.Add(go);
 
 	go = std::make_shared<GameObject>();
-	auto transformComponent = new TransformComponent(go.get(), glm::vec3{216.f, 180.f, 0.f});
-	go->AddComponent(transformComponent);
+	go->AddComponent(new TransformComponent(go.get(), glm::vec3{ 216.f, 180.f, 0.f }));
 	go->AddComponent(new SpriteRendererComponent(go.get(), "logo.png"));
+
 	//go->SetTexture("logo.png");
 	//go->SetPosition(216, 180);
 	scene.Add(go);
-	//
-	//auto font = ResourceManager::GetInstance().LoadFont("Lingua.otf", 36);
+
+	auto font = ResourceManager::GetInstance().LoadFont("Lingua.otf", 36);
 	//auto to = new TextComponent(go.get(), "Programming 4 Assignment", font);
+	go = std::make_shared<GameObject>();
+	go->AddComponent(new TransformComponent(go.get(), glm::vec3{80.f, 20.f, 0.f}));
+	go->AddComponent(new SpriteRendererComponent(go.get(), "logo.png"));
+	go->AddComponent(new TextComponent(go.get(), "Programming 4 Assignment", font));
+	scene.Add(go);
 	
+
+	font = ResourceManager::GetInstance().LoadFont("Lingua.otf", 16);
+
+	go = std::make_shared<GameObject>();
+	go->AddComponent(new TransformComponent(go.get()));
+	go->AddComponent(new SpriteRendererComponent(go.get(), "logo.png"));
+	go->AddComponent(new TextComponent(go.get(), "Programming 4 Assignment", font, {255,255,0}));
+	go->AddComponent(new FPSComponent(go.get()));
+	scene.Add(go);
 
 	//to->SetPosition(80, 20);
 	//scene.Add(to);
@@ -103,6 +119,8 @@ void dae::Minigin::Run()
 		auto& sceneManager = SceneManager::GetInstance();
 		auto& input = InputManager::GetInstance();
 
+		auto t1 = std::chrono::steady_clock::now();
+
 		// todo: this update loop could use some work.
 		bool doContinue = true;
 		while (doContinue)
@@ -110,7 +128,16 @@ void dae::Minigin::Run()
 			doContinue = input.ProcessInput();
 			sceneManager.Update();
 			renderer.Render();
+
+			auto t2 = std::chrono::steady_clock::now();
+			float elapsedSec{ static_cast<float>((t2 - t1).count()) };
+
+			t1 = t2;
+
+			Time::GetInstance()->SetElapsed(elapsedSec);
 		}
+
+		delete Time::GetInstance();
 	}
 
 	Cleanup();

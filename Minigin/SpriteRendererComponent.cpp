@@ -10,6 +10,11 @@ dae::SpriteRendererComponent::SpriteRendererComponent(dae::GameObject* pGameObje
 {
 }
 
+void dae::SpriteRendererComponent::SetTexture(const std::shared_ptr<Texture2D>& texture)
+{
+	m_pTexture = texture;
+}
+
 void dae::SpriteRendererComponent::Update()
 {
 }
