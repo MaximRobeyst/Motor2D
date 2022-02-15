@@ -27,10 +27,20 @@ namespace dae
 		template<typename T>
 		T* GetComponent() const
 		{
-			for (auto component : m_pComponents)
+			// Shoult be more like this
+			//for (auto component : m_pComponents)
+			//{
+			//	if (&typeid(component) == &typeid(T))
+			//		static_cast<T*>(component);
+			//}
+			//return nullptr;
+
+			// Not this
+			for (auto& component : m_pComponents)
 			{
-				if (typeid(component) == typeid(T))
-					static_cast<T*>(component);
+				T* comp{ dynamic_cast<T*>(component) };
+				if (component != nullptr)
+					return comp;
 			}
 			return nullptr;
 		}

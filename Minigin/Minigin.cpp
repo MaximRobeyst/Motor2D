@@ -8,6 +8,7 @@
 #include "TextObject.h"
 #include "GameObject.h"
 #include "Scene.h"
+#include "SpriteRendererComponent.h"
 
 using namespace std;
 
@@ -58,16 +59,25 @@ void dae::Minigin::LoadGame() const
 
 	auto go = std::make_shared<GameObject>();
 	//go->SetTexture("background.jpg");
+	// TODO: make a contructor with shared pointers
+	go->AddComponent(new TransformComponent{go.get()});
+	go->AddComponent(new SpriteRendererComponent(go.get(),"background.jpg"));
+
 	scene.Add(go);
 
 	go = std::make_shared<GameObject>();
+	auto transformComponent = new TransformComponent(go.get(), glm::vec3{216.f, 180.f, 0.f});
+	go->AddComponent(transformComponent);
+	go->AddComponent(new SpriteRendererComponent(go.get(), "logo.png"));
 	//go->SetTexture("logo.png");
 	//go->SetPosition(216, 180);
 	scene.Add(go);
+	//
+	//auto font = ResourceManager::GetInstance().LoadFont("Lingua.otf", 36);
+	//auto to = new TextComponent(go.get(), "Programming 4 Assignment", font);
+	
 
-	auto font = ResourceManager::GetInstance().LoadFont("Lingua.otf", 36);
-	auto to = std::make_shared<TextComponent>(go.get(), "Programming 4 Assignment", font);
-	to->SetPosition(80, 20);
+	//to->SetPosition(80, 20);
 	//scene.Add(to);
 }
 

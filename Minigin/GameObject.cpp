@@ -3,7 +3,11 @@
 #include "ResourceManager.h"
 #include "Renderer.h"
 
-dae::GameObject::~GameObject() = default;
+dae::GameObject::~GameObject()
+{
+	for (auto iter = m_pComponents.begin(); iter != m_pComponents.end(); ++iter)
+		delete *iter;
+}
 
 void dae::GameObject::Update()
 {

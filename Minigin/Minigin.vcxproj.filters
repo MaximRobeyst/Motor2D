@@ -60,6 +60,9 @@
     <ClInclude Include="TextObject.h">
       <Filter>Component Files</Filter>
     </ClInclude>
+    <ClInclude Include="SpriteRendererComponent.h">
+      <Filter>Component Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MiniginPCH.cpp">
@@ -99,6 +102,9 @@
       <Filter>Engine Files</Filter>
     </ClCompile>
     <ClCompile Include="TextObject.cpp">
+      <Filter>Component Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteRendererComponent.cpp">
       <Filter>Engine Files</Filter>
     </ClCompile>
   </ItemGroup>
