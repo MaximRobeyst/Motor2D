@@ -4,7 +4,7 @@
 #include "Renderer.h"
 #include "ResourceManager.h"
 
-dae::SpriteRendererComponent::SpriteRendererComponent(dae::GameObject* pGameObject,const std::string& spritePath)
+dae::SpriteRendererComponent::SpriteRendererComponent(GameObject* pGameObject,const std::string& spritePath)
 	: Component{pGameObject}
 	, m_pTexture{ResourceManager::GetInstance().LoadTexture(spritePath)}
 {

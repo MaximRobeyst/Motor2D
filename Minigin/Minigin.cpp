@@ -59,17 +59,17 @@ void dae::Minigin::LoadGame() const
 {
 	auto& scene = SceneManager::GetInstance().CreateScene("Demo");
 
-	auto go = std::make_shared<GameObject>();
+	auto go = new GameObject();
 	//go->SetTexture("background.jpg");
 	// TODO: make a contructor with shared pointers
-	go->AddComponent(new TransformComponent{go.get()});
-	go->AddComponent(new SpriteRendererComponent(go.get(),"background.jpg"));
+	go->AddComponent(new TransformComponent{go});
+	go->AddComponent(new SpriteRendererComponent(go,"background.jpg"));
 
 	scene.Add(go);
 
-	go = std::make_shared<GameObject>();
-	go->AddComponent(new TransformComponent(go.get(), glm::vec3{ 216.f, 180.f, 0.f }));
-	go->AddComponent(new SpriteRendererComponent(go.get(), "logo.png"));
+	go = new GameObject();
+	go->AddComponent(new TransformComponent(go, glm::vec3{ 216.f, 180.f, 0.f }));
+	go->AddComponent(new SpriteRendererComponent(go, "logo.png"));
 
 	//go->SetTexture("logo.png");
 	//go->SetPosition(216, 180);
@@ -77,21 +77,20 @@ void dae::Minigin::LoadGame() const
 
 	auto font = ResourceManager::GetInstance().LoadFont("Lingua.otf", 36);
 	//auto to = new TextComponent(go.get(), "Programming 4 Assignment", font);
-	go = std::make_shared<GameObject>();
-	go->AddComponent(new TransformComponent(go.get(), glm::vec3{80.f, 20.f, 0.f}));
-	go->AddComponent(new SpriteRendererComponent(go.get(), "logo.png"));
-	go->AddComponent(new TextComponent(go.get(), "Programming 4 Assignment", font));
+	go = new GameObject();
+	go->AddComponent(new TransformComponent(go, glm::vec3{80.f, 20.f, 0.f}));
+	go->AddComponent(new SpriteRendererComponent(go, "logo.png"));
+	go->AddComponent(new TextComponent(go, "Programming 4 Assignment", font));
 	scene.Add(go);
 	
 
 	font = ResourceManager::GetInstance().LoadFont("Lingua.otf", 16);
 
-	go = std::make_shared<GameObject>();
-	go->AddComponent(new TransformComponent(go.get()));
-	go->AddComponent(new SpriteRendererComponent(go.get(), "logo.png"));
-	go->AddComponent(new TextComponent(go.get(), "Programming 4 Assignment", font, {255,255,0}));
-	go->AddComponent(new FPSComponent(go.get()));
-	scene.Add(go);
+	go = new GameObject(go);
+	go->AddComponent(new TransformComponent(go));
+	go->AddComponent(new SpriteRendererComponent(go, "logo.png"));
+	go->AddComponent(new TextComponent(go, "Programming 4 Assignment", font, {255,255,0}));
+	go->AddComponent(new FPSComponent(go));
 
 	//to->SetPosition(80, 20);
 	//scene.Add(to);

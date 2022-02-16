@@ -8,7 +8,7 @@ namespace dae
 	class SpriteRendererComponent final : public Component
 	{
 	public:
-		explicit SpriteRendererComponent(dae::GameObject* pGameObject, const std::string& spritePath);
+		explicit SpriteRendererComponent(GameObject* pGameObject, const std::string& spritePath);
 		~SpriteRendererComponent() = default;
 		SpriteRendererComponent(const SpriteRendererComponent& other) = delete;
 		SpriteRendererComponent(SpriteRendererComponent&& other) = delete;

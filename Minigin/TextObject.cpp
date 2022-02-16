@@ -6,7 +6,7 @@
 #include "Texture2D.h"
 #include "SpriteRendererComponent.h"
 
-dae::TextComponent::TextComponent(dae::GameObject* pGameObject, const std::string& text, const std::shared_ptr<Font>& font, const SDL_Color& color)
+dae::TextComponent::TextComponent(GameObject* pGameObject, const std::string& text, const std::shared_ptr<Font>& font, const SDL_Color& color)
 	: dae::Component{ pGameObject }
 	, m_NeedsUpdate{ true }
 	, m_Text{ text }

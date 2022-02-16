@@ -14,6 +14,7 @@ namespace dae
 	{
 	public:
 		GameObject() = default;
+		GameObject(GameObject* pParent, std::vector<GameObject*> pChildren = std::vector<GameObject*>{});
 		virtual ~GameObject();
 		GameObject(const GameObject& other) = delete;
 		GameObject(GameObject&& other) = delete;
@@ -45,8 +46,20 @@ namespace dae
 			return nullptr;
 		}
 
+		// SceneGraph
+		void SetParent(GameObject* pParent);
+		GameObject* GetParent() const;
+
+		void AddChild(GameObject* pChild);
+		GameObject* GetChildFromIndex(int i) const;
+		std::vector<GameObject*> GetChildren() const;
+		size_t GetAmountOfChildren() const;
 
 	private:
 		std::vector<Component*> m_pComponents;
+
+		GameObject* m_pParent{};
+		std::vector<GameObject*> m_pChildren{};
+
 	};
 }
