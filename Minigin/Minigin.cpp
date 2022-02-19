@@ -1,6 +1,7 @@
 #include "MiniginPCH.h"
 #include "Minigin.h"
 #include <thread>
+#include <chrono>
 #include "InputManager.h"
 #include "SceneManager.h"
 #include "Renderer.h"
@@ -119,22 +120,25 @@ void dae::Minigin::Run()
 		auto& input = InputManager::GetInstance();
 
 		auto t1 = std::chrono::steady_clock::now();
+		float lag = 0.0f;
 
 		// todo: this update loop could use some work.
 		bool doContinue = true;
 		while (doContinue)
 		{
-			doContinue = input.ProcessInput();
-			sceneManager.Update();
-			renderer.Render();
-
 			auto t2 = std::chrono::steady_clock::now();
-			float elapsedSec{ static_cast<float>((t2 - t1).count()) };
-
+			float elapsedSec{ std::chrono::duration<float>(t2 - t1).count() };
 			t1 = t2;
+			lag += elapsedSec;
+
+			doContinue = input.ProcessInput();
+
+			sceneManager.Update();
 
 			Time::GetInstance()->SetElapsed(elapsedSec);
+			renderer.Render();
 		}
+
 
 		delete Time::GetInstance();
 	}

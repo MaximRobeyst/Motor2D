@@ -3,6 +3,7 @@
 
 namespace dae
 {
+	class TextComponent;
 	class FPSComponent final :public Component
 	{
 	public:
@@ -15,6 +16,8 @@ namespace dae
 
 		void Update() override;
 		void Render() const override;
+	private:
+		TextComponent* m_pTextCompoent{};
 	};
 }
 

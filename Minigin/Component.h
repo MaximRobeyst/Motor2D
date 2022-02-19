@@ -9,8 +9,8 @@ namespace dae
 		Component(GameObject* pGameObject) : m_pGameObject{ pGameObject } {};
 		virtual ~Component() = default;
 
-		virtual void Update() = 0;
-		virtual void Render() const = 0;
+		virtual void Update() {};
+		virtual void Render() const {};
 
 	protected:
 		GameObject* m_pGameObject;

@@ -15,5 +15,6 @@ namespace dae
 		void Render() const override;
 	private:
 		glm::vec3 m_Position{};
+		TransformComponent* m_pParentComponent;
 	};
 }

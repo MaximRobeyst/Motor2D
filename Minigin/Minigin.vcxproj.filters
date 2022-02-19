@@ -110,14 +110,14 @@
     <ClCompile Include="TextObject.cpp">
       <Filter>Component Files</Filter>
     </ClCompile>
-    <ClCompile Include="SpriteRendererComponent.cpp">
-      <Filter>Engine Files</Filter>
-    </ClCompile>
     <ClCompile Include="FPSComponent.cpp">
       <Filter>Component Files</Filter>
     </ClCompile>
     <ClCompile Include="Time.cpp">
       <Filter>Engine Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteRendererComponent.cpp">
+      <Filter>Component Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

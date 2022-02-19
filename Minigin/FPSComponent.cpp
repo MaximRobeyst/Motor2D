@@ -7,13 +7,12 @@
 dae::FPSComponent::FPSComponent(dae::GameObject* pGameObject)
 	:Component{pGameObject}
 {
+	m_pTextCompoent = m_pGameObject->GetComponent<TextComponent>();
 }
 
 void dae::FPSComponent::Update()
 {
-	int fps = static_cast<int>(1.f / (1.f / Time::GetInstance()->GetElapsed()));
-
-	m_pGameObject->GetComponent<TextComponent>()->SetText(std::to_string(fps) + " FPS");
+	m_pTextCompoent->SetText(std::to_string(Time::GetInstance()->GetFPS()) + " FPS");
 }
 
 void dae::FPSComponent::Render() const

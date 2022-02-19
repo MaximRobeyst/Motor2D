@@ -12,10 +12,12 @@ public:
 
 	float GetElapsed() const;
 	void SetElapsed(float elapsedTime);
+
+	int GetFPS() const;
 private:
 	Time() = default;
 
-	static float m_ElapsedTime;
+	float m_ElapsedTime;
 	static Time* m_pInstance;
 };
 

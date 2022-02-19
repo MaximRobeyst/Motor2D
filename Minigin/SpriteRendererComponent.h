@@ -4,6 +4,7 @@
 namespace dae
 {
 	class Texture2D;
+	class TransformComponent;
 
 	class SpriteRendererComponent final : public Component
 	{
@@ -17,13 +18,13 @@ namespace dae
 
 		void SetTexture(const std::shared_ptr<Texture2D>& texture);
 
-		void Update() override;
 		void Render() const override;
 	private:
 		// member functions
 
 
 		// member variables
+		TransformComponent* m_pTransformComponent;
 		std::shared_ptr<Texture2D> m_pTexture;
 	};
 }
