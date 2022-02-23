@@ -72,28 +72,31 @@
     <ClInclude Include="Time.h">
       <Filter>Engine Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\3rdParty\imgui-1.87\imconfig.h">
+    <ClInclude Include="..\3rdParty\imgui-1.86\imconfig.h">
       <Filter>ImGui</Filter>
     </ClInclude>
-    <ClInclude Include="..\3rdParty\imgui-1.87\imgui.h">
+    <ClInclude Include="..\3rdParty\imgui-1.86\imgui.h">
       <Filter>ImGui</Filter>
     </ClInclude>
-    <ClInclude Include="..\3rdParty\imgui-1.87\imgui_internal.h">
+    <ClInclude Include="..\3rdParty\imgui-1.86\imgui_internal.h">
       <Filter>ImGui</Filter>
     </ClInclude>
-    <ClInclude Include="..\3rdParty\imgui-1.87\imstb_rectpack.h">
+    <ClInclude Include="..\3rdParty\imgui-1.86\imstb_rectpack.h">
       <Filter>ImGui</Filter>
     </ClInclude>
-    <ClInclude Include="..\3rdParty\imgui-1.87\imstb_textedit.h">
+    <ClInclude Include="..\3rdParty\imgui-1.86\imstb_textedit.h">
       <Filter>ImGui</Filter>
     </ClInclude>
-    <ClInclude Include="..\3rdParty\imgui-1.87\imstb_truetype.h">
+    <ClInclude Include="..\3rdParty\imgui-1.86\imstb_truetype.h">
       <Filter>ImGui</Filter>
     </ClInclude>
-    <ClInclude Include="..\3rdParty\imgui-1.87\backends\imgui_impl_opengl2.h">
+    <ClInclude Include="..\3rdParty\imgui-1.86\backends\imgui_impl_opengl2.h">
       <Filter>ImGui</Filter>
     </ClInclude>
-    <ClInclude Include="..\3rdParty\imgui-1.87\backends\imgui_impl_sdl.h">
+    <ClInclude Include="..\3rdParty\imgui-1.86\backends\imgui_impl_sdl.h">
+      <Filter>ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\3rdParty\imgui-1.86\imgui_plot.h">
       <Filter>ImGui</Filter>
     </ClInclude>
   </ItemGroup>
@@ -146,25 +149,28 @@
     <ClCompile Include="SpriteRendererComponent.cpp">
       <Filter>Component Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\3rdParty\imgui-1.87\imgui.cpp">
+    <ClCompile Include="..\3rdParty\imgui-1.86\imgui.cpp">
       <Filter>ImGui</Filter>
     </ClCompile>
-    <ClCompile Include="..\3rdParty\imgui-1.87\imgui_demo.cpp">
+    <ClCompile Include="..\3rdParty\imgui-1.86\imgui_demo.cpp">
       <Filter>ImGui</Filter>
     </ClCompile>
-    <ClCompile Include="..\3rdParty\imgui-1.87\imgui_draw.cpp">
+    <ClCompile Include="..\3rdParty\imgui-1.86\imgui_draw.cpp">
       <Filter>ImGui</Filter>
     </ClCompile>
-    <ClCompile Include="..\3rdParty\imgui-1.87\imgui_tables.cpp">
+    <ClCompile Include="..\3rdParty\imgui-1.86\imgui_tables.cpp">
       <Filter>ImGui</Filter>
     </ClCompile>
-    <ClCompile Include="..\3rdParty\imgui-1.87\imgui_widgets.cpp">
+    <ClCompile Include="..\3rdParty\imgui-1.86\imgui_widgets.cpp">
       <Filter>ImGui</Filter>
     </ClCompile>
-    <ClCompile Include="..\3rdParty\imgui-1.87\backends\imgui_impl_opengl2.cpp">
+    <ClCompile Include="..\3rdParty\imgui-1.86\backends\imgui_impl_opengl2.cpp">
       <Filter>ImGui</Filter>
     </ClCompile>
-    <ClCompile Include="..\3rdParty\imgui-1.87\backends\imgui_impl_sdl.cpp">
+    <ClCompile Include="..\3rdParty\imgui-1.86\backends\imgui_impl_sdl.cpp">
+      <Filter>ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\3rdParty\imgui-1.86\imgui_plot.cpp">
       <Filter>ImGui</Filter>
     </ClCompile>
   </ItemGroup>

@@ -1,5 +1,7 @@
 #pragma once
 #include "Singleton.h"
+#include <imgui.h>
+#include <imgui_plot.h>
 
 namespace dae
 {
@@ -14,7 +16,7 @@ namespace dae
 		SDL_Color m_clearColor{};	
 	public:
 		void Init(SDL_Window* window);
-		void Render() const;
+		void Render();
 		void Destroy();
 
 		void RenderTexture(const Texture2D& texture, float x, float y) const;
@@ -24,6 +26,20 @@ namespace dae
 
 		const SDL_Color& GetBackgroundColor() const { return m_clearColor; }
 		void SetBackgroundColor(const SDL_Color& color) { m_clearColor = color; }
+	private:
+		void ShowGraph();
+		void ShowGraphGameObject();
+		void ShowGraphGameObjectAlt();
+		void ShowGraphGameObjectComb();
+
+		ImGui::PlotConfig m_Config;
+		ImGui::PlotConfig m_ConfigGameObject;
+		ImGui::PlotConfig m_ConfigGameObjectAlt;
+		ImGui::PlotConfig m_ConfigGameObjectComb;
+
+		std::vector<float> timeMeasures{};
+		std::vector<float> timeMeasuresGameObject{};
+		std::vector<float> timeMeasuresGameObjectAlt{};
 	};
 }
 
