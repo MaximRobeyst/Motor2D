@@ -44,70 +44,72 @@ void dae::Renderer::Render()
 
 	SceneManager::GetInstance().Render();
 
-	ImGui_ImplOpenGL2_NewFrame();
-	ImGui_ImplSDL2_NewFrame(m_Window);
-	ImGui::NewFrame();
-
-	static int samples{10};
-
-	// Excersise 2
-	ImGui::SetNextWindowPos(ImVec2{ 10.f, 50.f });
-	ImGui::SetWindowSize(ImVec2{ 350.f, 500.f });
-	ImGui::Begin("Exercise 2");
-	ImGui::InputInt("Samples", &samples);
-	static int clicked = 0;
-	if (ImGui::Button("Trash the cache"))
-	{
-		++clicked;
-		ImGui::Text("Wait For it...");
-		ShowGraph();
-	}
-	if (clicked & 1)
-	{
-		ImGui::Plot("", m_Config);
-	}
+	// TODO: make this stuff comopnents
+	//ImGui_ImplOpenGL2_NewFrame();
+	//ImGui_ImplSDL2_NewFrame(m_Window);
+	//ImGui::NewFrame();
+	//
+	//static int samples{10};
 
 
-	ImGui::End();
-
-	static int samplesEx3{ 100 };
-	// Excersise 3
-	ImGui::SetNextWindowPos(ImVec2{ 400.f, 50.f });
-	ImGui::SetWindowSize(ImVec2{ 350.f, 500.f });
-	ImGui::Begin("Exercise 3");
-	ImGui::InputInt("Samples", &samplesEx3);
-	static int clickedGameObject = 0;
-	if (ImGui::Button("Trash the cache With GameObject3D"))
-	{
-		++clickedGameObject;
-		ImGui::Text("Wait for it...");
-		ShowGraphGameObject();
-	}
-	if (clickedGameObject & 1)
-	{
-		ImGui::Plot("", m_ConfigGameObject);
-	}
-
-	static int clickedGameObjectAlt = 0;
-	if (ImGui::Button("Trash the cache With GameObject3DAlt"))
-	{
-		++clickedGameObjectAlt;
-		ImGui::Text("Wait for it...");
-		ShowGraphGameObjectAlt();
-	}
-	if (clickedGameObjectAlt & 1)
-	{
-		ImGui::Plot("", m_ConfigGameObjectAlt);
-		if (m_ConfigGameObjectComb.values.ys == nullptr && !timeMeasuresGameObject.empty())
-		{
-			ShowGraphGameObjectComb();
-		}
-	}
-
-	ImGui::End();
-
-	ImGui::Render();
-	ImGui_ImplOpenGL2_RenderDrawData(ImGui::GetDrawData());
+	//// Excersise 2
+	//ImGui::SetNextWindowPos(ImVec2{ 10.f, 50.f });
+	//ImGui::SetWindowSize(ImVec2{ 350.f, 500.f });
+	//ImGui::Begin("Exercise 2");
+	//ImGui::InputInt("Samples", &samples);
+	//static int clicked = 0;
+	//if (ImGui::Button("Trash the cache"))
+	//{
+	//	++clicked;
+	//	ImGui::Text("Wait For it...");
+	//	ShowGraph();
+	//}
+	//if (clicked & 1)
+	//{
+	//	ImGui::Plot("", m_Config);
+	//}
+	//
+	//
+	//ImGui::End();
+	//
+	//static int samplesEx3{ 100 };
+	//// Excersise 3
+	//ImGui::SetNextWindowPos(ImVec2{ 400.f, 50.f });
+	//ImGui::SetWindowSize(ImVec2{ 350.f, 500.f });
+	//ImGui::Begin("Exercise 3");
+	//ImGui::InputInt("Samples", &samplesEx3);
+	//static int clickedGameObject = 0;
+	//if (ImGui::Button("Trash the cache With GameObject3D"))
+	//{
+	//	++clickedGameObject;
+	//	ImGui::Text("Wait for it...");
+	//	ShowGraphGameObject();
+	//}
+	//if (clickedGameObject & 1)
+	//{
+	//	ImGui::Plot("", m_ConfigGameObject);
+	//}
+	//
+	//static int clickedGameObjectAlt = 0;
+	//if (ImGui::Button("Trash the cache With GameObject3DAlt"))
+	//{
+	//	++clickedGameObjectAlt;
+	//	ImGui::Text("Wait for it...");
+	//	ShowGraphGameObjectAlt();
+	//}
+	//if (clickedGameObjectAlt & 1)
+	//{
+	//	ImGui::Plot("", m_ConfigGameObjectAlt);
+	//	if (m_ConfigGameObjectComb.values.ys == nullptr && !timeMeasuresGameObject.empty())
+	//	{
+	//		ShowGraphGameObjectComb();
+	//	}
+	//}
+	//
+	//ImGui::End();
+	//
+	//ImGui::Render();
+	//ImGui_ImplOpenGL2_RenderDrawData(ImGui::GetDrawData());
 	
 	SDL_RenderPresent(m_Renderer);
 }
@@ -166,9 +168,9 @@ void dae::Renderer::ShowGraph()
 	}
 	static uint32_t selection_start = 0, selection_length = 0;
 
-	m_Config.values.count = timeMeasures.size();
+	m_Config.values.count = static_cast<int>(timeMeasures.size());
 	m_Config.values.ys = timeMeasures.data(); // use ys_list to draw several lines simultaneously
-	m_Config.values.ys_count = timeMeasures.size();
+	m_Config.values.ys_count = static_cast<int>(timeMeasures.size());
 	m_Config.values.color = ImColor(255, 127, 0);
 	m_Config.scale.min = 0;
 	m_Config.scale.max = *std::max_element(timeMeasures.begin(), timeMeasures.end());
@@ -222,9 +224,9 @@ void dae::Renderer::ShowGraphGameObject()
 	}
 	static uint32_t selection_start = 0, selection_length = 0;
 
-	m_ConfigGameObject.values.count = timeMeasuresGameObject.size();
+	m_ConfigGameObject.values.count = static_cast<int>(timeMeasuresGameObject.size());
 	m_ConfigGameObject.values.ys = timeMeasuresGameObject.data(); // use ys_list to draw several lines simultaneously
-	m_ConfigGameObject.values.ys_count = timeMeasuresGameObject.size();
+	m_ConfigGameObject.values.ys_count = static_cast<int>(timeMeasuresGameObject.size());
 	m_ConfigGameObject.values.color = ImColor(0, 255, 0);
 	m_ConfigGameObject.scale.min = 0;
 	m_ConfigGameObject.scale.max = timeMeasuresGameObject[0];
@@ -278,9 +280,9 @@ void dae::Renderer::ShowGraphGameObjectAlt()
 	}
 	static uint32_t selection_start = 0, selection_length = 0;
 
-	m_ConfigGameObjectAlt.values.count = timeMeasuresGameObjectAlt.size();
+	m_ConfigGameObjectAlt.values.count = static_cast<int>(timeMeasuresGameObjectAlt.size());
 	m_ConfigGameObjectAlt.values.ys = timeMeasuresGameObjectAlt.data(); // use ys_list to draw several lines simultaneously
-	m_ConfigGameObjectAlt.values.ys_count = timeMeasuresGameObjectAlt.size();
+	m_ConfigGameObjectAlt.values.ys_count = static_cast<int>(timeMeasuresGameObjectAlt.size());
 	m_ConfigGameObjectAlt.values.color = ImColor(0, 255, 127);
 	m_ConfigGameObjectAlt.scale.min = 0;
 	m_ConfigGameObjectAlt.scale.max = timeMeasuresGameObjectAlt[0];
@@ -306,7 +308,7 @@ void dae::Renderer::ShowGraphGameObjectComb()
 
 	static ImGui::PlotConfig config;
 
-	config.values.count = timeMeasuresGameObjectAlt.size();
+	config.values.count = static_cast<int>(timeMeasuresGameObjectAlt.size());
 	config.values.ys_list = measures; // use ys_list to draw several lines simultaneously
 	config.values.ys_count = 2;
 	config.values.colors = colors;

@@ -61,20 +61,6 @@ void dae::Minigin::LoadGame() const
 	auto& scene = SceneManager::GetInstance().CreateScene("Demo");
 
 	auto go = new GameObject();
-	//go->SetTexture("background.jpg");
-	//go->AddComponent(new TransformComponent{go});
-	//go->AddComponent(new SpriteRendererComponent(go,"background.jpg"));
-
-	//scene.Add(go);
-	//
-	//go = new GameObject();
-	//go->AddComponent(new TransformComponent(go, glm::vec3{ 216.f, 180.f, 0.f }));
-	//go->AddComponent(new SpriteRendererComponent(go, "logo.png"));
-
-	//go->SetTexture("logo.png");
-	//go->SetPosition(216, 180);
-	//scene.Add(go);
-
 	auto font = ResourceManager::GetInstance().LoadFont("Lingua.otf", 36);
 	//auto to = new TextComponent(go.get(), "Programming 4 Assignment", font);
 	//go = new GameObject();
@@ -82,18 +68,22 @@ void dae::Minigin::LoadGame() const
 	go->AddComponent(new SpriteRendererComponent(go, "logo.png"));
 	go->AddComponent(new TextComponent(go, "Programming 4 Assignment", font));
 	scene.Add(go);
-	
 
+	auto pPeperGameObject = new GameObject();
+
+	pPeperGameObject->AddComponent(new TransformComponent(go));
+	pPeperGameObject->AddComponent(new SpriteRendererComponent(go, "BurgerTime_SpriteSheet.png"));
+	scene.Add(pPeperGameObject);
+	
 	//font = ResourceManager::GetInstance().LoadFont("Lingua.otf", 16);
 	//
-	//go = new GameObject(go);
-	//go->AddComponent(new TransformComponent(go));
-	//go->AddComponent(new SpriteRendererComponent(go, "logo.png"));
-	//go->AddComponent(new TextComponent(go, "Programming 4 Assignment", font, {255,255,0}));
-	//go->AddComponent(new FPSComponent(go));
+	go = new GameObject();
+	go->AddComponent(new TransformComponent(go, glm::vec3{80, 20, 0}));
+	go->AddComponent(new SpriteRendererComponent(go, "logo.png"));
+	go->AddComponent(new TextComponent(go, "Programming 4 Assignment", font, {255,255,0}));
+	go->AddComponent(new FPSComponent(go));
 
-	//to->SetPosition(80, 20);
-	//scene.Add(to);
+	scene.Add(go);
 }
 
 void dae::Minigin::Cleanup()
@@ -116,7 +106,7 @@ void dae::Minigin::Run()
 	{
 		auto& renderer = Renderer::GetInstance();
 		auto& sceneManager = SceneManager::GetInstance();
-		auto& input = InputManager::GetInstance();
+		//auto& input = InputManager::GetInstance();
 
 		auto t1 = std::chrono::steady_clock::now();
 		float lag = 0.0f;

@@ -28,15 +28,6 @@ namespace dae
 		template<typename T>
 		T* GetComponent() const
 		{
-			// Shoult be more like this
-			//for (auto component : m_pComponents)
-			//{
-			//	if (&typeid(component) == &typeid(T))
-			//		static_cast<T*>(component);
-			//}
-			//return nullptr;
-
-			// Not this
 			for (auto& component : m_pComponents)
 			{
 				T* comp{ dynamic_cast<T*>(component) };
@@ -51,6 +42,7 @@ namespace dae
 		GameObject* GetParent() const;
 
 		void AddChild(GameObject* pChild);
+		void RemoveChild(GameObject* pChild);
 		GameObject* GetChildFromIndex(int i) const;
 		std::vector<GameObject*> GetChildren() const;
 		size_t GetAmountOfChildren() const;

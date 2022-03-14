@@ -16,6 +16,15 @@
     <Filter Include="ImGui">
       <UniqueIdentifier>{5798c354-4e7d-465d-be81-40fe1b2f7d68}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game Files">
+      <UniqueIdentifier>{2ce718b3-975b-40d5-aa35-aaf12e00b65a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game Files\Game Components">
+      <UniqueIdentifier>{3a5f53c8-b04f-4961-868f-d287018e8f90}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine Files\Input">
+      <UniqueIdentifier>{f0494122-00a0-4074-a99e-73fbe95a5188}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Transform.h">
@@ -28,9 +37,6 @@
       <Filter>Engine Files</Filter>
     </ClInclude>
     <ClInclude Include="Font.h">
-      <Filter>Engine Files</Filter>
-    </ClInclude>
-    <ClInclude Include="InputManager.h">
       <Filter>Engine Files</Filter>
     </ClInclude>
     <ClInclude Include="Singleton.h">
@@ -99,15 +105,27 @@
     <ClInclude Include="..\3rdParty\imgui-1.86\imgui_plot.h">
       <Filter>ImGui</Filter>
     </ClInclude>
+    <ClInclude Include="Observer.h">
+      <Filter>Game Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HealthComponent.h">
+      <Filter>Game Files\Game Components</Filter>
+    </ClInclude>
+    <ClInclude Include="InputManager.h">
+      <Filter>Engine Files\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Command.h">
+      <Filter>Engine Files\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Xbox360Controller.h">
+      <Filter>Engine Files\Input</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MiniginPCH.cpp">
       <Filter>Engine Files</Filter>
     </ClCompile>
     <ClCompile Include="Renderer.cpp">
-      <Filter>Engine Files</Filter>
-    </ClCompile>
-    <ClCompile Include="InputManager.cpp">
       <Filter>Engine Files</Filter>
     </ClCompile>
     <ClCompile Include="GameObject.cpp">
@@ -172,6 +190,21 @@
     </ClCompile>
     <ClCompile Include="..\3rdParty\imgui-1.86\imgui_plot.cpp">
       <Filter>ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="Observer.cpp">
+      <Filter>Game Files</Filter>
+    </ClCompile>
+    <ClCompile Include="HealthComponent.cpp">
+      <Filter>Game Files\Game Components</Filter>
+    </ClCompile>
+    <ClCompile Include="InputManager.cpp">
+      <Filter>Engine Files\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Command.cpp">
+      <Filter>Engine Files\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Xbox360Controller.cpp">
+      <Filter>Engine Files\Input</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

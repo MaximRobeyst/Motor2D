@@ -54,8 +54,28 @@ void dae::GameObject::AddComponent(Component* component)
 
 void dae::GameObject::SetParent(GameObject* pParent)
 {
-	pParent->AddChild(this);
-	m_pParent = nullptr;
+	if (m_pParent == nullptr)
+	{
+		//SetlcoalPosition(getWorldPosition);
+	}
+	else
+	{
+		//if keepworldposition
+		//		setlocalposition(getlocalposition - parentworldposition)
+		// set position dirty
+	}	
+
+	if (m_pParent)
+		m_pParent->RemoveChild(this);
+	m_pParent = pParent;
+	if (m_pParent)
+		m_pParent->AddChild(this);
+
+	//pParent->AddChild(this);
+	//m_pParent = nullptr;
+
+	// if already has a parent remove if from the other parent
+	// Set transform relative (Check integrity of scenegraph)
 }
 
 dae::GameObject* dae::GameObject::GetParent() const
@@ -65,7 +85,19 @@ dae::GameObject* dae::GameObject::GetParent() const
 
 void dae::GameObject::AddChild(GameObject* pChild)
 {
+	if (pChild == m_pParent)
+		return;
+
+	pChild->SetParent(this);
 	m_pChildren.push_back(pChild);
+
+	// if already has a parent remove if from the other parent
+	// Set transform relative (Check integrity of scenegraph)
+
+}
+
+void dae::GameObject::RemoveChild(GameObject*)
+{
 }
 
 dae::GameObject* dae::GameObject::GetChildFromIndex(int i) const

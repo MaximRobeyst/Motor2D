@@ -1,7 +1,8 @@
 #pragma once
-#include <XInput.h>
 #include "Singleton.h"
+#include <map>
 
+class Command;
 namespace dae
 {
 	enum class ControllerButton
@@ -9,16 +10,38 @@ namespace dae
 		ButtonA,
 		ButtonB,
 		ButtonX,
-		ButtonY
+		ButtonY,
+		//todo: add the other buttons
+	};
+	enum class ButtonState
+	{
+		Hold,
+		Down,
+		Up,
 	};
 
-	class InputManager final : public Singleton<InputManager>
+	struct ControllerButtonData
+	{
+		ControllerButton controllerButton = {};
+		ButtonState buttonState = {};
+	};
+
+	inline bool operator< (const ControllerButtonData& lhs, const ControllerButtonData& rhs)
+	{
+		return lhs.controllerButton < rhs.controllerButton;
+	}
+
+	class InputManager
 	{
 	public:
-		bool ProcessInput();
-		bool IsPressed(ControllerButton button) const;
-	private:
-		XINPUT_STATE m_CurrentState{};
-	};
+		void AddControllerMap(const ControllerButtonData& data, std::unique_ptr<Command>&& pCommand);
 
+		virtual void ProcessInput();
+		virtual bool IsDownThisFrame(ControllerButton button) const = 0;
+		virtual bool IsUpThisFrame(ControllerButton button) const = 0;
+		virtual bool IsPressed(ControllerButton button) const = 0;
+	private:
+		using ControllerCommandMap = std::map<ControllerButtonData, std::unique_ptr<Command>>;
+		ControllerCommandMap m_ControllerMap{};
+	};
 }
