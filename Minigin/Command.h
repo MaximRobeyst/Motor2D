@@ -30,4 +30,15 @@ public:
 	void Execute() override;
 };
 
+class LifeComponent;
+class KillCommand : public Command
+{
+public:
+	KillCommand(LifeComponent* pHealthTarget);
+	void Execute() override;
+
+private:
+	LifeComponent* m_pLifeTarget;
+};
+
 

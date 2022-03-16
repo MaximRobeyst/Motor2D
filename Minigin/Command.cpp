@@ -1,6 +1,8 @@
 #include "MiniginPCH.h"
 #include "Command.h"
 
+#include "LifeComponent.h"
+
 void FireCommand::Execute()
 {
 	std::cout << "Fire" << std::endl;
@@ -19,4 +21,14 @@ void JumpCommand::Execute()
 void FartCommand::Execute()
 {
 	std::cout << "Fart" << std::endl;
+}
+
+KillCommand::KillCommand(LifeComponent* pLifeTarget)
+	:m_pLifeTarget{ pLifeTarget }
+{
+}
+
+void KillCommand::Execute()
+{
+	m_pLifeTarget->Hit();
 }

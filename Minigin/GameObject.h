@@ -38,16 +38,16 @@ namespace dae
 		}
 
 		// SceneGraph
-		void SetParent(GameObject* pParent);
+		void SetParent(GameObject* pParent, bool worldPositionStays = true);
 		GameObject* GetParent() const;
 
-		void AddChild(GameObject* pChild);
-		void RemoveChild(GameObject* pChild);
 		GameObject* GetChildFromIndex(int i) const;
-		std::vector<GameObject*> GetChildren() const;
 		size_t GetAmountOfChildren() const;
 
 	private:
+		void AddChild(GameObject* pChild);
+		void RemoveChild(GameObject* pChild);
+
 		std::vector<Component*> m_pComponents;
 
 		GameObject* m_pParent{};

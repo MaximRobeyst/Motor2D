@@ -9,9 +9,19 @@
 #include "TextObject.h"
 #include "GameObject.h"
 #include "Scene.h"
-#include "SpriteRendererComponent.h"
 #include "Time.h"
+#include "Xbox360Controller.h"
+#include "Command.h"
+
+
+#include "MovementComponent.h"
+#include "SpriteRendererComponent.h"
 #include "FPSComponent.h"
+#include "LifeComponent.h"
+#include "LifeDisplayComponent.h"
+
+#include "Observer.h"
+#include "Subject.h"
 
 using namespace std;
 
@@ -59,6 +69,7 @@ void dae::Minigin::Initialize()
 void dae::Minigin::LoadGame() const
 {
 	auto& scene = SceneManager::GetInstance().CreateScene("Demo");
+	auto& input = InputManager::GetInstance();
 
 	auto go = new GameObject();
 	auto font = ResourceManager::GetInstance().LoadFont("Lingua.otf", 36);
@@ -71,14 +82,32 @@ void dae::Minigin::LoadGame() const
 
 	auto pPeperGameObject = new GameObject();
 
-	pPeperGameObject->AddComponent(new TransformComponent(go));
-	pPeperGameObject->AddComponent(new SpriteRendererComponent(go, "BurgerTime_SpriteSheet.png"));
+	pPeperGameObject->AddComponent(new TransformComponent(pPeperGameObject, glm::vec3{100, 100, 0}, glm::vec3{5, 5, 5}));
+	pPeperGameObject->AddComponent(new SpriteRendererComponent(pPeperGameObject, "MainCharacter.png"));
+	pPeperGameObject->AddComponent(new MovementComponent(pPeperGameObject, 100.f));
+	auto pLifeComponent = new LifeComponent{ pPeperGameObject, 3 };
+	pPeperGameObject->AddComponent(pLifeComponent);
 	scene.Add(pPeperGameObject);
-	
+
+	go = new GameObject();
+	go->AddComponent(new TransformComponent(go, glm::vec3{ 10.f, 500.f, 0.f }));
+	go->AddComponent(new SpriteRendererComponent(go, "logo.png"));
+	go->AddComponent(new TextComponent(go, "Lives: ", font, SDL_Color{ 255, 255, 0 }));
+	auto pLifeDisplay = new LifeDisplayComponent(go, 3, "Lives: ");
+	pLifeComponent->GetSubject()->AddObserver(pLifeDisplay);
+	go->AddComponent(pLifeDisplay);
+	scene.Add(go);
+
+	// This should be done differently
+	std::shared_ptr<Xbox360Controller> controller = std::make_shared<Xbox360Controller>(0);
+	controller->AddControllerMapping(ControllerButtonData{ ControllerButton::ButtonA, ButtonState::Up }, std::make_unique<KillCommand>(pLifeComponent));
+
+	input.AddController(controller);
+
 	//font = ResourceManager::GetInstance().LoadFont("Lingua.otf", 16);
 	//
 	go = new GameObject();
-	go->AddComponent(new TransformComponent(go, glm::vec3{80, 20, 0}));
+	go->AddComponent(new TransformComponent(go, glm::vec3{80, 100, 0}));
 	go->AddComponent(new SpriteRendererComponent(go, "logo.png"));
 	go->AddComponent(new TextComponent(go, "Programming 4 Assignment", font, {255,255,0}));
 	go->AddComponent(new FPSComponent(go));
@@ -106,7 +135,7 @@ void dae::Minigin::Run()
 	{
 		auto& renderer = Renderer::GetInstance();
 		auto& sceneManager = SceneManager::GetInstance();
-		//auto& input = InputManager::GetInstance();
+		auto& input = InputManager::GetInstance();
 
 		auto t1 = std::chrono::steady_clock::now();
 		float lag = 0.0f;
@@ -120,6 +149,7 @@ void dae::Minigin::Run()
 			t1 = t2;
 			lag += elapsedSec;
 
+			//doContinue = input.ProcessInput();
 			doContinue = input.ProcessInput();
 
 			sceneManager.Update();

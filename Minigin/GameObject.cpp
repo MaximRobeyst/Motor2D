@@ -52,27 +52,16 @@ void dae::GameObject::AddComponent(Component* component)
 	m_pComponents.push_back(component);
 }
 
-void dae::GameObject::SetParent(GameObject* pParent)
+void dae::GameObject::SetParent(GameObject* pParent, bool /*worldPositionStays*/)
 {
-	if (m_pParent == nullptr)
+	if (m_pParent != nullptr)
 	{
-		//SetlcoalPosition(getWorldPosition);
+		pParent->RemoveChild(this);
 	}
-	else
-	{
-		//if keepworldposition
-		//		setlocalposition(getlocalposition - parentworldposition)
-		// set position dirty
-	}	
-
-	if (m_pParent)
-		m_pParent->RemoveChild(this);
 	m_pParent = pParent;
-	if (m_pParent)
-		m_pParent->AddChild(this);
-
-	//pParent->AddChild(this);
-	//m_pParent = nullptr;
+	if(m_pParent != nullptr)
+		pParent->AddChild(this);
+	// Update position
 
 	// if already has a parent remove if from the other parent
 	// Set transform relative (Check integrity of scenegraph)
@@ -85,8 +74,14 @@ dae::GameObject* dae::GameObject::GetParent() const
 
 void dae::GameObject::AddChild(GameObject* pChild)
 {
+
 	if (pChild == m_pParent)
 		return;
+
+	if (GameObject* pChildParent = pChild->GetParent(); pChildParent != nullptr)
+	{
+		pChildParent->RemoveChild(pChild);
+	}
 
 	pChild->SetParent(this);
 	m_pChildren.push_back(pChild);
@@ -96,8 +91,15 @@ void dae::GameObject::AddChild(GameObject* pChild)
 
 }
 
-void dae::GameObject::RemoveChild(GameObject*)
+void dae::GameObject::RemoveChild(GameObject* pGameObject)
 {
+	auto gameObject = std::find(m_pChildren.begin(), m_pChildren.end(), pGameObject);
+	std::swap(*gameObject, m_pChildren[m_pChildren.size() - 1]);
+	m_pChildren.pop_back();
+
+	pGameObject->SetParent(nullptr);
+
+	// Update Position
 }
 
 dae::GameObject* dae::GameObject::GetChildFromIndex(int i) const
@@ -105,11 +107,6 @@ dae::GameObject* dae::GameObject::GetChildFromIndex(int i) const
 	assert(i < static_cast<int>(m_pChildren.size()));
 
 	return m_pChildren[i];
-}
-
-std::vector<dae::GameObject*> dae::GameObject::GetChildren() const
-{
-	return m_pChildren;
 }
 
 size_t dae::GameObject::GetAmountOfChildren() const

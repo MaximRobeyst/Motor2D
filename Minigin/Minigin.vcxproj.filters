@@ -108,7 +108,7 @@
     <ClInclude Include="Observer.h">
       <Filter>Game Files</Filter>
     </ClInclude>
-    <ClInclude Include="HealthComponent.h">
+    <ClInclude Include="LifeComponent.h">
       <Filter>Game Files\Game Components</Filter>
     </ClInclude>
     <ClInclude Include="InputManager.h">
@@ -119,6 +119,27 @@
     </ClInclude>
     <ClInclude Include="Xbox360Controller.h">
       <Filter>Engine Files\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Achievements.h">
+      <Filter>Game Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Subject.h">
+      <Filter>Game Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Controller.h">
+      <Filter>Engine Files\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="MovementComponent.h">
+      <Filter>Game Files\Game Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Keyboard.h">
+      <Filter>Engine Files\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="LifeDisplayComponent.h">
+      <Filter>Game Files\Game Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Event.h">
+      <Filter>Game Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -191,10 +212,7 @@
     <ClCompile Include="..\3rdParty\imgui-1.86\imgui_plot.cpp">
       <Filter>ImGui</Filter>
     </ClCompile>
-    <ClCompile Include="Observer.cpp">
-      <Filter>Game Files</Filter>
-    </ClCompile>
-    <ClCompile Include="HealthComponent.cpp">
+    <ClCompile Include="LifeComponent.cpp">
       <Filter>Game Files\Game Components</Filter>
     </ClCompile>
     <ClCompile Include="InputManager.cpp">
@@ -205,6 +223,24 @@
     </ClCompile>
     <ClCompile Include="Xbox360Controller.cpp">
       <Filter>Engine Files\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Achievements.cpp">
+      <Filter>Game Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Subject.cpp">
+      <Filter>Game Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Controller.cpp">
+      <Filter>Engine Files\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="MovementComponent.cpp">
+      <Filter>Game Files\Game Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Keyboard.cpp">
+      <Filter>Engine Files\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="LifeDisplayComponent.cpp">
+      <Filter>Game Files\Game Components</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

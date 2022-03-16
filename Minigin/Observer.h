@@ -1,11 +1,11 @@
 #pragma once
+#include "GameObject.h"
 
-class GameObject;
-class Action;
+enum class Event;
 class Observer
 {
 public:
 	virtual ~Observer() {};
-	virtual void OnNotify(const GameObject&, const Action&) = 0;
+	virtual void Notify(const dae::GameObject& gameObject, const Event& action) = 0;
 };
 

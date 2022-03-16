@@ -2,46 +2,18 @@
 #include "Singleton.h"
 #include <map>
 
-class Command;
 namespace dae
 {
-	enum class ControllerButton
-	{
-		ButtonA,
-		ButtonB,
-		ButtonX,
-		ButtonY,
-		//todo: add the other buttons
-	};
-	enum class ButtonState
-	{
-		Hold,
-		Down,
-		Up,
-	};
-
-	struct ControllerButtonData
-	{
-		ControllerButton controllerButton = {};
-		ButtonState buttonState = {};
-	};
-
-	inline bool operator< (const ControllerButtonData& lhs, const ControllerButtonData& rhs)
-	{
-		return lhs.controllerButton < rhs.controllerButton;
-	}
-
-	class InputManager
+	class Xbox360Controller;
+	class InputManager : public Singleton<InputManager>
 	{
 	public:
-		void AddControllerMap(const ControllerButtonData& data, std::unique_ptr<Command>&& pCommand);
+		bool ProcessInput();
 
-		virtual void ProcessInput();
-		virtual bool IsDownThisFrame(ControllerButton button) const = 0;
-		virtual bool IsUpThisFrame(ControllerButton button) const = 0;
-		virtual bool IsPressed(ControllerButton button) const = 0;
+		void AddController(std::shared_ptr<dae::Xbox360Controller>& controller);
+		std::shared_ptr<dae::Xbox360Controller> GetController(int index);
+
 	private:
-		using ControllerCommandMap = std::map<ControllerButtonData, std::unique_ptr<Command>>;
-		ControllerCommandMap m_ControllerMap{};
+		std::vector<std::shared_ptr<dae::Xbox360Controller>> m_pXbox360Controllers{};
 	};
 }

@@ -4,6 +4,7 @@
 #include "Renderer.h"
 #include "ResourceManager.h"
 #include "Transform.h"
+#include "Texture2D.h"
 
 dae::SpriteRendererComponent::SpriteRendererComponent(GameObject* pGameObject,const std::string& spritePath)
 	: Component{pGameObject}
@@ -19,5 +20,7 @@ void dae::SpriteRendererComponent::SetTexture(const std::shared_ptr<Texture2D>& 
 void dae::SpriteRendererComponent::Render() const
 {
 	const auto& pos{ m_pTransformComponent->GetPosition() };
-	Renderer::GetInstance().RenderTexture(*m_pTexture, pos.x, pos.y);
+	const auto& scale{ m_pTransformComponent->GetScale() };
+	const auto& textureSize{ m_pTexture->GetSize() };
+	Renderer::GetInstance().RenderTexture(*m_pTexture, pos.x, pos.y, textureSize.x * scale.x, textureSize.y* scale.y );
 }

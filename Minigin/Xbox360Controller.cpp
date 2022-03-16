@@ -1,3 +1,4 @@
+#include "MiniginPCH.h"
 #define WIN32_LEAN_AND_MEAN
 #include <Windows.h>
 #include "Xbox360Controller.h"
@@ -61,13 +62,8 @@ bool dae::Xbox360Controller::Xbox360ControllerImpl::IsPressed(unsigned int butto
 }
 
 dae::Xbox360Controller::Xbox360Controller(int controllerIndex)
-	: Controller(controllerIndex)
-	, m_pImpl{ std::make_unique<Xbox360ControllerImpl>(controllerIndex) }
+	: m_pImpl{ std::make_unique<Xbox360ControllerImpl>(controllerIndex) }
 {
-	AddControllerMap(ControllerButtonData{ XINPUT_GAMEPAD_A, ButtonState::Up }, std::make_unique<FireCommand>());
-	AddControllerMap(ControllerButtonData{ XINPUT_GAMEPAD_B, ButtonState::Hold }, std::make_unique<DuckCommand>());
-	AddControllerMap(ControllerButtonData{ XINPUT_GAMEPAD_X, ButtonState::Down }, std::make_unique<JumpCommand>());
-	AddControllerMap(ControllerButtonData{ XINPUT_GAMEPAD_Y, ButtonState::Up }, std::make_unique<FartCommand>());
 }
 
 dae::Xbox360Controller::~Xbox360Controller() = default;
@@ -75,7 +71,16 @@ dae::Xbox360Controller::~Xbox360Controller() = default;
 void dae::Xbox360Controller::ProcessInput()
 {
 	m_pImpl->Update();
-	dae::InputManager::ProcessInput();
+
+	for (auto it = m_ControllerMap.begin(); it != m_ControllerMap.end(); ++it)
+	{
+		if (it->first.buttonState == ButtonState::Hold && IsPressed(it->first.controllerButton))
+			it->second->Execute();
+		if (it->first.buttonState == ButtonState::Down && IsDownThisFrame(it->first.controllerButton))
+			it->second->Execute();
+		if (it->first.buttonState == ButtonState::Up && IsUpThisFrame(it->first.controllerButton))
+			it->second->Execute();
+	}
 }
 
 bool dae::Xbox360Controller::IsDownThisFrame(ControllerButton button) const
@@ -91,4 +96,9 @@ bool dae::Xbox360Controller::IsUpThisFrame(ControllerButton button) const
 bool dae::Xbox360Controller::IsPressed(ControllerButton button) const
 {
 	return m_pImpl->IsPressed(static_cast<unsigned int>(button));
+}
+
+void dae::Xbox360Controller::AddControllerMapping(const ControllerButtonData& controllerData, std::unique_ptr<Command>&& pCommand)
+{
+	m_ControllerMap[controllerData] = std::move(pCommand);
 }

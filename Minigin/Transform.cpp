@@ -2,9 +2,10 @@
 #include "Transform.h"
 #include "GameObject.h"
 
-dae::TransformComponent::TransformComponent(GameObject* pGameobject, glm::vec3 position)
+dae::TransformComponent::TransformComponent(GameObject* pGameobject, glm::vec3 position, glm::vec3 scale)
 	: Component{pGameobject}
 	, m_Position{position}
+	, m_Scale{scale}
 {
 	m_pParentComponent = pGameobject->GetComponent<dae::TransformComponent>();
 }
@@ -17,6 +18,23 @@ void dae::TransformComponent::SetPosition(const float x, const float y, const fl
 
 	if (m_pParentComponent != nullptr)
 		m_Position += m_Position;
+}
+
+void dae::TransformComponent::SetPosition(const glm::vec3& position)
+{
+	m_Position = position;
+}
+
+void dae::TransformComponent::SetScale(float x, float y, float z)
+{
+	m_Scale.x = x;
+	m_Scale.y = y;
+	m_Scale.z = z;
+}
+
+void dae::TransformComponent::SetScale(const glm::vec3& scale)
+{
+	m_Scale = scale;
 }
 
 void dae::TransformComponent::Update()
