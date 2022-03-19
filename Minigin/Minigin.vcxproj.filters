@@ -141,6 +141,12 @@
     <ClInclude Include="Event.h">
       <Filter>Game Files</Filter>
     </ClInclude>
+    <ClInclude Include="FoodComponent.h">
+      <Filter>Game Files\Game Components</Filter>
+    </ClInclude>
+    <ClInclude Include="ScoreDisplayComponent.h">
+      <Filter>Game Files\Game Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MiniginPCH.cpp">
@@ -240,6 +246,12 @@
       <Filter>Engine Files\Input</Filter>
     </ClCompile>
     <ClCompile Include="LifeDisplayComponent.cpp">
+      <Filter>Game Files\Game Components</Filter>
+    </ClCompile>
+    <ClCompile Include="FoodComponent.cpp">
+      <Filter>Game Files\Game Components</Filter>
+    </ClCompile>
+    <ClCompile Include="ScoreDisplayComponent.cpp">
       <Filter>Game Files\Game Components</Filter>
     </ClCompile>
   </ItemGroup>

@@ -2,6 +2,7 @@
 #include "Command.h"
 
 #include "LifeComponent.h"
+#include "FoodComponent.h"
 
 void FireCommand::Execute()
 {
@@ -31,4 +32,14 @@ KillCommand::KillCommand(LifeComponent* pLifeTarget)
 void KillCommand::Execute()
 {
 	m_pLifeTarget->Hit();
+}
+
+FallCommand::FallCommand(FoodComponent* pFoodComponent)
+	: m_pFoodComponent(pFoodComponent)
+{
+}
+
+void FallCommand::Execute()
+{
+	m_pFoodComponent->SetFalling(true);
 }

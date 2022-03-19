@@ -41,4 +41,15 @@ private:
 	LifeComponent* m_pLifeTarget;
 };
 
+class FoodComponent;
+class FallCommand : public Command
+{
+public:
+	FallCommand(FoodComponent* pFoodComponent);
+	void Execute();
+
+private:
+	FoodComponent* m_pFoodComponent;
+};
+
 

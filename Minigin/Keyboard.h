@@ -3,6 +3,11 @@
 
 class Command;
 
+enum class KeyboardAndMouseButton
+{
+
+};
+
 enum class KeyState
 {
 	Hold,

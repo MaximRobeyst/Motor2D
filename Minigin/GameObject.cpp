@@ -74,6 +74,8 @@ dae::GameObject* dae::GameObject::GetParent() const
 
 void dae::GameObject::AddChild(GameObject* pChild)
 {
+	if (m_pParent == nullptr)
+		return;
 
 	if (pChild == m_pParent)
 		return;
