@@ -21,9 +21,11 @@
 #include "LifeDisplayComponent.h"
 #include "ScoreDisplayComponent.h"
 #include "FoodComponent.h"
+#include "AchievementComponent.h"
 
 #include "Observer.h"
 #include "Subject.h"
+#include <steam_api.h>
 
 using namespace std;
 
@@ -73,6 +75,12 @@ void dae::Minigin::LoadGame() const
 	auto& scene = SceneManager::GetInstance().CreateScene("Demo");
 	auto& input = InputManager::GetInstance();
 
+
+	auto pAchievmentObject = new GameObject();
+	auto pAchievmentComponent = new AchievementComponent(pAchievmentObject);
+	pAchievmentObject->AddComponent(pAchievmentComponent);
+	scene.Add(pAchievmentObject);
+
 	auto go = new GameObject();
 	auto font = ResourceManager::GetInstance().LoadFont("Lingua.otf", 36);
 	//auto to = new TextComponent(go.get(), "Programming 4 Assignment", font);
@@ -105,6 +113,7 @@ void dae::Minigin::LoadGame() const
 	go->AddComponent(new SpriteRendererComponent(go, "logo.png"));
 	go->AddComponent(new TextComponent(go, "Score:", font, SDL_Color{ 255, 255, 0 }));
 	auto pScoreDisplay = new ScoreDisplayComponent(go, 0, "Score: ");
+	pScoreDisplay->GetSubject()->AddObserver(pAchievmentComponent);
 	go->AddComponent(pScoreDisplay);
 	scene.Add(go);
 
@@ -204,6 +213,7 @@ void dae::Minigin::Run()
 
 			Time::GetInstance()->SetElapsed(elapsedSec);
 			renderer.Render();
+			SteamAPI_RunCallbacks();
 		}
 
 

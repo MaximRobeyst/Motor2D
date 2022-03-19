@@ -20,6 +20,7 @@
 
 #include <stdio.h>
 #include <string.h>
+#pragma warning(disable:4996)
 
 //
 // Max size (in bytes of UTF-8 data, not in characters) of server fields, including null terminator.

@@ -120,9 +120,6 @@
     <ClInclude Include="Xbox360Controller.h">
       <Filter>Engine Files\Input</Filter>
     </ClInclude>
-    <ClInclude Include="Achievements.h">
-      <Filter>Game Files</Filter>
-    </ClInclude>
     <ClInclude Include="Subject.h">
       <Filter>Game Files</Filter>
     </ClInclude>
@@ -145,6 +142,12 @@
       <Filter>Game Files\Game Components</Filter>
     </ClInclude>
     <ClInclude Include="ScoreDisplayComponent.h">
+      <Filter>Game Files\Game Components</Filter>
+    </ClInclude>
+    <ClInclude Include="CSteamAchievements.h">
+      <Filter>Engine Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AchievementComponent.h">
       <Filter>Game Files\Game Components</Filter>
     </ClInclude>
   </ItemGroup>
@@ -230,9 +233,6 @@
     <ClCompile Include="Xbox360Controller.cpp">
       <Filter>Engine Files\Input</Filter>
     </ClCompile>
-    <ClCompile Include="Achievements.cpp">
-      <Filter>Game Files</Filter>
-    </ClCompile>
     <ClCompile Include="Subject.cpp">
       <Filter>Game Files</Filter>
     </ClCompile>
@@ -252,6 +252,12 @@
       <Filter>Game Files\Game Components</Filter>
     </ClCompile>
     <ClCompile Include="ScoreDisplayComponent.cpp">
+      <Filter>Game Files\Game Components</Filter>
+    </ClCompile>
+    <ClCompile Include="CSteamAchievements.cpp">
+      <Filter>Engine Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AchievementComponent.cpp">
       <Filter>Game Files\Game Components</Filter>
     </ClCompile>
   </ItemGroup>
