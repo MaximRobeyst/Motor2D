@@ -25,6 +25,11 @@ void dae::TransformComponent::SetPosition(const glm::vec3& position)
 	m_Position = position;
 }
 
+void dae::TransformComponent::Move(const glm::vec3& moveVector)
+{
+	m_Position += moveVector;
+}
+
 void dae::TransformComponent::SetScale(float x, float y, float z)
 {
 	m_Scale.x = x;

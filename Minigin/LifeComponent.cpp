@@ -13,6 +13,9 @@ LifeComponent::LifeComponent(dae::GameObject* pGameObject, int lives)
 
 void LifeComponent::Hit()
 {
+	if (m_Lives == 0)
+		return;
+
 	--m_Lives;
 
 	m_pSubject->Notify(*m_pGameObject, Event::Player_Died);

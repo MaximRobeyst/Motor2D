@@ -14,21 +14,21 @@ MovementComponent::MovementComponent(dae::GameObject* pGameObject, float speed)
 
 void MovementComponent::Update()
 {
-	auto& input = dae::InputManager::GetInstance();
-
-	glm::vec3 velocity{};
-
-	if (input.GetController(0)->IsPressed(ControllerButton::DPadUp))
-		velocity.y = -1;
-	if (input.GetController(0)->IsPressed(ControllerButton::DPadDown))
-		velocity.y = 1;
-	if (input.GetController(0)->IsPressed(ControllerButton::DPadLeft))
-		velocity.x = -1;
-	if (input.GetController(0)->IsPressed(ControllerButton::DPadRight))
-		velocity.x = 1;
-
-	velocity *= m_Speed * Time::GetInstance()->GetElapsed();
-	m_pTransformComponent->SetPosition(m_pTransformComponent->GetPosition() + velocity);
+	//auto& input = dae::InputManager::GetInstance();
+	//
+	//glm::vec3 velocity{};
+	//
+	//if (input.GetController(0)->IsPressed(ControllerButton::DPadUp))
+	//	velocity.y = -1;
+	//if (input.GetController(0)->IsPressed(ControllerButton::DPadDown))
+	//	velocity.y = 1;
+	//if (input.GetController(0)->IsPressed(ControllerButton::DPadLeft))
+	//	velocity.x = -1;
+	//if (input.GetController(0)->IsPressed(ControllerButton::DPadRight))
+	//	velocity.x = 1;
+	//
+	//velocity *= m_Speed * Time::GetInstance()->GetElapsed();
+	//m_pTransformComponent->SetPosition(m_pTransformComponent->GetPosition() + velocity);
 }
 
 void MovementComponent::Render() const

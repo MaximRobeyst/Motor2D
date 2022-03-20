@@ -13,6 +13,8 @@ namespace dae
 		void SetPosition(float x, float y, float z);
 		void SetPosition(const glm::vec3& position);
 
+		void Move(const glm::vec3& moveVector);
+
 		//Scale
 		const glm::vec3& GetScale() const { return m_Scale; }
 		void SetScale(float x, float y, float z);

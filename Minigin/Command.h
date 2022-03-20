@@ -1,4 +1,6 @@
 #pragma once
+#include "Transform.h"
+
 class Command 
 {
 public:
@@ -50,6 +52,18 @@ public:
 
 private:
 	FoodComponent* m_pFoodComponent;
+};
+
+class MoveCommand : public Command
+{
+public:
+	MoveCommand(dae::TransformComponent* pTransformComponent, glm::vec3 movement, float speed = 10.f);
+	void Execute();
+
+private:
+	glm::vec3 m_Movement{};
+	dae::TransformComponent* m_pTransform{};
+	float m_Speed{};
 };
 
 

@@ -11,6 +11,7 @@ ScoreDisplayComponent::ScoreDisplayComponent(dae::GameObject* pGameObject, int n
 	, m_pTextComponent{ pGameObject->GetComponent<dae::TextComponent>() }
 	, m_pSubject{std::make_unique<Subject>()}
 {
+	m_pTextComponent->SetText(extraDisplayText + std::to_string(number));
 }
 
 void ScoreDisplayComponent::Notify(const dae::GameObject& /*gameObject*/, const Event& action)

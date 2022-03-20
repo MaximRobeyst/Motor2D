@@ -75,6 +75,12 @@ void dae::Minigin::LoadGame() const
 	auto& scene = SceneManager::GetInstance().CreateScene("Demo");
 	auto& input = InputManager::GetInstance();
 
+	std::cout << std::endl << std::endl;
+	std::cout << "=== How To Play ====" << std::endl;
+	std::cout << "Use the Dpad to move around" << std::endl;
+	std::cout << "Press 'A' to love a life" << std::endl;
+	std::cout << "Press 'B' to Add to your score" << std::endl;
+	std::cout << "===================" << std::endl;
 
 	auto pAchievmentObject = new GameObject();
 	auto pAchievmentComponent = new AchievementComponent(pAchievmentObject);
@@ -125,20 +131,20 @@ void dae::Minigin::LoadGame() const
 	pBurgerBun->AddComponent(pFoodComponent);
 	scene.Add(pBurgerBun);
 	
-	pPeperGameObject = new GameObject();
-	pPeperGameObject->AddComponent(new TransformComponent(pPeperGameObject, glm::vec3{ 900.f, 100.f, 0 }, glm::vec3{ 5, 5, 5 }));
-	pPeperGameObject->AddComponent(new SpriteRendererComponent(pPeperGameObject, "MainCharacter.png"));
-	pPeperGameObject->AddComponent(new MovementComponent(pPeperGameObject, 100.f));
-	pLifeComponent = new LifeComponent{ pPeperGameObject, 3 };
-	pPeperGameObject->AddComponent(pLifeComponent);
-	scene.Add(pPeperGameObject);
+	auto pPeperGameObject2 = new GameObject();
+	pPeperGameObject2->AddComponent(new TransformComponent(pPeperGameObject2, glm::vec3{ 900.f, 100.f, 0 }, glm::vec3{ 5, 5, 5 }));
+	pPeperGameObject2->AddComponent(new SpriteRendererComponent(pPeperGameObject2, "MainCharacter.png"));
+	pPeperGameObject2->AddComponent(new MovementComponent(pPeperGameObject2, 100.f));
+	auto pLifeComponent2 = new LifeComponent{ pPeperGameObject2, 3 };
+	pPeperGameObject2->AddComponent(pLifeComponent2);
+	scene.Add(pPeperGameObject2);
 
 	go = new GameObject();
 	go->AddComponent(new TransformComponent(go, glm::vec3{ 1100.f, 500.f, 0.f }));
 	go->AddComponent(new SpriteRendererComponent(go, "logo.png"));
 	go->AddComponent(new TextComponent(go, "Lives: ", font, SDL_Color{ 0, 255, 0 }));
 	pLifeDisplay = new LifeDisplayComponent(go, 3, "Lives: ");
-	pLifeComponent->GetSubject()->AddObserver(pLifeDisplay);
+	pLifeComponent2->GetSubject()->AddObserver(pLifeDisplay);
 	go->AddComponent(pLifeDisplay);
 	scene.Add(go);
 
@@ -154,17 +160,49 @@ void dae::Minigin::LoadGame() const
 	std::shared_ptr<Xbox360Controller> controller = std::make_shared<Xbox360Controller>(0);
 	controller->AddControllerMapping(ControllerButtonData{ ControllerButton::ButtonA, ButtonState::Up }, std::make_unique<KillCommand>(pLifeComponent));
 	controller->AddControllerMapping(ControllerButtonData{ ControllerButton::ButtonB, ButtonState::Up }, std::make_unique<FallCommand>(pFoodComponent));
-
+	controller->AddControllerMapping(
+		ControllerButtonData{ ControllerButton::DPadDown, ButtonState::Hold },
+		std::make_unique<MoveCommand>(pPeperGameObject->GetComponent<TransformComponent>(), glm::vec3{ 0,1,0 }, 100.f)
+	);
+	controller->AddControllerMapping(
+		ControllerButtonData{ ControllerButton::DPadUp, ButtonState::Hold },
+		std::make_unique<MoveCommand>(pPeperGameObject->GetComponent<TransformComponent>(), glm::vec3{ 0,-1,0 }, 100.f)
+	);
+	controller->AddControllerMapping(
+		ControllerButtonData{ ControllerButton::DPadRight, ButtonState::Hold },
+		std::make_unique<MoveCommand>(pPeperGameObject->GetComponent<TransformComponent>(), glm::vec3{ 1,0,0 }, 100.f)
+	);
+	controller->AddControllerMapping(
+		ControllerButtonData{ ControllerButton::DPadLeft, ButtonState::Hold },
+		std::make_unique<MoveCommand>(pPeperGameObject->GetComponent<TransformComponent>(), glm::vec3{ -1,0,0 }, 100.f)
+	);
 	input.AddController(controller);
+
 	controller = std::make_shared<Xbox360Controller>(1);
-	controller->AddControllerMapping(ControllerButtonData{ ControllerButton::ButtonA, ButtonState::Up }, std::make_unique<KillCommand>(pLifeComponent));
+	controller->AddControllerMapping(ControllerButtonData{ ControllerButton::ButtonA, ButtonState::Up }, std::make_unique<KillCommand>(pLifeComponent2));
 	controller->AddControllerMapping(ControllerButtonData{ ControllerButton::ButtonB, ButtonState::Up }, std::make_unique<FallCommand>(pFoodComponent));
+	controller->AddControllerMapping(
+		ControllerButtonData{ ControllerButton::DPadDown, ButtonState::Hold },
+		std::make_unique<MoveCommand>(pPeperGameObject2->GetComponent<TransformComponent>(), glm::vec3{ 0,1,0 }, 100.f)
+	);
+	controller->AddControllerMapping(
+		ControllerButtonData{ ControllerButton::DPadUp, ButtonState::Hold },
+		std::make_unique<MoveCommand>(pPeperGameObject2->GetComponent<TransformComponent>(), glm::vec3{ 0,-1,0 }, 100.f)
+	);
+	controller->AddControllerMapping(
+		ControllerButtonData{ ControllerButton::DPadRight, ButtonState::Hold },
+		std::make_unique<MoveCommand>(pPeperGameObject2->GetComponent<TransformComponent>(), glm::vec3{ 1,0,0 }, 100.f)
+	);
+	controller->AddControllerMapping(
+		ControllerButtonData{ ControllerButton::DPadLeft, ButtonState::Hold },
+		std::make_unique<MoveCommand>(pPeperGameObject2->GetComponent<TransformComponent>(), glm::vec3{ -1,0,0 }, 100.f)
+	);
 	input.AddController(controller);
 
 	//font = ResourceManager::GetInstance().LoadFont("Lingua.otf", 16);
 	//
 	go = new GameObject();
-	go->AddComponent(new TransformComponent(go, glm::vec3{80, 100, 0}));
+	go->AddComponent(new TransformComponent(go, glm::vec3{20, 60, 0}));
 	go->AddComponent(new SpriteRendererComponent(go, "logo.png"));
 	go->AddComponent(new TextComponent(go, "Programming 4 Assignment", font, {255,255,0}));
 	go->AddComponent(new FPSComponent(go));
