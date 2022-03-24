@@ -10,9 +10,10 @@ enum class KeyboardAndMouseButton
 
 enum class KeyState
 {
-	Hold,
+	JustUp,
+	Up,
 	Down,
-	Up
+	Hold,
 };
 
 struct KeyboardKeyData
@@ -21,30 +22,35 @@ struct KeyboardKeyData
 	KeyState state{};
 };
 
+inline bool operator< (const KeyboardKeyData& lhs, const KeyboardKeyData& rhs)
+{
+	return lhs.key < rhs.key;
+}
+
 namespace dae
 {
 	class Keyboard final
 	{
 	public:
-		Keyboard();
-		virtual ~Keyboard();
+		Keyboard()  = default;
+		virtual ~Keyboard() = default;
 
-		void ProcessInput();
-		bool IsDownThisFrame(int key) const;
-		bool IsUpThisFrame(int key) const;
-		bool IsPressed(int key) const;
+		void ProcessInput(const SDL_Event* event);
+		bool IsDownThisFrame(int key);
+		bool IsUpThisFrame(int key);
+		bool IsPressed(int key);
 
 		void AddKeyboardMapping(const KeyboardKeyData& controllerData, std::unique_ptr<Command>&& pCommand);
 
 	private:
+		void UpdateKeys();
+
 		using KayboardCommandMap = std::map<KeyboardKeyData, std::unique_ptr<Command>>;
 		KayboardCommandMap m_KeyboardMap{};
 
-		Uint8* m_pPreviousKeyboardState;
-		Uint8* m_pCurrKeyboardState;
-
-		WORD m_ButtonsPressedThisFrame;
-		WORD m_ButtonsReleasedThisFrame;
+		using keyIndex = int;
+		std::map<keyIndex, KeyState> m_KeyStates;
+		std::map<keyIndex, KeyState> m_MouseStates;
 	};
 }
 
