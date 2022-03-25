@@ -82,10 +82,10 @@ void dae::Minigin::LoadGame() const
 	std::cout << "Press 'B' to Add to your score" << std::endl;
 	std::cout << "===================" << std::endl;
 
-	//auto pAchievmentObject = new GameObject();
-	//auto pAchievmentComponent = new AchievementComponent(pAchievmentObject);
-	//pAchievmentObject->AddComponent(pAchievmentComponent);
-	//scene.Add(pAchievmentObject);
+	auto pAchievmentObject = new GameObject();
+	auto pAchievmentComponent = new AchievementComponent(pAchievmentObject);
+	pAchievmentObject->AddComponent(pAchievmentComponent);
+	scene.Add(pAchievmentObject);
 
 	auto go = new GameObject();
 	auto font = ResourceManager::GetInstance().LoadFont("Lingua.otf", 36);
@@ -119,7 +119,7 @@ void dae::Minigin::LoadGame() const
 	go->AddComponent(new SpriteRendererComponent(go, "logo.png"));
 	go->AddComponent(new TextComponent(go, "Score:", font, SDL_Color{ 255, 255, 0 }));
 	auto pScoreDisplay = new ScoreDisplayComponent(go, 0, "Score: ");
-	//pScoreDisplay->GetSubject()->AddObserver(pAchievmentComponent);
+	pScoreDisplay->GetSubject()->AddObserver(pAchievmentComponent);
 	go->AddComponent(pScoreDisplay);
 	scene.Add(go);
 
@@ -178,44 +178,26 @@ void dae::Minigin::LoadGame() const
 	);
 	input.AddController(controller);
 
-	//controller = std::make_shared<Xbox360Controller>(1);
-	//controller->AddControllerMapping(ControllerButtonData{ ControllerButton::ButtonA, ButtonState::Up }, std::make_unique<KillCommand>(pLifeComponent2));
-	//controller->AddControllerMapping(ControllerButtonData{ ControllerButton::ButtonB, ButtonState::Up }, std::make_unique<FallCommand>(pFoodComponent));
-	//controller->AddControllerMapping(
-	//	ControllerButtonData{ ControllerButton::DPadDown, ButtonState::Hold },
-	//	std::make_unique<MoveCommand>(pPeperGameObject2->GetComponent<TransformComponent>(), glm::vec3{ 0,1,0 }, 100.f)
-	//);
-	//controller->AddControllerMapping(
-	//	ControllerButtonData{ ControllerButton::DPadUp, ButtonState::Hold },
-	//	std::make_unique<MoveCommand>(pPeperGameObject2->GetComponent<TransformComponent>(), glm::vec3{ 0,-1,0 }, 100.f)
-	//);
-	//controller->AddControllerMapping(
-	//	ControllerButtonData{ ControllerButton::DPadRight, ButtonState::Hold },
-	//	std::make_unique<MoveCommand>(pPeperGameObject2->GetComponent<TransformComponent>(), glm::vec3{ 1,0,0 }, 100.f)
-	//);
-	//controller->AddControllerMapping(
-	//	ControllerButtonData{ ControllerButton::DPadLeft, ButtonState::Hold },
-	//	std::make_unique<MoveCommand>(pPeperGameObject2->GetComponent<TransformComponent>(), glm::vec3{ -1,0,0 }, 100.f)
-	//);
-	//input.AddController(controller);
-	auto keyboard = input.GetKeyboard();
-	keyboard->AddKeyboardMapping(KeyboardKeyData{ SDLK_q, KeyState::JustUp }, std::make_unique<KillCommand>(pLifeComponent2));
-	keyboard->AddKeyboardMapping(
-		KeyboardKeyData{ SDLK_s, KeyState::Hold },
+	controller = std::make_shared<Xbox360Controller>(1);
+	controller->AddControllerMapping(ControllerButtonData{ ControllerButton::ButtonA, ButtonState::Up }, std::make_unique<KillCommand>(pLifeComponent2));
+	controller->AddControllerMapping(ControllerButtonData{ ControllerButton::ButtonB, ButtonState::Up }, std::make_unique<FallCommand>(pFoodComponent));
+	controller->AddControllerMapping(
+		ControllerButtonData{ ControllerButton::DPadDown, ButtonState::Hold },
 		std::make_unique<MoveCommand>(pPeperGameObject2->GetComponent<TransformComponent>(), glm::vec3{ 0,1,0 }, 100.f)
 	);
-	keyboard->AddKeyboardMapping(
-		KeyboardKeyData{ SDLK_w, KeyState::Hold },
+	controller->AddControllerMapping(
+		ControllerButtonData{ ControllerButton::DPadUp, ButtonState::Hold },
 		std::make_unique<MoveCommand>(pPeperGameObject2->GetComponent<TransformComponent>(), glm::vec3{ 0,-1,0 }, 100.f)
 	);
-	keyboard->AddKeyboardMapping(
-		KeyboardKeyData{ SDLK_d, KeyState::Hold },
+	controller->AddControllerMapping(
+		ControllerButtonData{ ControllerButton::DPadRight, ButtonState::Hold },
 		std::make_unique<MoveCommand>(pPeperGameObject2->GetComponent<TransformComponent>(), glm::vec3{ 1,0,0 }, 100.f)
 	);
-	keyboard->AddKeyboardMapping(
-		KeyboardKeyData{ SDLK_a, KeyState::Hold },
+	controller->AddControllerMapping(
+		ControllerButtonData{ ControllerButton::DPadLeft, ButtonState::Hold },
 		std::make_unique<MoveCommand>(pPeperGameObject2->GetComponent<TransformComponent>(), glm::vec3{ -1,0,0 }, 100.f)
 	);
+	input.AddController(controller);
 
 	//font = ResourceManager::GetInstance().LoadFont("Lingua.otf", 16);
 	//
