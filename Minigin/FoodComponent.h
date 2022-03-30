@@ -10,6 +10,11 @@ public:
 
 	void Update() override;
 
+#ifdef _DEBUG
+	void RenderGUI() override;
+#endif // _DEBUG
+
+
 	void SetFalling(bool newValue);
 
 	std::unique_ptr<Subject>& GetSubject();

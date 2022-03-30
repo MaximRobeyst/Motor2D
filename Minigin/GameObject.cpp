@@ -47,6 +47,22 @@ void dae::GameObject::Render() const
 
 }
 
+#ifdef _DEBUG
+void dae::GameObject::RenderGUI()
+{
+	for (auto iter = m_pComponents.begin(); iter != m_pComponents.end(); ++iter)
+	{
+		(*iter)->RenderGUI();
+	}
+
+	for (auto iter = m_pChildren.begin(); iter != m_pChildren.end(); ++iter)
+		(*iter)->RenderGUI();
+
+}
+#endif // _DEBUG
+
+
+
 void dae::GameObject::AddComponent(Component* component)
 {
 	m_pComponents.push_back(component);

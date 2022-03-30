@@ -43,74 +43,9 @@ void dae::Renderer::Render()
 	SDL_RenderClear(m_Renderer);
 
 	SceneManager::GetInstance().Render();
-
-	// TODO: make this stuff comopnents
-	//ImGui_ImplOpenGL2_NewFrame();
-	//ImGui_ImplSDL2_NewFrame(m_Window);
-	//ImGui::NewFrame();
-	//
-	//static int samples{10};
-
-
-	//// Excersise 2
-	//ImGui::SetNextWindowPos(ImVec2{ 10.f, 50.f });
-	//ImGui::SetWindowSize(ImVec2{ 350.f, 500.f });
-	//ImGui::Begin("Exercise 2");
-	//ImGui::InputInt("Samples", &samples);
-	//static int clicked = 0;
-	//if (ImGui::Button("Trash the cache"))
-	//{
-	//	++clicked;
-	//	ImGui::Text("Wait For it...");
-	//	ShowGraph();
-	//}
-	//if (clicked & 1)
-	//{
-	//	ImGui::Plot("", m_Config);
-	//}
-	//
-	//
-	//ImGui::End();
-	//
-	//static int samplesEx3{ 100 };
-	//// Excersise 3
-	//ImGui::SetNextWindowPos(ImVec2{ 400.f, 50.f });
-	//ImGui::SetWindowSize(ImVec2{ 350.f, 500.f });
-	//ImGui::Begin("Exercise 3");
-	//ImGui::InputInt("Samples", &samplesEx3);
-	//static int clickedGameObject = 0;
-	//if (ImGui::Button("Trash the cache With GameObject3D"))
-	//{
-	//	++clickedGameObject;
-	//	ImGui::Text("Wait for it...");
-	//	ShowGraphGameObject();
-	//}
-	//if (clickedGameObject & 1)
-	//{
-	//	ImGui::Plot("", m_ConfigGameObject);
-	//}
-	//
-	//static int clickedGameObjectAlt = 0;
-	//if (ImGui::Button("Trash the cache With GameObject3DAlt"))
-	//{
-	//	++clickedGameObjectAlt;
-	//	ImGui::Text("Wait for it...");
-	//	ShowGraphGameObjectAlt();
-	//}
-	//if (clickedGameObjectAlt & 1)
-	//{
-	//	ImGui::Plot("", m_ConfigGameObjectAlt);
-	//	if (m_ConfigGameObjectComb.values.ys == nullptr && !timeMeasuresGameObject.empty())
-	//	{
-	//		ShowGraphGameObjectComb();
-	//	}
-	//}
-	//
-	//ImGui::End();
-	//
-	//ImGui::Render();
-	//ImGui_ImplOpenGL2_RenderDrawData(ImGui::GetDrawData());
-	
+#ifdef _DEBUG
+	SceneManager::GetInstance().RenderGUI(m_Window);
+#endif // _DEBUG
 	SDL_RenderPresent(m_Renderer);
 }
 

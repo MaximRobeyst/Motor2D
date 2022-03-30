@@ -24,6 +24,11 @@ namespace dae
 		void Update() override;
 		void Render() const override;
 
+#ifdef _DEBUG
+		void RenderGUI();
+#endif // _DEBUG
+
+
 		void AddComponent(Component* component);
 		template<typename T>
 		T* GetComponent() const

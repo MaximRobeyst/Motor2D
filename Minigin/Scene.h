@@ -1,5 +1,6 @@
 #pragma once
 #include "SceneManager.h"
+#include "GameObject.h"
 
 namespace dae
 {
@@ -8,10 +9,14 @@ namespace dae
 	{
 		friend Scene& SceneManager::CreateScene(const std::string& name);
 	public:
-		void Add(SceneObject* object);
+		void Add(dae::GameObject* object);
 
 		void Update();
 		void Render() const;
+#ifdef _DEBUG
+		void RenderGUI();
+#endif // _DEBUG
+
 
 		~Scene();
 		Scene(const Scene& other) = delete;
@@ -23,7 +28,7 @@ namespace dae
 		explicit Scene(const std::string& name);
 
 		std::string m_Name;
-		std::vector < SceneObject*> m_pObjects{};
+		std::vector < dae::GameObject*> m_pObjects{};
 
 		static unsigned int m_IdCounter; 
 	};

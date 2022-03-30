@@ -11,6 +11,10 @@ namespace dae
 
 		void Update();
 		void Render();
+#ifdef _DEBUG
+		void RenderGUI(SDL_Window* window);
+#endif // _DEBUG
+
 	private:
 		friend class Singleton<SceneManager>;
 		SceneManager() = default;

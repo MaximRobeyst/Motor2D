@@ -1,6 +1,8 @@
 #include "MiniginPCH.h"
 #include "SceneManager.h"
 #include "Scene.h"
+#include <backends/imgui_impl_opengl2.h>
+#include <backends/imgui_impl_sdl.h>
 
 void dae::SceneManager::Update()
 {
@@ -17,6 +19,24 @@ void dae::SceneManager::Render()
 		scene->Render();
 	}
 }
+
+#ifdef _DEBUG
+void dae::SceneManager::RenderGUI(SDL_Window* window)
+{
+	ImGui_ImplOpenGL2_NewFrame();
+	ImGui_ImplSDL2_NewFrame(window);
+	ImGui::NewFrame();
+
+	for (const auto& scene : m_Scenes)
+	{
+		scene->RenderGUI();
+	}
+	ImGui::Render();
+	ImGui_ImplOpenGL2_RenderDrawData(ImGui::GetDrawData());
+}
+#endif // _DEBUG
+
+
 
 dae::Scene& dae::SceneManager::CreateScene(const std::string& name)
 {

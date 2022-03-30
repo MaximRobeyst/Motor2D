@@ -1,6 +1,7 @@
 #include "MiniginPCH.h"
 #include "Scene.h"
 #include "GameObject.h"
+#include <imgui.h>
 
 using namespace dae;
 
@@ -16,7 +17,7 @@ Scene::~Scene()
 	m_pObjects.clear();
 }
 
-void Scene::Add(SceneObject* object)
+void Scene::Add(dae::GameObject* object)
 {
 	m_pObjects.push_back(object);
 }
@@ -37,3 +38,15 @@ void Scene::Render() const
 	}
 }
 
+#ifdef _DEBUG
+void dae::Scene::RenderGUI()
+{
+	ImGui::Begin(m_Name.c_str());
+	for (const auto& object : m_pObjects)
+	{
+		object->RenderGUI();
+	}
+	ImGui::End();
+
+}
+#endif

@@ -269,6 +269,7 @@ void dae::Minigin::Run()
 
 			Time::GetInstance()->SetElapsed(elapsedSec);
 			renderer.Render();
+
 			SteamAPI_RunCallbacks();
 		}
 

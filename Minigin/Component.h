@@ -11,6 +11,10 @@ namespace dae
 
 		virtual void Update() {};
 		virtual void Render() const {};
+#ifdef _DEBUG
+		virtual void RenderGUI() {};
+#endif // _DEBUG
+
 
 	protected:
 		GameObject* m_pGameObject;

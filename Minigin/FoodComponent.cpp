@@ -2,6 +2,7 @@
 #include "FoodComponent.h"
 #include "GameObject.h"
 #include "Event.h"
+#include "imgui.h"
 
 FoodComponent::FoodComponent(dae::GameObject* pGameobject)
 	: Component(pGameobject)
@@ -17,6 +18,14 @@ void FoodComponent::Update()
 		m_pTransform->SetPosition(m_pTransform->GetPosition() + fallingSpeed);
 	}
 }
+#ifdef _DEBUG
+void FoodComponent::RenderGUI()
+{
+	ImGui::Text("I am a foodcomponent");
+}
+#endif // _DEBUG
+
+
 void FoodComponent::SetFalling(bool newValue)
 {
 	m_Falling = newValue;
