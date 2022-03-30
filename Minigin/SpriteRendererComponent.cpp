@@ -17,6 +17,10 @@ void dae::SpriteRendererComponent::SetTexture(const std::shared_ptr<Texture2D>& 
 {
 	m_pTexture = texture;
 }
+const std::shared_ptr<dae::Texture2D>& dae::SpriteRendererComponent::GetTexture() const
+{
+	return m_pTexture;
+}
 void dae::SpriteRendererComponent::Render() const
 {
 	const auto& pos{ m_pTransformComponent->GetPosition() };
