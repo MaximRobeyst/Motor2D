@@ -2,20 +2,17 @@
 #include "InputManager.h"
 #include "Command.h"
 #include "Xbox360Controller.h"
+#include "Keyboard.h"
 
 bool dae::InputManager::ProcessInput()
 {
+	// https://gamedev.stackexchange.com/questions/190070/how-do-i-implement-an-input-wrapper-like-unitys-in-sdl2
 	SDL_Event e;
 	while (SDL_PollEvent(&e)) {
 		if (e.type == SDL_QUIT) {
 			return false;
 		}
-		if (e.type == SDL_KEYDOWN) {
-			
-		}
-		if (e.type == SDL_MOUSEBUTTONDOWN) {
-			
-		}
+		m_pKeyboard->ProcessInput(&e);
 	}
 
 	for (size_t i = 0; i < m_pXbox360Controllers.size(); i++)
@@ -34,4 +31,9 @@ void dae::InputManager::AddController(std::shared_ptr<dae::Xbox360Controller>& c
 std::shared_ptr<dae::Xbox360Controller> dae::InputManager::GetController(int index)
 {
 	return m_pXbox360Controllers[index];
+}
+
+std::shared_ptr<dae::Keyboard> dae::InputManager::GetKeyboard() const
+{
+	return m_pKeyboard;
 }
