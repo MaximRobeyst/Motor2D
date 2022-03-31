@@ -23,6 +23,7 @@
 #include "FoodComponent.h"
 #include "AchievementComponent.h"
 #include "Collider.h"
+#include "RigidbodyComponent.h"
 
 #include "Observer.h"
 #include "Subject.h"
@@ -107,6 +108,7 @@ void dae::Minigin::LoadGame() const
 	auto pLifeComponent = new LifeComponent{ pPeperGameObject, 3 };
 	pPeperGameObject->AddComponent(pLifeComponent);
 	pPeperGameObject->AddComponent(new ColliderComponent(pPeperGameObject));
+	pPeperGameObject->AddComponent(new RigidbodyComponent(pPeperGameObject));
 	scene.Add(pPeperGameObject);
 
 	go = new GameObject();

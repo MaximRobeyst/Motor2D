@@ -2,6 +2,7 @@
 #include "Scene.h"
 #include "GameObject.h"
 #include <imgui.h>
+#include "Time.h"
 
 using namespace dae;
 
@@ -10,7 +11,17 @@ unsigned int Scene::m_IdCounter = 0;
 Scene::Scene(const std::string& name) 
 	: m_Name(name), 
 	m_PhysicsWorld{ std::make_shared<b2World>(b2Vec2(0.0f, 10.0f)) }
-{}
+{
+	b2BodyDef groundBodyDef;
+	groundBodyDef.position.Set(0.0f, 100.0f);
+
+	b2Body* groundBody = m_PhysicsWorld->CreateBody(&groundBodyDef);
+
+	b2PolygonShape groundBox;
+	groundBox.SetAsBox(50.0f, 10.0f);
+	groundBody->CreateFixture(&groundBox, 0.0f);
+
+}
 
 Scene::~Scene()
 {
@@ -32,6 +43,7 @@ std::shared_ptr<b2World> dae::Scene::GetPhysicsWorld() const
 
 void Scene::Update()
 {
+	m_PhysicsWorld->Step(Time::GetInstance()->GetElapsed(), 6, 2);
 	for(auto& object : m_pObjects)
 	{
 		object->Update();
