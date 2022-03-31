@@ -153,6 +153,9 @@
     <ClInclude Include="SceneObject.h">
       <Filter>Engine Files</Filter>
     </ClInclude>
+    <ClInclude Include="RigidbodyComponent.h">
+      <Filter>Component Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MiniginPCH.cpp">
@@ -264,6 +267,9 @@
       <Filter>Game Files\Game Components</Filter>
     </ClCompile>
     <ClCompile Include="Collider.cpp">
+      <Filter>Component Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RigidbodyComponent.cpp">
       <Filter>Component Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -9,6 +9,8 @@ namespace dae
 	public:
 		Scene& CreateScene(const std::string& name);
 
+		std::shared_ptr<Scene> GetScene(int index);
+
 		void Update();
 		void Render();
 #ifdef _DEBUG

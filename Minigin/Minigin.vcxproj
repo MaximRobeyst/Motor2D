@@ -227,6 +227,7 @@ xcopy $(Solutiondir)3rdParty\SDL2_ttf\lib\x64\*.dll $(OutputPath) /Y</Command>
     <ClInclude Include="MovementComponent.h" />
     <ClInclude Include="LifeDisplayComponent.h" />
     <ClInclude Include="Observer.h" />
+    <ClInclude Include="RigidbodyComponent.h" />
     <ClInclude Include="SceneObject.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="ResourceManager.h" />
@@ -329,6 +330,7 @@ xcopy $(Solutiondir)3rdParty\SDL2_ttf\lib\x64\*.dll $(OutputPath) /Y</Command>
     <ClCompile Include="LifeDisplayComponent.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
+    <ClCompile Include="RigidbodyComponent.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="ScoreDisplayComponent.cpp" />

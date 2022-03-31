@@ -77,9 +77,6 @@ void dae::Minigin::LoadGame() const
 	auto& scene = SceneManager::GetInstance().CreateScene("Demo");
 	auto& input = InputManager::GetInstance();
 	
-	// https://box2d.org/documentation/index.html
-	b2Vec2 gravity{ 0.0f, -10.0f };
-	b2World world(gravity);
 
 	std::cout << std::endl << std::endl;
 	std::cout << "=== How To Play ====" << std::endl;

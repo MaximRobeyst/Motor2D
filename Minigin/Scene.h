@@ -1,6 +1,7 @@
 #pragma once
 #include "SceneManager.h"
 #include "GameObject.h"
+#include <box2d.h>
 
 namespace dae
 {
@@ -10,6 +11,8 @@ namespace dae
 		friend Scene& SceneManager::CreateScene(const std::string& name);
 	public:
 		void Add(dae::GameObject* object);
+
+		std::shared_ptr<b2World> GetPhysicsWorld() const;
 
 		void Update();
 		void Render() const;
@@ -29,6 +32,7 @@ namespace dae
 
 		std::string m_Name;
 		std::vector < dae::GameObject*> m_pObjects{};
+		std::shared_ptr<b2World> m_PhysicsWorld;
 
 		static unsigned int m_IdCounter; 
 	};

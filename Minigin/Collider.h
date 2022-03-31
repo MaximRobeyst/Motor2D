@@ -4,16 +4,11 @@
 namespace dae
 {
 	class TransformComponent;
-	class ColliderComponent final :public Component
+	class ColliderComponent :public Component
 	{
 	public:
-		explicit ColliderComponent(dae::GameObject* pGameObject);
-		explicit ColliderComponent(dae::GameObject* pGameObject, float width, float height);
-		~ColliderComponent() = default;
-		ColliderComponent(const ColliderComponent& other) = delete;
-		ColliderComponent(ColliderComponent&& other) = delete;
-		ColliderComponent& operator=(const ColliderComponent& other) = delete;
-		ColliderComponent& operator=(ColliderComponent&& other) = delete;
+		ColliderComponent(dae::GameObject* pGameObject);
+		ColliderComponent(dae::GameObject* pGameObject, float width, float height);
 
 		void Update() override;
 		void Render() const override;

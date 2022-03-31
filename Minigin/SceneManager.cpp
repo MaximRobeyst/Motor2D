@@ -44,3 +44,8 @@ dae::Scene& dae::SceneManager::CreateScene(const std::string& name)
 	m_Scenes.push_back(scene);
 	return *scene;
 }
+
+std::shared_ptr<dae::Scene> dae::SceneManager::GetScene(int index)
+{
+	return m_Scenes[index];
+}
