@@ -58,8 +58,8 @@ void dae::Minigin::Initialize()
 		"Programming 4 assignment",
 		SDL_WINDOWPOS_CENTERED,
 		SDL_WINDOWPOS_CENTERED,
-		1280,
-		720,
+		896,
+		768,
 		SDL_WINDOW_OPENGL
 	);
 	if (m_Window == nullptr) 
@@ -77,6 +77,8 @@ void dae::Minigin::LoadGame() const
 {
 	auto& scene = SceneManager::GetInstance().CreateScene("Demo");
 	auto& input = InputManager::GetInstance();
+
+	MakeLevel(scene);
 	
 
 	std::cout << std::endl << std::endl;
@@ -102,7 +104,7 @@ void dae::Minigin::LoadGame() const
 
 	auto pPeperGameObject = new GameObject();
 
-	pPeperGameObject->AddComponent(new TransformComponent(pPeperGameObject, glm::vec3{100, 100, 0}, glm::vec3{5, 5, 5}));
+	pPeperGameObject->AddComponent(new TransformComponent(pPeperGameObject, glm::vec3{100, 100, 0}, glm::vec3{2.f}));
 	pPeperGameObject->AddComponent(new SpriteRendererComponent(pPeperGameObject, "MainCharacter.png"));
 	pPeperGameObject->AddComponent(new MovementComponent(pPeperGameObject, 100.f));
 	auto pLifeComponent = new LifeComponent{ pPeperGameObject, 3 };
@@ -130,7 +132,7 @@ void dae::Minigin::LoadGame() const
 	scene.Add(go);
 
 	auto pBurgerBun = new GameObject();
-	pBurgerBun->AddComponent(new TransformComponent(pBurgerBun, glm::vec3(400, 100, 0), glm::vec3(5, 5, 5)));
+	pBurgerBun->AddComponent(new TransformComponent(pBurgerBun, glm::vec3(1600.f, 16.0f, 0), glm::vec3(2.f)));
 	pBurgerBun->AddComponent(new SpriteRendererComponent(pBurgerBun, "BurgerBun_Top.png"));
 	auto pFoodComponent = new FoodComponent(pBurgerBun);
 	pFoodComponent->GetSubject()->AddObserver(pScoreDisplay);
@@ -284,4 +286,58 @@ void dae::Minigin::Run()
 	}
 
 	Cleanup();
+}
+
+void dae::Minigin::MakeLevel(Scene& pScene) const
+{
+	const int size{ 17 };
+	std::string s[size]{
+	"................",
+	"................",
+	"LPPPLPLPLPLPPLPPL",
+	"L...L.L.L.L..L..L",
+	"L...L.L.L.L..L..L",
+	"L...L.L.L.L..L..L",
+	"L...L.L.L.L..L..L",
+	"LPLPL.L.LPLPPLPPL",
+	"..L...L.L.L..L..L",
+	"..L....L.L..L..L",
+	"..L....L.L..L..L",
+	"PPPPPPPLPLPPLPPL",
+	"................",
+	"................",
+	"................",
+	"................",
+	"................",
+	};
+	float scale{ 3.f };
+	for (int i = 0; i < size; ++i)
+	{
+		for (int j = 0; j < s[0].size(); ++j)
+		{
+			GameObject* pGameobject = new GameObject;
+			pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ j * 16.f * scale, i * 8.f * scale, 0.0f }, glm::vec3{ scale}));
+
+			switch (s[i][j])
+			{
+			case 'L':
+				if(s[i - 1][j] == '.' && s[i + 1][j] == 'L')
+					pGameobject->AddComponent(new SpriteRendererComponent(pGameobject, "Ladder_Top.png"));
+				else if((j != 0 && j != s[0].size()) && s[i][j - 1] == 'P' || s[i][j + 1] == 'P')
+					pGameobject->AddComponent(new SpriteRendererComponent(pGameobject, "Ladder_Top.png"));
+				else if (s[i - 1][j] == '.')
+					pGameobject->AddComponent(new SpriteRendererComponent(pGameobject, "Ladder_Bottom.png"));
+				else
+					pGameobject->AddComponent(new SpriteRendererComponent(pGameobject, "Ladder_Middle.png"));
+				break;
+			case 'P':
+				pGameobject->AddComponent(new SpriteRendererComponent(pGameobject, "Platform.png"));
+			}
+
+
+
+			pScene.Add(pGameobject);
+		}
+	}
+
 }

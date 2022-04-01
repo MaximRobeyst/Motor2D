@@ -20,11 +20,8 @@ dae::RigidbodyComponent::RigidbodyComponent(dae::GameObject* pGameobject)
 
 	m_pBody = m_pWorld->CreateBody(&bodyDef);
 
-	b2PolygonShape dynamicBox;
-	dynamicBox.SetAsBox(1.0f, 1.0f);
-
 	b2FixtureDef fixtureDef;
-	fixtureDef.shape = &dynamicBox;
+	fixtureDef.shape = m_pColliderComponent->GetDynamicBox();
 	fixtureDef.density = 1.0f;
 	fixtureDef.friction = 0.3f;
 
