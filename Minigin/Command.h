@@ -1,5 +1,6 @@
 #pragma once
 #include "Transform.h"
+#include "RigidbodyComponent.h"
 
 class Command 
 {
@@ -57,12 +58,12 @@ private:
 class MoveCommand : public Command
 {
 public:
-	MoveCommand(dae::TransformComponent* pTransformComponent, glm::vec3 movement, float speed = 10.f);
+	MoveCommand(dae::RigidbodyComponent* pTransformComponent, glm::vec2 movement, float speed = 10.f);
 	void Execute();
 
 private:
-	glm::vec3 m_Movement{};
-	dae::TransformComponent* m_pTransform{};
+	glm::vec2 m_Movement{};
+	dae::RigidbodyComponent* m_pRigidbody{};
 	float m_Speed{};
 };
 

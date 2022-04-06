@@ -22,8 +22,10 @@ namespace dae
 
 		void Update() override;
 		void Render() const override;
+
 	private:
 		glm::vec3 m_Position{};
+		glm::vec4 m_Rotation{};
 		glm::vec3 m_Scale{};
 		TransformComponent* m_pParentComponent;
 	};

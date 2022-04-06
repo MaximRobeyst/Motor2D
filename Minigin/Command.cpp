@@ -3,6 +3,7 @@
 
 #include "LifeComponent.h"
 #include "FoodComponent.h"
+
 #include "Time.h"
 
 void FireCommand::Execute()
@@ -45,8 +46,8 @@ void FallCommand::Execute()
 	m_pFoodComponent->SetFalling(true);
 }
 
-MoveCommand::MoveCommand(dae::TransformComponent* pTransformComponent, glm::vec3 movement, float speed)
-	: m_pTransform{pTransformComponent}
+MoveCommand::MoveCommand(dae::RigidbodyComponent* pTransformComponent, glm::vec2 movement, float speed)
+	: m_pRigidbody{pTransformComponent}
 	, m_Movement{movement}
 	, m_Speed{speed}
 {
@@ -54,5 +55,5 @@ MoveCommand::MoveCommand(dae::TransformComponent* pTransformComponent, glm::vec3
 
 void MoveCommand::Execute()
 {
-	m_pTransform->Move(m_Movement * m_Speed * Time::GetInstance()->GetElapsed());
+	m_pRigidbody->SetVelocity(m_Movement * m_Speed /** Time::GetInstance()->GetElapsed()*/);
 }

@@ -6,7 +6,6 @@ void dae::Keyboard::ProcessInput(const SDL_Event* event)
 {
     UpdateKeys();
 
-
     if (event->type == SDL_KEYDOWN || event->type == SDL_KEYUP)
     {
         KeyState newState{};

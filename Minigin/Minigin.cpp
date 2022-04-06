@@ -79,7 +79,6 @@ void dae::Minigin::LoadGame() const
 	auto& input = InputManager::GetInstance();
 
 	MakeLevel(scene);
-	
 
 	std::cout << std::endl << std::endl;
 	std::cout << "=== How To Play ====" << std::endl;
@@ -110,7 +109,7 @@ void dae::Minigin::LoadGame() const
 	auto pLifeComponent = new LifeComponent{ pPeperGameObject, 3 };
 	pPeperGameObject->AddComponent(pLifeComponent);
 	pPeperGameObject->AddComponent(new ColliderComponent(pPeperGameObject));
-	pPeperGameObject->AddComponent(new RigidbodyComponent(pPeperGameObject));
+	pPeperGameObject->AddComponent(new RigidbodyComponent(pPeperGameObject, b2_dynamicBody, 1.f, 1.f));
 	scene.Add(pPeperGameObject);
 
 	go = new GameObject();
@@ -164,66 +163,45 @@ void dae::Minigin::LoadGame() const
 	go->AddComponent(pScoreDisplay);
 	scene.Add(go);
 
-	// This should be done differently
+	auto keyboard = input.GetKeyboard();
+	keyboard->AddKeyboardMapping(KeyboardKeyData{ SDLK_q, KeyState::JustUp }, std::make_unique<KillCommand>(pLifeComponent2));
+	keyboard->AddKeyboardMapping(
+		KeyboardKeyData{ SDLK_s, KeyState::Hold },
+		std::make_unique<MoveCommand>(pPeperGameObject->GetComponent<RigidbodyComponent>(), glm::vec2{ 0,1}, 10.f)
+	);
+	keyboard->AddKeyboardMapping(
+		KeyboardKeyData{ SDLK_w, KeyState::Hold },
+		std::make_unique<MoveCommand>(pPeperGameObject->GetComponent<RigidbodyComponent>(), glm::vec2{ 0,-1}, 10.f)
+	);
+	keyboard->AddKeyboardMapping(
+		KeyboardKeyData{ SDLK_d, KeyState::Hold },
+		std::make_unique<MoveCommand>(pPeperGameObject->GetComponent<RigidbodyComponent>(), glm::vec2{ 1,0}, 10.f)
+	);
+	keyboard->AddKeyboardMapping(
+		KeyboardKeyData{ SDLK_a, KeyState::Hold },
+		std::make_unique<MoveCommand>(pPeperGameObject->GetComponent<RigidbodyComponent>(), glm::vec2{ -1,0}, 10.f)
+	);
+
 	std::shared_ptr<Xbox360Controller> controller = std::make_shared<Xbox360Controller>(0);
 	controller->AddControllerMapping(ControllerButtonData{ ControllerButton::ButtonA, ButtonState::Up }, std::make_unique<KillCommand>(pLifeComponent));
 	controller->AddControllerMapping(ControllerButtonData{ ControllerButton::ButtonB, ButtonState::Up }, std::make_unique<FallCommand>(pFoodComponent));
 	controller->AddControllerMapping(
 		ControllerButtonData{ ControllerButton::DPadDown, ButtonState::Hold },
-		std::make_unique<MoveCommand>(pPeperGameObject->GetComponent<TransformComponent>(), glm::vec3{ 0,1,0 }, 100.f)
+		std::make_unique<MoveCommand>(pPeperGameObject2->GetComponent<RigidbodyComponent>(), glm::vec2{ 0,1}, 100.f)
 	);
 	controller->AddControllerMapping(
 		ControllerButtonData{ ControllerButton::DPadUp, ButtonState::Hold },
-		std::make_unique<MoveCommand>(pPeperGameObject->GetComponent<TransformComponent>(), glm::vec3{ 0,-1,0 }, 100.f)
+		std::make_unique<MoveCommand>(pPeperGameObject2->GetComponent<RigidbodyComponent>(), glm::vec2{ 0,-1}, 100.f)
 	);
 	controller->AddControllerMapping(
 		ControllerButtonData{ ControllerButton::DPadRight, ButtonState::Hold },
-		std::make_unique<MoveCommand>(pPeperGameObject->GetComponent<TransformComponent>(), glm::vec3{ 1,0,0 }, 100.f)
+		std::make_unique<MoveCommand>(pPeperGameObject2->GetComponent<RigidbodyComponent>(), glm::vec2{ 1,0}, 100.f)
 	);
 	controller->AddControllerMapping(
 		ControllerButtonData{ ControllerButton::DPadLeft, ButtonState::Hold },
-		std::make_unique<MoveCommand>(pPeperGameObject->GetComponent<TransformComponent>(), glm::vec3{ -1,0,0 }, 100.f)
+		std::make_unique<MoveCommand>(pPeperGameObject->GetComponent<RigidbodyComponent>(), glm::vec2{ -1,0}, 100.f)
 	);
 	input.AddController(controller);
-
-	//controller = std::make_shared<Xbox360Controller>(1);
-	//controller->AddControllerMapping(ControllerButtonData{ ControllerButton::ButtonA, ButtonState::Up }, std::make_unique<KillCommand>(pLifeComponent2));
-	//controller->AddControllerMapping(ControllerButtonData{ ControllerButton::ButtonB, ButtonState::Up }, std::make_unique<FallCommand>(pFoodComponent));
-	//controller->AddControllerMapping(
-	//	ControllerButtonData{ ControllerButton::DPadDown, ButtonState::Hold },
-	//	std::make_unique<MoveCommand>(pPeperGameObject2->GetComponent<TransformComponent>(), glm::vec3{ 0,1,0 }, 100.f)
-	//);
-	//controller->AddControllerMapping(
-	//	ControllerButtonData{ ControllerButton::DPadUp, ButtonState::Hold },
-	//	std::make_unique<MoveCommand>(pPeperGameObject2->GetComponent<TransformComponent>(), glm::vec3{ 0,-1,0 }, 100.f)
-	//);
-	//controller->AddControllerMapping(
-	//	ControllerButtonData{ ControllerButton::DPadRight, ButtonState::Hold },
-	//	std::make_unique<MoveCommand>(pPeperGameObject2->GetComponent<TransformComponent>(), glm::vec3{ 1,0,0 }, 100.f)
-	//);
-	//controller->AddControllerMapping(
-	//	ControllerButtonData{ ControllerButton::DPadLeft, ButtonState::Hold },
-	//	std::make_unique<MoveCommand>(pPeperGameObject2->GetComponent<TransformComponent>(), glm::vec3{ -1,0,0 }, 100.f)
-	//);
-	//input.AddController(controller);
-	auto keyboard = input.GetKeyboard();
-	keyboard->AddKeyboardMapping(KeyboardKeyData{ SDLK_q, KeyState::JustUp }, std::make_unique<KillCommand>(pLifeComponent2));
-	keyboard->AddKeyboardMapping(
-		KeyboardKeyData{ SDLK_s, KeyState::Hold },
-		std::make_unique<MoveCommand>(pPeperGameObject2->GetComponent<TransformComponent>(), glm::vec3{ 0,1,0 }, 100.f)
-	);
-	keyboard->AddKeyboardMapping(
-		KeyboardKeyData{ SDLK_w, KeyState::Hold },
-		std::make_unique<MoveCommand>(pPeperGameObject2->GetComponent<TransformComponent>(), glm::vec3{ 0,-1,0 }, 100.f)
-	);
-	keyboard->AddKeyboardMapping(
-		KeyboardKeyData{ SDLK_d, KeyState::Hold },
-		std::make_unique<MoveCommand>(pPeperGameObject2->GetComponent<TransformComponent>(), glm::vec3{ 1,0,0 }, 100.f)
-	);
-	keyboard->AddKeyboardMapping(
-		KeyboardKeyData{ SDLK_a, KeyState::Hold },
-		std::make_unique<MoveCommand>(pPeperGameObject2->GetComponent<TransformComponent>(), glm::vec3{ -1,0,0 }, 100.f)
-	);
 
 	//font = ResourceManager::GetInstance().LoadFont("Lingua.otf", 16);
 	//
@@ -260,6 +238,7 @@ void dae::Minigin::Run()
 
 		auto t1 = std::chrono::steady_clock::now();
 		float lag = 0.0f;
+		const float msPerUpdate = 1.f / 60.f;
 
 		// todo: this update loop could use some work.
 		bool doContinue = true;
@@ -273,7 +252,11 @@ void dae::Minigin::Run()
 			//doContinue = input.ProcessInput();
 			doContinue = input.ProcessInput();
 
-			sceneManager.Update();
+			while (lag >= msPerUpdate)
+			{
+				sceneManager.Update();
+				lag -= msPerUpdate;
+			}
 
 			Time::GetInstance()->SetElapsed(elapsedSec);
 			renderer.Render();
@@ -291,30 +274,55 @@ void dae::Minigin::Run()
 void dae::Minigin::MakeLevel(Scene& pScene) const
 {
 	const int size{ 17 };
-	std::string s[size]{
-	"................",
-	"................",
-	"LPPPLPLPLPLPPLPPL",
-	"L...L.L.L.L..L..L",
-	"L...L.L.L.L..L..L",
-	"L...L.L.L.L..L..L",
-	"L...L.L.L.L..L..L",
-	"LPLPL.L.LPLPPLPPL",
-	"..L...L.L.L..L..L",
-	"..L....L.L..L..L",
-	"..L....L.L..L..L",
-	"PPPPPPPLPLPPLPPL",
-	"................",
-	"................",
-	"................",
-	"................",
-	"................",
+	//std::string s[size]{
+	//"................",
+	//"................",
+	//"LPPPLPLPLPLPPLPPL",
+	//"L...L.L.L.L..L..L",
+	//"L...L.L.L.L..L..L",
+	//"L...L.L.L.L..L..L",
+	//"L...L.L.L.L..L..L",
+	//"LPLPL.L.LPLPPLPPL",
+	//"..L...L.L.L..L..L",
+	//"..L....L.L..L..L",
+	//"..L....L.L..L..L",
+	//"PPPPPPPLPLPPLPPL",
+	//"................",
+	//"................",
+	//"................",
+	//"................",
+	//"................",
+	//};
+
+	std::string s[size]
+	{
+		"................",
+		"................",
+		"................",
+		"................",
+		"................",
+		"................",
+		"................",
+		"................",
+		"................",
+		"................",
+		"................",
+		"................",
+		"................",
+		"PPPPPPPPPPPPPPPP",
+		"................",
+		"................",
+		"................",
 	};
+
 	float scale{ 3.f };
 	for (int i = 0; i < size; ++i)
 	{
 		for (int j = 0; j < s[0].size(); ++j)
 		{
+			if (s[i][j] == '.')
+				continue;
+
 			GameObject* pGameobject = new GameObject;
 			pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ j * 16.f * scale, i * 8.f * scale, 0.0f }, glm::vec3{ scale}));
 
@@ -333,10 +341,18 @@ void dae::Minigin::MakeLevel(Scene& pScene) const
 			case 'P':
 				pGameobject->AddComponent(new SpriteRendererComponent(pGameobject, "Platform.png"));
 			}
+			pGameobject->AddComponent(new ColliderComponent(pGameobject, 32.f, 4.f));
+			pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
 
 
 
 			pScene.Add(pGameobject);
+
+
+			//pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 13 * 16.f * scale, 0.f * 8.f * scale, 0.0f }, glm::vec3{ scale }));
+			//pGameobject->AddComponent(new SpriteRendererComponent(pGameobject, "Platform.png"));
+			//pGameobject->AddComponent(new ColliderComponent(pGameobject));
+			//pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
 		}
 	}
 

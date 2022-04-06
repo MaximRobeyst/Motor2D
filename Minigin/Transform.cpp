@@ -1,6 +1,8 @@
 #include "MiniginPCH.h"
 #include "Transform.h"
 #include "GameObject.h"
+#include "MovementComponent.h"
+#include <imgui.h>
 
 dae::TransformComponent::TransformComponent(GameObject* pGameobject, glm::vec3 position, glm::vec3 scale)
 	: Component{pGameobject}

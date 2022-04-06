@@ -5,6 +5,8 @@
 #include "GameObject.h"
 #include "SpriteRendererComponent.h"
 #include "Texture2D.h"
+#include "SceneManager.h"
+#include "Scene.h"
 
 dae::ColliderComponent::ColliderComponent(dae::GameObject* pGameObject)
 	: Component(pGameObject)
@@ -18,18 +20,24 @@ dae::ColliderComponent::ColliderComponent(dae::GameObject* pGameObject)
 		m_Height = pTextureComponent->GetTexture()->GetSize().y * m_pTransform->GetScale().y;
 	}
 
-	m_DynamicBox->SetAsBox(m_Width, m_Height, b2Vec2{ m_Center.x, m_Center.y }, 0.0f);
+	m_Center.x = (m_Width / 2);
+	m_Center.y = (m_Height / 2);
+	m_DynamicBox->SetAsBox(m_Width / 2, m_Height / 2, b2Vec2{ m_Center.x, m_Center.y }, 0.0f);
 }
 
 dae::ColliderComponent::ColliderComponent(dae::GameObject* pGameObject, float width, float height, glm::vec2 center)
 	: Component(pGameObject)
-	, m_Width{width}
-	, m_Height{height}
 	, m_Center{center}
 	, m_DynamicBox{ new b2PolygonShape() }
 {
 	m_pTransform = pGameObject->GetComponent<TransformComponent>();
-	m_DynamicBox->SetAsBox(m_Width, m_Height, b2Vec2{ m_Center.x, m_Center.y }, 0.0f);
+	m_Width = (width * m_pTransform->GetScale().x) / 2.f;
+	m_Height = (height * m_pTransform->GetScale().y) / 2.f;
+
+	m_Center.x = (m_Width / 2);
+	m_Center.y = (m_Height / 2);
+
+	m_DynamicBox->SetAsBox(m_Width / 2, m_Height / 2 , b2Vec2{m_Center.x, m_Center.y}, 0.0f);
 }
 
 dae::ColliderComponent::~ColliderComponent()
@@ -44,11 +52,10 @@ void dae::ColliderComponent::Update()
 void dae::ColliderComponent::Render() const
 {
 	auto pos = m_pTransform->GetPosition();
-	Renderer::GetInstance().RenderBox(pos.x, pos.y, m_Width, m_Height);
+	Renderer::GetInstance().RenderBox((pos.x + m_Center.x) - (m_Width / 2), (pos.y + m_Center.y) - (m_Height / 2), m_Width, m_Height);
 }
 
 #ifdef _DEBUG
-
 void dae::ColliderComponent::RenderGUI()
 {
 	ImGui::Text("Collider");
