@@ -25,6 +25,7 @@ private:
 
 	PlayerState m_CurrentState;
 	dae::RigidbodyComponent* m_pRigidbody;
+	dae::TransformComponent* m_pTranformComponent;
 
 };
 

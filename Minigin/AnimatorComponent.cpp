@@ -7,11 +7,11 @@ dae::AnimatorComponent::AnimatorComponent(dae::GameObject* pGameobject)
 	: Component(pGameobject)
 {
 	m_pSpriteRendererComponent = pGameobject->GetComponent<SpriteRendererComponent>();
-	auto deathAnim = new Animation(6.0f, 1);
+	auto defaultAnim = new Animation(0.5f, 5);
 
-	m_pAnimations["Death"] = deathAnim;
+	m_pAnimations["Default"] = defaultAnim;
 
-	SetAnimation("Death");
+	SetAnimation("Default");
 	m_IsPlaying = true;
 }
 
@@ -42,12 +42,18 @@ dae::Animation::Animation(float duration, float nrOfFramesPerSecond)
 	: m_Duration{duration}
 	, m_NrOfFramePerSecond{nrOfFramesPerSecond}
 {
-	AddKeyFrame(AnimationKeyframe{ 48.f, 16.f, 16.f, 16.f });
-	AddKeyFrame(AnimationKeyframe{ 64.f, 16.f, 16.f, 16.f });
-	AddKeyFrame(AnimationKeyframe{ 80.f, 16.f, 16.f, 16.f });
-	AddKeyFrame(AnimationKeyframe{ 96.f, 16.f, 16.f, 16.f });
-	AddKeyFrame(AnimationKeyframe{ 112.f, 16.f, 16.f, 16.f });
-	AddKeyFrame(AnimationKeyframe{ 128.f, 16.f, 16.f, 16.f });
+	// Death!
+	//AddKeyFrame(AnimationKeyframe{ 48.f, 16.f, 16.f, 16.f });
+	//AddKeyFrame(AnimationKeyframe{ 64.f, 16.f, 16.f, 16.f });
+	//AddKeyFrame(AnimationKeyframe{ 80.f, 16.f, 16.f, 16.f });
+	//AddKeyFrame(AnimationKeyframe{ 96.f, 16.f, 16.f, 16.f });
+	//AddKeyFrame(AnimationKeyframe{ 112.f, 16.f, 16.f, 16.f });
+	//AddKeyFrame(AnimationKeyframe{ 128.f, 16.f, 16.f, 16.f });
+
+	// WalkLeft
+	AddKeyFrame(AnimationKeyframe{ 48.f, 0.f, 16.f, 16.f });
+	AddKeyFrame(AnimationKeyframe{ 64.f, 0.f, 16.f, 16.f });
+	AddKeyFrame(AnimationKeyframe{ 80.f, 0.f, 16.f, 16.f });
 
 	m_CurrentKeyframe = m_KeyFrames[0];
 }
