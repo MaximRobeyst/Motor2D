@@ -31,8 +31,8 @@ dae::ColliderComponent::ColliderComponent(dae::GameObject* pGameObject, float wi
 	, m_DynamicBox{ new b2PolygonShape() }
 {
 	m_pTransform = pGameObject->GetComponent<TransformComponent>();
-	m_Width = (width * m_pTransform->GetScale().x) / 2.f;
-	m_Height = (height * m_pTransform->GetScale().y) / 2.f;
+	m_Width = (width * m_pTransform->GetScale().x);
+	m_Height = (height * m_pTransform->GetScale().y);
 
 	m_Center.x = (m_Width / 2);
 	m_Center.y = (m_Height / 2);

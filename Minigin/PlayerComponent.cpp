@@ -32,9 +32,6 @@ void PlayerComponent::UpdateDefault()
 	// TODO: make axis support
 	// TODO: give transform & rigidbody struct to make it easier to change values within them
 	m_pRigidbody->SetVelocity((int)(keyboard->IsPressed(SDLK_d) - keyboard->IsPressed(SDLK_a)) * 100.f * glm::vec2(1, 0));
-
-
-
 }
 
 void PlayerComponent::UpdateClimbing()

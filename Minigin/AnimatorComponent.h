@@ -1,5 +1,6 @@
 #pragma once
 #include "Component.h"
+#include "SpriteRendererComponent.h"
 #include <map>
 
 namespace dae
@@ -13,20 +14,23 @@ namespace dae
 	{
 	public:
 		AnimatorComponent(dae::GameObject* pGameobject);
+		~AnimatorComponent();
 
 		void Update() override;
 
 		void SetAnimation(const std::string& name);
 	private:
-		std::map<std::string, Animation*> m_Animations;
+		std::map<std::string, Animation*> m_pAnimations;
 		Animation* m_CurrentAnimation{ nullptr };
 
 		bool m_IsPlaying{ false };
+
+		SpriteRendererComponent* m_pSpriteRendererComponent;
 	};
 
 	class Animation
 	{
-		class AnimationKeyframe
+		struct AnimationKeyframe
 		{
 			float x;
 			float y;
@@ -35,16 +39,25 @@ namespace dae
 		};
 
 	public:
+		Animation(float duration, float nrOfFramesPerSecond);
+
+		void Update();
+
 		void AddKeyFrame(const AnimationKeyframe& keyframe);
 
 		size_t GetNrOfKeyFrames() const;
 		AnimationKeyframe GetKeyFrame(int index) const;
+		SDL_FRect GetCurrentKeyFrameRect() const;
 
 	private:
 		AnimationKeyframe m_CurrentKeyframe;
 
 		std::vector<AnimationKeyframe> m_KeyFrames{};
 		float m_Duration;
+		float m_NrOfFramePerSecond;
+
+		float m_AnimTime{ 0.0f };
+		int m_CurrentKeyIndex{ 0 };
 	};
 }
 

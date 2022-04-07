@@ -16,11 +16,14 @@ namespace dae
 		SDL_Color m_clearColor{};	
 	public:
 		void Init(SDL_Window* window);
-		void Render();
+		void Render() const;
 		void Destroy();
 
 		void RenderTexture(const Texture2D& texture, float x, float y) const;
 		void RenderTexture(const Texture2D& texture, float x, float y, float width, float height) const;
+		void RenderTexture(const Texture2D& texture, const SDL_FRect& srcRect, const SDL_FRect& dstRect) const;
+		void RenderTexture(const Texture2D& texture, const SDL_FRect& srcRect, float x, float y, float width, float height) const;
+
 		void RenderBox(float x, float y, float width, float height) const;
 
 		SDL_Renderer* GetSDLRenderer() const { return m_Renderer; }

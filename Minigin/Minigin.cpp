@@ -25,6 +25,7 @@
 #include "Collider.h"
 #include "RigidbodyComponent.h"
 #include "PlayerComponent.h"
+#include "AnimatorComponent.h"
 
 #include "Observer.h"
 #include "Subject.h"
@@ -105,11 +106,12 @@ void dae::Minigin::LoadGame() const
 	auto pPeperGameObject = new GameObject();
 
 	pPeperGameObject->AddComponent(new TransformComponent(pPeperGameObject, glm::vec3{100, 100, 0}, glm::vec3{2.f}));
-	pPeperGameObject->AddComponent(new SpriteRendererComponent(pPeperGameObject, "MainCharacter.png"));
+	pPeperGameObject->AddComponent(new SpriteRendererComponent(pPeperGameObject, "BurgerTime_SpriteSheet.png"));
+	pPeperGameObject->AddComponent(new AnimatorComponent(pPeperGameObject));
 	//pPeperGameObject->AddComponent(new MovementComponent(pPeperGameObject, 100.f));
 	auto pLifeComponent = new LifeComponent{ pPeperGameObject, 3 };
 	pPeperGameObject->AddComponent(pLifeComponent);
-	pPeperGameObject->AddComponent(new ColliderComponent(pPeperGameObject));
+	pPeperGameObject->AddComponent(new ColliderComponent(pPeperGameObject, 16.f, 16.f));
 	pPeperGameObject->AddComponent(new RigidbodyComponent(pPeperGameObject, b2_dynamicBody, 1.f, 1.f));
 	pPeperGameObject->AddComponent(new PlayerComponent(pPeperGameObject));
 	scene.Add(pPeperGameObject);
