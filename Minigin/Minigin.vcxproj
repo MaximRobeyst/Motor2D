@@ -209,6 +209,7 @@ xcopy $(Solutiondir)3rdParty\SDL2_ttf\lib\x64\*.dll $(OutputPath) /Y</Command>
     <ClInclude Include="..\3rdParty\imgui-1.86\imstb_textedit.h" />
     <ClInclude Include="..\3rdParty\imgui-1.86\imstb_truetype.h" />
     <ClInclude Include="AchievementComponent.h" />
+    <ClInclude Include="AnimatorComponent.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="CSteamAchievements.h" />
     <ClInclude Include="Command.h" />
@@ -227,6 +228,7 @@ xcopy $(Solutiondir)3rdParty\SDL2_ttf\lib\x64\*.dll $(OutputPath) /Y</Command>
     <ClInclude Include="MovementComponent.h" />
     <ClInclude Include="LifeDisplayComponent.h" />
     <ClInclude Include="Observer.h" />
+    <ClInclude Include="PlayerComponent.h" />
     <ClInclude Include="RigidbodyComponent.h" />
     <ClInclude Include="SceneObject.h" />
     <ClInclude Include="Renderer.h" />
@@ -301,6 +303,7 @@ xcopy $(Solutiondir)3rdParty\SDL2_ttf\lib\x64\*.dll $(OutputPath) /Y</Command>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="AchievementComponent.cpp" />
+    <ClCompile Include="AnimatorComponent.cpp" />
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="CSteamAchievements.cpp">
       <TreatWarningAsError Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</TreatWarningAsError>
@@ -328,6 +331,7 @@ xcopy $(Solutiondir)3rdParty\SDL2_ttf\lib\x64\*.dll $(OutputPath) /Y</Command>
     </ClCompile>
     <ClCompile Include="MovementComponent.cpp" />
     <ClCompile Include="LifeDisplayComponent.cpp" />
+    <ClCompile Include="PlayerComponent.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="RigidbodyComponent.cpp" />

@@ -24,6 +24,7 @@
 #include "AchievementComponent.h"
 #include "Collider.h"
 #include "RigidbodyComponent.h"
+#include "PlayerComponent.h"
 
 #include "Observer.h"
 #include "Subject.h"
@@ -105,11 +106,12 @@ void dae::Minigin::LoadGame() const
 
 	pPeperGameObject->AddComponent(new TransformComponent(pPeperGameObject, glm::vec3{100, 100, 0}, glm::vec3{2.f}));
 	pPeperGameObject->AddComponent(new SpriteRendererComponent(pPeperGameObject, "MainCharacter.png"));
-	pPeperGameObject->AddComponent(new MovementComponent(pPeperGameObject, 100.f));
+	//pPeperGameObject->AddComponent(new MovementComponent(pPeperGameObject, 100.f));
 	auto pLifeComponent = new LifeComponent{ pPeperGameObject, 3 };
 	pPeperGameObject->AddComponent(pLifeComponent);
 	pPeperGameObject->AddComponent(new ColliderComponent(pPeperGameObject));
 	pPeperGameObject->AddComponent(new RigidbodyComponent(pPeperGameObject, b2_dynamicBody, 1.f, 1.f));
+	pPeperGameObject->AddComponent(new PlayerComponent(pPeperGameObject));
 	scene.Add(pPeperGameObject);
 
 	go = new GameObject();
@@ -165,22 +167,22 @@ void dae::Minigin::LoadGame() const
 
 	auto keyboard = input.GetKeyboard();
 	keyboard->AddKeyboardMapping(KeyboardKeyData{ SDLK_q, KeyState::JustUp }, std::make_unique<KillCommand>(pLifeComponent2));
-	keyboard->AddKeyboardMapping(
-		KeyboardKeyData{ SDLK_s, KeyState::Hold },
-		std::make_unique<MoveCommand>(pPeperGameObject->GetComponent<RigidbodyComponent>(), glm::vec2{ 0,1}, 10.f)
-	);
-	keyboard->AddKeyboardMapping(
-		KeyboardKeyData{ SDLK_w, KeyState::Hold },
-		std::make_unique<MoveCommand>(pPeperGameObject->GetComponent<RigidbodyComponent>(), glm::vec2{ 0,-1}, 10.f)
-	);
-	keyboard->AddKeyboardMapping(
-		KeyboardKeyData{ SDLK_d, KeyState::Hold },
-		std::make_unique<MoveCommand>(pPeperGameObject->GetComponent<RigidbodyComponent>(), glm::vec2{ 1,0}, 10.f)
-	);
-	keyboard->AddKeyboardMapping(
-		KeyboardKeyData{ SDLK_a, KeyState::Hold },
-		std::make_unique<MoveCommand>(pPeperGameObject->GetComponent<RigidbodyComponent>(), glm::vec2{ -1,0}, 10.f)
-	);
+	//keyboard->AddKeyboardMapping(
+	//	KeyboardKeyData{ SDLK_s, KeyState::Hold },
+	//	std::make_unique<MoveCommand>(pPeperGameObject->GetComponent<RigidbodyComponent>(), glm::vec2{ 0,1}, 10.f)
+	//);
+	//keyboard->AddKeyboardMapping(
+	//	KeyboardKeyData{ SDLK_w, KeyState::Hold },
+	//	std::make_unique<MoveCommand>(pPeperGameObject->GetComponent<RigidbodyComponent>(), glm::vec2{ 0,-1}, 10.f)
+	//);
+	//keyboard->AddKeyboardMapping(
+	//	KeyboardKeyData{ SDLK_d, KeyState::Hold },
+	//	std::make_unique<MoveCommand>(pPeperGameObject->GetComponent<RigidbodyComponent>(), glm::vec2{ 1,0}, 10.f)
+	//);
+	//keyboard->AddKeyboardMapping(
+	//	KeyboardKeyData{ SDLK_a, KeyState::Hold },
+	//	std::make_unique<MoveCommand>(pPeperGameObject->GetComponent<RigidbodyComponent>(), glm::vec2{ -1,0}, 10.f)
+	//);
 
 	std::shared_ptr<Xbox360Controller> controller = std::make_shared<Xbox360Controller>(0);
 	controller->AddControllerMapping(ControllerButtonData{ ControllerButton::ButtonA, ButtonState::Up }, std::make_unique<KillCommand>(pLifeComponent));

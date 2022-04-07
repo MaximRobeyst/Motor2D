@@ -156,6 +156,12 @@
     <ClInclude Include="RigidbodyComponent.h">
       <Filter>Component Files</Filter>
     </ClInclude>
+    <ClInclude Include="PlayerComponent.h">
+      <Filter>Game Files\Game Components</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimatorComponent.h">
+      <Filter>Component Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MiniginPCH.cpp">
@@ -270,6 +276,12 @@
       <Filter>Component Files</Filter>
     </ClCompile>
     <ClCompile Include="RigidbodyComponent.cpp">
+      <Filter>Component Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerComponent.cpp">
+      <Filter>Game Files\Game Components</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimatorComponent.cpp">
       <Filter>Component Files</Filter>
     </ClCompile>
   </ItemGroup>

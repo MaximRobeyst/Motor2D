@@ -1,7 +1,6 @@
 #pragma once
 #include <map>
-
-class Command;
+#include "Command.h"
 
 enum class KeyboardAndMouseButton
 {
