@@ -3,15 +3,31 @@
 #include "Time.h"
 #include "GameObject.h"
 
-dae::AnimatorComponent::AnimatorComponent(dae::GameObject* pGameobject)
+#include <fstream>
+#include <istreamwrapper.h>
+
+dae::AnimatorComponent::AnimatorComponent(dae::GameObject* pGameobject, const std::string& filename)
 	: Component(pGameobject)
 {
 	m_pSpriteRendererComponent = pGameobject->GetComponent<SpriteRendererComponent>();
-	auto defaultAnim = new Animation(0.5f, 5);
 
-	m_pAnimations["Default"] = defaultAnim;
+	if (std::ifstream anim{ filename })
+	{
+		rapidjson::IStreamWrapper isw{ anim };
 
-	SetAnimation("Default");
+		rapidjson::Document animationFile;
+		animationFile.ParseStream(isw);
+
+		for (auto iter = animationFile.Begin(); iter != animationFile.End(); ++iter)
+		{
+			const rapidjson::Value& animation = *iter;
+
+			const rapidjson::Value& animationName = animation["name"];
+			m_pAnimations[animationName.GetString()] = new Animation(animation["duration"].GetFloat(), animation["framesPerSeconds"].GetFloat(), animation["keyframes"]);
+		}
+	}
+
+	SetAnimation("Idle");
 	m_IsPlaying = true;
 }
 
@@ -35,13 +51,29 @@ void dae::AnimatorComponent::Update()
 
 void dae::AnimatorComponent::SetAnimation(const std::string& name)
 {
+	if (m_CurrentAnimation == m_pAnimations[name]) return;
+
 	m_CurrentAnimation = m_pAnimations[name];
 }
 
-dae::Animation::Animation(float duration, float nrOfFramesPerSecond)
+dae::Animation::Animation(float duration, float nrOfFramesPerSecond, const rapidjson::Value& keyframes)
 	: m_Duration{duration}
 	, m_NrOfFramePerSecond{nrOfFramesPerSecond}
 {
+	for (auto iter = keyframes.Begin(); iter != keyframes.End(); ++iter)
+	{
+		const rapidjson::Value& keyframe = *iter;
+
+		AddKeyFrame(
+			AnimationKeyframe{
+				keyframe["x"].GetFloat(),
+				keyframe["y"].GetFloat(),
+				keyframe["w"].GetFloat(),
+				keyframe["h"].GetFloat()
+			}
+		);
+	}
+
 	// Death!
 	//AddKeyFrame(AnimationKeyframe{ 48.f, 16.f, 16.f, 16.f });
 	//AddKeyFrame(AnimationKeyframe{ 64.f, 16.f, 16.f, 16.f });
@@ -51,9 +83,9 @@ dae::Animation::Animation(float duration, float nrOfFramesPerSecond)
 	//AddKeyFrame(AnimationKeyframe{ 128.f, 16.f, 16.f, 16.f });
 
 	// WalkLeft
-	AddKeyFrame(AnimationKeyframe{ 48.f, 0.f, 16.f, 16.f });
-	AddKeyFrame(AnimationKeyframe{ 64.f, 0.f, 16.f, 16.f });
-	AddKeyFrame(AnimationKeyframe{ 80.f, 0.f, 16.f, 16.f });
+	//AddKeyFrame(AnimationKeyframe{ 48.f, 0.f, 16.f, 16.f });
+	//AddKeyFrame(AnimationKeyframe{ 64.f, 0.f, 16.f, 16.f });
+	//AddKeyFrame(AnimationKeyframe{ 80.f, 0.f, 16.f, 16.f });
 
 	m_CurrentKeyframe = m_KeyFrames[0];
 }

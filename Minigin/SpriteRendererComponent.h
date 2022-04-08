@@ -22,6 +22,8 @@ namespace dae
 		void SetSampleRectangle(const SDL_FRect& sampleRect);
 		SDL_FRect& GetSampleRectangle();
 
+		void SetFlip(bool newValue) { m_Flip = newValue; }
+
 		void Render() const override;
 	private:
 		// member functions
@@ -31,5 +33,7 @@ namespace dae
 		TransformComponent* m_pTransformComponent;
 		std::shared_ptr<Texture2D> m_pTexture;
 		SDL_FRect m_SampleRectangle{};
+		
+		bool m_Flip{ false };
 	};
 }

@@ -1,6 +1,7 @@
 #pragma once
 #include "Component.h"
 #include "RigidbodyComponent.h"
+#include "AnimatorComponent.h"
 
 class PlayerComponent : public dae::Component
 {
@@ -24,8 +25,10 @@ private:
 	void UpdateDying();
 
 	PlayerState m_CurrentState;
+
 	dae::RigidbodyComponent* m_pRigidbody;
 	dae::TransformComponent* m_pTranformComponent;
+	dae::AnimatorComponent* m_pAnimatorComponent;
 
 };
 

@@ -3,6 +3,9 @@
 #include "SpriteRendererComponent.h"
 #include <map>
 
+#include "rapidjson.h"
+#include "document.h"
+
 namespace dae
 {
 	// the animator component holds all animations
@@ -13,7 +16,7 @@ namespace dae
 	class AnimatorComponent : public Component
 	{
 	public:
-		AnimatorComponent(dae::GameObject* pGameobject);
+		AnimatorComponent(dae::GameObject* pGameobject, const std::string& filename);
 		~AnimatorComponent();
 
 		void Update() override;
@@ -39,7 +42,7 @@ namespace dae
 		};
 
 	public:
-		Animation(float duration, float nrOfFramesPerSecond);
+		Animation(float duration, float nrOfFramesPerSecond, const rapidjson::Value& keyframes);
 
 		void Update();
 

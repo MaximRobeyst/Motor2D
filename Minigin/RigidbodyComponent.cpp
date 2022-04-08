@@ -32,9 +32,11 @@ dae::RigidbodyComponent::RigidbodyComponent(dae::GameObject* pGameobject, b2Body
 
 void dae::RigidbodyComponent::Update()
 {
+	m_pBody->SetLinearVelocity(m_RigidBody.velocity);
 	auto transform = m_pBody->GetTransform();
 	m_pTransformComponent->SetPosition(transform.p.x, transform.p.y, 0.0f);
 
+	m_RigidBody.velocity = m_pBody->GetLinearVelocity();
 }
 
 void dae::RigidbodyComponent::Render() const
@@ -43,5 +45,12 @@ void dae::RigidbodyComponent::Render() const
 
 void dae::RigidbodyComponent::SetVelocity(glm::vec2 velocity)
 {
-	m_pBody->SetLinearVelocity( b2Vec2{velocity.x, velocity.y} );
+	m_RigidBody.velocity = b2Vec2{ velocity.x, velocity.y } + m_pBody->GetLinearVelocity();
+
+	m_pBody->SetLinearVelocity( m_RigidBody.velocity );
+}
+
+dae::RigidbodyComponent::RigidBody& dae::RigidbodyComponent::GetRigidbody()
+{
+	return m_RigidBody;
 }

@@ -107,7 +107,7 @@ void dae::Minigin::LoadGame() const
 
 	pPeperGameObject->AddComponent(new TransformComponent(pPeperGameObject, glm::vec3{100, 100, 0}, glm::vec3{2.f}));
 	pPeperGameObject->AddComponent(new SpriteRendererComponent(pPeperGameObject, "BurgerTime_SpriteSheet.png"));
-	pPeperGameObject->AddComponent(new AnimatorComponent(pPeperGameObject));
+	pPeperGameObject->AddComponent(new AnimatorComponent(pPeperGameObject, "../Data/Animations/PlayerAnimations.json"));
 	//pPeperGameObject->AddComponent(new MovementComponent(pPeperGameObject, 100.f));
 	auto pLifeComponent = new LifeComponent{ pPeperGameObject, 3 };
 	pPeperGameObject->AddComponent(pLifeComponent);
@@ -322,7 +322,7 @@ void dae::Minigin::MakeLevel(Scene& pScene) const
 	float scale{ 3.f };
 	for (int i = 0; i < size; ++i)
 	{
-		for (int j = 0; j < s[0].size(); ++j)
+		for (size_t j = 0; j < s[0].size(); ++j)
 		{
 			if (s[i][j] == '.')
 				continue;

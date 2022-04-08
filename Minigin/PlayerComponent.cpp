@@ -9,6 +9,7 @@ PlayerComponent::PlayerComponent(dae::GameObject* pGameobject)
 {
 	m_pRigidbody = pGameobject->GetComponent<dae::RigidbodyComponent>();
 	m_pTranformComponent = pGameobject->GetComponent<dae::TransformComponent>();
+	m_pAnimatorComponent = pGameobject->GetComponent<dae::AnimatorComponent>();
 }
 
 void PlayerComponent::Update()
@@ -34,8 +35,12 @@ void PlayerComponent::UpdateDefault()
 	// TODO: make axis support
 	// TODO: give transform & rigidbody struct to make it easier to change values within them
 	int keyPress = (int)(keyboard->IsPressed(SDLK_d) - keyboard->IsPressed(SDLK_a));
-	m_pRigidbody->SetVelocity(keyPress * 100.f * glm::vec2(1, 0));
+	m_pRigidbody->GetRigidbody().velocity.x = (keyPress * 100.f );
 
+	if ((keyPress >= 0 && m_pTranformComponent->GetScale().x > 0) || (keyPress <= -1 && m_pTranformComponent->GetScale().x < 0)) m_pTranformComponent->GetTransform().scale.x *= -1;
+
+	if (keyPress != 0) m_pAnimatorComponent->SetAnimation("WalkLeft");
+	else m_pAnimatorComponent->SetAnimation("Idle");
 }
 
 void PlayerComponent::UpdateClimbing()

@@ -41,7 +41,7 @@ void dae::SpriteRendererComponent::Render() const
 	if (IsSampleRectEmpty())
 		Renderer::GetInstance().RenderTexture(*m_pTexture, pos.x, pos.y, textureSize.x * scale.x, textureSize.y * scale.y);
 	else
-		Renderer::GetInstance().RenderTexture(*m_pTexture, m_SampleRectangle, pos.x, pos.y, m_SampleRectangle.w * scale.x, m_SampleRectangle.h * scale.y);
+		Renderer::GetInstance().RenderTexture(*m_pTexture, m_SampleRectangle, pos.x, pos.y, m_SampleRectangle.w * abs(scale.x), m_SampleRectangle.h * abs(scale.y), scale.x < 0);
 }
 
 bool dae::SpriteRendererComponent::IsSampleRectEmpty() const

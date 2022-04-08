@@ -1,0 +1,89 @@
+[
+    {
+        "name" : "Idle",
+        "duration" : 1,
+        "framesPerSeconds" : 5,
+        "looping" : true,
+        "keyframes" : 
+        [
+            {
+                "x" : 16,
+                "y" : 0,
+                "w" : 16,
+                "h" : 16
+            }
+        ]
+    },
+    {
+        "name" : "Death",
+        "duration" : 0.5,
+        "framesPerSeconds" : 5,
+        "looping" : false,
+        "keyframes" : 
+        [
+            {
+                "x" : 48,
+                "y" : 16,
+                "w" : 16,
+                "h" : 16
+            },
+            {
+                "x" : 64,
+                "y" : 16,
+                "w" : 16,
+                "h" : 16
+            },
+            {
+                "x" : 80,
+                "y" : 16,
+                "w" : 16,
+                "h" : 16
+            },
+            {
+                "x" : 96,
+                "y" : 16,
+                "w" : 16,
+                "h" : 16
+            },
+            {
+                "x" : 112,
+                "y" : 16,
+                "w" : 16,
+                "h" : 16
+            },
+            {
+                "x" : 128,
+                "y" : 16,
+                "w" : 16,
+                "h" : 16
+            }
+        ]
+    },
+    {
+        "name" : "WalkLeft",
+        "duration" : 0.5,
+        "framesPerSeconds" : 5,
+        "looping" : false,
+        "keyframes" : 
+        [
+            {
+                "x" : 48,
+                "y" : 0,
+                "w" : 16,
+                "h" : 16
+            },
+            {
+                "x" : 64,
+                "y" : 0,
+                "w" : 16,
+                "h" : 16
+            },
+            {
+                "x" : 80,
+                "y" : 0,
+                "w" : 16,
+                "h" : 16
+            }
+        ]
+    }
+]
