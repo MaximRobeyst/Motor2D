@@ -19,9 +19,6 @@
     <Filter Include="Game Files">
       <UniqueIdentifier>{2ce718b3-975b-40d5-aa35-aaf12e00b65a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game Files\Game Components">
-      <UniqueIdentifier>{3a5f53c8-b04f-4961-868f-d287018e8f90}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine Files\Input">
       <UniqueIdentifier>{f0494122-00a0-4074-a99e-73fbe95a5188}</UniqueIdentifier>
     </Filter>
@@ -72,7 +69,7 @@
     <ClInclude Include="FPSComponent.h">
       <Filter>Component Files</Filter>
     </ClInclude>
-    <ClInclude Include="Time.h">
+    <ClInclude Include="GameTime.h">
       <Filter>Engine Files</Filter>
     </ClInclude>
     <ClInclude Include="..\3rdParty\imgui-1.86\imconfig.h">
@@ -105,9 +102,6 @@
     <ClInclude Include="Observer.h">
       <Filter>Game Files</Filter>
     </ClInclude>
-    <ClInclude Include="LifeComponent.h">
-      <Filter>Game Files\Game Components</Filter>
-    </ClInclude>
     <ClInclude Include="InputManager.h">
       <Filter>Engine Files\Input</Filter>
     </ClInclude>
@@ -123,29 +117,14 @@
     <ClInclude Include="Controller.h">
       <Filter>Engine Files\Input</Filter>
     </ClInclude>
-    <ClInclude Include="MovementComponent.h">
-      <Filter>Game Files\Game Components</Filter>
-    </ClInclude>
     <ClInclude Include="Keyboard.h">
       <Filter>Engine Files\Input</Filter>
-    </ClInclude>
-    <ClInclude Include="LifeDisplayComponent.h">
-      <Filter>Game Files\Game Components</Filter>
     </ClInclude>
     <ClInclude Include="Event.h">
       <Filter>Game Files</Filter>
     </ClInclude>
-    <ClInclude Include="FoodComponent.h">
-      <Filter>Game Files\Game Components</Filter>
-    </ClInclude>
-    <ClInclude Include="ScoreDisplayComponent.h">
-      <Filter>Game Files\Game Components</Filter>
-    </ClInclude>
     <ClInclude Include="CSteamAchievements.h">
       <Filter>Engine Files</Filter>
-    </ClInclude>
-    <ClInclude Include="AchievementComponent.h">
-      <Filter>Game Files\Game Components</Filter>
     </ClInclude>
     <ClInclude Include="Collider.h">
       <Filter>Component Files</Filter>
@@ -155,9 +134,6 @@
     </ClInclude>
     <ClInclude Include="RigidbodyComponent.h">
       <Filter>Component Files</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerComponent.h">
-      <Filter>Game Files\Game Components</Filter>
     </ClInclude>
     <ClInclude Include="AnimatorComponent.h">
       <Filter>Component Files</Filter>
@@ -182,9 +158,6 @@
     <ClCompile Include="Font.cpp">
       <Filter>Engine Files</Filter>
     </ClCompile>
-    <ClCompile Include="Main.cpp">
-      <Filter>Engine Files</Filter>
-    </ClCompile>
     <ClCompile Include="Minigin.cpp">
       <Filter>Engine Files</Filter>
     </ClCompile>
@@ -203,7 +176,7 @@
     <ClCompile Include="FPSComponent.cpp">
       <Filter>Component Files</Filter>
     </ClCompile>
-    <ClCompile Include="Time.cpp">
+    <ClCompile Include="GameTime.cpp">
       <Filter>Engine Files</Filter>
     </ClCompile>
     <ClCompile Include="SpriteRendererComponent.cpp">
@@ -233,9 +206,6 @@
     <ClCompile Include="..\3rdParty\imgui-1.86\imgui_plot.cpp">
       <Filter>ImGui</Filter>
     </ClCompile>
-    <ClCompile Include="LifeComponent.cpp">
-      <Filter>Game Files\Game Components</Filter>
-    </ClCompile>
     <ClCompile Include="InputManager.cpp">
       <Filter>Engine Files\Input</Filter>
     </ClCompile>
@@ -251,35 +221,17 @@
     <ClCompile Include="Controller.cpp">
       <Filter>Engine Files\Input</Filter>
     </ClCompile>
-    <ClCompile Include="MovementComponent.cpp">
-      <Filter>Game Files\Game Components</Filter>
-    </ClCompile>
     <ClCompile Include="Keyboard.cpp">
       <Filter>Engine Files\Input</Filter>
     </ClCompile>
-    <ClCompile Include="LifeDisplayComponent.cpp">
-      <Filter>Game Files\Game Components</Filter>
-    </ClCompile>
-    <ClCompile Include="FoodComponent.cpp">
-      <Filter>Game Files\Game Components</Filter>
-    </ClCompile>
-    <ClCompile Include="ScoreDisplayComponent.cpp">
-      <Filter>Game Files\Game Components</Filter>
-    </ClCompile>
     <ClCompile Include="CSteamAchievements.cpp">
       <Filter>Engine Files</Filter>
-    </ClCompile>
-    <ClCompile Include="AchievementComponent.cpp">
-      <Filter>Game Files\Game Components</Filter>
     </ClCompile>
     <ClCompile Include="Collider.cpp">
       <Filter>Component Files</Filter>
     </ClCompile>
     <ClCompile Include="RigidbodyComponent.cpp">
       <Filter>Component Files</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerComponent.cpp">
-      <Filter>Game Files\Game Components</Filter>
     </ClCompile>
     <ClCompile Include="AnimatorComponent.cpp">
       <Filter>Component Files</Filter>

@@ -35,7 +35,7 @@ void PlayerComponent::UpdateDefault()
 	// TODO: make axis support
 	// TODO: give transform & rigidbody struct to make it easier to change values within them
 	int keyPress = (int)(keyboard->IsPressed(SDLK_d) - keyboard->IsPressed(SDLK_a));
-	m_pRigidbody->GetRigidbody().velocity.x = (keyPress * 100.f );
+	m_pRigidbody->AddForce(glm::vec2{ (keyPress * 100.f), 0 });
 
 	if ((keyPress >= 0 && m_pTranformComponent->GetScale().x > 0) || (keyPress <= -1 && m_pTranformComponent->GetScale().x < 0)) m_pTranformComponent->GetTransform().scale.x *= -1;
 

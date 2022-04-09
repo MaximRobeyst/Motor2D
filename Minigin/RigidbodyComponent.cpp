@@ -43,11 +43,16 @@ void dae::RigidbodyComponent::Render() const
 {
 }
 
-void dae::RigidbodyComponent::SetVelocity(glm::vec2 velocity)
+void dae::RigidbodyComponent::SetVelocity(const glm::vec2& velocity)
 {
 	m_RigidBody.velocity = b2Vec2{ velocity.x, velocity.y } + m_pBody->GetLinearVelocity();
 
 	m_pBody->SetLinearVelocity( m_RigidBody.velocity );
+}
+
+void dae::RigidbodyComponent::AddForce(const glm::vec2& force)
+{
+	m_pBody->ApplyForce(b2Vec2{force.x, force.y}, m_pBody->GetPosition(), true);
 }
 
 dae::RigidbodyComponent::RigidBody& dae::RigidbodyComponent::GetRigidbody()

@@ -1,8 +1,8 @@
 #include "MiniginPCH.h"
 #include "Command.h"
 
-#include "LifeComponent.h"
-#include "FoodComponent.h"
+//#include "LifeComponent.h"
+//#include "FoodComponent.h"
 
 #include "Time.h"
 
@@ -26,15 +26,15 @@ void FartCommand::Execute()
 	std::cout << "Fart" << std::endl;
 }
 
-KillCommand::KillCommand(LifeComponent* pLifeTarget)
-	:m_pLifeTarget{ pLifeTarget }
-{
-}
-
-void KillCommand::Execute()
-{
-	m_pLifeTarget->Hit();
-}
+//KillCommand::KillCommand(LifeComponent* pLifeTarget)
+//	:m_pLifeTarget{ pLifeTarget }
+//{
+//}
+//
+//void KillCommand::Execute()
+//{
+//	//m_pLifeTarget->Hit();
+//}
 
 FallCommand::FallCommand(FoodComponent* pFoodComponent)
 	: m_pFoodComponent(pFoodComponent)
@@ -43,7 +43,7 @@ FallCommand::FallCommand(FoodComponent* pFoodComponent)
 
 void FallCommand::Execute()
 {
-	m_pFoodComponent->SetFalling(true);
+	//m_pFoodComponent->SetFalling(true);
 }
 
 MoveCommand::MoveCommand(dae::RigidbodyComponent* pTransformComponent, glm::vec2 movement, float speed)

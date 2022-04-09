@@ -1,6 +1,6 @@
 #include "MiniginPCH.h"
 #include "AnimatorComponent.h"
-#include "Time.h"
+#include "GameTime.h"
 #include "GameObject.h"
 
 #include <fstream>
@@ -92,7 +92,7 @@ dae::Animation::Animation(float duration, float nrOfFramesPerSecond, const rapid
 
 void dae::Animation::Update()
 {
-	m_AnimTime += Time::GetInstance()->GetElapsed();
+	m_AnimTime += GameTime::GetInstance()->GetElapsed();
 
 	if (m_AnimTime >= (1.0f / m_NrOfFramePerSecond))
 	{

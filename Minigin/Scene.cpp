@@ -2,7 +2,7 @@
 #include "Scene.h"
 #include "GameObject.h"
 #include <imgui.h>
-#include "Time.h"
+#include "GameTime.h"
 
 using namespace dae;
 
@@ -34,7 +34,7 @@ std::shared_ptr<b2World> dae::Scene::GetPhysicsWorld() const
 
 void Scene::Update()
 {
-	m_PhysicsWorld->Step(Time::GetInstance()->GetElapsed(), 6, 2);
+	m_PhysicsWorld->Step(GameTime::GetInstance()->GetElapsed(), 6, 2);
 	for(auto& object : m_pObjects)
 	{
 		object->Update();

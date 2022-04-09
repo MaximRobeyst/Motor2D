@@ -20,7 +20,8 @@ namespace dae
 		void Update() override;
 		void Render() const override;
 
-		void SetVelocity(glm::vec2 velocity);
+		void SetVelocity(const glm::vec2& velocity);
+		void AddForce(const glm::vec2& force);
 
 		RigidBody& GetRigidbody();
 
