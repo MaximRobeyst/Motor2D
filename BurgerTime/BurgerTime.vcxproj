@@ -24,6 +24,7 @@
     <ClCompile Include="LifeComponent.cpp" />
     <ClCompile Include="LifeDisplayComponent.cpp" />
     <ClCompile Include="MovementComponent.cpp" />
+    <ClCompile Include="MrHotDogComponent.cpp" />
     <ClCompile Include="PlayerComponent.cpp" />
     <ClCompile Include="ScoreDisplayComponent.cpp" />
   </ItemGroup>
@@ -32,6 +33,7 @@
     <ClInclude Include="LifeComponent.h" />
     <ClInclude Include="LifeDisplayComponent.h" />
     <ClInclude Include="MovementComponent.h" />
+    <ClInclude Include="MrHotDogComponent.h" />
     <ClInclude Include="PlayerComponent.h" />
     <ClInclude Include="ScoreDisplayComponent.h" />
   </ItemGroup>

@@ -1,6 +1,7 @@
 #pragma once
 #include "Component.h"
 #include <box2d.h>
+#include <functional>
 
 // https://box2d.org/documentation/index.html
 namespace dae
@@ -10,20 +11,19 @@ namespace dae
 	class RigidbodyComponent : public Component
 	{
 	public:
-		struct RigidBody
-		{
-			b2Vec2 velocity;
-		};
-
-		RigidbodyComponent(dae::GameObject* pGameobject, b2BodyType bodyType = b2_dynamicBody, float density = 1.0f, float friction = 0.3f);
+		RigidbodyComponent(dae::GameObject* pGameobject, b2BodyType bodyType = b2_kinematicBody, float density = 1.0f, float friction = 0.3f);
+		~RigidbodyComponent();
 
 		void Update() override;
 		void Render() const override;
 
-		void SetVelocity(const glm::vec2& velocity);
-		void AddForce(const glm::vec2& force);
+		void OnBeginContact(RigidbodyComponent* pOtherBody, b2Contact* pContact);
+		void OnEndContact(RigidbodyComponent* pOtherBody, b2Contact* pContact);
 
-		RigidBody& GetRigidbody();
+		void SetOnEnterFunction(std::function<void(RigidbodyComponent*, b2Contact*)> newOnEnterFunction);
+		void SetOnExitFunction(std::function<void(RigidbodyComponent*, b2Contact*)> newOnEnterFunction);
+
+		GameObject* GetGameobject() const;
 
 	private:
 		b2Body* m_pBody;
@@ -33,7 +33,8 @@ namespace dae
 
 		std::shared_ptr<b2World> m_pWorld;
 
-		RigidBody m_RigidBody{};
+		std::function<void(RigidbodyComponent*, b2Contact*)> m_OnEnterFunction{};
+		std::function<void(RigidbodyComponent*, b2Contact*)> m_OnExitFunction{};
 
 		float m_Density{};
 		float m_Friction{};

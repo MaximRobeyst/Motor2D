@@ -55,5 +55,5 @@ MoveCommand::MoveCommand(dae::RigidbodyComponent* pTransformComponent, glm::vec2
 
 void MoveCommand::Execute()
 {
-	m_pRigidbody->SetVelocity(m_Movement * m_Speed /** Time::GetInstance()->GetElapsed()*/);
+	//m_pRigidbody->SetVelocity(m_Movement * m_Speed /** Time::GetInstance()->GetElapsed()*/);
 }

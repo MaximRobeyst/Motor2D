@@ -55,6 +55,11 @@ void dae::ColliderComponent::Render() const
 	Renderer::GetInstance().RenderBox((pos.x + m_Center.x) - (m_Width / 2), (pos.y + m_Center.y) - (m_Height / 2), m_Width, m_Height);
 }
 
+glm::vec2 dae::ColliderComponent::GetSize() const
+{
+	return glm::vec2{m_Width, m_Height};
+}
+
 #ifdef _DEBUG
 void dae::ColliderComponent::RenderGUI()
 {

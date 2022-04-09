@@ -5,6 +5,8 @@
 
 #include "rapidjson.h"
 #include "document.h"
+#include <string>
+#include <SDL_rect.h>
 
 namespace dae
 {

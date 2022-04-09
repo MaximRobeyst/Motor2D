@@ -15,6 +15,8 @@ namespace dae
 		void Update() override;
 		void Render() const override;
 
+		glm::vec2 GetSize() const;
+
 #ifdef _DEBUG
 		void RenderGUI() override;
 #endif // _DEBUG

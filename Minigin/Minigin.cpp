@@ -258,10 +258,11 @@ void dae::Minigin::Run()
 
 			while (lag >= msPerUpdate)
 			{
-				sceneManager.Update();
+				// fixed update
 				lag -= msPerUpdate;
 			}
 
+			sceneManager.Update();
 			GameTime::GetInstance()->SetElapsed(elapsedSec);
 			renderer.Render();
 

@@ -1,12 +1,15 @@
 #pragma once
 #include <Component.h>
+#include <AnimatorComponent.h>
 
-class MrHotDogComponent : public dae::Component
+class EnemyComponent : public dae::Component
 {
 public:
-	MrHotDogComponent(dae::GameObject* pGameobject);
-	~MrHotDogComponent();
+	EnemyComponent(dae::GameObject* pGameobject);
 
 	void Update() override;
+
+private:
+	dae::AnimatorComponent* m_pAnimatorComponent;
 };
 

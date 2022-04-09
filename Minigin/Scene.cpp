@@ -3,15 +3,19 @@
 #include "GameObject.h"
 #include <imgui.h>
 #include "GameTime.h"
+#include "CollisionHandler.h"
 
 using namespace dae;
 
 unsigned int Scene::m_IdCounter = 0;
 
-Scene::Scene(const std::string& name) 
+Scene::Scene(const std::string& name, const b2Vec2& gravity)
 	: m_Name(name), 
-	m_PhysicsWorld{ std::make_shared<b2World>(b2Vec2(0.0f, 10.0f)) }
+	m_PhysicsWorld{ std::make_shared<b2World>(gravity) }
 {
+	m_pCollisionHandler = new CollisionHandler();
+	m_PhysicsWorld->SetContactListener(m_pCollisionHandler);
+
 }
 
 Scene::~Scene()
@@ -19,6 +23,7 @@ Scene::~Scene()
 	for (auto iter = m_pObjects.begin(); iter != m_pObjects.end(); ++iter)
 		delete* iter;
 
+	delete m_pCollisionHandler;
 	m_pObjects.clear();
 }
 
@@ -53,9 +58,21 @@ void Scene::Render() const
 void dae::Scene::RenderGUI()
 {
 	ImGui::Begin(m_Name.c_str());
-	for (const auto& object : m_pObjects)
+	if (ImGui::CollapsingHeader((m_Name + " Physics settings").c_str()))
 	{
-		object->RenderGUI();
+		auto gravity = m_PhysicsWorld->GetGravity();
+		float vel[2] = { gravity.x, gravity.y };
+		if (ImGui::DragFloat2("Gravity: ", vel))
+		{
+			m_PhysicsWorld->SetGravity(b2Vec2{ vel[0], vel[1] });
+		}
+	}
+	if (ImGui::CollapsingHeader((m_Name + " Gameobjects").c_str()))
+	{
+		for (const auto& object : m_pObjects)
+		{
+			object->RenderGUI();
+		}
 	}
 	ImGui::End();
 

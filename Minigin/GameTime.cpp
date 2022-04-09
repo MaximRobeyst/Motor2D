@@ -22,6 +22,6 @@ void GameTime::SetElapsed(float elapsedTime)
 
 int GameTime::GetFPS() const
 {
-    return static_cast<int>(1.f / (1.f / (1.f / m_ElapsedTime)));
+    return static_cast<int>(1.f / m_ElapsedTime);
     //return m_Frames / static_cast<int>(m_Time);
 }

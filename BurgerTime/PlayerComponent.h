@@ -19,6 +19,8 @@ public:
 
 	void Update() override;
 
+	void PlayerDeath();
+
 private:
 	void UpdateDefault();
 	void UpdateClimbing();

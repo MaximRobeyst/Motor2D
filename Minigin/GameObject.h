@@ -49,9 +49,14 @@ namespace dae
 		GameObject* GetChildFromIndex(int i) const;
 		size_t GetAmountOfChildren() const;
 
+		void SetTag(std::string tag);
+		std::string GetTag() const;
+
 	private:
 		void AddChild(GameObject* pChild);
 		void RemoveChild(GameObject* pChild);
+
+		std::string m_Tag{};
 
 		std::vector<Component*> m_pComponents;
 

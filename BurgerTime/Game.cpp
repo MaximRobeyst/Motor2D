@@ -27,6 +27,7 @@
 #include "RigidbodyComponent.h"
 #include "PlayerComponent.h"
 #include "AnimatorComponent.h"
+#include "MrHotDogComponent.h"
 
 #include "Observer.h"
 #include "Subject.h"
@@ -100,9 +101,34 @@ void LoadGame()
 	auto pLifeComponent = new LifeComponent{ pPeperGameObject, 3 };
 	pPeperGameObject->AddComponent(pLifeComponent);
 	pPeperGameObject->AddComponent(new ColliderComponent(pPeperGameObject, 16.f, 16.f));
-	pPeperGameObject->AddComponent(new RigidbodyComponent(pPeperGameObject, b2_dynamicBody, 1.f, 1.f));
+	pPeperGameObject->AddComponent(new RigidbodyComponent(pPeperGameObject, b2_dynamicBody, 1.f, 0.f));
 	pPeperGameObject->AddComponent(new PlayerComponent(pPeperGameObject));
+	pPeperGameObject->SetTag("Player");
 	scene.Add(pPeperGameObject);
+
+	auto pHotDogGameObject = new GameObject();
+	pHotDogGameObject->AddComponent(new TransformComponent(pHotDogGameObject, glm::vec3(700, 100, 0), glm::vec3{ 2.f }));
+	pHotDogGameObject->AddComponent(new SpriteRendererComponent(pHotDogGameObject, "BurgerTime_SpriteSheet.png"));
+	pHotDogGameObject->AddComponent(new AnimatorComponent(pHotDogGameObject, "../Data/Animations/HotdogAnimations.json"));
+	pHotDogGameObject->AddComponent(new ColliderComponent(pHotDogGameObject, 16.f, 16.f));
+	pHotDogGameObject->AddComponent(new RigidbodyComponent(pHotDogGameObject));
+	pHotDogGameObject->AddComponent(new EnemyComponent(pHotDogGameObject));
+	scene.Add(pHotDogGameObject);
+
+	auto pEggGameObject = new GameObject();
+	pEggGameObject->AddComponent(new TransformComponent(pEggGameObject, glm::vec3(750, 100, 0), glm::vec3{ 2.f }));
+	pEggGameObject->AddComponent(new SpriteRendererComponent(pEggGameObject, "BurgerTime_SpriteSheet.png"));
+	pEggGameObject->AddComponent(new AnimatorComponent(pEggGameObject, "../Data/Animations/EggAnimations.json"));
+	pEggGameObject->AddComponent(new ColliderComponent(pEggGameObject, 16.f, 16.f));
+	pEggGameObject->AddComponent(new RigidbodyComponent(pEggGameObject));
+	pEggGameObject->AddComponent(new EnemyComponent(pEggGameObject));
+	scene.Add(pEggGameObject);
+
+	auto pBurgerTop = new GameObject();
+	pBurgerTop->AddComponent(new TransformComponent(pBurgerTop, glm::vec3(200.f, 116.f, 0.f), glm::vec3{ 2.f }));
+	pBurgerTop->AddComponent(new SpriteRendererComponent(pBurgerTop, "BurgerTime_SpriteSheet.png", SDL_FRect{112.f, 48.f, 32.f, 8.f}));
+	pBurgerTop->AddComponent(new FoodComponent(pBurgerTop));
+	scene.Add(pBurgerTop);
 
 	go = new GameObject();
 	go->AddComponent(new TransformComponent(go, glm::vec3{ 10.f, 500.f, 0.f }));
@@ -121,14 +147,6 @@ void LoadGame()
 	//pScoreDisplay->GetSubject()->AddObserver(pAchievmentComponent);
 	go->AddComponent(pScoreDisplay);
 	scene.Add(go);
-
-	auto pBurgerBun = new GameObject();
-	pBurgerBun->AddComponent(new TransformComponent(pBurgerBun, glm::vec3(1600.f, 16.0f, 0), glm::vec3(2.f)));
-	pBurgerBun->AddComponent(new SpriteRendererComponent(pBurgerBun, "BurgerBun_Top.png"));
-	auto pFoodComponent = new FoodComponent(pBurgerBun);
-	pFoodComponent->GetSubject()->AddObserver(pScoreDisplay);
-	pBurgerBun->AddComponent(pFoodComponent);
-	scene.Add(pBurgerBun);
 
 	auto pPeperGameObject2 = new GameObject();
 	pPeperGameObject2->AddComponent(new TransformComponent(pPeperGameObject2, glm::vec3{ 900.f, 100.f, 0 }, glm::vec3{ 5, 5, 5 }));

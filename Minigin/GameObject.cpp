@@ -131,3 +131,13 @@ size_t dae::GameObject::GetAmountOfChildren() const
 {
 	return m_pChildren.size();
 }
+
+void dae::GameObject::SetTag(std::string tag)
+{
+	m_Tag = tag;
+}
+
+std::string dae::GameObject::GetTag() const
+{
+	return m_Tag;
+}

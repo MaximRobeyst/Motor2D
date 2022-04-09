@@ -138,6 +138,9 @@
     <ClInclude Include="AnimatorComponent.h">
       <Filter>Component Files</Filter>
     </ClInclude>
+    <ClInclude Include="CollisionHandler.h">
+      <Filter>Engine Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MiniginPCH.cpp">
@@ -235,6 +238,9 @@
     </ClCompile>
     <ClCompile Include="AnimatorComponent.cpp">
       <Filter>Component Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionHandler.cpp">
+      <Filter>Engine Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
