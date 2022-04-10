@@ -42,6 +42,7 @@
 using namespace dae;
 
 void LoadGame();
+void MakeLevel(Scene& pScene);
 
 int main(int, char* [])
 {
@@ -69,7 +70,7 @@ void LoadGame()
 	auto& scene = SceneManager::GetInstance().CreateScene("Demo");
 	//auto& input = InputManager::GetInstance();
 
-	//MakeLevel(scene);
+	MakeLevel(scene);
 
 	std::cout << std::endl << std::endl;
 	std::cout << "=== How To Play ====" << std::endl;
@@ -224,4 +225,92 @@ void LoadGame()
 	go->AddComponent(new FPSComponent(go));
 
 	scene.Add(go);
+}
+
+
+void MakeLevel(Scene& pScene)
+{
+	const int size{ 17 };
+	//std::string s[size]{
+	//"................",
+	//"................",
+	//"LPPPLPLPLPLPPLPPL",
+	//"L...L.L.L.L..L..L",
+	//"L...L.L.L.L..L..L",
+	//"L...L.L.L.L..L..L",
+	//"L...L.L.L.L..L..L",
+	//"LPLPL.L.LPLPPLPPL",
+	//"..L...L.L.L..L..L",
+	//"..L....L.L..L..L",
+	//"..L....L.L..L..L",
+	//"PPPPPPPLPLPPLPPL",
+	//"................",
+	//"................",
+	//"................",
+	//"................",
+	//"................",
+	//};
+
+	std::string s[size]
+	{
+		"................",
+		"................",
+		"................",
+		"................",
+		"................",
+		"................",
+		"................",
+		"................",
+		"................",
+		"................",
+		"................",
+		"................",
+		"................",
+		"PPPPPPPPPPPPPPPP",
+		"................",
+		"................",
+		"................",
+	};
+
+	float scale{ 2.f };
+	for (int i = 0; i < size; ++i)
+	{
+		for (size_t j = 0; j < s[0].size(); ++j)
+		{
+			if (s[i][j] == '.')
+				continue;
+
+			GameObject* pGameobject = new GameObject;
+			pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ j * 16.f * scale, i * 8.f * scale, 0.0f }, glm::vec3{ scale }));
+
+			switch (s[i][j])
+			{
+			case 'L':
+				if (s[i - 1][j] == '.' && s[i + 1][j] == 'L')
+					pGameobject->AddComponent(new SpriteRendererComponent(pGameobject, "Ladder_Top.png"));
+				else if ((j != 0 && j != s[0].size()) && s[i][j - 1] == 'P' || s[i][j + 1] == 'P')
+					pGameobject->AddComponent(new SpriteRendererComponent(pGameobject, "Ladder_Top.png"));
+				else if (s[i - 1][j] == '.')
+					pGameobject->AddComponent(new SpriteRendererComponent(pGameobject, "Ladder_Bottom.png"));
+				else
+					pGameobject->AddComponent(new SpriteRendererComponent(pGameobject, "Ladder_Middle.png"));
+				break;
+			case 'P':
+				pGameobject->AddComponent(new SpriteRendererComponent(pGameobject, "Platform.png"));
+			}
+			pGameobject->AddComponent(new ColliderComponent(pGameobject, 32.f, 4.f));
+			pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
+
+
+
+			pScene.Add(pGameobject);
+
+
+			//pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 13 * 16.f * scale, 0.f * 8.f * scale, 0.0f }, glm::vec3{ scale }));
+			//pGameobject->AddComponent(new SpriteRendererComponent(pGameobject, "Platform.png"));
+			//pGameobject->AddComponent(new ColliderComponent(pGameobject));
+			//pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
+		}
+	}
+
 }

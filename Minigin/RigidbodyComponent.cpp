@@ -18,10 +18,11 @@ dae::RigidbodyComponent::RigidbodyComponent(dae::GameObject* pGameobject, b2Body
 	// Create body this is done with the collider
 	b2BodyDef bodyDef;
 	bodyDef.type = bodyType;
+	bodyDef.fixedRotation = true;
+	bodyDef.allowSleep = false;
 	bodyDef.position.Set(m_pTransformComponent->GetPosition().x, m_pTransformComponent->GetPosition().y);
 	bodyDef.userData.pointer = reinterpret_cast<uintptr_t>(this);
 	m_pBody = m_pWorld->CreateBody(&bodyDef);
-	m_pBody->SetFixedRotation(true);
 
 	// Create the fxiture
 	b2FixtureDef fixtureDef;
@@ -53,28 +54,34 @@ void dae::RigidbodyComponent::Render() const
 	m_pBody->SetTransform(b2Vec2{ pos.x, pos.y }, 0.0f);
 }
 
-void dae::RigidbodyComponent::OnBeginContact(RigidbodyComponent* pOtherBody, b2Contact* pContact)
+void dae::RigidbodyComponent::OnBeginContact(dae::RigidbodyComponent* pTriggeredBody, RigidbodyComponent* pOtherBody, b2Contact* pContact)
 {
 	if (m_OnEnterFunction == nullptr && pOtherBody->m_OnEnterFunction != nullptr)
 	{
-		pOtherBody->OnBeginContact(this, pContact);
+		pOtherBody->OnBeginContact(pOtherBody, pTriggeredBody, pContact);
 	}
 	if (m_OnEnterFunction == nullptr) return;
 
-	m_OnEnterFunction(pOtherBody, pContact);
+	m_OnEnterFunction(pTriggeredBody, pOtherBody, pContact);
 }
 
-void dae::RigidbodyComponent::OnEndContact(RigidbodyComponent* pOtherBody, b2Contact* pContact)
+void dae::RigidbodyComponent::OnEndContact(dae::RigidbodyComponent* pTriggeredBody, RigidbodyComponent* pOtherBody, b2Contact* pContact)
 {
-	m_OnExitFunction(pOtherBody, pContact);
+	if (m_OnExitFunction == nullptr && pOtherBody->m_OnExitFunction != nullptr)
+	{
+		pOtherBody->OnEndContact(pOtherBody, pTriggeredBody, pContact);
+	}
+	if (m_OnExitFunction == nullptr) return;
+
+	m_OnExitFunction(pTriggeredBody, pOtherBody, pContact);
 }
 
-void dae::RigidbodyComponent::SetOnEnterFunction(std::function<void(RigidbodyComponent*, b2Contact*)> newOnEnterFunction)
+void dae::RigidbodyComponent::SetOnEnterFunction(std::function<void(RigidbodyComponent* ,RigidbodyComponent*, b2Contact*)> newOnEnterFunction)
 {
 	m_OnEnterFunction = newOnEnterFunction;
 }
 
-void dae::RigidbodyComponent::SetOnExitFunction(std::function<void(RigidbodyComponent*, b2Contact*)> newOnExitFunction)
+void dae::RigidbodyComponent::SetOnExitFunction(std::function<void(RigidbodyComponent* ,RigidbodyComponent*, b2Contact*)> newOnExitFunction)
 {
 	m_OnExitFunction = newOnExitFunction;
 }

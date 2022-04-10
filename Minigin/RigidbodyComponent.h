@@ -17,11 +17,11 @@ namespace dae
 		void Update() override;
 		void Render() const override;
 
-		void OnBeginContact(RigidbodyComponent* pOtherBody, b2Contact* pContact);
-		void OnEndContact(RigidbodyComponent* pOtherBody, b2Contact* pContact);
+		void OnBeginContact(dae::RigidbodyComponent* pTriggeredBody, RigidbodyComponent* pOtherBody, b2Contact* pContact);
+		void OnEndContact(dae::RigidbodyComponent* pTriggeredBody, RigidbodyComponent* pOtherBody, b2Contact* pContact);
 
-		void SetOnEnterFunction(std::function<void(RigidbodyComponent*, b2Contact*)> newOnEnterFunction);
-		void SetOnExitFunction(std::function<void(RigidbodyComponent*, b2Contact*)> newOnEnterFunction);
+		void SetOnEnterFunction(std::function<void(RigidbodyComponent* ,RigidbodyComponent*, b2Contact*)> newOnEnterFunction);
+		void SetOnExitFunction(std::function<void(RigidbodyComponent* , RigidbodyComponent*, b2Contact*)> newOnEnterFunction);
 
 		b2Vec2 GetPosition() const;
 		b2Body* GetBody() const;
@@ -36,8 +36,8 @@ namespace dae
 
 		std::shared_ptr<b2World> m_pWorld;
 
-		std::function<void(RigidbodyComponent*, b2Contact*)> m_OnEnterFunction{};
-		std::function<void(RigidbodyComponent*, b2Contact*)> m_OnExitFunction{};
+		std::function<void(RigidbodyComponent*,RigidbodyComponent*, b2Contact*)> m_OnEnterFunction{};
+		std::function<void(RigidbodyComponent*,RigidbodyComponent*, b2Contact*)> m_OnExitFunction{};
 
 		float m_Density{};
 		float m_Friction{};

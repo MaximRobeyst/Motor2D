@@ -15,7 +15,6 @@ Scene::Scene(const std::string& name, const b2Vec2& gravity)
 {
 	m_pCollisionHandler = new CollisionHandler();
 	m_PhysicsWorld->SetContactListener(m_pCollisionHandler);
-
 }
 
 Scene::~Scene()
@@ -48,13 +47,13 @@ void dae::Scene::Start()
 void Scene::Update()
 {
 	m_PhysicsWorld->Step(GameTime::GetInstance()->GetElapsed(), 6, 2);
-	for (b2Contact* c = m_PhysicsWorld->GetContactList(); c; c = c->GetNext())
-	{
-		if (c == nullptr)
-			continue;
-
-		m_pCollisionHandler->BeginContact(c);
-	}
+	//for (b2Contact* c = m_PhysicsWorld->GetContactList(); c; c = c->GetNext())
+	//{
+	//	if (c == nullptr)
+	//		continue;
+	//
+	//	m_pCollisionHandler->BeginContact(c);
+	//}
 
 	for(auto& object : m_pObjects)
 	{

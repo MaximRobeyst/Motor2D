@@ -16,11 +16,12 @@ public:
 
 
 	void SetFalling(bool newValue);
+	bool GetFalling() const;
 
 	std::unique_ptr<Subject>& GetSubject();
 private:
 	bool m_Falling{ false };
-	glm::vec3 fallingSpeed = glm::vec3{ 0, 5, 0 };
+	glm::vec3 fallingSpeed = glm::vec3{ 0, 50, 0 };
 
 	dae::TransformComponent* m_pTransform{nullptr};
 	std::unique_ptr<Subject> m_pSubject;

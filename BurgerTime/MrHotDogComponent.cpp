@@ -13,7 +13,7 @@ EnemyComponent::EnemyComponent(dae::GameObject* pGameobject)
 
 	auto rigidBodyComponent = pGameobject->GetComponent<dae::RigidbodyComponent>();
 
-	std::function<void(dae::RigidbodyComponent*, b2Contact*)> newFunction = [](dae::RigidbodyComponent* otherBody, b2Contact*)
+	std::function<void(dae::RigidbodyComponent*, dae::RigidbodyComponent*, b2Contact*)> newFunction = [](dae::RigidbodyComponent* /*pTriggeredbody*/, dae::RigidbodyComponent* otherBody, b2Contact*)
 	{
 		auto pOtherGO = otherBody->GetGameobject();
 
