@@ -9,6 +9,7 @@ public:
 
 	void Update() override;
 
+	void EnemyDeath();
 private:
 	dae::AnimatorComponent* m_pAnimatorComponent;
 };

@@ -59,7 +59,7 @@ void dae::TextComponent::SetText(const std::string& text)
 void dae::TextComponent::SetPosition(const float x, const float y)
 {
 	//m_Transform.SetPosition(x, y, 0.0f);
-	m_pGameObject->GetComponent<TransformComponent>()->SetPosition(x, y, 0.0f);
+	m_pGameObject->GetComponent<TransformComponent>()->SetPosition(x, y);
 }
 
 

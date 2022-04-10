@@ -95,42 +95,45 @@ void LoadGame()
 
 	auto pPeperGameObject = new GameObject();
 
-	pPeperGameObject->AddComponent(new TransformComponent(pPeperGameObject, glm::vec3{100, 100, 0}, glm::vec3{2.f}));
+	pPeperGameObject->AddComponent(new TransformComponent(pPeperGameObject, glm::vec3{120.f, 128.f, 0}, glm::vec3{2.f}));
 	pPeperGameObject->AddComponent(new SpriteRendererComponent(pPeperGameObject, "BurgerTime_SpriteSheet.png"));
 	pPeperGameObject->AddComponent(new AnimatorComponent(pPeperGameObject, "../Data/Animations/PlayerAnimations.json"));
 	//pPeperGameObject->AddComponent(new MovementComponent(pPeperGameObject, 100.f));
 	auto pLifeComponent = new LifeComponent{ pPeperGameObject, 3 };
 	pPeperGameObject->AddComponent(pLifeComponent);
-	pPeperGameObject->AddComponent(new ColliderComponent(pPeperGameObject, 16.f, 16.f));
-	pPeperGameObject->AddComponent(new RigidbodyComponent(pPeperGameObject, b2_dynamicBody, 1.f, 0.f));
+	pPeperGameObject->AddComponent(new ColliderComponent(pPeperGameObject, 14.f, 16.f));
+	pPeperGameObject->AddComponent(new RigidbodyComponent(pPeperGameObject, b2_dynamicBody, 1.f, 0.3f));
 	pPeperGameObject->AddComponent(new PlayerComponent(pPeperGameObject));
 	pPeperGameObject->SetTag("Player");
 	scene.Add(pPeperGameObject);
 
 	auto pHotDogGameObject = new GameObject();
-	pHotDogGameObject->AddComponent(new TransformComponent(pHotDogGameObject, glm::vec3(700, 100, 0), glm::vec3{ 2.f }));
+	pHotDogGameObject->AddComponent(new TransformComponent(pHotDogGameObject, glm::vec3(256.f, 128.f, 0), glm::vec3{ 2.f }));
 	pHotDogGameObject->AddComponent(new SpriteRendererComponent(pHotDogGameObject, "BurgerTime_SpriteSheet.png"));
 	pHotDogGameObject->AddComponent(new AnimatorComponent(pHotDogGameObject, "../Data/Animations/HotdogAnimations.json"));
 	pHotDogGameObject->AddComponent(new ColliderComponent(pHotDogGameObject, 16.f, 16.f));
 	pHotDogGameObject->AddComponent(new RigidbodyComponent(pHotDogGameObject));
+	pHotDogGameObject->SetTag("Enemy");
 	pHotDogGameObject->AddComponent(new EnemyComponent(pHotDogGameObject));
 	scene.Add(pHotDogGameObject);
 
 	auto pEggGameObject = new GameObject();
-	pEggGameObject->AddComponent(new TransformComponent(pEggGameObject, glm::vec3(750, 100, 0), glm::vec3{ 2.f }));
+	pEggGameObject->AddComponent(new TransformComponent(pEggGameObject, glm::vec3(288.f, 128.f, 0), glm::vec3{ 2.f }));
 	pEggGameObject->AddComponent(new SpriteRendererComponent(pEggGameObject, "BurgerTime_SpriteSheet.png"));
 	pEggGameObject->AddComponent(new AnimatorComponent(pEggGameObject, "../Data/Animations/EggAnimations.json"));
 	pEggGameObject->AddComponent(new ColliderComponent(pEggGameObject, 16.f, 16.f));
 	pEggGameObject->AddComponent(new RigidbodyComponent(pEggGameObject));
+	pEggGameObject->SetTag("Enemy");
 	pEggGameObject->AddComponent(new EnemyComponent(pEggGameObject));
 	scene.Add(pEggGameObject);
 
 	auto pBurgerTop = new GameObject();
-	pBurgerTop->AddComponent(new TransformComponent(pBurgerTop, glm::vec3(200.f, 116.f, 0.f), glm::vec3{ 2.f }));
+	pBurgerTop->AddComponent(new TransformComponent(pBurgerTop, glm::vec3(240.f, 56.f, 0.f), glm::vec3{ 2.f }));
 	pBurgerTop->AddComponent(new SpriteRendererComponent(pBurgerTop, "BurgerTime_SpriteSheet.png", SDL_FRect{112.f, 48.f, 32.f, 8.f}));
-	pBurgerTop->AddComponent(new ColliderComponent(pBurgerTop, 32.f, 8.f));
+	pBurgerTop->AddComponent(new ColliderComponent(pBurgerTop, 32.f, 4.f));
 	pBurgerTop->AddComponent(new RigidbodyComponent(pBurgerTop));
 	pBurgerTop->AddComponent(new FoodComponent(pBurgerTop));
+	pBurgerTop->SetTag("Food");
 	scene.Add(pBurgerTop);
 
 	go = new GameObject();
@@ -297,9 +300,10 @@ void MakeLevel(Scene& pScene)
 				break;
 			case 'P':
 				pGameobject->AddComponent(new SpriteRendererComponent(pGameobject, "Platform.png"));
+				pGameobject->AddComponent(new ColliderComponent(pGameobject, 16.f, 4.f));
+				pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
+				break;
 			}
-			pGameobject->AddComponent(new ColliderComponent(pGameobject, 16.f, 4.f));
-			pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
 
 
 

@@ -29,7 +29,6 @@ dae::RigidbodyComponent::RigidbodyComponent(dae::GameObject* pGameobject, b2Body
 	fixtureDef.shape = m_pColliderComponent->GetDynamicBox();
 	fixtureDef.density = m_Density;
 	fixtureDef.friction = m_Friction;
-	fixtureDef.isSensor = true;
 
 	m_pBody->CreateFixture(&fixtureDef);
 }
@@ -50,8 +49,8 @@ void dae::RigidbodyComponent::Render() const
 	//
 	//Renderer::GetInstance().RenderBox(pos.x, pos.y, size.x, size.y);
 
-	auto& pos = m_pTransformComponent->GetPosition();
-	m_pBody->SetTransform(b2Vec2{ pos.x, pos.y }, 0.0f);
+	//auto& pos = m_pTransformComponent->GetPosition();
+	//m_pBody->SetTransform(b2Vec2{ pos.x, pos.y }, 0.0f);
 }
 
 void dae::RigidbodyComponent::OnBeginContact(dae::RigidbodyComponent* pTriggeredBody, RigidbodyComponent* pOtherBody, b2Contact* pContact)

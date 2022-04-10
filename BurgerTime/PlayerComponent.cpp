@@ -37,26 +37,32 @@ void PlayerComponent::PlayerDeath()
 void PlayerComponent::UpdateDefault()
 {
 	auto keyboard = dae::InputManager::GetInstance().GetKeyboard();
-	auto& transform = m_pTranformComponent->GetTransform();
+	auto& transform = m_pTranformComponent->GetTransformConst();
+
+	b2Vec2 vel{};
 
 	// TODO: make axis support
 	// TODO: give transform & rigidbody struct to make it easier to change values within them
 	int horAxis = (int)(keyboard->IsPressed(SDLK_d) - keyboard->IsPressed(SDLK_a));
 	int verAxis = (int)(keyboard->IsPressed(SDLK_s) - keyboard->IsPressed(SDLK_w));
 
-	if ((horAxis >= 0 && transform.scale.x > 0) || (horAxis <= -1 && transform.scale.x < 0)) transform.scale.x *= -1;
+	if ((horAxis >= 0 && transform.scale.x > 0) || (horAxis <= -1 && transform.scale.x < 0)) m_pTranformComponent->GetTransform().scale.x *= -1;
 
 	if (horAxis != 0)
 	{
 		m_pAnimatorComponent->SetAnimation("WalkLeft");
-		transform.position.x += horAxis * 100.f * GameTime::GetInstance()->GetElapsed();
+		vel.x = horAxis * 64.f /** GameTime::GetInstance()->GetElapsed()*/;
 	}
 	else if (verAxis != 0)
 	{
+		if (verAxis >= 1) m_pAnimatorComponent->SetAnimation("WalkDown");
+		else if (verAxis <= -1) m_pAnimatorComponent->SetAnimation("WalkUp");
 
-		transform.position.y += verAxis * 100.f * GameTime::GetInstance()->GetElapsed();
+		vel .y = verAxis * 100.f /** GameTime::GetInstance()->GetElapsed()*/;
 	}
 	else m_pAnimatorComponent->SetAnimation("Idle");
+
+	m_pRigidbody->GetBody()->SetLinearVelocity(vel);
 }
 
 void PlayerComponent::UpdateClimbing()

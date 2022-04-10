@@ -111,7 +111,7 @@
         "name" : "WalkLeft",
         "duration" : 0.5,
         "framesPerSeconds" : 5,
-        "looping" : false,
+        "looping" : true,
         "keyframes" : 
         [
             {
@@ -133,5 +133,61 @@
                 "h" : 16
             }
         ]
+    },
+    {
+        "name" : "WalkDown",
+        "duration" : 0.5,
+        "framesPerSeconds" : 5,
+        "looping" : true,
+        "keyframes" :
+        [
+            {
+                "x" : 0,
+                "y" : 0,
+                "w" : 16,
+                "h" : 16
+            },
+            {
+                "x" : 16,
+                "y" : 0,
+                "w" : 16,
+                "h" : 16
+            },
+            {
+                "x" : 32,
+                "y" : 0,
+                "w" : 16,
+                "h" : 16
+            }
+        ]
+
+    },
+    {
+        "name" : "WalkUp",
+        "duration" : 0.5,
+        "framesPerSeconds" : 5,
+        "looping" : true,
+        "keyframes" :
+        [
+            {
+                "x" : 96,
+                "y" : 0,
+                "w" : 16,
+                "h" : 16
+            },
+            {
+                "x" : 112,
+                "y" : 0,
+                "w" : 16,
+                "h" : 16
+            },
+            {
+                "x" : 128,
+                "y" : 0,
+                "w" : 16,
+                "h" : 16
+            }
+        ]
+
     }
 ]

@@ -7,6 +7,7 @@
 #include <RigidbodyComponent.h>
 #include "PlayerComponent.h"
 #include <GameTime.h>
+#include "MrHotDogComponent.h"
 
 FoodComponent::FoodComponent(dae::GameObject* pGameobject)
 	: Component(pGameobject)
@@ -24,7 +25,7 @@ FoodComponent::FoodComponent(dae::GameObject* pGameobject)
 			//auto playerComponent = pOtherGO->GetComponent<PlayerComponent>();
 			foodComp->SetFalling(true);
 		}
-		else if (pOtherGO->GetTag() != "Player" && foodComp->GetFalling())
+		else if (foodComp->GetFalling())
 		{
 			foodComp->SetFalling(false);
 		}

@@ -13,7 +13,7 @@ EnemyComponent::EnemyComponent(dae::GameObject* pGameobject)
 
 	auto rigidBodyComponent = pGameobject->GetComponent<dae::RigidbodyComponent>();
 
-	std::function<void(dae::RigidbodyComponent*, dae::RigidbodyComponent*, b2Contact*)> newFunction = [](dae::RigidbodyComponent* /*pTriggeredbody*/, dae::RigidbodyComponent* otherBody, b2Contact*)
+	std::function<void(dae::RigidbodyComponent*, dae::RigidbodyComponent*, b2Contact*)> newFunction = [](dae::RigidbodyComponent* pTriggeredbody, dae::RigidbodyComponent* otherBody, b2Contact*)
 	{
 		auto pOtherGO = otherBody->GetGameobject();
 
@@ -21,6 +21,11 @@ EnemyComponent::EnemyComponent(dae::GameObject* pGameobject)
 		{
 			auto playerComponent = pOtherGO->GetComponent<PlayerComponent>();
 			playerComponent->PlayerDeath();
+		}
+		else if(pOtherGO->GetTag() == "Food")
+		{
+			auto enemyComp = 	pTriggeredbody->GetGameobject()->GetComponent<EnemyComponent>();
+			enemyComp->EnemyDeath();
 		}
 	};
 
@@ -30,4 +35,9 @@ EnemyComponent::EnemyComponent(dae::GameObject* pGameobject)
 void EnemyComponent::Update()
 {
 
+}
+
+void EnemyComponent::EnemyDeath()
+{
+	m_pAnimatorComponent->SetAnimation("Death");
 }
