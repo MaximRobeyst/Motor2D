@@ -123,3 +123,29 @@ void dae::Renderer::RenderBox(float x, float y, float width, float height) const
 
 	SDL_SetRenderDrawColor(GetSDLRenderer(), r, g, b, a);
 }
+
+void dae::Renderer::RenderPolygon(glm::vec2* points, const int count, glm::vec4 color)
+{
+	std::vector<SDL_FPoint> pointsSDL(count);
+	for (int i = 0; i < count; ++i)
+		pointsSDL[i] = SDL_FPoint{ points[i].x, points[i].y };
+
+	Uint8 r, g, b, a;
+	SDL_GetRenderDrawColor(GetSDLRenderer(), &r, &g, &b, &a);
+	SDL_SetRenderDrawColor(GetSDLRenderer(), (Uint8)color.r, (Uint8)color.g, (Uint8)color.b, (Uint8)color.a);
+	SDL_RenderDrawPointsF(GetSDLRenderer(), pointsSDL.data(), count);
+	SDL_SetRenderDrawColor(GetSDLRenderer(), r, g, b, a);
+}
+
+void dae::Renderer::RenderPolygon(b2Vec2* points, const int count, glm::vec4 color)
+{
+	std::vector<SDL_FPoint> pointsSDL(count);
+	for (int i = 0; i < count; ++i)
+		pointsSDL[i] = SDL_FPoint{ points[i].x, points[i].y };
+
+	Uint8 r, g, b, a;
+	SDL_GetRenderDrawColor(GetSDLRenderer(), &r, &g, &b, &a);
+	SDL_SetRenderDrawColor(GetSDLRenderer(), (Uint8)color.r, (Uint8)color.g, (Uint8)color.b, (Uint8)color.a);
+	SDL_RenderDrawPointsF(GetSDLRenderer(), pointsSDL.data(), count);
+	SDL_SetRenderDrawColor(GetSDLRenderer(), r, g, b, a);
+}

@@ -22,6 +22,17 @@ dae::GameObject::~GameObject()
 	m_pChildren.clear();
 }
 
+void dae::GameObject::Start()
+{
+	for (auto iter = m_pComponents.begin(); iter != m_pComponents.end(); ++iter)
+	{
+		(*iter)->Start();
+	}
+
+	for (auto iter = m_pChildren.begin(); iter != m_pChildren.end(); ++iter)
+		(*iter)->Start();
+}
+
 void dae::GameObject::Update()
 {
 	for (auto iter = m_pComponents.begin(); iter != m_pComponents.end(); ++iter)

@@ -11,7 +11,7 @@ namespace dae
 	class RigidbodyComponent : public Component
 	{
 	public:
-		RigidbodyComponent(dae::GameObject* pGameobject, b2BodyType bodyType = b2_kinematicBody, float density = 1.0f, float friction = 0.3f);
+		RigidbodyComponent(dae::GameObject* pGameobject, b2BodyType bodyType = b2_dynamicBody, float density = 1.0f, float friction = 0.3f);
 		~RigidbodyComponent();
 
 		void Update() override;
@@ -22,6 +22,9 @@ namespace dae
 
 		void SetOnEnterFunction(std::function<void(RigidbodyComponent*, b2Contact*)> newOnEnterFunction);
 		void SetOnExitFunction(std::function<void(RigidbodyComponent*, b2Contact*)> newOnEnterFunction);
+
+		b2Vec2 GetPosition() const;
+		b2Body* GetBody() const;
 
 		GameObject* GetGameobject() const;
 

@@ -11,6 +11,7 @@ namespace dae
 
 		std::shared_ptr<Scene> GetScene(int index);
 
+		void Start();
 		void Update();
 		void Render();
 #ifdef _DEBUG

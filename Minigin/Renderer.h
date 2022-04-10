@@ -2,6 +2,7 @@
 #include "Singleton.h"
 #include <imgui.h>
 #include <imgui_plot.h>
+#include <box2d.h>
 
 namespace dae
 {
@@ -25,6 +26,8 @@ namespace dae
 		void RenderTexture(const Texture2D& texture, const SDL_FRect& srcRect, float x, float y, float width, float height, bool flipHorizontal = false) const;
 
 		void RenderBox(float x, float y, float width, float height) const;
+		void RenderPolygon(glm::vec2* points, const int count, glm::vec4 color = glm::vec4{0.f, 255.f, 0.f, 255.f});
+		void RenderPolygon(b2Vec2* points, const int count, glm::vec4 color = glm::vec4{ 0.f, 255.f, 0.f, 255.f });
 
 		SDL_Renderer* GetSDLRenderer() const { return m_Renderer; }
 

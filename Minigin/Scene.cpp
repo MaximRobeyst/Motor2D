@@ -37,9 +37,25 @@ std::shared_ptr<b2World> dae::Scene::GetPhysicsWorld() const
 	return m_PhysicsWorld;
 }
 
+void dae::Scene::Start()
+{
+	for (auto& object : m_pObjects)
+	{
+		object->Start();
+	}
+}
+
 void Scene::Update()
 {
 	m_PhysicsWorld->Step(GameTime::GetInstance()->GetElapsed(), 6, 2);
+	for (b2Contact* c = m_PhysicsWorld->GetContactList(); c; c = c->GetNext())
+	{
+		if (c == nullptr)
+			continue;
+
+		m_pCollisionHandler->BeginContact(c);
+	}
+
 	for(auto& object : m_pObjects)
 	{
 		object->Update();

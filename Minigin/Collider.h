@@ -5,6 +5,7 @@
 namespace dae
 {
 	class TransformComponent;
+	class RigidbodyComponent;
 	class ColliderComponent :public Component
 	{
 	public:
@@ -12,6 +13,7 @@ namespace dae
 		ColliderComponent(dae::GameObject* pGameObject, float width, float height, glm::vec2 center = glm::vec2(0.f, 0.f));
 		~ColliderComponent();
 
+		void Start() override;
 		void Update() override;
 		void Render() const override;
 
@@ -31,6 +33,7 @@ namespace dae
 		glm::vec2 m_Center{};
 
 		TransformComponent* m_pTransform;
+		RigidbodyComponent* m_pRigidbody;
 		b2PolygonShape* m_DynamicBox;
 	};
 }

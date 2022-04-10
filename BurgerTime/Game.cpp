@@ -127,6 +127,8 @@ void LoadGame()
 	auto pBurgerTop = new GameObject();
 	pBurgerTop->AddComponent(new TransformComponent(pBurgerTop, glm::vec3(200.f, 116.f, 0.f), glm::vec3{ 2.f }));
 	pBurgerTop->AddComponent(new SpriteRendererComponent(pBurgerTop, "BurgerTime_SpriteSheet.png", SDL_FRect{112.f, 48.f, 32.f, 8.f}));
+	pBurgerTop->AddComponent(new ColliderComponent(pBurgerTop, 32.f, 8.f));
+	pBurgerTop->AddComponent(new RigidbodyComponent(pBurgerTop));
 	pBurgerTop->AddComponent(new FoodComponent(pBurgerTop));
 	scene.Add(pBurgerTop);
 

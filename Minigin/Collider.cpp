@@ -7,12 +7,15 @@
 #include "Texture2D.h"
 #include "SceneManager.h"
 #include "Scene.h"
+#include "RigidbodyComponent.h"
 
 dae::ColliderComponent::ColliderComponent(dae::GameObject* pGameObject)
 	: Component(pGameObject)
 	, m_DynamicBox{new b2PolygonShape()}
 {
 	m_pTransform = pGameObject->GetComponent<TransformComponent>();
+	m_pRigidbody = pGameObject->GetComponent<RigidbodyComponent>();
+
 	auto pTextureComponent = pGameObject->GetComponent<SpriteRendererComponent>();
 	if (pTextureComponent != nullptr)
 	{
@@ -31,6 +34,7 @@ dae::ColliderComponent::ColliderComponent(dae::GameObject* pGameObject, float wi
 	, m_DynamicBox{ new b2PolygonShape() }
 {
 	m_pTransform = pGameObject->GetComponent<TransformComponent>();
+
 	m_Width = (width * m_pTransform->GetScale().x);
 	m_Height = (height * m_pTransform->GetScale().y);
 
@@ -45,14 +49,24 @@ dae::ColliderComponent::~ColliderComponent()
 	delete m_DynamicBox;
 }
 
+void dae::ColliderComponent::Start()
+{
+	m_pRigidbody = m_pGameObject->GetComponent<dae::RigidbodyComponent>();
+}
+
 void dae::ColliderComponent::Update()
 {
 }
 
 void dae::ColliderComponent::Render() const
 {
-	auto pos = m_pTransform->GetPosition();
+	auto pos = m_pRigidbody->GetPosition();
 	Renderer::GetInstance().RenderBox((pos.x + m_Center.x) - (m_Width / 2), (pos.y + m_Center.y) - (m_Height / 2), m_Width, m_Height);
+
+	auto points = m_DynamicBox->m_vertices;
+	auto count = m_DynamicBox->m_count;
+
+	Renderer::GetInstance().RenderPolygon(points, count);
 }
 
 glm::vec2 dae::ColliderComponent::GetSize() const

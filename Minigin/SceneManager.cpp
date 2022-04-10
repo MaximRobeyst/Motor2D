@@ -4,6 +4,14 @@
 #include <backends/imgui_impl_opengl2.h>
 #include <backends/imgui_impl_sdl.h>
 
+void dae::SceneManager::Start()
+{
+	for (auto& scene : m_Scenes)
+	{
+		scene->Start();
+	}
+}
+
 void dae::SceneManager::Update()
 {
 	for(auto& scene : m_Scenes)

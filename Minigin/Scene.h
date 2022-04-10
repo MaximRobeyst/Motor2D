@@ -15,6 +15,7 @@ namespace dae
 
 		std::shared_ptr<b2World> GetPhysicsWorld() const;
 
+		void Start();
 		void Update();
 		void Render() const;
 #ifdef _DEBUG

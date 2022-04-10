@@ -4,8 +4,8 @@
 
 void CollisionHandler::BeginContact(b2Contact* pContact)
 {
-	auto pRigidbody1 = reinterpret_cast<dae::RigidbodyComponent*>(pContact->GetFixtureA()->GetBody()->GetUserData().pointer);
-	auto pRigidbody2 = reinterpret_cast<dae::RigidbodyComponent*>(pContact->GetFixtureB()->GetBody()->GetUserData().pointer);
+	auto pRigidbody1 = (dae::RigidbodyComponent*)(pContact->GetFixtureA()->GetBody()->GetUserData().pointer);
+	auto pRigidbody2 = (dae::RigidbodyComponent*)(pContact->GetFixtureB()->GetBody()->GetUserData().pointer);
 
 	pRigidbody1->OnBeginContact(pRigidbody2, pContact);
 }
