@@ -231,46 +231,46 @@ void LoadGame()
 void MakeLevel(Scene& pScene)
 {
 	const int size{ 17 };
-	//std::string s[size]{
-	//"................",
-	//"................",
-	//"LPPPLPLPLPLPPLPPL",
-	//"L...L.L.L.L..L..L",
-	//"L...L.L.L.L..L..L",
-	//"L...L.L.L.L..L..L",
-	//"L...L.L.L.L..L..L",
-	//"LPLPL.L.LPLPPLPPL",
-	//"..L...L.L.L..L..L",
-	//"..L....L.L..L..L",
-	//"..L....L.L..L..L",
-	//"PPPPPPPLPLPPLPPL",
-	//"................",
-	//"................",
-	//"................",
-	//"................",
-	//"................",
-	//};
-
-	std::string s[size]
-	{
-		"................",
-		"................",
-		"................",
-		"................",
-		"................",
-		"................",
-		"................",
-		"................",
-		"................",
-		"................",
-		"................",
-		"................",
-		"................",
-		"PPPPPPPPPPPPPPPP",
-		"................",
-		"................",
-		"................",
+	std::string s[size]{
+	"................",
+	"................",
+	"LPPPLPLPLPLPPLPPL",
+	"L...L.L.L.L..L..L",
+	"L...L.L.L.L..L..L",
+	"L...L.L.L.L..L..L",
+	"L...L.L.L.L..L..L",
+	"LPLPL.L.LPLPPLPPL",
+	"..L...L.L.L..L..L",
+	"..L....L.L..L..L",
+	"..L....L.L..L..L",
+	"PPPPPPPLPLPPLPPL",
+	"................",
+	"................",
+	"................",
+	"................",
+	"................",
 	};
+
+	//std::string s[size]
+	//{
+	//	"................",
+	//	"................",
+	//	"................",
+	//	"................",
+	//	"................",
+	//	"................",
+	//	"................",
+	//	"................",
+	//	"................",
+	//	"................",
+	//	"................",
+	//	"................",
+	//	"................",
+	//	"PPPPPPPPPPPPPPPP",
+	//	"................",
+	//	"................",
+	//	"................",
+	//};
 
 	float scale{ 2.f };
 	for (int i = 0; i < size; ++i)
@@ -281,7 +281,7 @@ void MakeLevel(Scene& pScene)
 				continue;
 
 			GameObject* pGameobject = new GameObject;
-			pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ j * 16.f * scale, i * 8.f * scale, 0.0f }, glm::vec3{ scale }));
+			pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ j * 16.f * scale, i * 16.f * scale, 0.0f }, glm::vec3{ scale }));
 
 			switch (s[i][j])
 			{
@@ -298,7 +298,7 @@ void MakeLevel(Scene& pScene)
 			case 'P':
 				pGameobject->AddComponent(new SpriteRendererComponent(pGameobject, "Platform.png"));
 			}
-			pGameobject->AddComponent(new ColliderComponent(pGameobject, 32.f, 4.f));
+			pGameobject->AddComponent(new ColliderComponent(pGameobject, 16.f, 4.f));
 			pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
 
 

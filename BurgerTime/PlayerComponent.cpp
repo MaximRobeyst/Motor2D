@@ -41,12 +41,21 @@ void PlayerComponent::UpdateDefault()
 
 	// TODO: make axis support
 	// TODO: give transform & rigidbody struct to make it easier to change values within them
-	int keyPress = (int)(keyboard->IsPressed(SDLK_d) - keyboard->IsPressed(SDLK_a));
-	transform.position.x += keyPress * 100.f * GameTime::GetInstance()->GetElapsed();
+	int horAxis = (int)(keyboard->IsPressed(SDLK_d) - keyboard->IsPressed(SDLK_a));
+	int verAxis = (int)(keyboard->IsPressed(SDLK_s) - keyboard->IsPressed(SDLK_w));
 
-	if ((keyPress >= 0 && transform.scale.x > 0) || (keyPress <= -1 && transform.scale.x < 0)) transform.scale.x *= -1;
+	if ((horAxis >= 0 && transform.scale.x > 0) || (horAxis <= -1 && transform.scale.x < 0)) transform.scale.x *= -1;
 
-	if (keyPress != 0) m_pAnimatorComponent->SetAnimation("WalkLeft");
+	if (horAxis != 0)
+	{
+		m_pAnimatorComponent->SetAnimation("WalkLeft");
+		transform.position.x += horAxis * 100.f * GameTime::GetInstance()->GetElapsed();
+	}
+	else if (verAxis != 0)
+	{
+
+		transform.position.y += verAxis * 100.f * GameTime::GetInstance()->GetElapsed();
+	}
 	else m_pAnimatorComponent->SetAnimation("Idle");
 }
 
