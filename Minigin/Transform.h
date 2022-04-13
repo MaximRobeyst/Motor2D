@@ -9,19 +9,20 @@ namespace dae
 	public:
 		struct Transform
 		{
-			glm::vec2 position{};
+			glm::vec3 worldPosition{};
+			glm::vec3 localPosition{};
 			float rotation{};
 			glm::vec2 scale{};
 		};
 
-		TransformComponent(GameObject* pGameobject, glm::vec3 position = glm::vec3{}, glm::vec3 scale = glm::vec3{1,1,1});
+		TransformComponent(GameObject* pGameobject, glm::vec3 position = glm::vec3{}, glm::vec2 scale = glm::vec2{ 1 });
 
 		// Position
-		const glm::vec2& GetPosition() const { return m_Transform.position; }
+		const glm::vec3& GetPosition() const;
 		void SetPosition(float x, float y);
-		void SetPosition(const glm::vec2& position);
+		void SetPosition(const glm::vec3& position);
 
-		void Move(const glm::vec2& moveVector);
+		void Move(const glm::vec3& moveVector);
 
 		//Scale
 		const glm::vec2& GetScale() const { return m_Transform.scale; }

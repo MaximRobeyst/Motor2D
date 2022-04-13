@@ -36,7 +36,7 @@
         "name" : "WalkLeft",
         "duration" : 0.5,
         "framesPerSeconds" : 5,
-        "looping" : false,
+        "looping" : true,
         "keyframes" : 
         [
             {

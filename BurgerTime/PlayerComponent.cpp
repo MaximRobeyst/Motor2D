@@ -4,6 +4,7 @@
 #include "GameObject.h"
 #include "Transform.h"
 #include "GameTime.h"
+#include "LifeComponent.h"
 
 PlayerComponent::PlayerComponent(dae::GameObject* pGameobject)
 	:dae::Component(pGameobject)
@@ -11,6 +12,7 @@ PlayerComponent::PlayerComponent(dae::GameObject* pGameobject)
 	m_pRigidbody = pGameobject->GetComponent<dae::RigidbodyComponent>();
 	m_pTranformComponent = pGameobject->GetComponent<dae::TransformComponent>();
 	m_pAnimatorComponent = pGameobject->GetComponent<dae::AnimatorComponent>();
+	m_pLifeComponent = pGameobject->GetComponent<LifeComponent>();
 }
 
 void PlayerComponent::Update()
@@ -32,6 +34,7 @@ void PlayerComponent::Update()
 void PlayerComponent::PlayerDeath()
 {
 	m_CurrentState = PlayerState::State_Dying;
+	m_pLifeComponent->Hit();
 }
 
 void PlayerComponent::UpdateDefault()

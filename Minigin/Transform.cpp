@@ -4,34 +4,42 @@
 #include "RigidbodyComponent.h"
 #include <imgui.h>
 
-dae::TransformComponent::TransformComponent(GameObject* pGameobject, glm::vec3 position, glm::vec3 scale)
+dae::TransformComponent::TransformComponent(GameObject* pGameobject, glm::vec3 position, glm::vec2 scale)
 	: Component{pGameobject}
-	, m_Transform{ position, 0.0f, scale }
+	, m_Transform{ position, position, 0.0f, scale }
 {
-	m_pParentComponent = pGameobject->GetComponent<dae::TransformComponent>();
+	if(pGameobject->GetParent() != nullptr)
+		m_pParentComponent = pGameobject->GetParent()->GetComponent<dae::TransformComponent>();
+	if (m_pParentComponent != nullptr)
+		m_Transform.worldPosition += m_pParentComponent->GetPosition();
+}
+
+const glm::vec3& dae::TransformComponent::GetPosition() const 
+{
+	return m_Transform.worldPosition; 
 }
 
 void dae::TransformComponent::SetPosition(const float x, const float y)
 {
 	m_Dirty = true;
 
-	m_Transform.position.x = x;
-	m_Transform.position.y = y;
+	m_Transform.worldPosition.x = x;
+	m_Transform.worldPosition.y = y;
 
-	if (m_pParentComponent != nullptr)
-		m_Transform.position += m_pParentComponent->GetPosition();
+	//if (m_pParentComponent != nullptr)
+	//	m_Transform.worldPosition += m_pParentComponent->GetPosition();
 }
 
-void dae::TransformComponent::SetPosition(const glm::vec2& position)
+void dae::TransformComponent::SetPosition(const glm::vec3& position)
 {
 	m_Dirty = true;
-	m_Transform.position = position;
+	m_Transform.worldPosition = position;
 }
 
-void dae::TransformComponent::Move(const glm::vec2& moveVector)
+void dae::TransformComponent::Move(const glm::vec3& moveVector)
 {
 	m_Dirty = true;
-	m_Transform.position += moveVector;
+	m_Transform.worldPosition += moveVector;
 }
 
 void dae::TransformComponent::SetScale(float x, float y)
@@ -68,13 +76,13 @@ void dae::TransformComponent::Update()
 	{
 		if (m_Dirty)
 		{
-			m_pRigidbodyComponent->GetBody()->SetTransform(b2Vec2{ m_Transform.position.x, m_Transform.position.y }, m_Transform.rotation);
+			m_pRigidbodyComponent->GetBody()->SetTransform(b2Vec2{ m_Transform.worldPosition.x, m_Transform.worldPosition.y }, m_Transform.rotation);
 			m_Dirty = false;
 		}
 		else
 		{
 			auto pos = m_pRigidbodyComponent->GetBody()->GetPosition();;
-			m_Transform.position = glm::vec2{ pos.x, pos.y };
+			m_Transform.worldPosition = glm::vec3{ pos.x, pos.y , 0.f};
 		}
 	}
 }

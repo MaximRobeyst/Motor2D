@@ -3,9 +3,12 @@
 #include "GameObject.h"
 #include "RigidbodyComponent.h"
 #include "PlayerComponent.h"
+#include "Event.h"
+#include <Scene.h>
 
 EnemyComponent::EnemyComponent(dae::GameObject* pGameobject)
 	: dae::Component(pGameobject)
+	, m_pSubject{ std::make_unique<Subject>()}
 {
 	m_pAnimatorComponent = pGameobject->GetComponent<dae::AnimatorComponent>();
 
@@ -34,10 +37,30 @@ EnemyComponent::EnemyComponent(dae::GameObject* pGameobject)
 
 void EnemyComponent::Update()
 {
+	if (m_Dead)
+	{
+		if(m_pAnimatorComponent->IsAnimationDone())
+			dae::SceneManager::GetInstance().GetScene(0)->RemoveGameObject(m_pGameObject);
+
+		return;
+	}
 
 }
 
 void EnemyComponent::EnemyDeath()
 {
 	m_pAnimatorComponent->SetAnimation("Death");
+	m_pSubject->Notify(*m_pGameObject, Event::Enemy_Died);
+	m_Dead = true;
+
+}
+
+int EnemyComponent::GetScore() const
+{
+	return m_Score;
+}
+
+std::unique_ptr<Subject>& EnemyComponent::GetSubject()
+{
+	return m_pSubject;
 }

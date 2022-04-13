@@ -12,9 +12,9 @@
 FoodComponent::FoodComponent(dae::GameObject* pGameobject)
 	: Component(pGameobject)
 	, m_pTransform(pGameobject->GetComponent<dae::TransformComponent>())
+	, m_pRigidbody{pGameobject->GetComponent<dae::RigidbodyComponent>()}
 	, m_pSubject(std::make_unique<Subject>())
 {
-	auto rigidBodyComponent = pGameobject->GetComponent<dae::RigidbodyComponent>();
 	std::function<void(dae::RigidbodyComponent* ,dae::RigidbodyComponent*, b2Contact*)> newFunction = [](dae::RigidbodyComponent*  pTriggeredBody, dae::RigidbodyComponent* otherBody, b2Contact*)
 	{
 		auto pOtherGO = otherBody->GetGameobject();
@@ -28,17 +28,18 @@ FoodComponent::FoodComponent(dae::GameObject* pGameobject)
 		else if (foodComp->GetFalling())
 		{
 			foodComp->SetFalling(false);
+			foodComp->GetSubject()->Notify(*pTriggeredBody->GetGameobject(), Event::Burger_Drop);
 		}
 	};
 
-	rigidBodyComponent->SetOnEnterFunction(newFunction);
+	m_pRigidbody->SetOnEnterFunction(newFunction);
 }
 
 void FoodComponent::Update()
 {
 	if (m_Falling)
 	{
-		m_pTransform->SetPosition(m_pTransform->GetPosition() + fallingSpeed * GameTime::GetInstance()->GetElapsed());
+		m_pTransform->SetPosition(m_pTransform->GetPosition() + glm::vec3{ fallingSpeed, 0.f } *GameTime::GetInstance()->GetElapsed());
 	}
 }
 #ifdef _DEBUG
@@ -52,8 +53,8 @@ void FoodComponent::RenderGUI()
 void FoodComponent::SetFalling(bool newValue)
 {
 	m_Falling = newValue;
-	if (m_Falling)
-		m_pSubject->Notify(*m_pGameObject, Event::Burger_Drop);
+	//if (m_Falling)
+	//	m_pSubject->Notify(*m_pGameObject, Event::Burger_Drop);
 }
 
 bool FoodComponent::GetFalling() const

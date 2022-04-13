@@ -11,7 +11,8 @@ namespace dae
 	{
 		friend Scene& SceneManager::CreateScene(const std::string& name);
 	public:
-		void Add(dae::GameObject* object);
+		void AddGameObject(dae::GameObject* object);
+		void RemoveGameObject(dae::GameObject* object);
 
 		std::shared_ptr<b2World> GetPhysicsWorld() const;
 
@@ -34,6 +35,7 @@ namespace dae
 
 		std::string m_Name;
 		std::vector < dae::GameObject*> m_pObjects{};
+		std::vector < dae::GameObject*> m_pObjectsToDelete{};
 		std::shared_ptr<b2World> m_PhysicsWorld;
 
 		CollisionHandler* m_pCollisionHandler{ nullptr };

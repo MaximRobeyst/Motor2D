@@ -120,9 +120,6 @@
     <ClInclude Include="Keyboard.h">
       <Filter>Engine Files\Input</Filter>
     </ClInclude>
-    <ClInclude Include="Event.h">
-      <Filter>Game Files</Filter>
-    </ClInclude>
     <ClInclude Include="CSteamAchievements.h">
       <Filter>Engine Files</Filter>
     </ClInclude>

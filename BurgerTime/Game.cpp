@@ -84,14 +84,17 @@ void LoadGame()
 	//pAchievmentObject->AddComponent(pAchievmentComponent);
 	//scene.Add(pAchievmentObject);
 
+	auto font = ResourceManager::GetInstance().LoadFont("Early GameBoy.ttf", 17);
+
+
 	auto go = new GameObject();
-	auto font = ResourceManager::GetInstance().LoadFont("Lingua.otf", 36);
-	//auto to = new TextComponent(go.get(), "Programming 4 Assignment", font);
-	//go = new GameObject();
-	go->AddComponent(new TransformComponent(go, glm::vec3{ 10.f, 10.f, 0.f }));
+	go->AddComponent(new TransformComponent(go, glm::vec3(10.f, 5.f, 0.f)));
 	go->AddComponent(new SpriteRendererComponent(go, "logo.png"));
-	go->AddComponent(new TextComponent(go, "Programming 4 Assignment", font));
-	scene.Add(go);
+	go->AddComponent(new TextComponent(go, "Score:", font, SDL_Color{ 255, 255, 255 }));
+	auto pScoreDisplay = new ScoreDisplayComponent(go, 0);
+	//pScoreDisplay->GetSubject()->AddObserver(pAchievmentComponent);
+	go->AddComponent(pScoreDisplay);
+	scene.AddGameObject(go);
 
 	auto pPeperGameObject = new GameObject();
 
@@ -105,7 +108,7 @@ void LoadGame()
 	pPeperGameObject->AddComponent(new RigidbodyComponent(pPeperGameObject, b2_dynamicBody, 1.f, 0.3f));
 	pPeperGameObject->AddComponent(new PlayerComponent(pPeperGameObject));
 	pPeperGameObject->SetTag("Player");
-	scene.Add(pPeperGameObject);
+	scene.AddGameObject(pPeperGameObject);
 
 	auto pHotDogGameObject = new GameObject();
 	pHotDogGameObject->AddComponent(new TransformComponent(pHotDogGameObject, glm::vec3(256.f, 128.f, 0), glm::vec3{ 2.f }));
@@ -113,9 +116,11 @@ void LoadGame()
 	pHotDogGameObject->AddComponent(new AnimatorComponent(pHotDogGameObject, "../Data/Animations/HotdogAnimations.json"));
 	pHotDogGameObject->AddComponent(new ColliderComponent(pHotDogGameObject, 16.f, 16.f));
 	pHotDogGameObject->AddComponent(new RigidbodyComponent(pHotDogGameObject));
+	auto pEnemyComponent = new EnemyComponent(pHotDogGameObject);
+	pHotDogGameObject->AddComponent(pEnemyComponent);
+	pEnemyComponent->GetSubject()->AddObserver(pScoreDisplay);
 	pHotDogGameObject->SetTag("Enemy");
-	pHotDogGameObject->AddComponent(new EnemyComponent(pHotDogGameObject));
-	scene.Add(pHotDogGameObject);
+	scene.AddGameObject(pHotDogGameObject);
 
 	auto pEggGameObject = new GameObject();
 	pEggGameObject->AddComponent(new TransformComponent(pEggGameObject, glm::vec3(288.f, 128.f, 0), glm::vec3{ 2.f }));
@@ -123,36 +128,33 @@ void LoadGame()
 	pEggGameObject->AddComponent(new AnimatorComponent(pEggGameObject, "../Data/Animations/EggAnimations.json"));
 	pEggGameObject->AddComponent(new ColliderComponent(pEggGameObject, 16.f, 16.f));
 	pEggGameObject->AddComponent(new RigidbodyComponent(pEggGameObject));
+	pEnemyComponent = new EnemyComponent(pEggGameObject);
+	pEggGameObject->AddComponent(pEnemyComponent);
+	pEnemyComponent->GetSubject()->AddObserver(pScoreDisplay);
 	pEggGameObject->SetTag("Enemy");
-	pEggGameObject->AddComponent(new EnemyComponent(pEggGameObject));
-	scene.Add(pEggGameObject);
+	scene.AddGameObject(pEggGameObject);
 
 	auto pBurgerTop = new GameObject();
 	pBurgerTop->AddComponent(new TransformComponent(pBurgerTop, glm::vec3(240.f, 56.f, 0.f), glm::vec3{ 2.f }));
 	pBurgerTop->AddComponent(new SpriteRendererComponent(pBurgerTop, "BurgerTime_SpriteSheet.png", SDL_FRect{112.f, 48.f, 32.f, 8.f}));
 	pBurgerTop->AddComponent(new ColliderComponent(pBurgerTop, 32.f, 4.f));
 	pBurgerTop->AddComponent(new RigidbodyComponent(pBurgerTop));
-	pBurgerTop->AddComponent(new FoodComponent(pBurgerTop));
+
+
+	auto pFoodComponent = new FoodComponent(pBurgerTop);
+	pBurgerTop->AddComponent(pFoodComponent);
 	pBurgerTop->SetTag("Food");
-	scene.Add(pBurgerTop);
+	pFoodComponent->GetSubject()->AddObserver(pScoreDisplay);
+	scene.AddGameObject(pBurgerTop);
 
 	go = new GameObject();
 	go->AddComponent(new TransformComponent(go, glm::vec3{ 10.f, 500.f, 0.f }));
-	go->AddComponent(new SpriteRendererComponent(go, "logo.png"));
-	go->AddComponent(new TextComponent(go, "Lives: ", font, SDL_Color{ 255, 255, 0 }));
+	//go->AddComponent(new SpriteRendererComponent(go, "logo.png"));
+	//go->AddComponent(new TextComponent(go, "Lives: ", font, SDL_Color{ 255, 255, 0 }));
 	auto pLifeDisplay = new LifeDisplayComponent(go, 3, "Lives: ");
 	pLifeComponent->GetSubject()->AddObserver(pLifeDisplay);
 	go->AddComponent(pLifeDisplay);
-	scene.Add(go);
-
-	go = new GameObject();
-	go->AddComponent(new TransformComponent(go, glm::vec3(10.f, 550.f, 0.f)));
-	go->AddComponent(new SpriteRendererComponent(go, "logo.png"));
-	go->AddComponent(new TextComponent(go, "Score:", font, SDL_Color{ 255, 255, 0 }));
-	auto pScoreDisplay = new ScoreDisplayComponent(go, 0, "Score: ");
-	//pScoreDisplay->GetSubject()->AddObserver(pAchievmentComponent);
-	go->AddComponent(pScoreDisplay);
-	scene.Add(go);
+	scene.AddGameObject(go);
 
 	auto pPeperGameObject2 = new GameObject();
 	pPeperGameObject2->AddComponent(new TransformComponent(pPeperGameObject2, glm::vec3{ 900.f, 100.f, 0 }, glm::vec3{ 5, 5, 5 }));
@@ -160,24 +162,24 @@ void LoadGame()
 	pPeperGameObject2->AddComponent(new MovementComponent(pPeperGameObject2, 100.f));
 	auto pLifeComponent2 = new LifeComponent{ pPeperGameObject2, 3 };
 	pPeperGameObject2->AddComponent(pLifeComponent2);
-	scene.Add(pPeperGameObject2);
+	scene.AddGameObject(pPeperGameObject2);
 
-	go = new GameObject();
-	go->AddComponent(new TransformComponent(go, glm::vec3{ 1100.f, 500.f, 0.f }));
-	go->AddComponent(new SpriteRendererComponent(go, "logo.png"));
-	go->AddComponent(new TextComponent(go, "Lives: ", font, SDL_Color{ 0, 255, 0 }));
-	pLifeDisplay = new LifeDisplayComponent(go, 3, "Lives: ");
-	pLifeComponent2->GetSubject()->AddObserver(pLifeDisplay);
-	go->AddComponent(pLifeDisplay);
-	scene.Add(go);
+	//go = new GameObject();
+	//go->AddComponent(new TransformComponent(go, glm::vec3{ 1100.f, 500.f, 0.f }));
+	////go->AddComponent(new SpriteRendererComponent(go, "logo.png"));
+	////go->AddComponent(new TextComponent(go, "", font, SDL_Color{ 0, 255, 0 }));
+	//pLifeDisplay = new LifeDisplayComponent(go, 3, " ");
+	//pLifeComponent2->GetSubject()->AddObserver(pLifeDisplay);
+	//go->AddComponent(pLifeDisplay);
+	//scene.AddGameObject(go);
 
 	go = new GameObject();
 	go->AddComponent(new TransformComponent(go, glm::vec3(1100.f, 550.f, 0.f)));
 	go->AddComponent(new SpriteRendererComponent(go, "logo.png"));
 	go->AddComponent(new TextComponent(go, "Score:", font, SDL_Color{ 0, 255, 0 }));
-	pScoreDisplay = new ScoreDisplayComponent(go, 0, "Score: ");
+	pScoreDisplay = new ScoreDisplayComponent(go, 3, "Score: ");
 	go->AddComponent(pScoreDisplay);
-	scene.Add(go);
+	scene.AddGameObject(go);
 
 	//auto keyboard = input.GetKeyboard();
 	////keyboard->AddKeyboardMapping(KeyboardKeyData{ SDLK_q, KeyState::JustUp }, std::make_unique<KillCommand>(pLifeComponent2));
@@ -222,12 +224,12 @@ void LoadGame()
 	//font = ResourceManager::GetInstance().LoadFont("Lingua.otf", 16);
 	//
 	go = new GameObject();
-	go->AddComponent(new TransformComponent(go, glm::vec3{ 20, 60, 0 }));
+	go->AddComponent(new TransformComponent(go, glm::vec3{ 800, 750, 0 }));
 	go->AddComponent(new SpriteRendererComponent(go, "logo.png"));
 	go->AddComponent(new TextComponent(go, "Programming 4 Assignment", font, { 255,255,0 }));
 	go->AddComponent(new FPSComponent(go));
 
-	scene.Add(go);
+	scene.AddGameObject(go);
 }
 
 
@@ -307,7 +309,7 @@ void MakeLevel(Scene& pScene)
 
 
 
-			pScene.Add(pGameobject);
+			pScene.AddGameObject(pGameobject);
 
 
 			//pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 13 * 16.f * scale, 0.f * 8.f * scale, 0.0f }, glm::vec3{ scale }));

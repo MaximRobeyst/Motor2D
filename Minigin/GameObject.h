@@ -59,7 +59,7 @@ namespace dae
 
 		std::string m_Tag{};
 
-		std::vector<Component*> m_pComponents;
+		std::vector<Component*> m_pComponents{};
 
 		GameObject* m_pParent{};
 		std::vector<GameObject*> m_pChildren{};

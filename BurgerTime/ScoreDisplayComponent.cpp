@@ -3,6 +3,9 @@
 #include "Observer.h"
 #include "Event.h"
 #include "Subject.h"
+#include "MrHotDogComponent.h"
+
+#include <GameObject.h>
 
 ScoreDisplayComponent::ScoreDisplayComponent(dae::GameObject* pGameObject, int number, const std::string& extraDisplayText)
 	: Component{ pGameObject }
@@ -14,18 +17,26 @@ ScoreDisplayComponent::ScoreDisplayComponent(dae::GameObject* pGameObject, int n
 	m_pTextComponent->SetText(extraDisplayText + std::to_string(number));
 }
 
-void ScoreDisplayComponent::Notify(const dae::GameObject& /*gameObject*/, const Event& action)
+void ScoreDisplayComponent::Notify(const dae::GameObject& gameObject, const Event& action)
 {
 	switch (action)
 	{
 	case Event::Enemy_Died:
+	{
+		auto pEnemyComponent = gameObject.GetComponent<EnemyComponent>();
+
+		m_Score += pEnemyComponent->GetScore();
+		ChangeText(m_Score);
+		break;
+	}
 	case Event::Burger_Drop:
-		m_Score += 100;
+	{
+		m_Score += 50;
 		ChangeText(m_Score);
 		if (m_Score == 500)
 			m_pSubject->Notify(m_pGameObject, Event::Game_Won);
 		break;
-
+	}
 	default:
 		break;
 	}

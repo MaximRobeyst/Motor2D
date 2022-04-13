@@ -1,7 +1,7 @@
 #pragma once
 #include "Component.h"
 #include "SpriteRendererComponent.h"
-#include "Subject.h"
+#include <Subject.h>
 
 class FoodComponent : public dae::Component
 {
@@ -24,6 +24,7 @@ private:
 	glm::vec2 fallingSpeed = glm::vec2{ 0, 50 };
 
 	dae::TransformComponent* m_pTransform{nullptr};
+	dae::RigidbodyComponent* m_pRigidbody{ nullptr };
 	std::unique_ptr<Subject> m_pSubject;
 
 };

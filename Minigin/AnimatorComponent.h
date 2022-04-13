@@ -23,6 +23,8 @@ namespace dae
 
 		void Update() override;
 
+		bool IsAnimationDone() const;
+
 		void SetAnimation(const std::string& name);
 	private:
 		std::map<std::string, Animation*> m_pAnimations;
@@ -44,7 +46,7 @@ namespace dae
 		};
 
 	public:
-		Animation(float duration, float nrOfFramesPerSecond, const rapidjson::Value& keyframes);
+		Animation(float duration, float nrOfFramesPerSecond, bool looping, const rapidjson::Value& keyframes);
 
 		void Update();
 
@@ -54,12 +56,16 @@ namespace dae
 		AnimationKeyframe GetKeyFrame(int index) const;
 		SDL_FRect GetCurrentKeyFrameRect() const;
 
+		bool IsDone() const;
+		bool IsLooping() const;
+
 	private:
 		AnimationKeyframe m_CurrentKeyframe;
 
 		std::vector<AnimationKeyframe> m_KeyFrames{};
 		float m_Duration;
 		float m_NrOfFramePerSecond;
+		bool m_Looping;
 
 		float m_AnimTime{ 0.0f };
 		int m_CurrentKeyIndex{ 0 };

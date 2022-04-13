@@ -29,6 +29,7 @@
     <ClCompile Include="ScoreDisplayComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Minigin\Event.h" />
     <ClInclude Include="FoodComponent.h" />
     <ClInclude Include="LifeComponent.h" />
     <ClInclude Include="LifeDisplayComponent.h" />

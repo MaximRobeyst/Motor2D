@@ -16,9 +16,6 @@ dae::GameObject::~GameObject()
 		delete *iter;
 	m_pComponents.clear();
 
-
-	for (auto iter = m_pChildren.begin(); iter != m_pChildren.end(); ++iter)
-		delete* iter;
 	m_pChildren.clear();
 }
 
@@ -28,9 +25,6 @@ void dae::GameObject::Start()
 	{
 		(*iter)->Start();
 	}
-
-	for (auto iter = m_pChildren.begin(); iter != m_pChildren.end(); ++iter)
-		(*iter)->Start();
 }
 
 void dae::GameObject::Update()
@@ -39,9 +33,6 @@ void dae::GameObject::Update()
 	{
 		(*iter)->Update();
 	}
-
-	for (auto iter = m_pChildren.begin(); iter != m_pChildren.end(); ++iter)
-		(*iter)->Update();
 }
 
 void dae::GameObject::Render() const
@@ -53,9 +44,6 @@ void dae::GameObject::Render() const
 		(*iter)->Render();
 	}
 
-	for (auto iter = m_pChildren.begin(); iter != m_pChildren.end(); ++iter)
-		(*iter)->Render();
-
 }
 
 #ifdef _DEBUG
@@ -65,10 +53,6 @@ void dae::GameObject::RenderGUI()
 	{
 		(*iter)->RenderGUI();
 	}
-
-	for (auto iter = m_pChildren.begin(); iter != m_pChildren.end(); ++iter)
-		(*iter)->RenderGUI();
-
 }
 #endif // _DEBUG
 
@@ -81,17 +65,18 @@ void dae::GameObject::AddComponent(Component* component)
 
 void dae::GameObject::SetParent(GameObject* pParent, bool /*worldPositionStays*/)
 {
+	// Remove itself as a child from the previous parent
 	if (m_pParent != nullptr)
-	{
-		pParent->RemoveChild(this);
-	}
-	m_pParent = pParent;
-	if(m_pParent != nullptr)
-		pParent->AddChild(this);
-	// Update position
+		m_pParent->RemoveChild(this);
 
-	// if already has a parent remove if from the other parent
-	// Set transform relative (Check integrity of scenegraph)
+	// Set The given parent on itself
+	m_pParent = pParent;
+
+	// Add itself as a child to the given parent
+	if(pParent != nullptr)
+		pParent->AddChild(this);
+
+	// TODO: Update position transform
 }
 
 dae::GameObject* dae::GameObject::GetParent() const
@@ -101,18 +86,6 @@ dae::GameObject* dae::GameObject::GetParent() const
 
 void dae::GameObject::AddChild(GameObject* pChild)
 {
-	if (m_pParent == nullptr)
-		return;
-
-	if (pChild == m_pParent)
-		return;
-
-	if (GameObject* pChildParent = pChild->GetParent(); pChildParent != nullptr)
-	{
-		pChildParent->RemoveChild(pChild);
-	}
-
-	pChild->SetParent(this);
 	m_pChildren.push_back(pChild);
 
 	// if already has a parent remove if from the other parent
@@ -126,7 +99,7 @@ void dae::GameObject::RemoveChild(GameObject* pGameObject)
 	std::swap(*gameObject, m_pChildren[m_pChildren.size() - 1]);
 	m_pChildren.pop_back();
 
-	pGameObject->SetParent(nullptr);
+	//pGameObject->SetParent(nullptr);
 
 	// Update Position
 }

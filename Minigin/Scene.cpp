@@ -26,9 +26,20 @@ Scene::~Scene()
 	m_pObjects.clear();
 }
 
-void Scene::Add(dae::GameObject* object)
+void Scene::AddGameObject(dae::GameObject* object)
 {
 	m_pObjects.push_back(object);
+}
+
+void dae::Scene::RemoveGameObject(dae::GameObject* object)
+{
+	if (object->GetParent() != nullptr)
+		object->SetParent(nullptr);
+
+	auto objectToRemove = std::find(m_pObjects.begin(), m_pObjects.end(), object);
+	m_pObjects.erase(objectToRemove);
+
+	m_pObjectsToDelete.push_back(object);
 }
 
 std::shared_ptr<b2World> dae::Scene::GetPhysicsWorld() const
@@ -46,19 +57,19 @@ void dae::Scene::Start()
 
 void Scene::Update()
 {
+	// Update physics world
 	m_PhysicsWorld->Step(GameTime::GetInstance()->GetElapsed(), 6, 2);
-	//for (b2Contact* c = m_PhysicsWorld->GetContactList(); c; c = c->GetNext())
-	//{
-	//	if (c == nullptr)
-	//		continue;
-	//
-	//	m_pCollisionHandler->BeginContact(c);
-	//}
 
+	// Update all objects
 	for(auto& object : m_pObjects)
 	{
 		object->Update();
 	}
+
+	// Delete marked for delete objects
+	for (int i = 0; i < m_pObjectsToDelete.size(); ++i)
+		delete m_pObjectsToDelete[i];
+	m_pObjectsToDelete.clear();
 }
 
 void Scene::Render() const

@@ -3,6 +3,7 @@
 #include "RigidbodyComponent.h"
 #include "AnimatorComponent.h"
 
+class LifeComponent;
 class PlayerComponent : public dae::Component
 {
 	// I use the enum and switch aproach because making a state machine would be a bit overkill i think
@@ -31,6 +32,7 @@ private:
 	dae::RigidbodyComponent* m_pRigidbody;
 	dae::TransformComponent* m_pTranformComponent;
 	dae::AnimatorComponent* m_pAnimatorComponent;
+	LifeComponent* m_pLifeComponent;
 
 };
 

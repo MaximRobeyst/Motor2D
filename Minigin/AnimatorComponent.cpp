@@ -23,7 +23,7 @@ dae::AnimatorComponent::AnimatorComponent(dae::GameObject* pGameobject, const st
 			const rapidjson::Value& animation = *iter;
 
 			const rapidjson::Value& animationName = animation["name"];
-			m_pAnimations[animationName.GetString()] = new Animation(animation["duration"].GetFloat(), animation["framesPerSeconds"].GetFloat(), animation["keyframes"]);
+			m_pAnimations[animationName.GetString()] = new Animation(animation["duration"].GetFloat(), animation["framesPerSeconds"].GetFloat(), animation["looping"].GetBool(), animation["keyframes"]);
 		}
 	}
 
@@ -49,6 +49,11 @@ void dae::AnimatorComponent::Update()
 	}
 }
 
+bool dae::AnimatorComponent::IsAnimationDone() const
+{
+	return !m_CurrentAnimation->IsLooping() && m_CurrentAnimation->IsDone();
+}
+
 void dae::AnimatorComponent::SetAnimation(const std::string& name)
 {
 	if (m_CurrentAnimation == m_pAnimations[name]) return;
@@ -56,9 +61,10 @@ void dae::AnimatorComponent::SetAnimation(const std::string& name)
 	m_CurrentAnimation = m_pAnimations[name];
 }
 
-dae::Animation::Animation(float duration, float nrOfFramesPerSecond, const rapidjson::Value& keyframes)
+dae::Animation::Animation(float duration, float nrOfFramesPerSecond, bool looping, const rapidjson::Value& keyframes)
 	: m_Duration{duration}
 	, m_NrOfFramePerSecond{nrOfFramesPerSecond}
+	, m_Looping{looping}
 {
 	for (auto iter = keyframes.Begin(); iter != keyframes.End(); ++iter)
 	{
@@ -96,7 +102,11 @@ void dae::Animation::Update()
 
 	if (m_AnimTime >= (1.0f / m_NrOfFramePerSecond))
 	{
-		++m_CurrentKeyIndex %= m_KeyFrames.size();
+		++m_CurrentKeyIndex;
+		if (m_Looping && m_CurrentKeyIndex >= m_KeyFrames.size())
+			m_CurrentKeyIndex = 0;
+		else if (m_CurrentKeyIndex >= m_KeyFrames.size())
+			m_CurrentKeyIndex = (int)m_KeyFrames.size() - 1;
 		m_CurrentKeyframe = m_KeyFrames[m_CurrentKeyIndex];
 		m_AnimTime -= (1.0f / m_NrOfFramePerSecond);
 	}
@@ -125,4 +135,14 @@ SDL_FRect dae::Animation::GetCurrentKeyFrameRect() const
 	keyFrameRect.w = m_CurrentKeyframe.width;
 	keyFrameRect.h = m_CurrentKeyframe.height;
 	return keyFrameRect;
+}
+
+bool dae::Animation::IsDone() const
+{
+	return m_CurrentKeyIndex >= m_KeyFrames.size()-1;
+}
+
+bool dae::Animation::IsLooping() const
+{
+	return m_Looping;
 }
