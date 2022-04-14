@@ -25,7 +25,14 @@ FoodComponent::FoodComponent(dae::GameObject* pGameobject)
 			//auto playerComponent = pOtherGO->GetComponent<PlayerComponent>();
 			foodComp->SetFalling(true);
 		}
-		else if (foodComp->GetFalling())
+		else if (pOtherGO->GetTag() == "Food")
+		{
+			//foodComp->SetFalling(false);
+			//foodComp->GetSubject()->Notify(*pTriggeredBody->GetGameobject(), Event::Burger_Drop);
+			foodComp = pOtherGO->GetComponent<FoodComponent>();
+			foodComp->SetFalling(true);
+		}
+		else if (foodComp->GetFalling() && pOtherGO->GetTag().empty())
 		{
 			foodComp->SetFalling(false);
 			foodComp->GetSubject()->Notify(*pTriggeredBody->GetGameobject(), Event::Burger_Drop);
@@ -39,7 +46,8 @@ void FoodComponent::Update()
 {
 	if (m_Falling)
 	{
-		m_pTransform->SetPosition(m_pTransform->GetPosition() + glm::vec3{ fallingSpeed, 0.f } *GameTime::GetInstance()->GetElapsed());
+		m_pTransform->SetPosition(m_pTransform->GetPosition() + glm::vec3{ m_FallingSpeed, 0.f } *GameTime::GetInstance()->GetElapsed());
+		m_pRigidbody->GetBody()->SetLinearVelocity(b2Vec2{});
 	}
 }
 #ifdef _DEBUG

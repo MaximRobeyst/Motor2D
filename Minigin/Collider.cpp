@@ -38,8 +38,16 @@ dae::ColliderComponent::ColliderComponent(dae::GameObject* pGameObject, float wi
 	m_Width = (width * m_pTransform->GetScale().x);
 	m_Height = (height * m_pTransform->GetScale().y);
 
-	m_Center.x = (m_Width / 2);
-	m_Center.y = (m_Height / 2);
+	if (m_Center == glm::vec2{})
+	{
+		m_Center.x = (m_Width / 2);
+		m_Center.y = (m_Height / 2);
+	}
+	else
+	{
+		m_Center.x *= m_pTransform->GetScale().x;
+		m_Center.y *= m_pTransform->GetScale().y;
+	}
 
 	m_DynamicBox->SetAsBox(m_Width / 2, m_Height / 2 , b2Vec2{m_Center.x, m_Center.y}, 0.0f);
 }

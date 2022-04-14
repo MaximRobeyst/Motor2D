@@ -61,7 +61,7 @@ void PlayerComponent::UpdateDefault()
 		if (verAxis >= 1) m_pAnimatorComponent->SetAnimation("WalkDown");
 		else if (verAxis <= -1) m_pAnimatorComponent->SetAnimation("WalkUp");
 
-		vel .y = verAxis * 100.f /** GameTime::GetInstance()->GetElapsed()*/;
+		vel .y = verAxis * 64.f /** GameTime::GetInstance()->GetElapsed()*/;
 	}
 	else m_pAnimatorComponent->SetAnimation("Idle");
 

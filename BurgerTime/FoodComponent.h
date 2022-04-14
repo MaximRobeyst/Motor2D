@@ -21,7 +21,7 @@ public:
 	std::unique_ptr<Subject>& GetSubject();
 private:
 	bool m_Falling{ false };
-	glm::vec2 fallingSpeed = glm::vec2{ 0, 50 };
+	glm::vec2 m_FallingSpeed = glm::vec2{ 0, 50 };
 
 	dae::TransformComponent* m_pTransform{nullptr};
 	dae::RigidbodyComponent* m_pRigidbody{ nullptr };

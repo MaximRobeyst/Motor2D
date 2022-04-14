@@ -65,8 +65,5 @@
     <ClInclude Include="MrHotDogComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
-    <ClInclude Include="..\Minigin\Event.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
   </ItemGroup>
 </Project>
