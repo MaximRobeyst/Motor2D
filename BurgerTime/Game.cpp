@@ -28,6 +28,7 @@
 #include "PlayerComponent.h"
 #include "AnimatorComponent.h"
 #include "MrHotDogComponent.h"
+#include "PlateComponent.h"
 
 #include "Observer.h"
 #include "Subject.h"
@@ -135,7 +136,7 @@ void LoadGame()
 	scene.AddGameObject(pEggGameObject);
 
 	auto pBurgerTop = new GameObject();
-	pBurgerTop->AddComponent(new TransformComponent(pBurgerTop, glm::vec3(256.f, 32.f, 0.f), glm::vec2{ 2.f }));
+	pBurgerTop->AddComponent(new TransformComponent(pBurgerTop, glm::vec3(224.f, 32.f, 0.f), glm::vec2{ 2.f }));
 	pBurgerTop->AddComponent(new SpriteRendererComponent(pBurgerTop, "BurgerTime_SpriteSheet.png", SDL_FRect{112.f, 48.f, 32.f, 8.f}));
 	pBurgerTop->AddComponent(new ColliderComponent(pBurgerTop, 32.f, 4.f));
 	pBurgerTop->AddComponent(new RigidbodyComponent(pBurgerTop, b2_dynamicBody, 1.0f, 1.0f));
@@ -145,8 +146,19 @@ void LoadGame()
 	pFoodComponent->GetSubject()->AddObserver(pScoreDisplay);
 	scene.AddGameObject(pBurgerTop);
 
+	auto pCheese = new GameObject();
+	pCheese->AddComponent(new TransformComponent(pCheese, glm::vec3(224.f, 96.f, 0.f), glm::vec2{ 2.f }));
+	pCheese->AddComponent(new SpriteRendererComponent(pCheese, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 64.f, 32.f, 8.f }));
+	pCheese->AddComponent(new ColliderComponent(pCheese, 32.f, 4.f));
+	pCheese->AddComponent(new RigidbodyComponent(pCheese, b2_dynamicBody, 1.0f, 1.0f));
+	pFoodComponent = new FoodComponent(pCheese);
+	pCheese->AddComponent(pFoodComponent);
+	pCheese->SetTag("Food");
+	pFoodComponent->GetSubject()->AddObserver(pScoreDisplay);
+	scene.AddGameObject(pCheese);
+
 	auto pBurgerBottom = new GameObject();
-	pBurgerBottom->AddComponent(new TransformComponent(pBurgerBottom, glm::vec3{ 256.f, 112.f, 0.f }, glm::vec2{ 2.f }));
+	pBurgerBottom->AddComponent(new TransformComponent(pBurgerBottom, glm::vec3{ 224.f, 320.f, 0.f }, glm::vec2{ 2.f }));
 	pBurgerBottom->AddComponent(new SpriteRendererComponent(pBurgerBottom, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 56.f, 32.f, 8.f }));
 	pBurgerBottom->AddComponent(new ColliderComponent(pBurgerBottom, 32.f, 4.f));
 	pBurgerBottom->AddComponent(new RigidbodyComponent(pBurgerBottom, b2_dynamicBody, 1.0f, 1.0f));
@@ -154,9 +166,29 @@ void LoadGame()
 	pBurgerBottom->AddComponent(pFoodComponent);
 	pBurgerBottom->SetTag("Food");
 	pFoodComponent->GetSubject()->AddObserver(pScoreDisplay);
-
-
 	scene.AddGameObject(pBurgerBottom);
+
+
+	//pBurgerBottom = new GameObject();
+	//pBurgerBottom->AddComponent(new TransformComponent(pBurgerBottom, glm::vec3{ 224.f, 256.f, 0.f }, glm::vec2{ 2.f }));
+	//pBurgerBottom->AddComponent(new SpriteRendererComponent(pBurgerBottom, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 64.f, 32.f, 8.f }));
+	//pBurgerBottom->AddComponent(new ColliderComponent(pBurgerBottom, 32.f, 4.f));
+	//pBurgerBottom->AddComponent(new RigidbodyComponent(pBurgerBottom, b2_dynamicBody, 1.0f, 1.0f));
+	//pFoodComponent = new FoodComponent(pBurgerBottom);
+	//pBurgerBottom->AddComponent(pFoodComponent);
+	//pBurgerBottom->SetTag("Food");
+	//pFoodComponent->GetSubject()->AddObserver(pScoreDisplay);
+	//scene.AddGameObject(pBurgerBottom);
+
+	auto pPlate = new GameObject();
+	pPlate->AddComponent(new TransformComponent(pPlate, glm::vec3{ 224.f, 448.f, 0.f }, glm::vec2{ 2.f }));
+	pPlate->AddComponent(new SpriteRendererComponent(pPlate, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 96.f, 32.f, 8.f }));
+	pPlate->AddComponent(new ColliderComponent(pPlate, 32.f, 8.f, glm::vec2{16.f, 8.f}));
+	pPlate->AddComponent(new RigidbodyComponent(pPlate, b2_dynamicBody, 1.0f, 1.0f));
+	pPlate->AddComponent(new PlateComponent(pPlate));
+	pPlate->SetTag("Plate");
+	scene.AddGameObject(pPlate);
+
 
 	go = new GameObject();
 	go->AddComponent(new TransformComponent(go, glm::vec3{ 10.f, 750.f, 0.f }));
@@ -246,25 +278,29 @@ void LoadGame()
 
 void MakeLevel(Scene& pScene)
 {
-	const int size{ 17 };
+	const int size{ 21 };
 	std::string s[size]{
-	"................",
-	"................",
-	"LPPLPLPLPLPPLPPL",
-	"L..L.L.L.L..L..L",
-	"L..L.L.L.L..L..L",
-	"L..L.L.L.L..L..L",
-	"L..L.L.L.L..L..L",
-	"LPPLPLPLPLPPLPPL",
-	"L..L...L.L..L..L",
-	"L..L...L.L..L..L",
-	"L..L...L.L..L..L",
-	"PPPPPPPLPLPPLPPL",
-	"................",
-	"................",
-	"................",
-	"................",
-	"................",
+".............",
+".............",
+"LPPLPPLPPLPPL",
+"L..L..L..L..L",
+"L..L..L..L..L",
+"L..L..L..L..L",
+"LPPL..LPPLPPL",
+"...L..L.....L",
+"...LPPL.....L",
+"...L..L.....L",
+"LPPL..L..LPPL",
+"L..L..L..L...",
+"L..LPPLPPL...",
+"L..L..L..L...",
+"L..L..L..LPPL",
+"L..L..L..L..L",
+"LPPLPPLPPL..L",
+"L..L..L..L..L",
+"L..L..L..L..L",
+"L..L..L..L..L",
+"LPPLPPLPPLPPL",
 	};
 
 	//std::string s[size]

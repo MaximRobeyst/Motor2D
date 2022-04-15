@@ -8,8 +8,6 @@
 
 namespace dae
 {
-
-	// todo: this should become final.
 	class GameObject final : public SceneObject
 	{
 	public:
@@ -53,16 +51,22 @@ namespace dae
 		void SetTag(std::string tag);
 		std::string GetTag() const;
 
+
 	private:
 		void AddChild(GameObject* pChild);
 		void RemoveChild(GameObject* pChild);
 
+		// Extra data
 		std::string m_Tag{};
 
+		// Components
 		std::vector<Component*> m_pComponents{};
 
+		// Scene Graph
 		GameObject* m_pParent{};
 		std::vector<GameObject*> m_pChildren{};
+
+		dae::Scene* m_CurrentScene{ nullptr };
 
 	};
 }

@@ -42,6 +42,9 @@
     <ClCompile Include="MrHotDogComponent.cpp">
       <Filter>Components</Filter>
     </ClCompile>
+    <ClCompile Include="PlateComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FoodComponent.h">
@@ -63,6 +66,9 @@
       <Filter>Components</Filter>
     </ClInclude>
     <ClInclude Include="MrHotDogComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="PlateComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
   </ItemGroup>

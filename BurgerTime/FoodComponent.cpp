@@ -8,6 +8,7 @@
 #include "PlayerComponent.h"
 #include <GameTime.h>
 #include "MrHotDogComponent.h"
+#include "PlateComponent.h"
 
 FoodComponent::FoodComponent(dae::GameObject* pGameobject)
 	: Component(pGameobject)
@@ -32,6 +33,19 @@ FoodComponent::FoodComponent(dae::GameObject* pGameobject)
 			foodComp = pOtherGO->GetComponent<FoodComponent>();
 			foodComp->SetFalling(true);
 		}
+		else if (pOtherGO->GetTag() == "Plate")
+		{
+			foodComp->SetFalling(false);
+
+			PlateComponent* plateComp{ nullptr };
+			if (pOtherGO->GetParent() != nullptr)
+				plateComp = pOtherGO->GetParent()->GetComponent<PlateComponent>();
+			else
+				plateComp = pOtherGO->GetComponent<PlateComponent>();
+
+			plateComp->AddIngredient(pTriggeredBody->GetGameobject());
+		}
+
 		else if (foodComp->GetFalling() && pOtherGO->GetTag().empty())
 		{
 			foodComp->SetFalling(false);
