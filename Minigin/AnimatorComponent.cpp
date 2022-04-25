@@ -80,19 +80,6 @@ dae::Animation::Animation(float duration, float nrOfFramesPerSecond, bool loopin
 		);
 	}
 
-	// Death!
-	//AddKeyFrame(AnimationKeyframe{ 48.f, 16.f, 16.f, 16.f });
-	//AddKeyFrame(AnimationKeyframe{ 64.f, 16.f, 16.f, 16.f });
-	//AddKeyFrame(AnimationKeyframe{ 80.f, 16.f, 16.f, 16.f });
-	//AddKeyFrame(AnimationKeyframe{ 96.f, 16.f, 16.f, 16.f });
-	//AddKeyFrame(AnimationKeyframe{ 112.f, 16.f, 16.f, 16.f });
-	//AddKeyFrame(AnimationKeyframe{ 128.f, 16.f, 16.f, 16.f });
-
-	// WalkLeft
-	//AddKeyFrame(AnimationKeyframe{ 48.f, 0.f, 16.f, 16.f });
-	//AddKeyFrame(AnimationKeyframe{ 64.f, 0.f, 16.f, 16.f });
-	//AddKeyFrame(AnimationKeyframe{ 80.f, 0.f, 16.f, 16.f });
-
 	m_CurrentKeyframe = m_KeyFrames[0];
 }
 
@@ -103,9 +90,9 @@ void dae::Animation::Update()
 	if (m_AnimTime >= (1.0f / m_NrOfFramePerSecond))
 	{
 		++m_CurrentKeyIndex;
-		if (m_Looping && m_CurrentKeyIndex >= m_KeyFrames.size())
+		if (m_Looping && m_CurrentKeyIndex >= static_cast<int>(m_KeyFrames.size()))
 			m_CurrentKeyIndex = 0;
-		else if (m_CurrentKeyIndex >= m_KeyFrames.size())
+		else if (m_CurrentKeyIndex >= static_cast<int>(m_KeyFrames.size()))
 			m_CurrentKeyIndex = (int)m_KeyFrames.size() - 1;
 		m_CurrentKeyframe = m_KeyFrames[m_CurrentKeyIndex];
 		m_AnimTime -= (1.0f / m_NrOfFramePerSecond);
@@ -139,7 +126,7 @@ SDL_FRect dae::Animation::GetCurrentKeyFrameRect() const
 
 bool dae::Animation::IsDone() const
 {
-	return m_CurrentKeyIndex >= m_KeyFrames.size()-1;
+	return m_CurrentKeyIndex >= static_cast<int>( m_KeyFrames.size())-1;
 }
 
 bool dae::Animation::IsLooping() const

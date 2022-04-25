@@ -67,7 +67,7 @@ void Scene::Update()
 	}
 
 	// Delete marked for delete objects
-	for (int i = 0; i < m_pObjectsToDelete.size(); ++i)
+	for (size_t i = 0; i < m_pObjectsToDelete.size(); ++i)
 		delete m_pObjectsToDelete[i];
 	m_pObjectsToDelete.clear();
 }

@@ -6,9 +6,12 @@
 #include "Event.h"
 #include <Scene.h>
 
-EnemyComponent::EnemyComponent(dae::GameObject* pGameobject)
+EnemyComponent::EnemyComponent(dae::GameObject* pGameobject, dae::TransformComponent* pPlayerTransform)
 	: dae::Component(pGameobject)
 	, m_pSubject{ std::make_unique<Subject>()}
+	, m_pPlayerTransform{pPlayerTransform}
+	, m_pTransfomComponent{pGameobject->GetComponent<dae::TransformComponent>()}
+	, m_pRigidbodyComponent{pGameobject->GetComponent<dae::RigidbodyComponent>()}
 {
 	m_pAnimatorComponent = pGameobject->GetComponent<dae::AnimatorComponent>();
 
@@ -37,6 +40,11 @@ EnemyComponent::EnemyComponent(dae::GameObject* pGameobject)
 
 void EnemyComponent::Update()
 {
+	if (m_pPlayerTransform->GetPosition().x <= m_pTransfomComponent->GetPosition().x)
+		m_pRigidbodyComponent->GetBody()->SetLinearVelocity(b2Vec2{ -m_Speed, 0.f });
+	else if(m_pPlayerTransform->GetPosition().x >= m_pTransfomComponent->GetPosition().x)
+		m_pRigidbodyComponent->GetBody()->SetLinearVelocity(b2Vec2{ m_Speed, 0.f });
+
 	if (m_Dead)
 	{
 		if(m_pAnimatorComponent->IsAnimationDone())
@@ -44,7 +52,6 @@ void EnemyComponent::Update()
 
 		return;
 	}
-
 }
 
 void EnemyComponent::EnemyDeath()

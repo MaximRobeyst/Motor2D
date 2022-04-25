@@ -22,6 +22,9 @@
     <Filter Include="Engine Files\Input">
       <UniqueIdentifier>{f0494122-00a0-4074-a99e-73fbe95a5188}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine Files\Audio">
+      <UniqueIdentifier>{16e8eb13-7b02-4b12-bcfb-a1044bf7643d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Transform.h">
@@ -141,6 +144,24 @@
     <ClInclude Include="Event.h">
       <Filter>Component Files</Filter>
     </ClInclude>
+    <ClInclude Include="ServiceLocator.h">
+      <Filter>Engine Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AudioSystem.h">
+      <Filter>Engine Files\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="SDLAudioSystem.h">
+      <Filter>Engine Files\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="NullAudioSystem.h">
+      <Filter>Engine Files\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="LoggedAudio.h">
+      <Filter>Engine Files\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="AudioClip.h">
+      <Filter>Engine Files\Audio</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MiniginPCH.cpp">
@@ -241,6 +262,24 @@
     </ClCompile>
     <ClCompile Include="CollisionHandler.cpp">
       <Filter>Engine Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ServiceLocator.cpp">
+      <Filter>Engine Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AudioSystem.cpp">
+      <Filter>Engine Files\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="SDLAudioSystem.cpp">
+      <Filter>Engine Files\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="NullAudioSystem.cpp">
+      <Filter>Engine Files\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="LoggedAudio.cpp">
+      <Filter>Engine Files\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="AudioClip.cpp">
+      <Filter>Engine Files\Audio</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

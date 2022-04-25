@@ -66,7 +66,5 @@ namespace dae
 		GameObject* m_pParent{};
 		std::vector<GameObject*> m_pChildren{};
 
-		dae::Scene* m_CurrentScene{ nullptr };
-
 	};
 }

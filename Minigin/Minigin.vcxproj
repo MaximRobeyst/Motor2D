@@ -241,6 +241,8 @@ xcopy $(Solutiondir)3rdParty\SDL2_ttf\lib\x64\*.dll $(OutputPath) /Y</Command>
     <ClInclude Include="..\3rdParty\imgui-1.86\imstb_textedit.h" />
     <ClInclude Include="..\3rdParty\imgui-1.86\imstb_truetype.h" />
     <ClInclude Include="AnimatorComponent.h" />
+    <ClInclude Include="AudioClip.h" />
+    <ClInclude Include="AudioSystem.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="CollisionHandler.h" />
     <ClInclude Include="CSteamAchievements.h" />
@@ -253,8 +255,10 @@ xcopy $(Solutiondir)3rdParty\SDL2_ttf\lib\x64\*.dll $(OutputPath) /Y</Command>
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Keyboard.h" />
     <ClInclude Include="InputManager.h" />
+    <ClInclude Include="LoggedAudio.h" />
     <ClInclude Include="Minigin.h" />
     <ClInclude Include="MiniginPCH.h" />
+    <ClInclude Include="NullAudioSystem.h" />
     <ClInclude Include="Observer.h" />
     <ClInclude Include="RigidbodyComponent.h" />
     <ClInclude Include="SceneObject.h" />
@@ -262,6 +266,8 @@ xcopy $(Solutiondir)3rdParty\SDL2_ttf\lib\x64\*.dll $(OutputPath) /Y</Command>
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="SDLAudioSystem.h" />
+    <ClInclude Include="ServiceLocator.h" />
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="SpriteRendererComponent.h" />
     <ClInclude Include="Subject.h" />
@@ -329,6 +335,8 @@ xcopy $(Solutiondir)3rdParty\SDL2_ttf\lib\x64\*.dll $(OutputPath) /Y</Command>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="AnimatorComponent.cpp" />
+    <ClCompile Include="AudioClip.cpp" />
+    <ClCompile Include="AudioSystem.cpp" />
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="CollisionHandler.cpp" />
     <ClCompile Include="CSteamAchievements.cpp">
@@ -344,6 +352,7 @@ xcopy $(Solutiondir)3rdParty\SDL2_ttf\lib\x64\*.dll $(OutputPath) /Y</Command>
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Keyboard.cpp" />
     <ClCompile Include="InputManager.cpp" />
+    <ClCompile Include="LoggedAudio.cpp" />
     <ClCompile Include="Minigin.cpp" />
     <ClCompile Include="MiniginPCH.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -352,11 +361,14 @@ xcopy $(Solutiondir)3rdParty\SDL2_ttf\lib\x64\*.dll $(OutputPath) /Y</Command>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MiniginPCH.h</PrecompiledHeaderFile>
     </ClCompile>
+    <ClCompile Include="NullAudioSystem.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="RigidbodyComponent.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="SDLAudioSystem.cpp" />
+    <ClCompile Include="ServiceLocator.cpp" />
     <ClCompile Include="SpriteRendererComponent.cpp" />
     <ClCompile Include="Subject.cpp" />
     <ClCompile Include="TextObject.cpp" />

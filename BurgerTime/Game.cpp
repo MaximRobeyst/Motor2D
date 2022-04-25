@@ -87,7 +87,6 @@ void LoadGame()
 
 	auto font = ResourceManager::GetInstance().LoadFont("Early GameBoy.ttf", 17);
 
-
 	auto go = new GameObject();
 	go->AddComponent(new TransformComponent(go, glm::vec3(10.f, 5.f, 0.f)));
 	go->AddComponent(new SpriteRendererComponent(go, "logo.png"));
@@ -98,8 +97,8 @@ void LoadGame()
 	scene.AddGameObject(go);
 
 	auto pPeperGameObject = new GameObject();
-
-	pPeperGameObject->AddComponent(new TransformComponent(pPeperGameObject, glm::vec3{96.f, 144.f, 0}, glm::vec3{2.f}));
+	auto pPlayerTransform = new TransformComponent(pPeperGameObject, glm::vec3{ 96.f, 144.f, 0 }, glm::vec3{ 2.f });
+	pPeperGameObject->AddComponent(pPlayerTransform);
 	pPeperGameObject->AddComponent(new SpriteRendererComponent(pPeperGameObject, "BurgerTime_SpriteSheet.png"));
 	pPeperGameObject->AddComponent(new AnimatorComponent(pPeperGameObject, "../Data/Animations/PlayerAnimations.json"));
 	//pPeperGameObject->AddComponent(new MovementComponent(pPeperGameObject, 100.f));
@@ -115,9 +114,9 @@ void LoadGame()
 	pHotDogGameObject->AddComponent(new TransformComponent(pHotDogGameObject, glm::vec3(256.f, 144.f, 0), glm::vec3{ 2.f }));
 	pHotDogGameObject->AddComponent(new SpriteRendererComponent(pHotDogGameObject, "BurgerTime_SpriteSheet.png"));
 	pHotDogGameObject->AddComponent(new AnimatorComponent(pHotDogGameObject, "../Data/Animations/HotdogAnimations.json"));
-	pHotDogGameObject->AddComponent(new ColliderComponent(pHotDogGameObject, 16.f, 16.f));
+	pHotDogGameObject->AddComponent(new ColliderComponent(pHotDogGameObject, 15.f, 15.f, glm::vec2{ 8.f, 8.5f }));
 	pHotDogGameObject->AddComponent(new RigidbodyComponent(pHotDogGameObject));
-	auto pEnemyComponent = new EnemyComponent(pHotDogGameObject);
+	auto pEnemyComponent = new EnemyComponent(pHotDogGameObject, pPlayerTransform);
 	pHotDogGameObject->AddComponent(pEnemyComponent);
 	pEnemyComponent->GetSubject()->AddObserver(pScoreDisplay);
 	pHotDogGameObject->SetTag("Enemy");
@@ -127,9 +126,9 @@ void LoadGame()
 	pEggGameObject->AddComponent(new TransformComponent(pEggGameObject, glm::vec3(288.f, 144.f, 0), glm::vec3{ 2.f }));
 	pEggGameObject->AddComponent(new SpriteRendererComponent(pEggGameObject, "BurgerTime_SpriteSheet.png"));
 	pEggGameObject->AddComponent(new AnimatorComponent(pEggGameObject, "../Data/Animations/EggAnimations.json"));
-	pEggGameObject->AddComponent(new ColliderComponent(pEggGameObject, 16.f, 16.f));
+	pEggGameObject->AddComponent(new ColliderComponent(pEggGameObject, 15.f, 15.f, glm::vec2{8.f, 8.5f}));
 	pEggGameObject->AddComponent(new RigidbodyComponent(pEggGameObject));
-	pEnemyComponent = new EnemyComponent(pEggGameObject);
+	pEnemyComponent = new EnemyComponent(pEggGameObject, pPlayerTransform);
 	pEggGameObject->AddComponent(pEnemyComponent);
 	pEnemyComponent->GetSubject()->AddObserver(pScoreDisplay);
 	pEggGameObject->SetTag("Enemy");
@@ -300,7 +299,7 @@ void MakeLevel(Scene& pScene)
 "L..L..L..L..L",
 "L..L..L..L..L",
 "L..L..L..L..L",
-"LPPLPPLPPLPPL",
+"PPPPPPPPPPPPP",
 	};
 
 	//std::string s[size]
