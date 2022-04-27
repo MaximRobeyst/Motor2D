@@ -13,24 +13,9 @@
 #include "Xbox360Controller.h"
 #include "Command.h"
 
-
-//#include "MovementComponent.h"
-#include "SpriteRendererComponent.h"
-#include "FPSComponent.h"
-//#include "LifeComponent.h"
-#include "LifeDisplayComponent.h"
-//#include "ScoreDisplayComponent.h"
-//#include "FoodComponent.h"
-//#include "AchievementComponent.h"
-#include "Collider.h"
-#include "RigidbodyComponent.h"
-//#include "PlayerComponent.h"
-#include "AnimatorComponent.h"
-
 #include "Observer.h"
 #include "Subject.h"
 #include <box2d.h>
-#include <steam_api.h>
 
 using namespace std;
 

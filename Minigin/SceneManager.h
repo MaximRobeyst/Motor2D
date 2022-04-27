@@ -1,6 +1,11 @@
 #pragma once
 #include "Singleton.h"
 
+#include <string>
+#include <memory>
+#include<SDL.h>
+#include <vector>
+
 namespace dae
 {
 	class Scene;

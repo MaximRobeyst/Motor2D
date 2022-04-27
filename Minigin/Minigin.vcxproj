@@ -98,7 +98,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)3rdParty\Box2D\source;$(SolutionDir)3rdParty\steamworks\public\steam;$(SolutionDir)3rdParty\imgui-1.86;$(SolutionDir)3rdParty\SDL2_ttf\include;$(SolutionDir)3rdParty\SDL2_image\include;$(SolutionDir)3rdParty\glm;$(SolutionDir)3rdParty\rapidjson;$(SolutionDir)3rdParty\SDL2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)3rdParty\Box2D\source;$(SolutionDir)3rdParty\imgui-1.86;$(SolutionDir)3rdParty\SDL2_ttf\include;$(SolutionDir)3rdParty\SDL2_image\include;$(SolutionDir)3rdParty\glm;$(SolutionDir)3rdParty\rapidjson;$(SolutionDir)3rdParty\SDL2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeaderFile>MiniginPCH.h</PrecompiledHeaderFile>
       <TreatWarningAsError>true</TreatWarningAsError>
       <LanguageStandard>stdcpp20</LanguageStandard>
@@ -111,16 +111,13 @@
     </Link>
     <PostBuildEvent />
     <PostBuildEvent>
-      <Command>xcopy $(Solutiondir)3rdParty\steamworks\redistributable_bin\*.dll $(OutputPath) /Y</Command>
+      <Command>
+      </Command>
     </PostBuildEvent>
     <Lib>
-      <TreatLibWarningAsErrors>true</TreatLibWarningAsErrors>
-      <AdditionalLibraryDirectories>$(SolutionDir)3rdParty\SDL2\lib\$(PlatformTarget);$(SolutionDir)3rdParty\SDL2_image\lib\$(PlatformTarget);$(SolutionDir)3rdParty\steamworks\redistributable_bin;$(SolutionDir)3rdParty\SDL2_ttf\lib\$(PlatformTarget);$(SolutionDir)3rdParty\Box2D\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>xinput.lib;opengl32.lib;Box2D.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)3rdParty\Box2D\lib\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
-    <ProjectReference>
-      <LinkLibraryDependencies>true</LinkLibraryDependencies>
-    </ProjectReference>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -130,7 +127,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)3rdParty\Box2D\source;$(SolutionDir)3rdParty\steamworks\public\steam;$(SolutionDir)3rdParty\imgui-1.86;$(SolutionDir)3rdParty\SDL2_ttf\include;$(SolutionDir)3rdParty\SDL2_image\include;$(SolutionDir)3rdParty\glm;$(SolutionDir)3rdParty\rapidjson;$(SolutionDir)3rdParty\SDL2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)3rdParty\Box2D\source;$(SolutionDir)3rdParty\imgui-1.86;$(SolutionDir)3rdParty\SDL2_ttf\include;$(SolutionDir)3rdParty\SDL2_image\include;$(SolutionDir)3rdParty\glm;$(SolutionDir)3rdParty\rapidjson;$(SolutionDir)3rdParty\SDL2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeaderFile>MiniginPCH.h</PrecompiledHeaderFile>
       <TreatWarningAsError>true</TreatWarningAsError>
       <LanguageStandard>stdcpp20</LanguageStandard>
@@ -143,18 +140,13 @@
     </Link>
     <PostBuildEvent />
     <PostBuildEvent>
-      <Command>xcopy $(Solutiondir)3rdParty\steamworks\redistributable_bin\win64\*.dll $(OutputPath) /Y
-xcopy $(Solutiondir)3rdParty\SDL2_image\lib\x64\*.dll $(OutputPath) /Y
-xcopy $(Solutiondir)3rdParty\SDL2_ttf\lib\x64\*.dll $(OutputPath) /Y</Command>
+      <Command>
+      </Command>
     </PostBuildEvent>
     <Lib>
-      <TreatLibWarningAsErrors>true</TreatLibWarningAsErrors>
-      <AdditionalLibraryDirectories>$(SolutionDir)3rdParty\SDL2\lib\$(PlatformTarget);$(SolutionDir)3rdParty\SDL2_image\lib\$(PlatformTarget);$(SolutionDir)3rdParty\steamworks\redistributable_bin;$(SolutionDir)3rdParty\SDL2_ttf\lib\$(PlatformTarget);$(SolutionDir)3rdParty\Box2D\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>steam_api.lib;Box2D64d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>xinput.lib;opengl32.lib;Box2D.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)3rdParty\Box2D\lib\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
-    <ProjectReference>
-      <LinkLibraryDependencies>true</LinkLibraryDependencies>
-    </ProjectReference>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -166,7 +158,7 @@ xcopy $(Solutiondir)3rdParty\SDL2_ttf\lib\x64\*.dll $(OutputPath) /Y</Command>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)3rdParty\Box2D\source;$(SolutionDir)3rdParty\steamworks\public\steam;$(SolutionDir)3rdParty\imgui-1.86;$(SolutionDir)3rdParty\SDL2_ttf\include;$(SolutionDir)3rdParty\SDL2_image\include;$(SolutionDir)3rdParty\glm;$(SolutionDir)3rdParty\rapidjson;$(SolutionDir)3rdParty\SDL2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)3rdParty\Box2D\source;$(SolutionDir)3rdParty\imgui-1.86;$(SolutionDir)3rdParty\SDL2_ttf\include;$(SolutionDir)3rdParty\SDL2_image\include;$(SolutionDir)3rdParty\glm;$(SolutionDir)3rdParty\rapidjson;$(SolutionDir)3rdParty\SDL2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeaderFile>MiniginPCH.h</PrecompiledHeaderFile>
       <TreatWarningAsError>true</TreatWarningAsError>
       <LanguageStandard>stdcpp20</LanguageStandard>
@@ -181,16 +173,13 @@ xcopy $(Solutiondir)3rdParty\SDL2_ttf\lib\x64\*.dll $(OutputPath) /Y</Command>
     </Link>
     <PostBuildEvent />
     <PostBuildEvent>
-      <Command>xcopy $(Solutiondir)3rdParty\steamworks\redistributable_bin\*.dll $(OutputPath) /Y</Command>
+      <Command>
+      </Command>
     </PostBuildEvent>
     <Lib>
-      <TreatLibWarningAsErrors>true</TreatLibWarningAsErrors>
-      <AdditionalLibraryDirectories>$(SolutionDir)3rdParty\SDL2\lib\$(PlatformTarget);$(SolutionDir)3rdParty\SDL2_image\lib\$(PlatformTarget);$(SolutionDir)3rdParty\steamworks\redistributable_bin;$(SolutionDir)3rdParty\SDL2_ttf\lib\$(PlatformTarget);$(SolutionDir)3rdParty\Box2D\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>xinput.lib;opengl32.lib;Box2D.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)3rdParty\Box2D\lib\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
-    <ProjectReference>
-      <LinkLibraryDependencies>true</LinkLibraryDependencies>
-    </ProjectReference>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -202,7 +191,7 @@ xcopy $(Solutiondir)3rdParty\SDL2_ttf\lib\x64\*.dll $(OutputPath) /Y</Command>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)3rdParty\Box2D\source;$(SolutionDir)3rdParty\steamworks\public\steam;$(SolutionDir)3rdParty\imgui-1.86;$(SolutionDir)3rdParty\SDL2_ttf\include;$(SolutionDir)3rdParty\SDL2_image\include;$(SolutionDir)3rdParty\glm;$(SolutionDir)3rdParty\rapidjson;$(SolutionDir)3rdParty\SDL2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)3rdParty\Box2D\source;$(SolutionDir)3rdParty\imgui-1.86;$(SolutionDir)3rdParty\SDL2_ttf\include;$(SolutionDir)3rdParty\SDL2_image\include;$(SolutionDir)3rdParty\glm;$(SolutionDir)3rdParty\rapidjson;$(SolutionDir)3rdParty\SDL2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeaderFile>MiniginPCH.h</PrecompiledHeaderFile>
       <TreatWarningAsError>true</TreatWarningAsError>
       <LanguageStandard>stdcpp20</LanguageStandard>
@@ -217,18 +206,13 @@ xcopy $(Solutiondir)3rdParty\SDL2_ttf\lib\x64\*.dll $(OutputPath) /Y</Command>
     </Link>
     <PostBuildEvent />
     <PostBuildEvent>
-      <Command>xcopy $(Solutiondir)3rdParty\steamworks\redistributable_bin\win64\*.dll $(OutputPath) /Y
-xcopy $(Solutiondir)3rdParty\SDL2_image\lib\x64\*.dll $(OutputPath) /Y
-xcopy $(Solutiondir)3rdParty\SDL2_ttf\lib\x64\*.dll $(OutputPath) /Y</Command>
+      <Command>
+      </Command>
     </PostBuildEvent>
     <Lib>
-      <TreatLibWarningAsErrors>true</TreatLibWarningAsErrors>
-      <AdditionalLibraryDirectories>$(SolutionDir)3rdParty\SDL2\lib\$(PlatformTarget);$(SolutionDir)3rdParty\SDL2_image\lib\$(PlatformTarget);$(SolutionDir)3rdParty\steamworks\redistributable_bin;$(SolutionDir)3rdParty\SDL2_ttf\lib\$(PlatformTarget);$(SolutionDir)3rdParty\Box2D\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>xinput.lib;opengl32.lib;Box2D.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)3rdParty\Box2D\lib\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
-    <ProjectReference>
-      <LinkLibraryDependencies>true</LinkLibraryDependencies>
-    </ProjectReference>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\3rdParty\imgui-1.86\backends\imgui_impl_opengl2.h" />
@@ -245,7 +229,6 @@ xcopy $(Solutiondir)3rdParty\SDL2_ttf\lib\x64\*.dll $(OutputPath) /Y</Command>
     <ClInclude Include="AudioSystem.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="CollisionHandler.h" />
-    <ClInclude Include="CSteamAchievements.h" />
     <ClInclude Include="Command.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="Controller.h" />
@@ -339,12 +322,6 @@ xcopy $(Solutiondir)3rdParty\SDL2_ttf\lib\x64\*.dll $(OutputPath) /Y</Command>
     <ClCompile Include="AudioSystem.cpp" />
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="CollisionHandler.cpp" />
-    <ClCompile Include="CSteamAchievements.cpp">
-      <TreatWarningAsError Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</TreatWarningAsError>
-      <TreatWarningAsError Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</TreatWarningAsError>
-      <TreatWarningAsError Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWarningAsError>
-      <TreatWarningAsError Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</TreatWarningAsError>
-    </ClCompile>
     <ClCompile Include="Command.cpp" />
     <ClCompile Include="Controller.cpp" />
     <ClCompile Include="Font.cpp" />

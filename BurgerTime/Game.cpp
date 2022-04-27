@@ -1,44 +1,50 @@
-#include <MiniginPCH.h>
-#include <Minigin.h>
-#include <iostream>
-#include <box2d.h>
-#include <steam_api.h>
-
-#include "InputManager.h"
-#include "SceneManager.h"
-#include "Renderer.h"
-#include "ResourceManager.h"
-#include "TextObject.h"
-#include "GameObject.h"
-#include "Scene.h"
-#include "Time.h"
-#include "Xbox360Controller.h"
-#include "Command.h"
-
-#include "MovementComponent.h"
-#include "SpriteRendererComponent.h"
-#include "FPSComponent.h"
-#include "LifeComponent.h"
-#include "LifeDisplayComponent.h"
-#include "ScoreDisplayComponent.h"
-#include "FoodComponent.h"
-#include "AchievementComponent.h"
-#include "Collider.h"
-#include "RigidbodyComponent.h"
-#include "PlayerComponent.h"
-#include "AnimatorComponent.h"
-#include "MrHotDogComponent.h"
-#include "PlateComponent.h"
-
-#include "Observer.h"
-#include "Subject.h"
-
 #if _DEBUG
 // ReSharper disable once CppUnusedIncludeDirective
 #if __has_include(<vld.h>)
 #include <vld.h>
 #endif
 #endif
+
+#include <SceneManager.h>
+#include <Scene.h>
+#include <ResourceManager.h>
+#include <InputManager.h>
+
+#include <SpriteRendererComponent.h>
+#include <Transform.h>
+#include <Collider.h>
+#include <AnimatorComponent.h>
+#include <FPSComponent.h>
+#include <RigidbodyComponent.h>
+#include <TextObject.h>
+
+#include <Observer.h>
+#include <Subject.h>
+
+#include "AchievementComponent.h"
+#include "FoodComponent.h"
+#include "LifeComponent.h"
+#include "LifeDisplayComponent.h"
+#include "MovementComponent.h"
+#include "PlayerComponent.h"
+#include "ScoreDisplayComponent.h"
+#include "MrHotDogComponent.h"
+#include "PlateComponent.h"
+
+#include <stdio.h>
+#include <iostream> // std::cout
+#include <sstream> // stringstream
+#include <memory> // smart pointers
+#include <vector>
+
+#define WIN32_LEAN_AND_MEAN
+#include <windows.h>
+
+#pragma warning(push, 0)
+#include <glm/glm.hpp>
+#pragma warning (pop)
+
+#include <Minigin.h>
 
 using namespace dae;
 

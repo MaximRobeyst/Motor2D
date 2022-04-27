@@ -1,4 +1,3 @@
-#include "MiniginPCH.h"
 #include "LifeDisplayComponent.h"
 #include "Event.h"
 #include "LifeComponent.h"
@@ -7,6 +6,9 @@
 #include <Transform.h>
 #include <SpriteRendererComponent.h>
 #include <Scene.h>
+
+#include <glm/glm.hpp>
+#include <sdl.h>
 
 LifeDisplayComponent::LifeDisplayComponent(dae::GameObject* pGameObject, int number, const std::string& extraDisplayText)
 	: dae::Component{pGameObject}
@@ -23,7 +25,7 @@ LifeDisplayComponent::LifeDisplayComponent(dae::GameObject* pGameObject, int num
 		auto go = new dae::GameObject();
 		go->SetParent(m_pGameObject);
 		go->AddComponent(new dae::TransformComponent(go, glm::vec3{ 0.0f, -(i * 20.f), 0.0f}, glm::vec3{ 2.f }));
-		go->AddComponent(new dae::SpriteRendererComponent(go, "BurgerTime_SpriteSheet.png", SDL_FRect(200.f, 0, 8, 8 )));
+		go->AddComponent(new dae::SpriteRendererComponent(go, "BurgerTime_SpriteSheet.png", SDL_FRect{ 200.f, 0.f, 8.f, 8.f }));
 
 		scene->AddGameObject(go);
 

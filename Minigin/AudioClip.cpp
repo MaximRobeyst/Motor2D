@@ -1,8 +1,6 @@
 #include "MiniginPCH.h"
 #include "AudioClip.h"
 
-#include "sdl"
-
 dae::AudioClip::AudioClip(const std::string& path)
 	:m_Path{path}
 {
@@ -10,7 +8,6 @@ dae::AudioClip::AudioClip(const std::string& path)
 
 dae::AudioClip::~AudioClip()
 {
-	m_chunk = Mix_Load();
 }
 
 void dae::AudioClip::Load()

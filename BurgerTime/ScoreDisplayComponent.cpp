@@ -1,4 +1,3 @@
-#include "MiniginPCH.h"
 #include "ScoreDisplayComponent.h"
 #include "Observer.h"
 #include "Event.h"
@@ -6,6 +5,7 @@
 #include "MrHotDogComponent.h"
 
 #include <GameObject.h>
+#include <string>
 
 ScoreDisplayComponent::ScoreDisplayComponent(dae::GameObject* pGameObject, int number, const std::string& extraDisplayText)
 	: Component{ pGameObject }

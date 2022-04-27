@@ -1,4 +1,8 @@
-#include "MiniginPCH.h"
+#include <glm/glm.hpp>
+#include <string>
+#include <SDL.h>
+#include <memory>
+
 #include "FoodComponent.h"
 #include "GameObject.h"
 #include "Event.h"

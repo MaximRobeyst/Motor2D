@@ -1,5 +1,6 @@
 #pragma once
 #include "Component.h"
+#include <memory>
 
 class dae::GameObject;
 class Subject;

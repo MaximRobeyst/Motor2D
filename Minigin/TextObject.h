@@ -3,6 +3,9 @@
 #include "Component.h"
 #include "GameObject.h"
 
+#include <memory>
+#include <SDL.h>
+
 namespace dae
 {
 	// Text component should not render

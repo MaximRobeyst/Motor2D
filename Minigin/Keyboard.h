@@ -1,6 +1,7 @@
 #pragma once
 #include <map>
 #include "Command.h"
+#include <SDL.h>
 
 enum class KeyboardAndMouseButton
 {

@@ -19,11 +19,11 @@
     <Filter Include="Game Files">
       <UniqueIdentifier>{2ce718b3-975b-40d5-aa35-aaf12e00b65a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game Files\Game Components">
+      <UniqueIdentifier>{3a5f53c8-b04f-4961-868f-d287018e8f90}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Engine Files\Input">
       <UniqueIdentifier>{f0494122-00a0-4074-a99e-73fbe95a5188}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine Files\Audio">
-      <UniqueIdentifier>{16e8eb13-7b02-4b12-bcfb-a1044bf7643d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -123,8 +123,8 @@
     <ClInclude Include="Keyboard.h">
       <Filter>Engine Files\Input</Filter>
     </ClInclude>
-    <ClInclude Include="CSteamAchievements.h">
-      <Filter>Engine Files</Filter>
+    <ClInclude Include="Event.h">
+      <Filter>Game Files</Filter>
     </ClInclude>
     <ClInclude Include="Collider.h">
       <Filter>Component Files</Filter>
@@ -138,29 +138,26 @@
     <ClInclude Include="AnimatorComponent.h">
       <Filter>Component Files</Filter>
     </ClInclude>
-    <ClInclude Include="CollisionHandler.h">
-      <Filter>Engine Files</Filter>
+    <ClInclude Include="AudioClip.h">
+      <Filter>Component Files</Filter>
     </ClInclude>
-    <ClInclude Include="Event.h">
+    <ClInclude Include="AudioSystem.h">
+      <Filter>Component Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LoggedAudio.h">
+      <Filter>Component Files</Filter>
+    </ClInclude>
+    <ClInclude Include="NullAudioSystem.h">
+      <Filter>Component Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDLAudioSystem.h">
       <Filter>Component Files</Filter>
     </ClInclude>
     <ClInclude Include="ServiceLocator.h">
+      <Filter>Component Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionHandler.h">
       <Filter>Engine Files</Filter>
-    </ClInclude>
-    <ClInclude Include="AudioSystem.h">
-      <Filter>Engine Files\Audio</Filter>
-    </ClInclude>
-    <ClInclude Include="SDLAudioSystem.h">
-      <Filter>Engine Files\Audio</Filter>
-    </ClInclude>
-    <ClInclude Include="NullAudioSystem.h">
-      <Filter>Engine Files\Audio</Filter>
-    </ClInclude>
-    <ClInclude Include="LoggedAudio.h">
-      <Filter>Engine Files\Audio</Filter>
-    </ClInclude>
-    <ClInclude Include="AudioClip.h">
-      <Filter>Engine Files\Audio</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -248,9 +245,6 @@
     <ClCompile Include="Keyboard.cpp">
       <Filter>Engine Files\Input</Filter>
     </ClCompile>
-    <ClCompile Include="CSteamAchievements.cpp">
-      <Filter>Engine Files</Filter>
-    </ClCompile>
     <ClCompile Include="Collider.cpp">
       <Filter>Component Files</Filter>
     </ClCompile>
@@ -260,26 +254,26 @@
     <ClCompile Include="AnimatorComponent.cpp">
       <Filter>Component Files</Filter>
     </ClCompile>
+    <ClCompile Include="AudioClip.cpp">
+      <Filter>Engine Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AudioSystem.cpp">
+      <Filter>Engine Files</Filter>
+    </ClCompile>
     <ClCompile Include="CollisionHandler.cpp">
+      <Filter>Engine Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LoggedAudio.cpp">
+      <Filter>Engine Files</Filter>
+    </ClCompile>
+    <ClCompile Include="NullAudioSystem.cpp">
+      <Filter>Engine Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SDLAudioSystem.cpp">
       <Filter>Engine Files</Filter>
     </ClCompile>
     <ClCompile Include="ServiceLocator.cpp">
       <Filter>Engine Files</Filter>
-    </ClCompile>
-    <ClCompile Include="AudioSystem.cpp">
-      <Filter>Engine Files\Audio</Filter>
-    </ClCompile>
-    <ClCompile Include="SDLAudioSystem.cpp">
-      <Filter>Engine Files\Audio</Filter>
-    </ClCompile>
-    <ClCompile Include="NullAudioSystem.cpp">
-      <Filter>Engine Files\Audio</Filter>
-    </ClCompile>
-    <ClCompile Include="LoggedAudio.cpp">
-      <Filter>Engine Files\Audio</Filter>
-    </ClCompile>
-    <ClCompile Include="AudioClip.cpp">
-      <Filter>Engine Files\Audio</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

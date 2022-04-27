@@ -1,4 +1,3 @@
-#include "MiniginPCH.h"
 #include "LifeComponent.h"
 #include "GameObject.h"
 #include "Subject.h"
