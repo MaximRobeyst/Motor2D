@@ -2,6 +2,7 @@
 #include "Component.h"
 #include <box2d.h>
 #include <functional>
+#include <memory>
 
 // https://box2d.org/documentation/index.html
 namespace dae

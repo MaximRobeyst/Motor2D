@@ -9,5 +9,7 @@ public:
 	virtual void StopAllSounds() override	{};
 
 	virtual void SetVolume(int) override {};
+
+	virtual void AddAudioClip(const std::string&) override {};
 };
 

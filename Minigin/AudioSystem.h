@@ -1,4 +1,6 @@
 #pragma once
+#include <string>
+
 class AudioSystem
 {
 
@@ -10,5 +12,7 @@ public:
 	virtual void StopAllSounds() = 0;
 
 	virtual void SetVolume(int volume) = 0;
+
+	virtual void AddAudioClip(const std::string& path) = 0;
 };
 

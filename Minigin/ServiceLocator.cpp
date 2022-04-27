@@ -1,9 +1,18 @@
 #include "MiniginPCH.h"
 #include "ServiceLocator.h"
 
+AudioSystem* ServiceLocator::m_pAudioService{ nullptr };
+NullAudioSystem ServiceLocator::m_NullService{};
+
 void ServiceLocator::Initialize()
 {
 	m_pAudioService = &m_NullService;
+}
+
+void ServiceLocator::Cleanup()
+{
+	if (m_pAudioService != nullptr)
+		delete m_pAudioService;
 }
 
 AudioSystem* ServiceLocator::GetAudio()

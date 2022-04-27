@@ -25,6 +25,9 @@
     <Filter Include="Engine Files\Input">
       <UniqueIdentifier>{f0494122-00a0-4074-a99e-73fbe95a5188}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine Files\Audio">
+      <UniqueIdentifier>{e3c1a685-781e-4408-9fe8-bf9fed04db62}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Transform.h">
@@ -138,25 +141,25 @@
     <ClInclude Include="AnimatorComponent.h">
       <Filter>Component Files</Filter>
     </ClInclude>
-    <ClInclude Include="AudioClip.h">
-      <Filter>Component Files</Filter>
+    <ClInclude Include="CollisionHandler.h">
+      <Filter>Engine Files</Filter>
     </ClInclude>
     <ClInclude Include="AudioSystem.h">
-      <Filter>Component Files</Filter>
+      <Filter>Engine Files\Audio</Filter>
     </ClInclude>
-    <ClInclude Include="LoggedAudio.h">
-      <Filter>Component Files</Filter>
-    </ClInclude>
-    <ClInclude Include="NullAudioSystem.h">
-      <Filter>Component Files</Filter>
+    <ClInclude Include="AudioClip.h">
+      <Filter>Engine Files\Audio</Filter>
     </ClInclude>
     <ClInclude Include="SDLAudioSystem.h">
-      <Filter>Component Files</Filter>
+      <Filter>Engine Files\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="NullAudioSystem.h">
+      <Filter>Engine Files\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="LoggedAudio.h">
+      <Filter>Engine Files\Audio</Filter>
     </ClInclude>
     <ClInclude Include="ServiceLocator.h">
-      <Filter>Component Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CollisionHandler.h">
       <Filter>Engine Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -254,26 +257,26 @@
     <ClCompile Include="AnimatorComponent.cpp">
       <Filter>Component Files</Filter>
     </ClCompile>
-    <ClCompile Include="AudioClip.cpp">
-      <Filter>Engine Files</Filter>
-    </ClCompile>
-    <ClCompile Include="AudioSystem.cpp">
-      <Filter>Engine Files</Filter>
-    </ClCompile>
     <ClCompile Include="CollisionHandler.cpp">
-      <Filter>Engine Files</Filter>
-    </ClCompile>
-    <ClCompile Include="LoggedAudio.cpp">
-      <Filter>Engine Files</Filter>
-    </ClCompile>
-    <ClCompile Include="NullAudioSystem.cpp">
-      <Filter>Engine Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SDLAudioSystem.cpp">
       <Filter>Engine Files</Filter>
     </ClCompile>
     <ClCompile Include="ServiceLocator.cpp">
       <Filter>Engine Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AudioClip.cpp">
+      <Filter>Engine Files\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="AudioSystem.cpp">
+      <Filter>Engine Files\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="LoggedAudio.cpp">
+      <Filter>Engine Files\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="NullAudioSystem.cpp">
+      <Filter>Engine Files\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="SDLAudioSystem.cpp">
+      <Filter>Engine Files\Audio</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -1,4 +1,6 @@
 #pragma once
+#include <SDL_mixer.h>
+
 namespace dae
 {
 
@@ -10,11 +12,14 @@ namespace dae
 
 		void Load();
 		bool Play();
-		void SetVolume();
+		void SetVolume(int volume);
 		int GetVolume();
+
+		bool IsLoaded();
 
 	private:
 		std::string m_Path{};
+		Mix_Chunk* m_pChunk;
 	};
 }
 

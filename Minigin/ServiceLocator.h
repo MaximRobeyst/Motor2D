@@ -5,7 +5,9 @@
 class ServiceLocator
 {
 public:
+
 	static void Initialize();
+	static void Cleanup();
 
 	static AudioSystem* GetAudio();
 	static void ProvideAudio(AudioSystem* pAudioSystem);

@@ -20,6 +20,9 @@
 
 #include <Observer.h>
 #include <Subject.h>
+#include <ServiceLocator.h>
+#include <AudioSystem.h>
+#include <SDLAudioSystem.h>
 
 #include "AchievementComponent.h"
 #include "FoodComponent.h"
@@ -45,6 +48,7 @@
 #pragma warning (pop)
 
 #include <Minigin.h>
+#include "PlayAudioCommand.h"
 
 using namespace dae;
 
@@ -75,7 +79,7 @@ int main(int, char* [])
 void LoadGame()
 {
 	auto& scene = SceneManager::GetInstance().CreateScene("Demo");
-	//auto& input = InputManager::GetInstance();
+	auto& input = InputManager::GetInstance();
 
 	MakeLevel(scene);
 
@@ -92,6 +96,11 @@ void LoadGame()
 	//scene.Add(pAchievmentObject);
 
 	auto font = ResourceManager::GetInstance().LoadFont("Early GameBoy.ttf", 17);
+
+	SDLAudioSystem* pSoundSystem = new SDLAudioSystem();
+	
+	ServiceLocator::ProvideAudio(pSoundSystem);
+	pSoundSystem->AddAudioClip("../Data/Audio/death_1.wav");
 
 	auto go = new GameObject();
 	go->AddComponent(new TransformComponent(go, glm::vec3(10.f, 5.f, 0.f)));
@@ -229,12 +238,12 @@ void LoadGame()
 	go->AddComponent(pScoreDisplay);
 	scene.AddGameObject(go);
 
-	//auto keyboard = input.GetKeyboard();
+	auto keyboard = input.GetKeyboard();
 	////keyboard->AddKeyboardMapping(KeyboardKeyData{ SDLK_q, KeyState::JustUp }, std::make_unique<KillCommand>(pLifeComponent2));
-	//keyboard->AddKeyboardMapping(
-	//	KeyboardKeyData{ SDLK_s, KeyState::Hold },
-	//	std::make_unique<MoveCommand>(pPeperGameObject->GetComponent<RigidbodyComponent>(), glm::vec2{ 0,1}, 10.f)
-	//);
+	keyboard->AddKeyboardMapping(
+		KeyboardKeyData{ SDLK_SPACE, KeyState::Hold },
+		std::make_unique<PlayAudioCommand>()
+	);
 	//keyboard->AddKeyboardMapping(
 	//	KeyboardKeyData{ SDLK_w, KeyState::Hold },
 	//	std::make_unique<MoveCommand>(pPeperGameObject->GetComponent<RigidbodyComponent>(), glm::vec2{ 0,-1}, 10.f)

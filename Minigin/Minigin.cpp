@@ -16,6 +16,7 @@
 #include "Observer.h"
 #include "Subject.h"
 #include <box2d.h>
+#include "ServiceLocator.h"
 
 using namespace std;
 
@@ -61,6 +62,8 @@ void dae::Minigin::Initialize()
 void dae::Minigin::Cleanup()
 {
 	Renderer::GetInstance().Destroy();
+	ServiceLocator::Cleanup();
+
 	SDL_DestroyWindow(m_Window);
 	m_Window = nullptr;
 	SDL_Quit();
