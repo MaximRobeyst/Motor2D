@@ -4,12 +4,10 @@
 class NullAudioSystem : public AudioSystem
 {
 public:
-	virtual void PlaySound(int) override {};
-	virtual void StopSound(int) override {};
+	virtual void PlaySound(const std::string& /*id*/) override {};
 	virtual void StopAllSounds() override	{};
 
+	virtual int GetVolume() override { return 0; };
 	virtual void SetVolume(int) override {};
-
-	virtual void AddAudioClip(const std::string&) override {};
 };
 

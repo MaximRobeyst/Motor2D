@@ -225,17 +225,17 @@
     <ClInclude Include="..\3rdParty\imgui-1.86\imstb_textedit.h" />
     <ClInclude Include="..\3rdParty\imgui-1.86\imstb_truetype.h" />
     <ClInclude Include="AnimatorComponent.h" />
-    <ClInclude Include="AudioClip.h" />
     <ClInclude Include="AudioSystem.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="CollisionHandler.h" />
     <ClInclude Include="Command.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="Controller.h" />
-    <ClInclude Include="Event.h" />
     <ClInclude Include="Font.h" />
     <ClInclude Include="FPSComponent.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="GameStateManager.h" />
+    <ClInclude Include="IGameState.h" />
     <ClInclude Include="Keyboard.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="LoggedAudio.h" />
@@ -318,7 +318,6 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="AnimatorComponent.cpp" />
-    <ClCompile Include="AudioClip.cpp" />
     <ClCompile Include="AudioSystem.cpp" />
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="CollisionHandler.cpp" />
@@ -327,6 +326,8 @@
     <ClCompile Include="Font.cpp" />
     <ClCompile Include="FPSComponent.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="GameStateManager.cpp" />
+    <ClCompile Include="IGameState.cpp" />
     <ClCompile Include="Keyboard.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="LoggedAudio.cpp" />

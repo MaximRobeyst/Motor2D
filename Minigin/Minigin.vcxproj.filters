@@ -126,9 +126,6 @@
     <ClInclude Include="Keyboard.h">
       <Filter>Engine Files\Input</Filter>
     </ClInclude>
-    <ClInclude Include="Event.h">
-      <Filter>Game Files</Filter>
-    </ClInclude>
     <ClInclude Include="Collider.h">
       <Filter>Component Files</Filter>
     </ClInclude>
@@ -147,9 +144,6 @@
     <ClInclude Include="AudioSystem.h">
       <Filter>Engine Files\Audio</Filter>
     </ClInclude>
-    <ClInclude Include="AudioClip.h">
-      <Filter>Engine Files\Audio</Filter>
-    </ClInclude>
     <ClInclude Include="SDLAudioSystem.h">
       <Filter>Engine Files\Audio</Filter>
     </ClInclude>
@@ -161,6 +155,12 @@
     </ClInclude>
     <ClInclude Include="ServiceLocator.h">
       <Filter>Engine Files</Filter>
+    </ClInclude>
+    <ClInclude Include="IGameState.h">
+      <Filter>Engine Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameStateManager.h">
+      <Filter>Component Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -263,9 +263,6 @@
     <ClCompile Include="ServiceLocator.cpp">
       <Filter>Engine Files</Filter>
     </ClCompile>
-    <ClCompile Include="AudioClip.cpp">
-      <Filter>Engine Files\Audio</Filter>
-    </ClCompile>
     <ClCompile Include="AudioSystem.cpp">
       <Filter>Engine Files\Audio</Filter>
     </ClCompile>
@@ -277,6 +274,12 @@
     </ClCompile>
     <ClCompile Include="SDLAudioSystem.cpp">
       <Filter>Engine Files\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="IGameState.cpp">
+      <Filter>Engine Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameStateManager.cpp">
+      <Filter>Engine Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

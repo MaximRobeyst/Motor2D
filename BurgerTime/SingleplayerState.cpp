@@ -1,9 +1,4 @@
-#if _DEBUG
-// ReSharper disable once CppUnusedIncludeDirective
-#if __has_include(<vld.h>)
-#include <vld.h>
-#endif
-#endif
+#include "SingleplayerState.h"
 
 #include <SceneManager.h>
 #include <Scene.h>
@@ -49,26 +44,12 @@
 
 #include <Minigin.h>
 #include "PlayAudioCommand.h"
-#include <LoggedAudio.h>
 
 using namespace dae;
 
-void LoadGame();
-void MakeLevel(Scene& pScene);
-
-int main(int, char* [])
+void SingleplayerState::OnEnter()
 {
-	dae::Minigin engine;
-	engine.Initialize();
-	LoadGame();
-	engine.Run();
-
-	return 0;
-}
-
-void LoadGame()
-{
-	auto& scene = SceneManager::GetInstance().CreateScene("Demo");
+	auto& scene = SceneManager::GetInstance().CreateScene("SinglePlayer");
 	auto& input = InputManager::GetInstance();
 
 	MakeLevel(scene);
@@ -88,10 +69,8 @@ void LoadGame()
 	auto font = ResourceManager::GetInstance().LoadFont("Early GameBoy.ttf", 17);
 
 	SDLAudioSystem* pSoundSystem = new SDLAudioSystem();
-	LoggedAudio* pLoggedAudioSystem = new LoggedAudio(pSoundSystem);
-	
-	//ServiceLocator::ProvideAudio(pSoundSystem);
-	ServiceLocator::ProvideAudio(pLoggedAudioSystem);
+
+	ServiceLocator::ProvideAudio(pSoundSystem);
 	//pSoundSystem->AddAudioClip("../Data/Audio/death_1.wav");
 
 	auto go = new GameObject();
@@ -111,7 +90,7 @@ void LoadGame()
 	//pPeperGameObject->AddComponent(new MovementComponent(pPeperGameObject, 100.f));
 	auto pLifeComponent = new LifeComponent{ pPeperGameObject, 3 };
 	pPeperGameObject->AddComponent(pLifeComponent);
-	pPeperGameObject->AddComponent(new ColliderComponent(pPeperGameObject, 15.f, 16.f, glm::vec2{8.0f, 8.0f}));
+	pPeperGameObject->AddComponent(new ColliderComponent(pPeperGameObject, 15.f, 16.f, glm::vec2{ 8.0f, 8.0f }));
 	pPeperGameObject->AddComponent(new RigidbodyComponent(pPeperGameObject, b2_dynamicBody, 1.f, 0.3f));
 	pPeperGameObject->AddComponent(new PlayerComponent(pPeperGameObject));
 	pPeperGameObject->SetTag("Player");
@@ -133,7 +112,7 @@ void LoadGame()
 	pEggGameObject->AddComponent(new TransformComponent(pEggGameObject, glm::vec3(288.f, 144.f, 0), glm::vec3{ 2.f }));
 	pEggGameObject->AddComponent(new SpriteRendererComponent(pEggGameObject, "BurgerTime_SpriteSheet.png"));
 	pEggGameObject->AddComponent(new AnimatorComponent(pEggGameObject, "../Data/Animations/EggAnimations.json"));
-	pEggGameObject->AddComponent(new ColliderComponent(pEggGameObject, 15.f, 15.f, glm::vec2{8.f, 8.5f}));
+	pEggGameObject->AddComponent(new ColliderComponent(pEggGameObject, 15.f, 15.f, glm::vec2{ 8.f, 8.5f }));
 	pEggGameObject->AddComponent(new RigidbodyComponent(pEggGameObject));
 	pEnemyComponent = new EnemyComponent(pEggGameObject, pPlayerTransform);
 	pEggGameObject->AddComponent(pEnemyComponent);
@@ -143,7 +122,7 @@ void LoadGame()
 
 	auto pBurgerTop = new GameObject();
 	pBurgerTop->AddComponent(new TransformComponent(pBurgerTop, glm::vec3(224.f, 32.f, 0.f), glm::vec2{ 2.f }));
-	pBurgerTop->AddComponent(new SpriteRendererComponent(pBurgerTop, "BurgerTime_SpriteSheet.png", SDL_FRect{112.f, 48.f, 32.f, 8.f}));
+	pBurgerTop->AddComponent(new SpriteRendererComponent(pBurgerTop, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 48.f, 32.f, 8.f }));
 	pBurgerTop->AddComponent(new ColliderComponent(pBurgerTop, 32.f, 4.f));
 	pBurgerTop->AddComponent(new RigidbodyComponent(pBurgerTop, b2_dynamicBody, 1.0f, 1.0f));
 	auto pFoodComponent = new FoodComponent(pBurgerTop);
@@ -189,7 +168,7 @@ void LoadGame()
 	auto pPlate = new GameObject();
 	pPlate->AddComponent(new TransformComponent(pPlate, glm::vec3{ 224.f, 448.f, 0.f }, glm::vec2{ 2.f }));
 	pPlate->AddComponent(new SpriteRendererComponent(pPlate, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 96.f, 32.f, 8.f }));
-	pPlate->AddComponent(new ColliderComponent(pPlate, 32.f, 8.f, glm::vec2{16.f, 8.f}));
+	pPlate->AddComponent(new ColliderComponent(pPlate, 32.f, 8.f, glm::vec2{ 16.f, 8.f }));
 	pPlate->AddComponent(new RigidbodyComponent(pPlate, b2_dynamicBody, 1.0f, 1.0f));
 	pPlate->AddComponent(new PlateComponent(pPlate));
 	pPlate->SetTag("Plate");
@@ -233,25 +212,9 @@ void LoadGame()
 	auto keyboard = input.GetKeyboard();
 	////keyboard->AddKeyboardMapping(KeyboardKeyData{ SDLK_q, KeyState::JustUp }, std::make_unique<KillCommand>(pLifeComponent2));
 	keyboard->AddKeyboardMapping(
-		KeyboardKeyData{ SDLK_SPACE, KeyState::JustUp },
+		KeyboardKeyData{ SDLK_SPACE, KeyState::Hold },
 		std::make_unique<PlayAudioCommand>()
 	);
-
-	keyboard->AddKeyboardMapping(
-		KeyboardKeyData{ SDLK_UP, KeyState::JustUp },
-		std::make_unique<VolumeChangeCommand>(1)
-	);
-
-	keyboard->AddKeyboardMapping(
-		KeyboardKeyData{ SDLK_DOWN, KeyState::JustUp },
-		std::make_unique<VolumeChangeCommand>(-1)
-	);
-
-	keyboard->AddKeyboardMapping(
-		KeyboardKeyData{ SDLK_RIGHT, KeyState::JustUp },
-		std::make_unique<StopAudioCommand>()
-	);
-
 	//keyboard->AddKeyboardMapping(
 	//	KeyboardKeyData{ SDLK_w, KeyState::Hold },
 	//	std::make_unique<MoveCommand>(pPeperGameObject->GetComponent<RigidbodyComponent>(), glm::vec2{ 0,-1}, 10.f)
@@ -297,8 +260,7 @@ void LoadGame()
 	scene.AddGameObject(go);
 }
 
-
-void MakeLevel(Scene& pScene)
+void SingleplayerState::MakeLevel(Scene& pScene)
 {
 	const int size{ 21 };
 	std::string s[size]{
@@ -324,27 +286,6 @@ void MakeLevel(Scene& pScene)
 "L..L..L..L..L",
 "PPPPPPPPPPPPP",
 	};
-
-	//std::string s[size]
-	//{
-	//	"................",
-	//	"................",
-	//	"................",
-	//	"................",
-	//	"................",
-	//	"................",
-	//	"................",
-	//	"................",
-	//	"................",
-	//	"................",
-	//	"................",
-	//	"................",
-	//	"................",
-	//	"PPPPPPPPPPPPPPPP",
-	//	"................",
-	//	"................",
-	//	"................",
-	//};
 
 	float scale{ 2.f };
 	for (int i = 0; i < size; ++i)
@@ -379,15 +320,7 @@ void MakeLevel(Scene& pScene)
 				break;
 			}
 
-
-
 			pScene.AddGameObject(pGameobject);
-
-
-			//pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 13 * 16.f * scale, 0.f * 8.f * scale, 0.0f }, glm::vec3{ scale }));
-			//pGameobject->AddComponent(new SpriteRendererComponent(pGameobject, "Platform.png"));
-			//pGameobject->AddComponent(new ColliderComponent(pGameobject));
-			//pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
 		}
 	}
 

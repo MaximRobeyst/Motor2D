@@ -21,6 +21,11 @@ namespace dae
 		AnimatorComponent(dae::GameObject* pGameobject, const std::string& filename);
 		~AnimatorComponent();
 
+		AnimatorComponent(const AnimatorComponent& other) = delete;
+		AnimatorComponent(AnimatorComponent&& other) = delete;
+		AnimatorComponent& operator=(const AnimatorComponent& other) = delete;
+		AnimatorComponent& operator=(AnimatorComponent&& other) = delete;
+
 		void Update() override;
 
 		bool IsAnimationDone() const;
