@@ -91,6 +91,8 @@ private:
 	std::thread m_AudioThread;
 	std::mutex m_AudioMutex;
 	std::condition_variable m_ConditionVariable;
+
+	int m_CurrentVolume{ SDL_MIX_MAXVOLUME };
 };
 
 SDLAudioSystem::SDLAudioSystemImpl::SDLAudioSystemImpl()
@@ -133,13 +135,14 @@ void SDLAudioSystem::SDLAudioSystemImpl::StopAllSounds()
 		m_pAudioQueue.pop();
 }
 
-void SDLAudioSystem::SDLAudioSystemImpl::SetVolume(int /*volume*/)
+void SDLAudioSystem::SDLAudioSystemImpl::SetVolume(int volume)
 {
+	m_CurrentVolume = volume;
 }
 
 int SDLAudioSystem::SDLAudioSystemImpl::GetVolume()
 {
-	return 0;
+	return m_CurrentVolume;
 }
 
 void SDLAudioSystem::SDLAudioSystemImpl::ProcessQueue()
@@ -156,6 +159,7 @@ void SDLAudioSystem::SDLAudioSystemImpl::ProcessQueue()
 				m_pAudioQueue.pop();
 
 				clip->Load();
+				clip->SetVolume(m_CurrentVolume);
 				int channel = clip->Play();
 
 				playedClips.push(std::make_pair(channel, clip));
