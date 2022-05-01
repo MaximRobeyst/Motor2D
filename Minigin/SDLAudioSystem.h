@@ -14,8 +14,9 @@ public:
 	SDLAudioSystem();
 	~SDLAudioSystem();
 
-	virtual void PlaySound(const std::string& id, int loops = 0) override;
+	virtual void PlaySound(const std::string& id, int loops = 0, bool music = false) override;
 	virtual void StopAllSounds() override;
+	virtual void ResumeAllSounds() override;
 
 	virtual void SetVolume(int volume) override;
 	virtual int GetVolume() override;

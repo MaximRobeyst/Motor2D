@@ -13,6 +13,12 @@ public:
 	void Execute() override;
 };
 
+class ResumeAudioCommand : public Command
+{
+public:
+	void Execute() override;
+};
+
 class VolumeChangeCommand : public Command
 {
 public:

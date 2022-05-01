@@ -11,9 +11,9 @@ LoggedAudio::~LoggedAudio()
 	delete m_pWrappedAudio;
 }
 
-void LoggedAudio::PlaySound(const std::string& id, int loops)
+void LoggedAudio::PlaySound(const std::string& id, int loops, bool music)
 {
-	m_pWrappedAudio->PlaySound(id, loops);
+	m_pWrappedAudio->PlaySound(id, loops, music);
 	Log("Play sound" + (id));
 }
 
@@ -21,6 +21,12 @@ void LoggedAudio::StopAllSounds()
 {
 	m_pWrappedAudio->StopAllSounds();
 	Log("All sounds have been stopped");
+}
+
+void LoggedAudio::ResumeAllSounds()
+{
+	m_pWrappedAudio->ResumeAllSounds();
+	Log("All sounds have been resumed");
 }
 
 int LoggedAudio::GetVolume()

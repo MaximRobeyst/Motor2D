@@ -5,6 +5,7 @@
 #include "Transform.h"
 #include "GameTime.h"
 #include "LifeComponent.h"
+#include <ServiceLocator.h>
 
 PlayerComponent::PlayerComponent(dae::GameObject* pGameobject)
 	:dae::Component(pGameobject)
@@ -38,9 +39,12 @@ void PlayerComponent::Update()
 
 void PlayerComponent::PlayerDeath()
 {
+	if (m_CurrentState == PlayerState::State_Dying) return;
+
 	m_CurrentState = PlayerState::State_Dying;
 	m_pLifeComponent->Hit();
 	m_pLifeComponent->SetEnabled(false);
+	ServiceLocator::GetAudio()->PlaySound("../Data/Audio/death_1.wav");
 }
 
 bool PlayerComponent::IsDead() const

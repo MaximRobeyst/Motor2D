@@ -5,7 +5,7 @@ void PlayAudioCommand::Execute()
 {
 	//ServiceLocator::GetAudio()->PlaySound(0);
 
-	ServiceLocator::GetAudio()->PlaySound("../Data/Audio/death_1.wav");
+	ServiceLocator::GetAudio()->PlaySound("../Data/Audio/eat_fruit.wav");
 	
 }
 
@@ -20,5 +20,10 @@ VolumeChangeCommand::VolumeChangeCommand(int volumeChange)
 
 void VolumeChangeCommand::Execute()
 {
-	ServiceLocator::GetAudio()->SetVolume(ServiceLocator::GetAudio()->GetVolume() - m_VolumeChange);
+	ServiceLocator::GetAudio()->SetVolume(ServiceLocator::GetAudio()->GetVolume() + m_VolumeChange);
+}
+
+void ResumeAudioCommand::Execute()
+{
+	ServiceLocator::GetAudio()->ResumeAllSounds();
 }

@@ -75,9 +75,11 @@ void LoadGame()
 
 	std::cout << std::endl << std::endl;
 	std::cout << "=== How To Play ====" << std::endl;
-	std::cout << "Use the Dpad to move around" << std::endl;
-	std::cout << "Press 'A' to love a life" << std::endl;
-	std::cout << "Press 'B' to Add to your score" << std::endl;
+	std::cout << "Use the WASD to move around" << std::endl;
+	std::cout << "Press 'Space' to play a sound" << std::endl;
+	std::cout << "Press 'Up' and 'Down' to change the volume" << std::endl;
+	std::cout << "Press 'Right' to stop the sounds" << std::endl;
+	std::cout << "Press 'Left' to Resume the sounds" << std::endl;
 	std::cout << "===================" << std::endl;
 
 	//auto pAchievmentObject = new GameObject();
@@ -87,14 +89,19 @@ void LoadGame()
 
 	auto font = ResourceManager::GetInstance().LoadFont("Early GameBoy.ttf", 17);
 
-	SDLAudioSystem* pSoundSystem = new SDLAudioSystem();
-	LoggedAudio* pLoggedAudioSystem = new LoggedAudio(pSoundSystem);
+	//SDLAudioSystem* pSoundSystem = new SDLAudioSystem();
+	//LoggedAudio* pLoggedAudioSystem = new LoggedAudio(pSoundSystem);
 	
 	//ServiceLocator::ProvideAudio(pSoundSystem);
-	ServiceLocator::ProvideAudio(pLoggedAudioSystem);
+#ifdef _DEBUG
+	ServiceLocator::ProvideAudio(new LoggedAudio(new SDLAudioSystem()));
+#else
+	ServiceLocator::ProvideAudio(new SDLAudioSystem());
+#endif // _DEBUG
+
 	//pSoundSystem->AddAudioClip("../Data/Audio/death_1.wav");
 
-	ServiceLocator::GetAudio()->PlaySound("../Data/Audio/burgertime_theme.wav");
+	ServiceLocator::GetAudio()->PlaySound("../Data/Audio/burgertime_theme.wav", -1, true);
 
 	auto go = new GameObject();
 	go->AddComponent(new TransformComponent(go, glm::vec3(10.f, 5.f, 0.f)));
@@ -252,6 +259,11 @@ void LoadGame()
 	keyboard->AddKeyboardMapping(
 		KeyboardKeyData{ SDLK_RIGHT, KeyState::JustUp },
 		std::make_unique<StopAudioCommand>()
+	);
+
+	keyboard->AddKeyboardMapping(
+		KeyboardKeyData{ SDLK_LEFT, KeyState::JustUp },
+		std::make_unique<ResumeAudioCommand>()
 	);
 
 	//keyboard->AddKeyboardMapping(

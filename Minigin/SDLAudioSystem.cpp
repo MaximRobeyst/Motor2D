@@ -3,71 +3,12 @@
 
 #include <SDL_mixer.h>
 
-class AudioClip final
+struct AudioDesc
 {
-public:
-	AudioClip(const std::string& path);
-	~AudioClip();
-
-	void Load();
-	int Play(int loops = 0);
-	void SetVolume(int volume);
-	int GetVolume();
-
-	bool IsLoaded();
-
-private:
-	std::string m_Path{};
-	Mix_Chunk* m_pChunk;
+	std::string path;
+	int loops;
+	bool music;
 };
-
-AudioClip::AudioClip(const std::string& path)
-	: m_Path{ path }
-	, m_pChunk{nullptr}
-{
-}
-
-AudioClip::~AudioClip()
-{
-	if (m_pChunk)
-		Mix_FreeChunk(m_pChunk);
-}
-
-void AudioClip::Load()
-{
-	m_pChunk = Mix_LoadWAV(m_Path.c_str());
-	if (m_pChunk == nullptr)
-	{
-		std::cerr << "audioclip " << m_Path << " failed to load, SDL_Mixer error " << Mix_GetError() << std::endl;
-	}
-}
-
-int AudioClip::Play(int loops)
-{
-	if (!IsLoaded()) return false;
-
-	int channel{ Mix_PlayChannel(-1, m_pChunk, loops) };
-	return channel;
-}
-
-void AudioClip::SetVolume(int volume)
-{
-	if (IsLoaded())
-		Mix_VolumeChunk(m_pChunk, volume);
-}
-
-int AudioClip::GetVolume()
-{
-	if (IsLoaded())
-		return Mix_VolumeChunk(m_pChunk, -1);
-
-	return 0;
-}
-
-bool AudioClip::IsLoaded()
-{
-	return m_pChunk != nullptr;
-}
 
 class SDLAudioSystem::SDLAudioSystemImpl final
 {
@@ -76,8 +17,10 @@ public:
 	~SDLAudioSystemImpl();
 
 
-	void PlaySound(const std::string& id, int loops = 0);
+	void PlaySound(const std::string& id, int loops = 0, bool music = true);
 	void StopAllSounds() ;
+	void ResumeAllSounds();
+
 	void SetVolume(int volume);
 	int GetVolume();
 
@@ -85,7 +28,7 @@ private:
 	void ProcessQueue();
 
 	//std::queue<dae::AudioClip*> m_pAudioQueue;
-	std::queue<std::string> m_pAudioQueue;
+	std::queue<AudioDesc> m_pAudioQueue;
 
 	bool m_Running;
 	std::thread m_AudioThread;
@@ -122,10 +65,10 @@ SDLAudioSystem::SDLAudioSystemImpl::~SDLAudioSystemImpl()
 	m_AudioThread.join();
 }
 
-void SDLAudioSystem::SDLAudioSystemImpl::PlaySound(const std::string& id, int /*loops*/)
+void SDLAudioSystem::SDLAudioSystemImpl::PlaySound(const std::string& id, int loops, bool music)
 {
 	std::unique_lock<std::mutex> lock{ m_AudioMutex };
-	m_pAudioQueue.emplace(id);
+	m_pAudioQueue.emplace(AudioDesc{id, loops, music});
 	m_ConditionVariable.notify_one();
 }
 
@@ -133,11 +76,21 @@ void SDLAudioSystem::SDLAudioSystemImpl::StopAllSounds()
 {
 	while (!m_pAudioQueue.empty())
 		m_pAudioQueue.pop();
+
+	Mix_Pause(-1);
+	Mix_PauseMusic();
+}
+
+void SDLAudioSystem::SDLAudioSystemImpl::ResumeAllSounds()
+{
+	Mix_Resume(-1);
+	Mix_ResumeMusic();
 }
 
 void SDLAudioSystem::SDLAudioSystemImpl::SetVolume(int volume)
 {
 	m_CurrentVolume = volume;
+	Mix_VolumeMusic(volume);
 }
 
 int SDLAudioSystem::SDLAudioSystemImpl::GetVolume()
@@ -147,37 +100,31 @@ int SDLAudioSystem::SDLAudioSystemImpl::GetVolume()
 
 void SDLAudioSystem::SDLAudioSystemImpl::ProcessQueue()
 {
-	std::queue<std::pair<int, AudioClip*>> playedClips;
 	while (m_Running)
 	{
 		{
 			std::unique_lock<std::mutex> lock{ m_AudioMutex };
 			while (!m_pAudioQueue.empty())
 			{
-
-				auto clip = new AudioClip(m_pAudioQueue.front());
+				auto audioDesc = m_pAudioQueue.front();
 				m_pAudioQueue.pop();
 
-				clip->Load();
-				clip->SetVolume(m_CurrentVolume);
-				int channel = clip->Play();
-
-				playedClips.push(std::make_pair(channel, clip));
+				if (audioDesc.music)
+				{
+					auto music = Mix_LoadMUS(audioDesc.path.c_str());
+					Mix_VolumeMusic(m_CurrentVolume);
+					Mix_PlayMusic(music, audioDesc.loops);
+				}
+				else
+				{
+					auto chunk = Mix_LoadWAV(audioDesc.path.c_str());
+					Mix_VolumeChunk(chunk, m_CurrentVolume);
+					Mix_PlayChannel(-1, chunk, audioDesc.loops);
+				}
 			}
 
-			if (m_pAudioQueue.empty() && playedClips.empty())
+			if (m_pAudioQueue.empty())
 				m_ConditionVariable.wait(lock);
-		}
-
-		// Remove audio clips if they arent playing
-		while (!playedClips.empty())
-		{
-			auto pair = playedClips.front();
-			if (Mix_Playing(pair.first) == 0)
-			{
-				delete pair.second;
-				playedClips.pop();
-			}
 		}
 	}
 }
@@ -192,15 +139,20 @@ SDLAudioSystem::~SDLAudioSystem()
 {
 }
 
-void SDLAudioSystem::PlaySound(const std::string& id, int loops)
+void SDLAudioSystem::PlaySound(const std::string& id, int loops, bool music)
 {
 	//m_pAudioQueue.emplace(new dae::AudioClip(id));
-	m_pImpl->PlaySound(id, loops);
+	m_pImpl->PlaySound(id, loops, music);
 }
 
 void SDLAudioSystem::StopAllSounds()
 {
 	m_pImpl->StopAllSounds();
+}
+
+void SDLAudioSystem::ResumeAllSounds()
+{
+	m_pImpl->ResumeAllSounds();
 }
 
 void SDLAudioSystem::SetVolume(int volume)

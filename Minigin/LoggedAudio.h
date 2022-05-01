@@ -12,8 +12,9 @@ public:
 	LoggedAudio& operator=(const LoggedAudio&) = delete;
 	LoggedAudio& operator=(LoggedAudio&&) = delete;
 
-	virtual void PlaySound(const std::string& id, int loops = 0) override;
+	virtual void PlaySound(const std::string& id, int loops = 0, bool music = false) override;
 	virtual void StopAllSounds() override;
+	virtual void ResumeAllSounds() override;
 
 	virtual int GetVolume() override;
 	virtual void SetVolume(int) override;
