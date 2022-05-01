@@ -12,14 +12,12 @@ LifeComponent::LifeComponent(dae::GameObject* pGameObject, int lives)
 
 void LifeComponent::Hit()
 {
-	if (m_Lives == 0)
+	if (m_Lives == 0 || !m_Enabled)
 		return;
 
 	--m_Lives;
 
 	m_pSubject->Notify(*m_pGameObject, Event::Player_Died);
-
-	// Call observer event
 }
 
 int LifeComponent::GetLives() const
@@ -30,4 +28,9 @@ int LifeComponent::GetLives() const
 std::unique_ptr<Subject>& LifeComponent::GetSubject()
 {
 	return m_pSubject;
+}
+
+void LifeComponent::SetEnabled(bool newBool)
+{
+	m_Enabled = newBool;
 }

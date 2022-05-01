@@ -18,8 +18,12 @@ public:
 
 	std::unique_ptr<Subject>& GetSubject();
 
+	void SetEnabled(bool newBool);
+
 private:
 	int m_Lives;
+	bool m_Enabled = true;
 	std::unique_ptr<Subject> m_pSubject;
+	//PlayerComponent* m_pPlayerComp;
 };
 

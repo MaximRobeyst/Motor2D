@@ -11,9 +11,9 @@ LoggedAudio::~LoggedAudio()
 	delete m_pWrappedAudio;
 }
 
-void LoggedAudio::PlaySound(const std::string& id)
+void LoggedAudio::PlaySound(const std::string& id, int loops)
 {
-	m_pWrappedAudio->PlaySound(id);
+	m_pWrappedAudio->PlaySound(id, loops);
 	Log("Play sound" + (id));
 }
 

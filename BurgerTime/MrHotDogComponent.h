@@ -20,7 +20,7 @@ private:
 	int m_Score{100};
 	bool m_Dead{};
 
-	float m_Speed{ 64.f };
+	float m_Speed{ 32.f };
 
 	dae::AnimatorComponent* m_pAnimatorComponent;
 	dae::RigidbodyComponent* m_pRigidbodyComponent;

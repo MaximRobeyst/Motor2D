@@ -94,6 +94,8 @@ void LoadGame()
 	ServiceLocator::ProvideAudio(pLoggedAudioSystem);
 	//pSoundSystem->AddAudioClip("../Data/Audio/death_1.wav");
 
+	ServiceLocator::GetAudio()->PlaySound("../Data/Audio/burgertime_theme.wav");
+
 	auto go = new GameObject();
 	go->AddComponent(new TransformComponent(go, glm::vec3(10.f, 5.f, 0.f)));
 	go->AddComponent(new SpriteRendererComponent(go, "logo.png"));
@@ -104,7 +106,7 @@ void LoadGame()
 	scene.AddGameObject(go);
 
 	auto pPeperGameObject = new GameObject();
-	auto pPlayerTransform = new TransformComponent(pPeperGameObject, glm::vec3{ 96.f, 144.f, 0 }, glm::vec3{ 2.f });
+	auto pPlayerTransform = new TransformComponent(pPeperGameObject, glm::vec3{ 96.f, 296.f, 0 }, glm::vec3{ 2.f });
 	pPeperGameObject->AddComponent(pPlayerTransform);
 	pPeperGameObject->AddComponent(new SpriteRendererComponent(pPeperGameObject, "BurgerTime_SpriteSheet.png"));
 	pPeperGameObject->AddComponent(new AnimatorComponent(pPeperGameObject, "../Data/Animations/PlayerAnimations.json"));

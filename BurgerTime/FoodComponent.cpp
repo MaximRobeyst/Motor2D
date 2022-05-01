@@ -13,6 +13,7 @@
 #include <GameTime.h>
 #include "MrHotDogComponent.h"
 #include "PlateComponent.h"
+#include <ServiceLocator.h>
 
 FoodComponent::FoodComponent(dae::GameObject* pGameobject)
 	: Component(pGameobject)
@@ -54,6 +55,7 @@ FoodComponent::FoodComponent(dae::GameObject* pGameobject)
 		{
 			foodComp->SetFalling(false);
 			foodComp->GetSubject()->Notify(*pTriggeredBody->GetGameobject(), Event::Burger_Drop);
+			ServiceLocator::GetAudio()->PlaySound("../Data/Audio/eat_ghost.wav");
 		}
 	};
 

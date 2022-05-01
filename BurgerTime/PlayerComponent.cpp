@@ -15,6 +15,11 @@ PlayerComponent::PlayerComponent(dae::GameObject* pGameobject)
 	m_pLifeComponent = pGameobject->GetComponent<LifeComponent>();
 }
 
+void PlayerComponent::Start()
+{
+	m_StartPosition = m_pTranformComponent->GetPosition();
+}
+
 void PlayerComponent::Update()
 {
 	switch (m_CurrentState)
@@ -22,8 +27,8 @@ void PlayerComponent::Update()
 	case PlayerState::State_Default:
 		UpdateDefault();
 		break;
-	case PlayerState::State_Climbing:
-		UpdateClimbing();
+	case PlayerState::State_Peper:
+		UpdatePeper();
 		break;
 	case PlayerState::State_Dying:
 		UpdateDying();
@@ -35,6 +40,12 @@ void PlayerComponent::PlayerDeath()
 {
 	m_CurrentState = PlayerState::State_Dying;
 	m_pLifeComponent->Hit();
+	m_pLifeComponent->SetEnabled(false);
+}
+
+bool PlayerComponent::IsDead() const
+{
+	return m_CurrentState == PlayerState::State_Dying;
 }
 
 void PlayerComponent::UpdateDefault()
@@ -68,11 +79,17 @@ void PlayerComponent::UpdateDefault()
 	m_pRigidbody->GetBody()->SetLinearVelocity(vel);
 }
 
-void PlayerComponent::UpdateClimbing()
+void PlayerComponent::UpdatePeper()
 {
 }
 
 void PlayerComponent::UpdateDying()
 {
 	m_pAnimatorComponent->SetAnimation("Death");
+	if (m_pAnimatorComponent->IsAnimationDone())
+	{
+		m_pLifeComponent->SetEnabled(true);
+		m_pTranformComponent->SetPosition(m_StartPosition);
+		m_CurrentState = PlayerState::State_Default;
+	}
 }

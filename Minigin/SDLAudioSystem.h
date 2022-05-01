@@ -14,13 +14,10 @@ public:
 	SDLAudioSystem();
 	~SDLAudioSystem();
 
-	virtual void PlaySound(const std::string& id) override;
+	virtual void PlaySound(const std::string& id, int loops = 0) override;
 	virtual void StopAllSounds() override;
 
 	virtual void SetVolume(int volume) override;
 	virtual int GetVolume() override;
-
-private:
-
 };
 

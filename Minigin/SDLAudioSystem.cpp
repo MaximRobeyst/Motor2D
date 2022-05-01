@@ -10,7 +10,7 @@ public:
 	~AudioClip();
 
 	void Load();
-	int Play();
+	int Play(int loops = 0);
 	void SetVolume(int volume);
 	int GetVolume();
 
@@ -22,7 +22,8 @@ private:
 };
 
 AudioClip::AudioClip(const std::string& path)
-	:m_Path{ path }
+	: m_Path{ path }
+	, m_pChunk{nullptr}
 {
 }
 
@@ -41,11 +42,11 @@ void AudioClip::Load()
 	}
 }
 
-int AudioClip::Play()
+int AudioClip::Play(int loops)
 {
 	if (!IsLoaded()) return false;
 
-	int channel{ Mix_PlayChannel(-1, m_pChunk, 0) };
+	int channel{ Mix_PlayChannel(-1, m_pChunk, loops) };
 	return channel;
 }
 
@@ -75,7 +76,7 @@ public:
 	~SDLAudioSystemImpl();
 
 
-	void PlaySound(const std::string& id);
+	void PlaySound(const std::string& id, int loops = 0);
 	void StopAllSounds() ;
 	void SetVolume(int volume);
 	int GetVolume();
@@ -104,11 +105,13 @@ SDLAudioSystem::SDLAudioSystemImpl::SDLAudioSystemImpl()
 		std::cerr << "Mx_Init: " << Mix_GetError() << std::endl;
 	}
 
-	Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 1024);
+	Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, 4, 1024);
 }
 
 SDLAudioSystem::SDLAudioSystemImpl::~SDLAudioSystemImpl()
 {
+	StopAllSounds();
+
 	Mix_CloseAudio();
 	Mix_Quit();
 
@@ -117,7 +120,7 @@ SDLAudioSystem::SDLAudioSystemImpl::~SDLAudioSystemImpl()
 	m_AudioThread.join();
 }
 
-void SDLAudioSystem::SDLAudioSystemImpl::PlaySound(const std::string& id)
+void SDLAudioSystem::SDLAudioSystemImpl::PlaySound(const std::string& id, int /*loops*/)
 {
 	std::unique_lock<std::mutex> lock{ m_AudioMutex };
 	m_pAudioQueue.emplace(id);
@@ -126,6 +129,8 @@ void SDLAudioSystem::SDLAudioSystemImpl::PlaySound(const std::string& id)
 
 void SDLAudioSystem::SDLAudioSystemImpl::StopAllSounds()
 {
+	while (!m_pAudioQueue.empty())
+		m_pAudioQueue.pop();
 }
 
 void SDLAudioSystem::SDLAudioSystemImpl::SetVolume(int /*volume*/)
@@ -183,10 +188,10 @@ SDLAudioSystem::~SDLAudioSystem()
 {
 }
 
-void SDLAudioSystem::PlaySound(const std::string& id)
+void SDLAudioSystem::PlaySound(const std::string& id, int loops)
 {
 	//m_pAudioQueue.emplace(new dae::AudioClip(id));
-	m_pImpl->PlaySound(id);
+	m_pImpl->PlaySound(id, loops);
 }
 
 void SDLAudioSystem::StopAllSounds()
