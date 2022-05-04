@@ -18,13 +18,11 @@ namespace dae
 		void Render() const override;
 
 		glm::vec2 GetSize() const;
+		b2PolygonShape* GetDynamicBox() const;
 
 #ifdef _DEBUG
 		void RenderGUI() override;
 #endif // _DEBUG
-
-		b2PolygonShape* GetDynamicBox() const;
-
 
 	private:
 		//TODO: Make a shape struct

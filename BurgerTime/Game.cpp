@@ -101,7 +101,7 @@ void LoadGame()
 
 	//pSoundSystem->AddAudioClip("../Data/Audio/death_1.wav");
 
-	ServiceLocator::GetAudio()->PlaySound("../Data/Audio/burgertime_theme.wav", -1, true);
+	//ServiceLocator::GetAudio()->PlaySound("../Data/Audio/burgertime_theme.wav", -1, true);
 
 	auto go = new GameObject();
 	go->AddComponent(new TransformComponent(go, glm::vec3(10.f, 5.f, 0.f)));
@@ -120,7 +120,7 @@ void LoadGame()
 	//pPeperGameObject->AddComponent(new MovementComponent(pPeperGameObject, 100.f));
 	auto pLifeComponent = new LifeComponent{ pPeperGameObject, 3 };
 	pPeperGameObject->AddComponent(pLifeComponent);
-	pPeperGameObject->AddComponent(new ColliderComponent(pPeperGameObject, 15.f, 16.f, glm::vec2{8.0f, 8.0f}));
+	pPeperGameObject->AddComponent(new ColliderComponent(pPeperGameObject, 15.f, 15.f, glm::vec2{8.0f, 8.0f}));
 	pPeperGameObject->AddComponent(new RigidbodyComponent(pPeperGameObject, b2_dynamicBody, 1.f, 0.3f));
 	pPeperGameObject->AddComponent(new PlayerComponent(pPeperGameObject));
 	pPeperGameObject->SetTag("Player");
@@ -154,7 +154,7 @@ void LoadGame()
 	pBurgerTop->AddComponent(new TransformComponent(pBurgerTop, glm::vec3(224.f, 32.f, 0.f), glm::vec2{ 2.f }));
 	pBurgerTop->AddComponent(new SpriteRendererComponent(pBurgerTop, "BurgerTime_SpriteSheet.png", SDL_FRect{112.f, 48.f, 32.f, 8.f}));
 	pBurgerTop->AddComponent(new ColliderComponent(pBurgerTop, 32.f, 4.f));
-	pBurgerTop->AddComponent(new RigidbodyComponent(pBurgerTop, b2_dynamicBody, 1.0f, 1.0f));
+	pBurgerTop->AddComponent(new RigidbodyComponent(pBurgerTop, b2_dynamicBody, 1.0f, 1.0f, true));
 	auto pFoodComponent = new FoodComponent(pBurgerTop);
 	pBurgerTop->AddComponent(pFoodComponent);
 	pBurgerTop->SetTag("Food");
@@ -162,10 +162,10 @@ void LoadGame()
 	scene.AddGameObject(pBurgerTop);
 
 	auto pCheese = new GameObject();
-	pCheese->AddComponent(new TransformComponent(pCheese, glm::vec3(224.f, 96.f, 0.f), glm::vec2{ 2.f }));
+	pCheese->AddComponent(new TransformComponent(pCheese, glm::vec3(224.f, 112.f, 0.f), glm::vec2{ 2.f }));
 	pCheese->AddComponent(new SpriteRendererComponent(pCheese, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 64.f, 32.f, 8.f }));
 	pCheese->AddComponent(new ColliderComponent(pCheese, 32.f, 4.f));
-	pCheese->AddComponent(new RigidbodyComponent(pCheese, b2_dynamicBody, 1.0f, 1.0f));
+	pCheese->AddComponent(new RigidbodyComponent(pCheese, b2_dynamicBody, 1.0f, 1.0f, true));
 	pFoodComponent = new FoodComponent(pCheese);
 	pCheese->AddComponent(pFoodComponent);
 	pCheese->SetTag("Food");
@@ -176,7 +176,7 @@ void LoadGame()
 	pBurgerBottom->AddComponent(new TransformComponent(pBurgerBottom, glm::vec3{ 224.f, 320.f, 0.f }, glm::vec2{ 2.f }));
 	pBurgerBottom->AddComponent(new SpriteRendererComponent(pBurgerBottom, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 56.f, 32.f, 8.f }));
 	pBurgerBottom->AddComponent(new ColliderComponent(pBurgerBottom, 32.f, 4.f));
-	pBurgerBottom->AddComponent(new RigidbodyComponent(pBurgerBottom, b2_dynamicBody, 1.0f, 1.0f));
+	pBurgerBottom->AddComponent(new RigidbodyComponent(pBurgerBottom, b2_dynamicBody, 1.0f, 1.0, true));
 	pFoodComponent = new FoodComponent(pBurgerBottom);
 	pBurgerBottom->AddComponent(pFoodComponent);
 	pBurgerBottom->SetTag("Food");
@@ -314,78 +314,72 @@ void LoadGame()
 
 void MakeLevel(Scene& pScene)
 {
-	const int size{ 21 };
-	std::string s[size]{
-".............",
-".............",
-"LPPLPPLPPLPPL",
-"L..L..L..L..L",
-"L..L..L..L..L",
-"L..L..L..L..L",
-"LPPL..LPPLPPL",
-"...L..L.....L",
-"...LPPL.....L",
-"...L..L.....L",
-"LPPL..L..LPPL",
-"L..L..L..L...",
-"L..LPPLPPL...",
-"L..L..L..L...",
-"L..L..L..LPPL",
-"L..L..L..L..L",
-"LPPLPPLPPL..L",
-"L..L..L..L..L",
-"L..L..L..L..L",
-"L..L..L..L..L",
-"PPPPPPPPPPPPP",
+	const int size{ 26 };
+	std::string s[size]{ 
+		"..........................",
+		"..........................",
+		"LLPLLPLLPLLPLLPLLPLLPLLPLL",
+		"LL....LL.LL.LL....LL....LL",
+		"LL....LL.LL.LL....LL....LL",
+		"LL....LL.LL.LL....LL....LL",
+		"LL....LL.LL.LL....LL....LL",
+		"LLPLLPLL.LL.LLPLLPLLPLLPLL",
+		"...LL.LL.LL.LL.LL.LL....LL",
+		"...LL.LLPLLPLL.LL.LL....LL",
+		"...LL.LL....LL.LL.LLPLLPLL",
+		"LLPLLPLL....LL.LL.LL.LL...",
+		"LL.LL.LLPPPPLLPLLPLL.LL...",
+		"LL.LL.LL....LL....LL.LL...",
+		"LL.LL.LL....LL....LLPLLPLL",
+		"LL.LL.LL....LL....LL.LL.LL",
+		"LLPLLPLLPLLPLLPLLPLL.LL.LL",
+		"LL....LL....LL....LL.LL.LL",
+		"LL....LL....LL....LL.LL.LL",
+		"LL....LL....LL....LL.LL.LL",
+		"LLPPPPLLPPPPLLPPPPLLPLLPLL",
+		"..........................",
+		"..........................",
+		"..........................",
+		"..........................",
+		".BBBBBBBBBBBBBBBBBBBBBBBB."
 	};
-
-	//std::string s[size]
-	//{
-	//	"................",
-	//	"................",
-	//	"................",
-	//	"................",
-	//	"................",
-	//	"................",
-	//	"................",
-	//	"................",
-	//	"................",
-	//	"................",
-	//	"................",
-	//	"................",
-	//	"................",
-	//	"PPPPPPPPPPPPPPPP",
-	//	"................",
-	//	"................",
-	//	"................",
-	//};
 
 	float scale{ 2.f };
 	for (int i = 0; i < size; ++i)
 	{
-		for (size_t j = 0; j < s[0].size(); ++j)
+		for (int j = 0; j < s[0].size(); ++j)
 		{
 			if (s[i][j] == '.')
 				continue;
 
 			GameObject* pGameobject = new GameObject;
-			pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ j * 16.f * scale, i * 8.f * scale, 0.0f }, glm::vec3{ scale }));
+			pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ j * 8.f * scale, i * 8.f * scale, 0.0f }, glm::vec3{ scale }));
 
 			switch (s[i][j])
 			{
 			case 'L':
-				if (s[i - 1][j] == '.' && s[i + 1][j] == 'L')
-					pGameobject->AddComponent(new SpriteRendererComponent(pGameobject, "Ladder_Top.png"));
-				else if ((j != 0 && j != s[0].size()) && s[i][j - 1] == 'P' || s[i][j + 1] == 'P')
-					pGameobject->AddComponent(new SpriteRendererComponent(pGameobject, "Ladder_Top.png"));
-				else if (s[i - 1][j] == '.')
-					pGameobject->AddComponent(new SpriteRendererComponent(pGameobject, "Ladder_Bottom.png"));
+			{
+				float y{};
+				if ((i + 1 < size && s[i + 1][j] == 'L' && i - 1 > 0 && s[i - 1][j] == 'L') &&
+					((j + 1 < size && s[i][j + 1] == 'P') || (j - 1 > 0 && s[i][j - 1] == 'P')))
+					y = 16;
+				else if ((i + 1 < size && s[i + 1][j] == 'L' && i - 1 > 0 && s[i - 1][j] == 'L') && (j - 1 > 0 && s[i][j - 1] == 'P'))
+					y = 16;
+				else if (i + 1 < size && s[i + 1][j] == 'L' && i - 1 > 0 && s[i - 1][j] == 'L')
+					y = 8;
+				else if (i + 1 < size && s[i + 1][j] == '.' && i - 1 > 0 && s[i - 1][j] == 'L')
+					y = 16;
+
+
+				if (j + 1 < 26 && s[i][j + 1] == 'L')
+					pGameobject->AddComponent(new SpriteRendererComponent(pGameobject, "Level_SpriteSheet.png", SDL_FRect{ 0, y, 8, 8 }));
 				else
-					pGameobject->AddComponent(new SpriteRendererComponent(pGameobject, "Ladder_Middle.png"));
+					pGameobject->AddComponent(new SpriteRendererComponent(pGameobject, "Level_SpriteSheet.png", SDL_FRect{ 8, y, 8, 8 }));
 				break;
+			}
 			case 'P':
-				pGameobject->AddComponent(new SpriteRendererComponent(pGameobject, "Platform.png"));
-				pGameobject->AddComponent(new ColliderComponent(pGameobject, 16.f, 8.f));
+				pGameobject->AddComponent(new SpriteRendererComponent(pGameobject, "Level_SpriteSheet.png", SDL_FRect{16, 8, 8, 8}));
+				pGameobject->AddComponent(new ColliderComponent(pGameobject, 8.f, 4.f, glm::vec2{4.0f, 6.0f}));
 				pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
 				break;
 			case'.':

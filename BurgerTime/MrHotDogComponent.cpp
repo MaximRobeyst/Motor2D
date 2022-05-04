@@ -4,7 +4,9 @@
 #include "RigidbodyComponent.h"
 #include "PlayerComponent.h"
 #include "Event.h"
+
 #include <Scene.h>
+#include <ServiceLocator.h>
 
 EnemyComponent::EnemyComponent(dae::GameObject* pGameobject, dae::TransformComponent* pPlayerTransform)
 	: dae::Component(pGameobject)
@@ -56,6 +58,7 @@ void EnemyComponent::Update()
 
 void EnemyComponent::EnemyDeath()
 {
+	ServiceLocator::GetAudio()->PlaySound("../Data/Audio/death_2.wav");
 	m_pAnimatorComponent->SetAnimation("Death");
 	m_pSubject->Notify(*m_pGameObject, Event::Enemy_Died);
 	m_Dead = true;

@@ -6,7 +6,7 @@
 #include "Renderer.h"
 #include "RigidbodyComponent.h"
 
-dae::RigidbodyComponent::RigidbodyComponent(dae::GameObject* pGameobject, b2BodyType bodyType, float density, float friction)
+dae::RigidbodyComponent::RigidbodyComponent(dae::GameObject* pGameobject, b2BodyType bodyType, float density, float friction, bool IsSensor)
 	: Component(pGameobject)
 	, m_pTransformComponent{ pGameobject->GetComponent<TransformComponent>() }
 	, m_pWorld { SceneManager::GetInstance().GetScene(0)->GetPhysicsWorld() }
@@ -29,12 +29,16 @@ dae::RigidbodyComponent::RigidbodyComponent(dae::GameObject* pGameobject, b2Body
 	fixtureDef.shape = m_pColliderComponent->GetDynamicBox();
 	fixtureDef.density = m_Density;
 	fixtureDef.friction = m_Friction;
+	fixtureDef.isSensor = IsSensor;
 
 	m_pBody->CreateFixture(&fixtureDef);
 }
 
 dae::RigidbodyComponent::~RigidbodyComponent()
 {
+	m_OnEnterFunction = nullptr;
+	m_OnExitFunction = nullptr;
+
 	m_pWorld->DestroyBody(m_pBody);
 }
 

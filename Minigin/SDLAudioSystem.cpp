@@ -103,11 +103,24 @@ void SDLAudioSystem::SDLAudioSystemImpl::ProcessQueue()
 	while (m_Running)
 	{
 		{
-			std::unique_lock<std::mutex> lock{ m_AudioMutex };
-			while (!m_pAudioQueue.empty())
+
+			m_AudioMutex.lock();
+			bool empty = m_pAudioQueue.empty();
+			m_AudioMutex.unlock();
+
+			// This lock should change so it doesnt lock the main thread
+			while (!empty)
 			{
+				m_AudioMutex.lock();
+				empty = m_pAudioQueue.empty();
+				if (empty)
+				{
+					m_AudioMutex.unlock();
+					break;
+				}
 				auto audioDesc = m_pAudioQueue.front();
 				m_pAudioQueue.pop();
+				m_AudioMutex.unlock();
 
 				if (audioDesc.music)
 				{
@@ -123,8 +136,11 @@ void SDLAudioSystem::SDLAudioSystemImpl::ProcessQueue()
 				}
 			}
 
-			if (m_pAudioQueue.empty())
+			if (empty)
+			{
+				std::unique_lock<std::mutex> lock{ m_AudioMutex };
 				m_ConditionVariable.wait(lock);
+			}
 		}
 	}
 }

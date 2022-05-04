@@ -12,7 +12,7 @@ namespace dae
 	class RigidbodyComponent : public Component
 	{
 	public:
-		RigidbodyComponent(dae::GameObject* pGameobject, b2BodyType bodyType = b2_dynamicBody, float density = 1.0f, float friction = 1.0f);
+		RigidbodyComponent(dae::GameObject* pGameobject, b2BodyType bodyType = b2_dynamicBody, float density = 1.0f, float friction = 1.0f, bool IsSensor = false);
 		~RigidbodyComponent();
 
 		void Update() override;
