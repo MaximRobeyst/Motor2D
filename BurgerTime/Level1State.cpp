@@ -287,6 +287,7 @@ void Level1State::OnEnter()
 
 void Level1State::OnExit()
 {
+	//SceneManager::GetInstance().RemoveScene(0);
 }
 
 void Level1State::MakeLevel(Scene& pScene)

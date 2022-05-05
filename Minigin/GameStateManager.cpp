@@ -20,6 +20,8 @@ void GameStateManager::SwitchGameState(IGameState* pGamestate)
 	if(m_pCurrentState != nullptr)
 		m_pCurrentState->OnExit();
 
+	delete m_pCurrentState;
+	m_pCurrentState = nullptr;
 	m_pCurrentState = pGamestate;
 }
 

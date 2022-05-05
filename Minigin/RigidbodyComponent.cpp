@@ -9,7 +9,7 @@
 dae::RigidbodyComponent::RigidbodyComponent(dae::GameObject* pGameobject, b2BodyType bodyType, float density, float friction, bool IsSensor)
 	: Component(pGameobject)
 	, m_pTransformComponent{ pGameobject->GetComponent<TransformComponent>() }
-	, m_pWorld { SceneManager::GetInstance().GetScene(0)->GetPhysicsWorld() }
+	, m_pWorld { SceneManager::GetInstance().GetScene(1)->GetPhysicsWorld() }
 	, m_Density{density}
 	, m_Friction{friction}
 {

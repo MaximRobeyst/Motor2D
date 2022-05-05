@@ -48,13 +48,27 @@ void dae::SceneManager::RenderGUI(SDL_Window* window)
 
 dae::Scene& dae::SceneManager::CreateScene(const std::string& name)
 {
-	const auto& scene = std::shared_ptr<Scene>(new Scene(name));
+	const auto& scene = new Scene(name);
 	m_Scenes.push_back(scene);
 
 	return *scene;
 }
 
-std::shared_ptr<dae::Scene> dae::SceneManager::GetScene(int index)
+void dae::SceneManager::RemoveScene(int index)
+{
+	delete m_Scenes[index];
+	m_Scenes.erase(m_Scenes.begin() + index);
+}
+
+void dae::SceneManager::Cleanup()
+{
+	for (const auto& scene : m_Scenes)
+	{
+		delete scene;
+	}
+}
+
+dae::Scene* dae::SceneManager::GetScene(int index)
 {
 	return m_Scenes[index];
 }

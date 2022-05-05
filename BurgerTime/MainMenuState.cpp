@@ -24,4 +24,5 @@ void MainMenuState::OnEnter()
 
 void MainMenuState::OnExit()
 {
+	//SceneManager::GetInstance().RemoveScene(0);
 }

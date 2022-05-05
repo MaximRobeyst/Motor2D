@@ -13,8 +13,10 @@ namespace dae
 	{
 	public:
 		Scene& CreateScene(const std::string& name);
+		Scene* GetScene(int index);
 
-		std::shared_ptr<Scene> GetScene(int index);
+		void RemoveScene(int index);
+		void Cleanup();
 
 		void Start();
 		void Update();
@@ -26,6 +28,6 @@ namespace dae
 	private:
 		friend class Singleton<SceneManager>;
 		SceneManager() = default;
-		std::vector<std::shared_ptr<Scene>> m_Scenes;
+		std::vector<Scene*> m_Scenes;
 	};
 }

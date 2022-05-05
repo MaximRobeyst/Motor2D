@@ -50,7 +50,7 @@ void EnemyComponent::Update()
 	if (m_Dead)
 	{
 		if(m_pAnimatorComponent->IsAnimationDone())
-			dae::SceneManager::GetInstance().GetScene(0)->RemoveGameObject(m_pGameObject);
+			dae::SceneManager::GetInstance().GetScene(1)->RemoveGameObject(m_pGameObject);
 
 		return;
 	}
