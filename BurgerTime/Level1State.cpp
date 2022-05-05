@@ -1,9 +1,4 @@
-#if _DEBUG
-// ReSharper disable once CppUnusedIncludeDirective
-#if __has_include(<vld.h>)
-#include <vld.h>
-#endif
-#endif
+#include "Level1State.h"
 
 #include <SceneManager.h>
 #include <Scene.h>
@@ -34,48 +29,20 @@
 #include "MrHotDogComponent.h"
 #include "PlateComponent.h"
 
-#include <stdio.h>
-#include <iostream> // std::cout
-#include <sstream> // stringstream
-#include <memory> // smart pointers
-#include <vector>
-
-#define WIN32_LEAN_AND_MEAN
-#include <windows.h>
-
-#pragma warning(push, 0)
-#include <glm/glm.hpp>
-#pragma warning (pop)
-
-#include <Minigin.h>
 #include "PlayAudioCommand.h"
 #include <LoggedAudio.h>
 
 #include <GameStateManager.h>
 #include "MainMenuState.h"
 
+#include <iostream>
+
 using namespace dae;
 
-void LoadGame();
-void MakeLevel(Scene& pScene);
-
-int main(int, char* [])
+void Level1State::OnEnter()
 {
-	dae::Minigin engine;
-	engine.Initialize();
-	LoadGame();
-	engine.Run();
-
-	return 0;
-}
-
-void LoadGame()
-{
-	auto& scene = SceneManager::GetInstance().CreateScene("Demo");
+	auto& scene = dae::SceneManager::GetInstance().CreateScene("Level01");
 	auto& input = InputManager::GetInstance();
-
-	GameStateManager::GetInstance().SwitchGameState(new MainMenuState());
-	return;
 
 	MakeLevel(scene);
 
@@ -97,7 +64,7 @@ void LoadGame()
 
 	//SDLAudioSystem* pSoundSystem = new SDLAudioSystem();
 	//LoggedAudio* pLoggedAudioSystem = new LoggedAudio(pSoundSystem);
-	
+
 	//ServiceLocator::ProvideAudio(pSoundSystem);
 #ifdef _DEBUG
 	ServiceLocator::ProvideAudio(new LoggedAudio(new SDLAudioSystem()));
@@ -126,7 +93,7 @@ void LoadGame()
 	//pPeperGameObject->AddComponent(new MovementComponent(pPeperGameObject, 100.f));
 	auto pLifeComponent = new LifeComponent{ pPeperGameObject, 3 };
 	pPeperGameObject->AddComponent(pLifeComponent);
-	pPeperGameObject->AddComponent(new ColliderComponent(pPeperGameObject, 15.f, 15.f, glm::vec2{8.0f, 8.0f}));
+	pPeperGameObject->AddComponent(new ColliderComponent(pPeperGameObject, 15.f, 15.f, glm::vec2{ 8.0f, 8.0f }));
 	pPeperGameObject->AddComponent(new RigidbodyComponent(pPeperGameObject, b2_dynamicBody, 1.f, 0.3f));
 	pPeperGameObject->AddComponent(new PlayerComponent(pPeperGameObject));
 	pPeperGameObject->SetTag("Player");
@@ -148,7 +115,7 @@ void LoadGame()
 	pEggGameObject->AddComponent(new TransformComponent(pEggGameObject, glm::vec3(288.f, 144.f, 0), glm::vec3{ 2.f }));
 	pEggGameObject->AddComponent(new SpriteRendererComponent(pEggGameObject, "BurgerTime_SpriteSheet.png"));
 	pEggGameObject->AddComponent(new AnimatorComponent(pEggGameObject, "../Data/Animations/EggAnimations.json"));
-	pEggGameObject->AddComponent(new ColliderComponent(pEggGameObject, 15.f, 15.f, glm::vec2{8.f, 8.5f}));
+	pEggGameObject->AddComponent(new ColliderComponent(pEggGameObject, 15.f, 15.f, glm::vec2{ 8.f, 8.5f }));
 	pEggGameObject->AddComponent(new RigidbodyComponent(pEggGameObject));
 	pEnemyComponent = new EnemyComponent(pEggGameObject, pPlayerTransform);
 	pEggGameObject->AddComponent(pEnemyComponent);
@@ -158,7 +125,7 @@ void LoadGame()
 
 	auto pBurgerTop = new GameObject();
 	pBurgerTop->AddComponent(new TransformComponent(pBurgerTop, glm::vec3(224.f, 32.f, 0.f), glm::vec2{ 2.f }));
-	pBurgerTop->AddComponent(new SpriteRendererComponent(pBurgerTop, "BurgerTime_SpriteSheet.png", SDL_FRect{112.f, 48.f, 32.f, 8.f}));
+	pBurgerTop->AddComponent(new SpriteRendererComponent(pBurgerTop, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 48.f, 32.f, 8.f }));
 	pBurgerTop->AddComponent(new ColliderComponent(pBurgerTop, 32.f, 4.f));
 	pBurgerTop->AddComponent(new RigidbodyComponent(pBurgerTop, b2_dynamicBody, 1.0f, 1.0f, true));
 	auto pFoodComponent = new FoodComponent(pBurgerTop);
@@ -204,7 +171,7 @@ void LoadGame()
 	auto pPlate = new GameObject();
 	pPlate->AddComponent(new TransformComponent(pPlate, glm::vec3{ 224.f, 448.f, 0.f }, glm::vec2{ 2.f }));
 	pPlate->AddComponent(new SpriteRendererComponent(pPlate, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 96.f, 32.f, 8.f }));
-	pPlate->AddComponent(new ColliderComponent(pPlate, 32.f, 8.f, glm::vec2{16.f, 8.f}));
+	pPlate->AddComponent(new ColliderComponent(pPlate, 32.f, 8.f, glm::vec2{ 16.f, 8.f }));
 	pPlate->AddComponent(new RigidbodyComponent(pPlate, b2_dynamicBody, 1.0f, 1.0f));
 	pPlate->AddComponent(new PlateComponent(pPlate));
 	pPlate->SetTag("Plate");
@@ -315,13 +282,17 @@ void LoadGame()
 	go->AddComponent(new FPSComponent(go));
 
 	scene.AddGameObject(go);
+	scene.Start();
 }
 
+void Level1State::OnExit()
+{
+}
 
-void MakeLevel(Scene& pScene)
+void Level1State::MakeLevel(Scene& pScene)
 {
 	const int size{ 26 };
-	std::string s[size]{ 
+	std::string s[size]{
 		"..........................",
 		"..........................",
 		"LLPLLPLLPLLPLLPLLPLLPLLPLL",
@@ -384,8 +355,8 @@ void MakeLevel(Scene& pScene)
 				break;
 			}
 			case 'P':
-				pGameobject->AddComponent(new SpriteRendererComponent(pGameobject, "Level_SpriteSheet.png", SDL_FRect{16, 8, 8, 8}));
-				pGameobject->AddComponent(new ColliderComponent(pGameobject, 8.f, 4.f, glm::vec2{4.0f, 6.0f}));
+				pGameobject->AddComponent(new SpriteRendererComponent(pGameobject, "Level_SpriteSheet.png", SDL_FRect{ 16, 8, 8, 8 }));
+				pGameobject->AddComponent(new ColliderComponent(pGameobject, 8.f, 4.f, glm::vec2{ 4.0f, 6.0f }));
 				pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
 				break;
 			case'.':
@@ -404,5 +375,4 @@ void MakeLevel(Scene& pScene)
 			//pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
 		}
 	}
-
 }

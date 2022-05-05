@@ -5,6 +5,13 @@
 class ServiceLocator
 {
 public:
+	ServiceLocator() = delete;
+	~ServiceLocator() = delete;
+
+	ServiceLocator(const ServiceLocator& other) = delete;
+	ServiceLocator(ServiceLocator&& other) = delete;
+	ServiceLocator& operator=(const ServiceLocator& other) = delete;
+	ServiceLocator& operator=(ServiceLocator&& other) = delete;
 
 	static void Initialize();
 	static void Cleanup();

@@ -160,7 +160,7 @@
       <Filter>Engine Files</Filter>
     </ClInclude>
     <ClInclude Include="GameStateManager.h">
-      <Filter>Component Files</Filter>
+      <Filter>Engine Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

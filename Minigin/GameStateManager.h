@@ -1,11 +1,12 @@
 #pragma once
 #include "IGameState.h"
 #include "Observer.h"
+#include "Singleton.h"
 
-class GameStateManager : public Observer
+class GameStateManager : public dae::Singleton<GameStateManager>
 {
 public:
-	GameStateManager(IGameState* pStartState);
+	//GameStateManager(IGameState* pStartState);
 	~GameStateManager();
 
 	GameStateManager(const GameStateManager& other) = delete;
@@ -13,9 +14,12 @@ public:
 	GameStateManager& operator=(const GameStateManager& other) = delete;
 	GameStateManager& operator=(GameStateManager&& other) = delete;
 
-	virtual void Notify(const dae::GameObject& gameObject, const Event& action) override;
+	void SwitchGameState(IGameState* pGamestate);
+	IGameState* GetGameState();
 
 private:
+	friend class Singleton<GameStateManager>;
+	GameStateManager() = default;
 	IGameState* m_pCurrentState;
 };
 
