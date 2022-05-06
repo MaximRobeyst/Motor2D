@@ -27,8 +27,14 @@ void dae::SpriteRendererComponent::SetSampleRectangle(const SDL_FRect& sampleRec
 	m_SampleRectangle = sampleRect;
 }
 
-SDL_FRect& dae::SpriteRendererComponent::GetSampleRectangle()
+SDL_FRect dae::SpriteRendererComponent::GetSampleRectangle()
 {
+	if (IsSampleRectEmpty())
+	{
+		return SDL_FRect{ 0,0, m_pTexture->GetSize().x, m_pTexture->GetSize().y };
+	}
+
+
 	return m_SampleRectangle;
 }
 

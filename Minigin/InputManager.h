@@ -16,6 +16,8 @@ namespace dae
 		std::shared_ptr<dae::Xbox360Controller> GetController(int index);
 		std::shared_ptr<dae::Keyboard> GetKeyboard() const;
 
+		glm::vec2 GetMousePosition() const;
+
 	private:
 		std::shared_ptr<dae::Keyboard> m_pKeyboard{ std::make_shared<dae::Keyboard>() };
 		std::vector<std::shared_ptr<dae::Xbox360Controller>> m_pXbox360Controllers{};

@@ -62,4 +62,9 @@ void dae::TextComponent::SetPosition(const float x, const float y)
 	m_pGameObject->GetComponent<TransformComponent>()->SetPosition(x, y);
 }
 
+void dae::TextComponent::SetColor(const SDL_Color& color)
+{
+	m_Color = color;
+	m_NeedsUpdate = true;
+}
 

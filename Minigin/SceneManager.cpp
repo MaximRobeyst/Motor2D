@@ -18,6 +18,13 @@ void dae::SceneManager::Update()
 	{
 		scene->Update();
 	}
+
+	// Remove the scene only after the update function insuring the update is done
+	for (int i = 0; i < m_ScenesToRemove.size(); ++i)
+	{
+		FinalRemoveScene(m_ScenesToRemove[i]);
+	}
+	m_ScenesToRemove.clear();
 }
 
 void dae::SceneManager::Render()
@@ -44,6 +51,19 @@ void dae::SceneManager::RenderGUI(SDL_Window* window)
 }
 #endif // _DEBUG
 
+void dae::SceneManager::FinalRemoveScene(int index)
+{
+	if (index == m_Scenes.size() - 1)
+	{
+		delete m_Scenes[index];
+		m_Scenes.pop_back();
+		return;
+	}
+
+	delete m_Scenes[index];
+	std::swap(m_Scenes[index], m_Scenes[m_Scenes.size() - 1]);
+	m_Scenes.pop_back();
+}
 
 
 dae::Scene& dae::SceneManager::CreateScene(const std::string& name)
@@ -56,8 +76,7 @@ dae::Scene& dae::SceneManager::CreateScene(const std::string& name)
 
 void dae::SceneManager::RemoveScene(int index)
 {
-	delete m_Scenes[index];
-	m_Scenes.erase(m_Scenes.begin() + index);
+	m_ScenesToRemove.push_back(index);
 }
 
 void dae::SceneManager::Cleanup()

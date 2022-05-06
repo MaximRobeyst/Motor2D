@@ -20,7 +20,7 @@ namespace dae
 		const std::shared_ptr<Texture2D>& GetTexture() const;
 
 		void SetSampleRectangle(const SDL_FRect& sampleRect);
-		SDL_FRect& GetSampleRectangle();
+		SDL_FRect GetSampleRectangle();
 
 		void SetFlip(bool newValue) { m_Flip = newValue; }
 

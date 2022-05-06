@@ -37,3 +37,10 @@ std::shared_ptr<dae::Keyboard> dae::InputManager::GetKeyboard() const
 {
 	return m_pKeyboard;
 }
+
+glm::vec2 dae::InputManager::GetMousePosition() const
+{
+	int x, y;
+	SDL_GetMouseState(&x, &y);
+	return glm::vec2{ (float)x, (float)y };
+}

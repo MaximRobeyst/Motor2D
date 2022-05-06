@@ -169,6 +169,7 @@
     <ClCompile Include="PlayerComponent.cpp" />
     <ClCompile Include="ScoreDisplayComponent.cpp" />
     <ClCompile Include="SwitchStateCommand.cpp" />
+    <ClCompile Include="UIButtonComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AchievementComponent.h" />
@@ -185,6 +186,7 @@
     <ClInclude Include="PlayerComponent.h" />
     <ClInclude Include="ScoreDisplayComponent.h" />
     <ClInclude Include="SwitchStateCommand.h" />
+    <ClInclude Include="UIButtonComponent.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

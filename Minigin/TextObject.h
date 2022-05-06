@@ -29,6 +29,7 @@ namespace dae
 
 		void SetText(const std::string& text);
 		void SetPosition(float x, float y);
+		void SetColor(const SDL_Color& color);
 
 	private:
 		bool m_NeedsUpdate;

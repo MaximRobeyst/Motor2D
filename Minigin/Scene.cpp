@@ -61,9 +61,9 @@ void Scene::Update()
 	m_PhysicsWorld->Step(GameTime::GetInstance()->GetElapsed(), 6, 2);
 
 	// Update all objects
-	for(auto& object : m_pObjects)
+	for(int i = 0; i < m_pObjects.size(); ++i)
 	{
-		object->Update();
+		 m_pObjects[i]->Update();
 	}
 
 	// Delete marked for delete objects

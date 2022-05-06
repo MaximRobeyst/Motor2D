@@ -63,6 +63,9 @@
     <ClCompile Include="Level1State.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="UIButtonComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AchievementComponent.h">
@@ -106,6 +109,9 @@
     </ClInclude>
     <ClInclude Include="Level1State.h">
       <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UIButtonComponent.h">
+      <Filter>Components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
