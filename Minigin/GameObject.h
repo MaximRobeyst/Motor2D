@@ -12,7 +12,7 @@ namespace dae
 	class GameObject final : public SceneObject
 	{
 	public:
-		GameObject() = default;
+		GameObject(const std::string& name = "Gameobject");
 		GameObject(GameObject* pParent, std::vector<GameObject*> pChildren = std::vector<GameObject*>{});
 		virtual ~GameObject();
 		GameObject(const GameObject& other) = delete;
@@ -58,6 +58,7 @@ namespace dae
 		void RemoveChild(GameObject* pChild);
 
 		// Extra data
+		std::string m_Name{};
 		std::string m_Tag{};
 
 		// Components

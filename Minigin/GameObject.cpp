@@ -3,6 +3,11 @@
 #include "ResourceManager.h"
 #include "Renderer.h"
 
+dae::GameObject::GameObject(const std::string& name)
+	: m_Name{name}
+{
+}
+
 dae::GameObject::GameObject(GameObject* pParent, std::vector<GameObject*> pChildren)
 	: m_pParent{pParent}
 	, m_pChildren{pChildren}

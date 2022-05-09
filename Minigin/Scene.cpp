@@ -93,12 +93,9 @@ void dae::Scene::RenderGUI()
 			m_PhysicsWorld->SetGravity(b2Vec2{ vel[0], vel[1] });
 		}
 	}
+
 	if (ImGui::CollapsingHeader((m_Name + " Gameobjects").c_str()))
 	{
-		for (const auto& object : m_pObjects)
-		{
-			object->RenderGUI();
-		}
 	}
 	ImGui::End();
 
