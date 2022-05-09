@@ -96,6 +96,19 @@ void dae::Scene::RenderGUI()
 
 	if (ImGui::CollapsingHeader((m_Name + " Gameobjects").c_str()))
 	{
+		for (auto& gameobject : m_pObjects)
+		{
+			ImGuiTreeNodeFlags base_flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick | ImGuiTreeNodeFlags_SpanAvailWidth;
+			if(gameobject->GetAmountOfChildren() == 0) base_flags |= ImGuiTreeNodeFlags_Leaf | ImGuiTreeNodeFlags_NoTreePushOnOpen; // ImGuiTreeNodeFlags_Bullet;
+
+			if (ImGui::TreeNodeEx(gameobject->GetName().c_str(), base_flags))
+			{
+				for (int i = 0; i < gameobject->GetAmountOfChildren(); ++i)
+				{
+					ImGui::TreeNodeEx(gameobject->GetChildFromIndex(i)->GetName().c_str(), base_flags);
+				}
+			}
+		}
 	}
 	ImGui::End();
 

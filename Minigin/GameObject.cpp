@@ -130,3 +130,8 @@ std::string dae::GameObject::GetTag() const
 {
 	return m_Tag;
 }
+
+std::string dae::GameObject::GetName() const
+{
+	return m_Name;
+}

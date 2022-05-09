@@ -76,7 +76,7 @@ void Level1State::OnEnter()
 
 	//ServiceLocator::GetAudio()->PlaySound("../Data/Audio/burgertime_theme.wav", -1, true);
 
-	auto go = new GameObject();
+	auto go = new GameObject("Logo");
 	go->AddComponent(new TransformComponent(go, glm::vec3(10.f, 5.f, 0.f)));
 	go->AddComponent(new SpriteRendererComponent(go, "logo.png"));
 	go->AddComponent(new TextComponent(go, "Score:", font, SDL_Color{ 255, 255, 255 }));

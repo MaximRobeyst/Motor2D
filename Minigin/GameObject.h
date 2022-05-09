@@ -52,6 +52,8 @@ namespace dae
 		void SetTag(std::string tag);
 		std::string GetTag() const;
 
+		std::string GetName() const;
+
 
 	private:
 		void AddChild(GameObject* pChild);
