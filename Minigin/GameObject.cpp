@@ -59,6 +59,33 @@ void dae::GameObject::RenderGUI()
 		(*iter)->RenderGUI();
 	}
 }
+void dae::GameObject::Sertialize(rapidjson::PrettyWriter< rapidjson::StringBuffer>& writer)
+{
+	writer.StartObject();
+	writer.Key("Name");
+	writer.String(m_Name.c_str());
+
+	if (m_pChildren.size() > 0)
+	{
+		writer.Key("Children");
+		writer.StartArray();
+		for (auto& gameobject : m_pChildren)
+		{
+			gameobject->Sertialize(writer);
+		}
+		writer.EndArray();
+	}
+
+	writer.Key("Components");
+	writer.StartArray();
+	for (auto& component : m_pComponents)
+	{
+		component->Serialize(writer);
+	}
+	writer.EndArray();
+
+	writer.EndObject();
+}
 #endif // _DEBUG
 
 

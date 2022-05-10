@@ -12,6 +12,9 @@ public:
 	void Update() override;
 	void Render() const override;
 
+	void Serialize(rapidjson::PrettyWriter< rapidjson::StringBuffer>& writer) override;
+
+
 protected:
 	dae::TransformComponent* m_pTransformComponent;
 	float m_Speed{ };

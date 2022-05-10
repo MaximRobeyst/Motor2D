@@ -11,6 +11,9 @@ public:
 
 	void Update() override;
 
+	void Serialize(rapidjson::PrettyWriter< rapidjson::StringBuffer>& writer) override;
+
+
 	void EnemyDeath();
 	
 	int GetScore() const;

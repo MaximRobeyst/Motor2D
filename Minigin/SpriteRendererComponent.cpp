@@ -50,6 +50,14 @@ void dae::SpriteRendererComponent::Render() const
 		Renderer::GetInstance().RenderTexture(*m_pTexture, m_SampleRectangle, pos.x, pos.y, m_SampleRectangle.w * abs(scale.x), m_SampleRectangle.h * abs(scale.y), scale.x < 0);
 }
 
+void dae::SpriteRendererComponent::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>& writer)
+{
+	writer.StartObject();
+	writer.Key("name");
+	writer.String(typeid(*this).name());
+	writer.EndObject();
+}
+
 bool dae::SpriteRendererComponent::IsSampleRectEmpty() const
 {
 	return m_SampleRectangle.x == 0.0f && m_SampleRectangle.y == 0.0f && m_SampleRectangle.w == 0.0f && m_SampleRectangle.h == 0.0f;

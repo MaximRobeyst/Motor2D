@@ -18,3 +18,11 @@ void dae::FPSComponent::Update()
 void dae::FPSComponent::Render() const
 {
 }
+
+void dae::FPSComponent::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>& writer)
+{
+	writer.StartObject();
+	writer.Key("name");
+	writer.String(typeid(*this).name());
+	writer.EndObject();
+}

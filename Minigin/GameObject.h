@@ -6,6 +6,7 @@
 #include <memory>
 #include <vector>
 #include <string>
+#include <prettywriter.h>
 
 namespace dae
 {
@@ -27,6 +28,9 @@ namespace dae
 #ifdef _DEBUG
 		void RenderGUI();
 #endif // _DEBUG
+
+		void Sertialize(rapidjson::PrettyWriter< rapidjson::StringBuffer>& writer);
+		void Deserialize();
 
 
 		void AddComponent(Component* component);

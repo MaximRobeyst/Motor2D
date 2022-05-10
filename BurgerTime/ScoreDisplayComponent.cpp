@@ -17,6 +17,14 @@ ScoreDisplayComponent::ScoreDisplayComponent(dae::GameObject* pGameObject, int n
 	m_pTextComponent->SetText(extraDisplayText + std::to_string(number));
 }
 
+void ScoreDisplayComponent::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>& writer)
+{
+	writer.StartObject();
+	writer.Key("name");
+	writer.String(typeid(this).name());
+	writer.EndObject();
+}
+
 void ScoreDisplayComponent::Notify(const dae::GameObject& gameObject, const Event& action)
 {
 	switch (action)

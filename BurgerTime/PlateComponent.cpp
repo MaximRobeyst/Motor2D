@@ -26,6 +26,14 @@ void PlateComponent::Update()
 {
 }
 
+void PlateComponent::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>& writer)
+{
+	writer.StartObject();
+	writer.Key("name");
+	writer.String(typeid(*this).name());
+	writer.EndObject();
+}
+
 void PlateComponent::AddIngredient(dae::GameObject* pGameobject)
 {
 	pGameobject->SetParent(m_pGameObject);

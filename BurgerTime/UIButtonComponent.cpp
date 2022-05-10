@@ -54,6 +54,14 @@ void UIButtonComponent::Render() const
 		m_BoundsMax.x - m_BoundsMin.x, m_BoundsMax.y - m_BoundsMin.y);
 }
 
+void UIButtonComponent::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>& writer)
+{
+	writer.StartObject();
+	writer.Key("name");
+	writer.String(typeid(*this).name());
+	writer.EndObject();
+}
+
 void UIButtonComponent::SetOnClickFunction(std::function<void()> function)
 {
 	m_OnClickFunction = function;

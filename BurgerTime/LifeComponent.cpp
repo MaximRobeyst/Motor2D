@@ -10,6 +10,14 @@ LifeComponent::LifeComponent(dae::GameObject* pGameObject, int lives)
 {
 }
 
+void LifeComponent::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>& writer)
+{
+	writer.StartObject();
+	writer.Key("name");
+	writer.String(typeid(*this).name());
+	writer.EndObject();
+}
+
 void LifeComponent::Hit()
 {
 	if (m_Lives == 0 || !m_Enabled)

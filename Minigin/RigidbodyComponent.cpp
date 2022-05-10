@@ -57,6 +57,14 @@ void dae::RigidbodyComponent::Render() const
 	//m_pBody->SetTransform(b2Vec2{ pos.x, pos.y }, 0.0f);
 }
 
+void dae::RigidbodyComponent::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>& writer)
+{
+	writer.StartObject();
+	writer.Key("name");
+	writer.String(typeid(*this).name());
+	writer.EndObject();
+}
+
 void dae::RigidbodyComponent::OnBeginContact(dae::RigidbodyComponent* pTriggeredBody, RigidbodyComponent* pOtherBody, b2Contact* pContact)
 {
 	if (m_OnEnterFunction == nullptr && pOtherBody->m_OnEnterFunction != nullptr)

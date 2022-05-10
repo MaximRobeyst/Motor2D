@@ -37,6 +37,14 @@ void PlayerComponent::Update()
 	}
 }
 
+void PlayerComponent::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>& writer)
+{
+	writer.StartObject();
+	writer.Key("name");
+	writer.String(typeid(*this).name());
+	writer.EndObject();
+}
+
 void PlayerComponent::PlayerDeath()
 {
 	if (m_CurrentState == PlayerState::State_Dying) return;

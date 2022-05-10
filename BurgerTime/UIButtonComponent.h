@@ -20,7 +20,9 @@ public:
 	void Start() override;
 	void Update() override;
 	void Render() const override;
-	
+
+	void Serialize(rapidjson::PrettyWriter< rapidjson::StringBuffer>& writer) override;
+
 	void SetOnClickFunction(std::function<void()> function);
 
 private:

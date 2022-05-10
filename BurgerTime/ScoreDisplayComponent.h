@@ -9,6 +9,8 @@ class ScoreDisplayComponent : public dae::Component, public Observer
 public:
 	ScoreDisplayComponent(dae::GameObject* pGameObject, int number, const std::string& extraDisplayText = "");
 
+	void Serialize(rapidjson::PrettyWriter< rapidjson::StringBuffer>& writer) override;
+
 	void Notify(const dae::GameObject& gameObject, const Event& action);
 	void ChangeText(int number);
 

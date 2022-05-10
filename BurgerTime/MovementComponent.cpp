@@ -33,3 +33,11 @@ void MovementComponent::Update()
 void MovementComponent::Render() const
 {
 }
+
+void MovementComponent::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>& writer)
+{
+	writer.StartObject();
+	writer.Key("name");
+	writer.String(typeid(*this).name());
+	writer.EndObject();
+}

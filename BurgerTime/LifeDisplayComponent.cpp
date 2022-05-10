@@ -38,6 +38,14 @@ void LifeDisplayComponent::Render() const
 {
 }
 
+void LifeDisplayComponent::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>& writer)
+{
+	writer.StartObject();
+	writer.Key("name");
+	writer.String(typeid(*this).name());
+	writer.EndObject();
+}
+
 void LifeDisplayComponent::Notify(const dae::GameObject& gameObject, const Event& action)
 {
 	switch (action)

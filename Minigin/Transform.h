@@ -18,6 +18,8 @@ namespace dae
 
 		TransformComponent(GameObject* pGameobject, glm::vec3 position = glm::vec3{}, glm::vec2 scale = glm::vec2{ 1 });
 
+		void Serialize(rapidjson::PrettyWriter< rapidjson::StringBuffer>& writer) override;
+
 		// Position
 		const glm::vec3& GetPosition() const;
 		void SetPosition(float x, float y);

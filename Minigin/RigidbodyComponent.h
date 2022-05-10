@@ -18,6 +18,9 @@ namespace dae
 		void Update() override;
 		void Render() const override;
 
+		void Serialize(rapidjson::PrettyWriter< rapidjson::StringBuffer>& writer) override;
+
+
 		void OnBeginContact(dae::RigidbodyComponent* pTriggeredBody, RigidbodyComponent* pOtherBody, b2Contact* pContact);
 		void OnEndContact(dae::RigidbodyComponent* pTriggeredBody, RigidbodyComponent* pOtherBody, b2Contact* pContact);
 

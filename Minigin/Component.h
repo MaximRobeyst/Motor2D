@@ -1,5 +1,8 @@
 #pragma once
 
+#include <rapidjson.h>
+#include <prettywriter.h>
+
 namespace dae
 {
 	class GameObject;
@@ -15,6 +18,8 @@ namespace dae
 #ifdef _DEBUG
 		virtual void RenderGUI() {};
 #endif // _DEBUG
+
+		virtual void Serialize(rapidjson::PrettyWriter< rapidjson::StringBuffer>& writer) = 0 ;
 
 
 	protected:

@@ -25,6 +25,9 @@ namespace dae
 		void SetFlip(bool newValue) { m_Flip = newValue; }
 
 		void Render() const override;
+
+		void Serialize(rapidjson::PrettyWriter< rapidjson::StringBuffer>& writer) override;
+
 	private:
 		// member functions
 		bool IsSampleRectEmpty() const;

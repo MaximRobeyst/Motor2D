@@ -56,6 +56,14 @@ void EnemyComponent::Update()
 	}
 }
 
+void EnemyComponent::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>& writer)
+{
+	writer.StartObject();
+	writer.Key("name");
+	writer.String(typeid(this).name());
+	writer.EndObject();
+}
+
 void EnemyComponent::EnemyDeath()
 {
 	ServiceLocator::GetAudio()->PlaySound("../Data/Audio/death_2.wav");

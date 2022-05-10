@@ -28,6 +28,9 @@ namespace dae
 
 		void Update() override;
 
+		void Serialize(rapidjson::PrettyWriter< rapidjson::StringBuffer>& writer) override;
+
+
 		bool IsAnimationDone() const;
 
 		void SetAnimation(const std::string& name);

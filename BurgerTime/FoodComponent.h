@@ -12,6 +12,9 @@ public:
 	void Start() override;
 	void Update() override;
 
+	void Serialize(rapidjson::PrettyWriter< rapidjson::StringBuffer>& writer) override;
+
+
 #ifdef _DEBUG
 	void RenderGUI() override;
 #endif // _DEBUG

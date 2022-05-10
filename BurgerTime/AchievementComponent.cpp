@@ -22,3 +22,11 @@ void AchievementComponent::Notify(const dae::GameObject& /*gameObject*/, const E
 		break;
 	}
 }
+
+void AchievementComponent::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>& writer)
+{
+	writer.StartObject();
+	writer.Key("name");
+	writer.String(typeid(this).name());
+	writer.EndObject();
+}

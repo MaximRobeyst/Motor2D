@@ -5,6 +5,13 @@
 #include "GameTime.h"
 #include "CollisionHandler.h"
 
+#include <rapidjson.h>
+#include <document.h>
+#include <ostreamwrapper.h>
+#include <fstream>
+#include <writer.h>
+#include <prettywriter.h>
+
 using namespace dae;
 
 unsigned int Scene::m_IdCounter = 0;
@@ -83,8 +90,25 @@ void Scene::Render() const
 #ifdef _DEBUG
 void dae::Scene::RenderGUI()
 {
-	ImGui::Begin(m_Name.c_str());
-	if (ImGui::CollapsingHeader((m_Name + " Physics settings").c_str()))
+	ImGuiWindowFlags windowFlags = 0;
+	windowFlags |= ImGuiWindowFlags_MenuBar;
+
+	ImGui::Begin(m_Name.c_str(), (bool*)0, windowFlags);
+	// Menu
+	if (ImGui::BeginMenuBar())
+	{
+		if (ImGui::BeginMenu("File"))
+		{
+			if (ImGui::MenuItem("Save"))
+				Serialize();
+			ImGui::MenuItem("Load");
+			ImGui::EndMenu();
+		}
+		ImGui::EndMenuBar();
+	}
+
+	// Scene Settings
+	if (ImGui::CollapsingHeader((m_Name + " Scene settings").c_str()))
 	{
 		auto gravity = m_PhysicsWorld->GetGravity();
 		float vel[2] = { gravity.x, gravity.y };
@@ -94,6 +118,7 @@ void dae::Scene::RenderGUI()
 		}
 	}
 
+	// Scene graph
 	if (ImGui::CollapsingHeader((m_Name + " Gameobjects").c_str()))
 	{
 		for (auto& gameobject : m_pObjects)
@@ -101,16 +126,61 @@ void dae::Scene::RenderGUI()
 			ImGuiTreeNodeFlags base_flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick | ImGuiTreeNodeFlags_SpanAvailWidth;
 			if(gameobject->GetAmountOfChildren() == 0) base_flags |= ImGuiTreeNodeFlags_Leaf | ImGuiTreeNodeFlags_NoTreePushOnOpen; // ImGuiTreeNodeFlags_Bullet;
 
-			if (ImGui::TreeNodeEx(gameobject->GetName().c_str(), base_flags))
+			if (gameobject->GetParent() == nullptr && ImGui::TreeNode(gameobject->GetName().c_str()))
 			{
 				for (int i = 0; i < gameobject->GetAmountOfChildren(); ++i)
 				{
-					ImGui::TreeNodeEx(gameobject->GetChildFromIndex(i)->GetName().c_str(), base_flags);
+					if (ImGui::TreeNode(gameobject->GetChildFromIndex(i)->GetName().c_str()))
+					{
+						ImGui::TreePop();
+					}
 				}
+				ImGui::TreePop();
 			}
 		}
 	}
 	ImGui::End();
+
+}
+void dae::Scene::Serialize()
+{
+	std::ofstream levelFile{ "../Data/Scenes/Scene.json" };
+	if (!levelFile.is_open())
+	{
+		std::cerr << "Could not open file" << std::endl;
+		return;
+	}
+	rapidjson::StringBuffer outputFile{};
+	rapidjson::PrettyWriter< rapidjson::StringBuffer> writer(outputFile);
+
+	writer.StartObject();
+	writer.Key("sceneName");
+	writer.String(m_Name.c_str());
+	writer.Key("gameobjectCount");
+	writer.Int((int) m_pObjects.size());
+	writer.Key("Gravity");
+	writer.StartArray();
+	writer.Double((double)m_PhysicsWorld->GetGravity().x);
+	writer.Double((double)m_PhysicsWorld->GetGravity().y);
+	writer.EndArray();
+
+	writer.Key("gameobjects");
+	writer.StartArray();
+	for (auto& gameobject : m_pObjects)
+	{
+		if (gameobject->GetParent() != nullptr)
+			continue;
+		gameobject->Sertialize(writer);
+	}
+	writer.EndArray();
+	writer.EndObject();
+
+
+	levelFile << outputFile.GetString();
+	levelFile.close();
+}
+void dae::Scene::Deserialize()
+{
 
 }
 #endif

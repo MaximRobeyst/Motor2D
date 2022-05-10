@@ -1,0 +1,54 @@
+{
+    "sceneName": "Main Menu",
+    "gameobjectCount": 3,
+    "Gravity": [
+        0.0,
+        0.0
+    ],
+    "gameobjects": [
+        {
+            "Name": "Logo",
+            "Children": [
+                {
+                    "Name": "Gameobject",
+                    "Components": [
+                        {
+                            "name": "class dae::TransformComponent"
+                        },
+                        {
+                            "name": "class dae::SpriteRendererComponent"
+                        },
+                        {
+                            "name": "class dae::TextComponent"
+                        },
+                        {
+                            "name": "class UIButtonComponent"
+                        }
+                    ]
+                }
+            ],
+            "Components": [
+                {
+                    "name": "class dae::TransformComponent"
+                },
+                {
+                    "name": "class dae::SpriteRendererComponent"
+                }
+            ]
+        },
+        {
+            "Name": "Gameobject",
+            "Components": [
+                {
+                    "name": "class dae::TransformComponent"
+                },
+                {
+                    "name": "class dae::SpriteRendererComponent"
+                },
+                {
+                    "name": "class dae::TextComponent"
+                }
+            ]
+        }
+    ]
+}

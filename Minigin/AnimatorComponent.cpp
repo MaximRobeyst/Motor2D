@@ -49,6 +49,14 @@ void dae::AnimatorComponent::Update()
 	}
 }
 
+void dae::AnimatorComponent::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>& writer)
+{
+	writer.StartObject();
+	writer.Key("name");
+	writer.String(typeid(*this).name());
+	writer.EndObject();
+}
+
 bool dae::AnimatorComponent::IsAnimationDone() const
 {
 	return !m_CurrentAnimation->IsLooping() && m_CurrentAnimation->IsDone();

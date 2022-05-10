@@ -77,6 +77,14 @@ void dae::ColliderComponent::Render() const
 	Renderer::GetInstance().RenderPolygon(points, count);
 }
 
+void dae::ColliderComponent::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>& writer)
+{
+	writer.StartObject();
+	writer.Key("name");
+	writer.String(typeid(*this).name());
+	writer.EndObject();
+}
+
 glm::vec2 dae::ColliderComponent::GetSize() const
 {
 	return glm::vec2{m_Width, m_Height};

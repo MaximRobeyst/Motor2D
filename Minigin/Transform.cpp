@@ -14,6 +14,14 @@ dae::TransformComponent::TransformComponent(GameObject* pGameobject, glm::vec3 p
 		m_Transform.worldPosition += m_pParentComponent->GetPosition();
 }
 
+void dae::TransformComponent::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>& writer)
+{
+	writer.StartObject();
+	writer.Key("name");
+	writer.String(typeid(*this).name());
+	writer.EndObject();
+}
+
 const glm::vec3& dae::TransformComponent::GetPosition() const 
 {
 	return m_Transform.worldPosition; 

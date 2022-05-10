@@ -106,6 +106,13 @@ void FoodComponent::Update()
 			SetFalling(true);
 	}
 }
+void FoodComponent::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>& writer)
+{
+	writer.StartObject();
+	writer.Key("name");
+	writer.String(typeid(*this).name());
+	writer.EndObject();
+}
 #ifdef _DEBUG
 void FoodComponent::RenderGUI()
 {

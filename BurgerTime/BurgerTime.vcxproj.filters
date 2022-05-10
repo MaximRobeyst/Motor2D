@@ -64,7 +64,7 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="UIButtonComponent.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

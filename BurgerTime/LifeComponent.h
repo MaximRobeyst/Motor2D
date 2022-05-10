@@ -12,6 +12,9 @@ public:
 	void Update() override {};
 	void Render() const override {};
 
+	void Serialize(rapidjson::PrettyWriter< rapidjson::StringBuffer>& writer) override;
+
+
 	void Hit();
 
 	int GetLives() const;

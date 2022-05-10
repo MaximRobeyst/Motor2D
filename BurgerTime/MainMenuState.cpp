@@ -25,13 +25,13 @@ void MainMenuState::OnEnter()
 	auto& input = InputManager::GetInstance();
 
 
-	GameObject* pGameobject = new GameObject();
-	pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 480.f, 100.f, 0.f}));
-	pGameobject->AddComponent(new SpriteRendererComponent(pGameobject, "logo.png"));
-	scene.AddGameObject(pGameobject);
+	GameObject* pLogo = new GameObject("Logo");
+	pLogo->AddComponent(new TransformComponent(pLogo, glm::vec3{ 480.f, 100.f, 0.f}));
+	pLogo->AddComponent(new SpriteRendererComponent(pLogo, "logo.png"));
+	scene.AddGameObject(pLogo);
 
 
-	pGameobject = new GameObject();
+	auto pGameobject = new GameObject();
 	pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3(480.f, 200.f, 0.f)));
 	pGameobject->AddComponent(new SpriteRendererComponent(pGameobject, "logo.png"));
 	auto font = ResourceManager::GetInstance().LoadFont("Early GameBoy.ttf", 17);
@@ -39,6 +39,7 @@ void MainMenuState::OnEnter()
 	auto pUIButtonComp = new UIButtonComponent(pGameobject);
 	pGameobject->AddComponent(pUIButtonComp);
 	scene.AddGameObject(pGameobject);
+	pGameobject->SetParent(pLogo);
 	std::function<void()> newOnClickFunction = []() {GameStateManager::GetInstance().SwitchGameState(new Level1State()); };
 
 	pUIButtonComp->SetOnClickFunction(newOnClickFunction);

@@ -10,6 +10,8 @@ public:
 
 	virtual void Notify(const dae::GameObject& gameObject, const Event& action) override;
 
+	void Serialize(rapidjson::PrettyWriter< rapidjson::StringBuffer>& writer) override;
+
 private:
 	// Defining our achievements
 	enum EAchievements

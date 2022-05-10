@@ -23,6 +23,9 @@ namespace dae
 		void RenderGUI();
 #endif // _DEBUG
 
+		void Serialize();
+		void Deserialize();
+
 
 		~Scene();
 		Scene(const Scene& other) = delete;

@@ -11,6 +11,10 @@ public:
 	LifeDisplayComponent(dae::GameObject* pGameObject, int number, const std::string& extraDisplayText = "");
 
 	void Render() const override;
+
+	void Serialize(rapidjson::PrettyWriter< rapidjson::StringBuffer>& writer) override;
+
+
 	void Notify(const dae::GameObject& gameObject, const Event& action);
 
 	void ChangeText(int number);
