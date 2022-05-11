@@ -6,12 +6,14 @@
 #include "Transform.h"
 #include "Texture2D.h"
 
+dae::Creator<dae::Component, dae::SpriteRendererComponent> s_TranformComponentCreate{};
+
 dae::SpriteRendererComponent::SpriteRendererComponent(GameObject* pGameObject,const std::string& spritePath, SDL_FRect sampleRect)
 	: Component{pGameObject}
+	, m_Path{ spritePath }
 	, m_pTexture{ResourceManager::GetInstance().LoadTexture(spritePath)}
 	, m_SampleRectangle{sampleRect}
 {
-	m_pTransformComponent = m_pGameObject->GetComponent<dae::TransformComponent>();
 }
 
 void dae::SpriteRendererComponent::SetTexture(const std::shared_ptr<Texture2D>& texture)
@@ -38,6 +40,11 @@ SDL_FRect dae::SpriteRendererComponent::GetSampleRectangle()
 	return m_SampleRectangle;
 }
 
+void dae::SpriteRendererComponent::Start()
+{
+	m_pTransformComponent = m_pGameObject->GetComponent<dae::TransformComponent>();
+}
+
 void dae::SpriteRendererComponent::Render() const
 {
 	const auto& pos{ m_pTransformComponent->GetPosition() };
@@ -55,7 +62,33 @@ void dae::SpriteRendererComponent::Serialize(rapidjson::PrettyWriter<rapidjson::
 	writer.StartObject();
 	writer.Key("name");
 	writer.String(typeid(*this).name());
+	writer.Key("Path");
+	writer.String(m_Path.c_str());
+	writer.Key("SampleRect");
+	writer.StartObject();
+	writer.Key("x");
+	writer.Double(static_cast<double>(m_SampleRectangle.x));
+	writer.Key("y");
+	writer.Double(static_cast<double>(m_SampleRectangle.y));
+	writer.Key("w");
+	writer.Double(static_cast<double>(m_SampleRectangle.w));
+	writer.Key("h");
+	writer.Double(static_cast<double>(m_SampleRectangle.h));
 	writer.EndObject();
+	writer.EndObject();
+}
+
+void dae::SpriteRendererComponent::Deserialize(GameObject* pGameObject, rapidjson::Value& value)
+{
+	m_pGameObject = pGameObject;
+	m_Path = value["Path"].GetString();
+	m_pTexture = ResourceManager::GetInstance().LoadTexture(m_Path);
+	m_SampleRectangle = SDL_FRect{
+		static_cast<float>(value["SampleRect"]["x"].GetDouble()),
+		static_cast<float>(value["SampleRect"]["y"].GetDouble()),
+		static_cast<float>(value["SampleRect"]["w"].GetDouble()),
+		static_cast<float>(value["SampleRect"]["h"].GetDouble())
+	};
 }
 
 bool dae::SpriteRendererComponent::IsSampleRectEmpty() const

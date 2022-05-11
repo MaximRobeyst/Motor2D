@@ -17,6 +17,7 @@ namespace dae
 	{
 	public:
 		//TextComponent(dae::GameObject* pGameObject, const std::string& text, const std::shared_ptr<Font>& font);
+		TextComponent() = default;
 		explicit TextComponent(GameObject* pGameObject, const std::string& text, const std::shared_ptr<Font>& font, const SDL_Color& color = {255,255,255});
 		virtual ~TextComponent() = default;
 		TextComponent(const TextComponent & other) = delete;
@@ -28,13 +29,14 @@ namespace dae
 		void Render() const override;
 
 		void Serialize(rapidjson::PrettyWriter< rapidjson::StringBuffer>& writer) override;
+		void Deserialize(GameObject* /*pGameobject*/, rapidjson::Value& /*value*/) override;
 
 		void SetText(const std::string& text);
 		void SetPosition(float x, float y);
 		void SetColor(const SDL_Color& color);
 
 	private:
-		bool m_NeedsUpdate;
+		bool m_NeedsUpdate{true};
 		std::string m_Text;
 		std::shared_ptr<Font> m_Font;
 		std::shared_ptr<Texture2D> m_TextTexture;

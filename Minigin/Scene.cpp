@@ -11,6 +11,7 @@
 #include <fstream>
 #include <writer.h>
 #include <prettywriter.h>
+#include <istreamwrapper.h>
 
 using namespace dae;
 
@@ -101,7 +102,8 @@ void dae::Scene::RenderGUI()
 		{
 			if (ImGui::MenuItem("Save"))
 				Serialize();
-			ImGui::MenuItem("Load");
+			if (ImGui::MenuItem("Load"))
+				Deserialize();
 			ImGui::EndMenu();
 		}
 		ImGui::EndMenuBar();
@@ -159,10 +161,12 @@ void dae::Scene::Serialize()
 	writer.Key("gameobjectCount");
 	writer.Int((int) m_pObjects.size());
 	writer.Key("Gravity");
-	writer.StartArray();
+	writer.StartObject();
+	writer.Key("X");
 	writer.Double((double)m_PhysicsWorld->GetGravity().x);
+	writer.Key("Y");
 	writer.Double((double)m_PhysicsWorld->GetGravity().y);
-	writer.EndArray();
+	writer.EndObject();
 
 	writer.Key("gameobjects");
 	writer.StartArray();
@@ -179,8 +183,32 @@ void dae::Scene::Serialize()
 	levelFile << outputFile.GetString();
 	levelFile.close();
 }
-void dae::Scene::Deserialize()
+dae::Scene* dae::Scene::Deserialize()
 {
+	std::ifstream levelFile{ "../Data/Scenes/Scene.json" };
+	if (!levelFile.is_open())
+	{
+		std::cerr << "Could not open file" << std::endl;
+		return nullptr;
+	}
+	rapidjson::IStreamWrapper isw{ levelFile };
+	rapidjson::Document levelDocument{};
+	levelDocument.ParseStream(isw);
 
+	std::string sceneName = levelDocument["sceneName"].GetString();
+	b2Vec2 gravity{};
+	gravity.x = static_cast<float>(levelDocument["Gravity"]["X"].GetDouble());
+	gravity.y = static_cast<float>( levelDocument["Gravity"]["Y"].GetDouble());
+
+	dae::Scene* pScene = new dae::Scene(sceneName, gravity);
+	for (auto& gamobject : levelDocument["gameobjects"].GetArray())
+	{
+		pScene->AddGameObject(GameObject::Deserialize(pScene, gamobject));
+	}
+
+	SceneManager::GetInstance().RemoveScene(0);
+	SceneManager::GetInstance().AddScene(pScene);
+
+	return pScene;
 }
 #endif

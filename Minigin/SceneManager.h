@@ -13,6 +13,7 @@ namespace dae
 	{
 	public:
 		Scene& CreateScene(const std::string& name);
+		void AddScene(Scene* pScene);
 		Scene* GetScene(int index);
 
 		void RemoveScene(int index);

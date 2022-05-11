@@ -2,6 +2,8 @@
 #include "Component.h"
 #include <glm/glm.hpp>
 
+#include "Factory.h"
+
 namespace dae
 {
 	class RigidbodyComponent;
@@ -15,10 +17,11 @@ namespace dae
 			float rotation{};
 			glm::vec2 scale{};
 		};
-
+		TransformComponent() = default;
 		TransformComponent(GameObject* pGameobject, glm::vec3 position = glm::vec3{}, glm::vec2 scale = glm::vec2{ 1 });
 
 		void Serialize(rapidjson::PrettyWriter< rapidjson::StringBuffer>& writer) override;
+		void Deserialize(GameObject* /*pGameobject*/, rapidjson::Value& /*value*/) override;
 
 		// Position
 		const glm::vec3& GetPosition() const;

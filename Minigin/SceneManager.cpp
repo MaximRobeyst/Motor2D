@@ -74,6 +74,11 @@ dae::Scene& dae::SceneManager::CreateScene(const std::string& name)
 	return *scene;
 }
 
+void dae::SceneManager::AddScene(Scene* pScene)
+{
+	m_Scenes.push_back(pScene);
+}
+
 void dae::SceneManager::RemoveScene(int index)
 {
 	m_ScenesToRemove.push_back(index);

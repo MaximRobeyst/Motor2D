@@ -9,6 +9,7 @@ namespace dae
 	class SpriteRendererComponent final : public Component
 	{
 	public:
+		SpriteRendererComponent() = default;
 		explicit SpriteRendererComponent(GameObject* pGameObject, const std::string& spritePath, SDL_FRect sampleRect = SDL_FRect{});
 		~SpriteRendererComponent() = default;
 		SpriteRendererComponent(const SpriteRendererComponent& other) = delete;
@@ -24,9 +25,11 @@ namespace dae
 
 		void SetFlip(bool newValue) { m_Flip = newValue; }
 
+		void Start() override;
 		void Render() const override;
 
 		void Serialize(rapidjson::PrettyWriter< rapidjson::StringBuffer>& writer) override;
+		void Deserialize(GameObject* /*pGameobject*/, rapidjson::Value& /*value*/) override;
 
 	private:
 		// member functions
@@ -36,6 +39,7 @@ namespace dae
 		TransformComponent* m_pTransformComponent;
 		std::shared_ptr<Texture2D> m_pTexture;
 		SDL_FRect m_SampleRectangle{};
+		std::string m_Path;
 		
 		bool m_Flip{ false };
 	};

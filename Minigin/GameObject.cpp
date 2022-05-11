@@ -3,6 +3,8 @@
 #include "ResourceManager.h"
 #include "Renderer.h"
 
+#include "Scene.h"
+
 dae::GameObject::GameObject(const std::string& name)
 	: m_Name{name}
 {
@@ -65,8 +67,8 @@ void dae::GameObject::Sertialize(rapidjson::PrettyWriter< rapidjson::StringBuffe
 	writer.Key("Name");
 	writer.String(m_Name.c_str());
 
-	if (m_pChildren.size() > 0)
-	{
+	//if (m_pChildren.size() > 0)
+	//{
 		writer.Key("Children");
 		writer.StartArray();
 		for (auto& gameobject : m_pChildren)
@@ -74,7 +76,7 @@ void dae::GameObject::Sertialize(rapidjson::PrettyWriter< rapidjson::StringBuffe
 			gameobject->Sertialize(writer);
 		}
 		writer.EndArray();
-	}
+	//}
 
 	writer.Key("Components");
 	writer.StartArray();
@@ -85,6 +87,34 @@ void dae::GameObject::Sertialize(rapidjson::PrettyWriter< rapidjson::StringBuffe
 	writer.EndArray();
 
 	writer.EndObject();
+}
+
+dae::GameObject* dae::GameObject::Deserialize(Scene* pScene, rapidjson::Value& value)
+{
+	GameObject* pGameobject = new GameObject(value["Name"].GetString());
+
+	for (auto& gameobject : value["Children"].GetArray())
+	{
+		//std::cout << gameobject["Name"].GetString() << std::endl;
+		auto pChild = GameObject::Deserialize(pScene, gameobject);
+		pScene->AddGameObject(pChild);
+		pChild->SetParent(pGameobject);
+	}
+
+	for (auto& component : value["Components"].GetArray())
+	{
+		std::cout << component["name"].GetString() << std::endl;
+		auto comp = Factory<Component>::GetInstance().Create(component["name"].GetString());
+		if (comp == nullptr)
+			continue;
+
+		pGameobject->AddComponent(comp);
+		comp->Deserialize(pGameobject, component);
+		comp->Start();
+
+	}
+
+	return pGameobject;
 }
 #endif // _DEBUG
 

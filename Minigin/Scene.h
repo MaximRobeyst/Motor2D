@@ -24,7 +24,7 @@ namespace dae
 #endif // _DEBUG
 
 		void Serialize();
-		void Deserialize();
+		static Scene* Deserialize();
 
 
 		~Scene();

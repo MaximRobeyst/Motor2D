@@ -6,6 +6,10 @@
 #include "Texture2D.h"
 #include "SpriteRendererComponent.h"
 
+#include "ResourceManager.h"
+
+dae::Creator<dae::Component, dae::TextComponent> g_TextComponentCreator{};
+
 dae::TextComponent::TextComponent(GameObject* pGameObject, const std::string& text, const std::shared_ptr<Font>& font, const SDL_Color& color)
 	: dae::Component{ pGameObject }
 	, m_NeedsUpdate{ true }
@@ -54,7 +58,37 @@ void dae::TextComponent::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuff
 	writer.StartObject();
 	writer.Key("name");
 	writer.String(typeid(*this).name());
+	writer.Key("Text");
+	writer.String(m_Text.c_str());
+	writer.Key("Color");
+	writer.StartObject();
+	writer.Key("r");
+	writer.Int((m_Color.r));
+	writer.Key("g");
+	writer.Int((m_Color.g));
+	writer.Key("b");
+	writer.Int((m_Color.b));
+	writer.Key("a");
+	writer.Int((m_Color.a));
 	writer.EndObject();
+	writer.EndObject();
+
+}
+
+void dae::TextComponent::Deserialize(GameObject* pGameobect, rapidjson::Value& value)
+{
+	auto font = dae::ResourceManager::GetInstance().LoadFont("Early GameBoy.ttf", 17);
+	m_pGameObject = pGameobect;
+	m_Text = value["Text"].GetString();
+	m_Font = font;
+	m_Color =
+		SDL_Color{
+			static_cast<uint8_t>(value["Color"]["r"].GetInt()),
+			static_cast<uint8_t>(value["Color"]["g"].GetInt()),
+			static_cast<uint8_t>(value["Color"]["b"].GetInt()),
+			static_cast<uint8_t>(value["Color"]["a"].GetInt())
+	};
+	
 }
 
 // This implementation uses the "dirty flag" pattern

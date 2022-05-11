@@ -56,9 +56,6 @@ void MainMenuState::OnEnter()
 		KeyboardKeyData{ SDLK_SPACE, KeyState::JustUp },
 		std::make_unique<SwitchStateCommand>()
 	);
-
-	
-
 }
 
 void MainMenuState::OnExit()

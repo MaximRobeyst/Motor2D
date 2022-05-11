@@ -8,8 +8,12 @@
 #include <string>
 #include <prettywriter.h>
 
+#include <rapidjson.h>
+#include <document.h>
+
 namespace dae
 {
+	class Scene;
 	class GameObject final : public SceneObject
 	{
 	public:
@@ -30,10 +34,22 @@ namespace dae
 #endif // _DEBUG
 
 		void Sertialize(rapidjson::PrettyWriter< rapidjson::StringBuffer>& writer);
-		void Deserialize();
+		static GameObject* Deserialize(Scene* pScene, rapidjson::Value& value);
 
 
 		void AddComponent(Component* component);
+
+		template<typename T>
+		T* AddComponent()
+		{
+			T* component = new T();
+			m_pComponents.push_back(component);
+			component->SetGameObject(this);
+
+			return component;
+		}
+
+
 		template<typename T>
 		T* GetComponent() const
 		{
@@ -45,6 +61,7 @@ namespace dae
 			}
 			return nullptr;
 		}
+
 
 		// SceneGraph
 		void SetParent(GameObject* pParent, bool worldPositionStays = true);

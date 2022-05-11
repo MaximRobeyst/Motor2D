@@ -162,6 +162,9 @@
     <ClInclude Include="GameStateManager.h">
       <Filter>Engine Files</Filter>
     </ClInclude>
+    <ClInclude Include="Factory.h">
+      <Filter>Engine Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MiniginPCH.cpp">
@@ -279,6 +282,12 @@
       <Filter>Engine Files</Filter>
     </ClCompile>
     <ClCompile Include="GameStateManager.cpp">
+      <Filter>Engine Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Component.cpp">
+      <Filter>Component Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Factory.cpp">
       <Filter>Engine Files</Filter>
     </ClCompile>
   </ItemGroup>

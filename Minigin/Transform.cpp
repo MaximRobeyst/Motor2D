@@ -4,6 +4,8 @@
 #include "RigidbodyComponent.h"
 #include <imgui.h>
 
+dae::Creator<dae::Component, dae::TransformComponent> s_TranformComponentCreate{};
+
 dae::TransformComponent::TransformComponent(GameObject* pGameobject, glm::vec3 position, glm::vec2 scale)
 	: Component{pGameobject}
 	, m_Transform{ position, position, 0.0f, scale }
@@ -19,7 +21,43 @@ void dae::TransformComponent::Serialize(rapidjson::PrettyWriter<rapidjson::Strin
 	writer.StartObject();
 	writer.Key("name");
 	writer.String(typeid(*this).name());
+	writer.Key("Position");
+	writer.StartObject();
+	writer.Key("x");
+	writer.Double(static_cast<double>(m_Transform.localPosition.x));
+	writer.Key("y");
+	writer.Double(static_cast<double>(m_Transform.localPosition.y));
+	writer.Key("z");
+	writer.Double(static_cast<double>(m_Transform.localPosition.z));
 	writer.EndObject();
+	writer.Key("Rotation");
+	writer.Double(static_cast<double>(m_Transform.rotation));
+	writer.Key("Scale");
+	writer.StartObject();
+	writer.Key("x");
+	writer.Double(static_cast<double>(m_Transform.scale.x));
+	writer.Key("y");
+	writer.Double(static_cast<double>(m_Transform.scale.y));
+	writer.EndObject();
+	writer.EndObject();
+}
+
+void dae::TransformComponent::Deserialize(GameObject* pGameObject, rapidjson::Value& value)
+{
+	m_pGameObject = pGameObject;
+	m_Transform.worldPosition =
+		glm::vec3{ 
+		static_cast<float>(value["Position"]["x"].GetDouble()),
+		static_cast<float>(value["Position"]["y"].GetDouble()),
+		static_cast<float>(value["Position"]["z"].GetDouble())
+	};
+	m_Transform.rotation = static_cast<float>(value["Rotation"].GetDouble());
+
+	m_Transform.scale =
+		glm::vec2{
+		static_cast<float>(value["Scale"]["x"].GetDouble()),
+		static_cast<float>(value["Scale"]["y"].GetDouble())
+	};
 }
 
 const glm::vec3& dae::TransformComponent::GetPosition() const 
