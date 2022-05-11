@@ -19,6 +19,11 @@ dae::GameObject::GameObject(GameObject* pParent, std::vector<GameObject*> pChild
 
 dae::GameObject::~GameObject()
 {
+	for (auto& child : m_pChildren)
+		child->SetParent(nullptr);
+	if (m_pParent != nullptr)
+		SetParent(nullptr);
+
 	for (auto iter = m_pComponents.begin(); iter != m_pComponents.end(); ++iter)
 		delete *iter;
 	m_pComponents.clear();
