@@ -8,7 +8,7 @@ these are some features i would like to add some are out of scope but would stil
 - [ ] improve game state manager
 - [ ] make level editor
 - [ ] make scene editor
-- [ ] serialization
+- [X] serialization
 - [ ] enemy AI
 - [ ] Random pick up spawner
 - [ ] Camera?
