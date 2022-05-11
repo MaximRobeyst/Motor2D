@@ -2,9 +2,10 @@
 #include "PlateComponent.h"
 #include "FoodComponent.h"
 
+dae::Creator<dae::Component, PlateComponent> s_TranformComponentCreate{};
+
 PlateComponent::PlateComponent(dae::GameObject* pGameobject)
 	: dae::Component(pGameobject)
-	, m_pRigidbody{ pGameobject->GetComponent<dae::RigidbodyComponent>() }
 {
 	//std::function<void(dae::RigidbodyComponent*, dae::RigidbodyComponent*, b2Contact*)> newFunction = [](dae::RigidbodyComponent* pTriggeredBody, dae::RigidbodyComponent* otherBody, b2Contact*)
 	//{
@@ -20,6 +21,7 @@ PlateComponent::PlateComponent(dae::GameObject* pGameobject)
 
 void PlateComponent::Start()
 {
+	m_pRigidbody = m_pGameObject->GetComponent<dae::RigidbodyComponent>();
 }
 
 void PlateComponent::Update()
@@ -32,6 +34,11 @@ void PlateComponent::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>&
 	writer.Key("name");
 	writer.String(typeid(*this).name());
 	writer.EndObject();
+}
+
+void PlateComponent::Deserialize(dae::GameObject* pGameobject, rapidjson::Value&)
+{
+	m_pGameObject = pGameobject;
 }
 
 void PlateComponent::AddIngredient(dae::GameObject* pGameobject)

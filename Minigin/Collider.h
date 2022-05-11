@@ -9,6 +9,7 @@ namespace dae
 	class ColliderComponent :public Component
 	{
 	public:
+		ColliderComponent() = default;
 		ColliderComponent(dae::GameObject* pGameObject);
 		ColliderComponent(dae::GameObject* pGameObject, float width, float height, glm::vec2 center = glm::vec2(0.f, 0.f));
 		~ColliderComponent();
@@ -18,6 +19,7 @@ namespace dae
 		void Render() const override;
 
 		void Serialize(rapidjson::PrettyWriter< rapidjson::StringBuffer>& writer) override;
+		void Deserialize(GameObject* /*pGameobject*/, rapidjson::Value& /*value*/) override;
 
 
 		glm::vec2 GetSize() const;

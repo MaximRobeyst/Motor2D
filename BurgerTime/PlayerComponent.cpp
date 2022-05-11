@@ -7,17 +7,20 @@
 #include "LifeComponent.h"
 #include <ServiceLocator.h>
 
+dae::Creator<dae::Component, PlayerComponent> s_TranformComponentCreate{};
+
 PlayerComponent::PlayerComponent(dae::GameObject* pGameobject)
 	:dae::Component(pGameobject)
 {
-	m_pRigidbody = pGameobject->GetComponent<dae::RigidbodyComponent>();
-	m_pTranformComponent = pGameobject->GetComponent<dae::TransformComponent>();
-	m_pAnimatorComponent = pGameobject->GetComponent<dae::AnimatorComponent>();
-	m_pLifeComponent = pGameobject->GetComponent<LifeComponent>();
 }
 
 void PlayerComponent::Start()
 {
+	m_pRigidbody = m_pGameObject->GetComponent<dae::RigidbodyComponent>();
+	m_pTranformComponent = m_pGameObject->GetComponent<dae::TransformComponent>();
+	m_pAnimatorComponent = m_pGameObject->GetComponent<dae::AnimatorComponent>();
+	m_pLifeComponent = m_pGameObject->GetComponent<LifeComponent>();
+
 	m_StartPosition = m_pTranformComponent->GetPosition();
 }
 
@@ -43,6 +46,11 @@ void PlayerComponent::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>
 	writer.Key("name");
 	writer.String(typeid(*this).name());
 	writer.EndObject();
+}
+
+void PlayerComponent::Deserialize(dae::GameObject* pGameobject, rapidjson::Value& value)
+{
+	m_pGameObject = pGameobject;
 }
 
 void PlayerComponent::PlayerDeath()

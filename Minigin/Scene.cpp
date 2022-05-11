@@ -50,6 +50,17 @@ void dae::Scene::RemoveGameObject(dae::GameObject* object)
 	m_pObjectsToDelete.push_back(object);
 }
 
+GameObject* dae::Scene::FindGmeobjectWithTag(const std::string& tag)
+{
+	auto objectWithTag = std::find_if(m_pObjects.begin(), m_pObjects.end(), [&](GameObject* pGameobject) {
+		return pGameobject->GetTag() == tag;
+		});
+	if (objectWithTag != m_pObjects.end())
+		return *objectWithTag;
+	
+	return nullptr;
+}
+
 std::shared_ptr<b2World> dae::Scene::GetPhysicsWorld() const
 {
 	return m_PhysicsWorld;
@@ -208,6 +219,7 @@ dae::Scene* dae::Scene::Deserialize()
 
 	SceneManager::GetInstance().RemoveScene(0);
 	SceneManager::GetInstance().AddScene(pScene);
+	pScene->Start();
 
 	return pScene;
 }

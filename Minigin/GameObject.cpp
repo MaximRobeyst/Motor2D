@@ -71,6 +71,8 @@ void dae::GameObject::Sertialize(rapidjson::PrettyWriter< rapidjson::StringBuffe
 	writer.StartObject();
 	writer.Key("Name");
 	writer.String(m_Name.c_str());
+	writer.Key("Tag");
+	writer.String(m_Tag.c_str());
 
 	//if (m_pChildren.size() > 0)
 	//{
@@ -97,6 +99,7 @@ void dae::GameObject::Sertialize(rapidjson::PrettyWriter< rapidjson::StringBuffe
 dae::GameObject* dae::GameObject::Deserialize(Scene* pScene, rapidjson::Value& value)
 {
 	GameObject* pGameobject = new GameObject(value["Name"].GetString());
+	pGameobject->SetTag(value["Tag"].GetString());
 
 	for (auto& gameobject : value["Children"].GetArray())
 	{
@@ -115,7 +118,7 @@ dae::GameObject* dae::GameObject::Deserialize(Scene* pScene, rapidjson::Value& v
 
 		pGameobject->AddComponent(comp);
 		comp->Deserialize(pGameobject, component);
-		comp->Start();
+		//comp->Start();
 
 	}
 

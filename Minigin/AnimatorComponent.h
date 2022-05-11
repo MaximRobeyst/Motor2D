@@ -18,6 +18,7 @@ namespace dae
 	class AnimatorComponent : public Component
 	{
 	public:
+		AnimatorComponent() = default;
 		AnimatorComponent(dae::GameObject* pGameobject, const std::string& filename);
 		~AnimatorComponent();
 
@@ -26,19 +27,24 @@ namespace dae
 		AnimatorComponent& operator=(const AnimatorComponent& other) = delete;
 		AnimatorComponent& operator=(AnimatorComponent&& other) = delete;
 
+		void Start() override;
 		void Update() override;
 
 		void Serialize(rapidjson::PrettyWriter< rapidjson::StringBuffer>& writer) override;
-
+		void Deserialize(GameObject* /*pGameobject*/, rapidjson::Value& /*value*/);
 
 		bool IsAnimationDone() const;
 
+		void SetAnimation(int i);
 		void SetAnimation(const std::string& name);
 	private:
+		void LoadAnimFile(const std::string& path);
+
 		std::map<std::string, Animation*> m_pAnimations;
 		Animation* m_CurrentAnimation{ nullptr };
 
 		bool m_IsPlaying{ false };
+		std::string m_Path{};
 
 		SpriteRendererComponent* m_pSpriteRendererComponent;
 	};

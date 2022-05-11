@@ -8,18 +8,39 @@
 #include <Scene.h>
 #include <ServiceLocator.h>
 
+dae::Creator<dae::Component, EnemyComponent> s_TranformComponentCreate{};
+
+EnemyComponent::EnemyComponent()
+	: dae::Component()
+	, m_pSubject{ std::make_unique<Subject>() }
+{
+}
+
 EnemyComponent::EnemyComponent(dae::GameObject* pGameobject, dae::TransformComponent* pPlayerTransform)
 	: dae::Component(pGameobject)
 	, m_pSubject{ std::make_unique<Subject>()}
 	, m_pPlayerTransform{pPlayerTransform}
-	, m_pTransfomComponent{pGameobject->GetComponent<dae::TransformComponent>()}
-	, m_pRigidbodyComponent{pGameobject->GetComponent<dae::RigidbodyComponent>()}
 {
-	m_pAnimatorComponent = pGameobject->GetComponent<dae::AnimatorComponent>();
+}
+
+void EnemyComponent::Start()
+{
+	if (m_pPlayerTransform == nullptr)
+	{
+		auto pPlayerobject = dae::SceneManager::GetInstance().GetScene(0)->FindGmeobjectWithTag("Player");
+		if (pPlayerobject != nullptr)
+		{
+			m_pPlayerTransform = pPlayerobject->GetComponent<dae::TransformComponent>();
+		}
+	}
+
+	m_pTransfomComponent = m_pGameObject->GetComponent<dae::TransformComponent>();
+	m_pRigidbodyComponent = m_pGameObject->GetComponent<dae::RigidbodyComponent>();
+	m_pAnimatorComponent = m_pGameObject->GetComponent<dae::AnimatorComponent>();
 
 	m_pAnimatorComponent->SetAnimation("WalkLeft");
 
-	auto rigidBodyComponent = pGameobject->GetComponent<dae::RigidbodyComponent>();
+	auto rigidBodyComponent = m_pGameObject->GetComponent<dae::RigidbodyComponent>();
 
 	std::function<void(dae::RigidbodyComponent*, dae::RigidbodyComponent*, b2Contact*)> newFunction = [](dae::RigidbodyComponent* pTriggeredbody, dae::RigidbodyComponent* otherBody, b2Contact*)
 	{
@@ -30,14 +51,15 @@ EnemyComponent::EnemyComponent(dae::GameObject* pGameobject, dae::TransformCompo
 			auto playerComponent = pOtherGO->GetComponent<PlayerComponent>();
 			playerComponent->PlayerDeath();
 		}
-		else if(pOtherGO->GetTag() == "Food")
+		else if (pOtherGO->GetTag() == "Food")
 		{
-			auto enemyComp = 	pTriggeredbody->GetGameobject()->GetComponent<EnemyComponent>();
+			auto enemyComp = pTriggeredbody->GetGameobject()->GetComponent<EnemyComponent>();
 			enemyComp->EnemyDeath();
 		}
 	};
 
 	rigidBodyComponent->SetOnEnterFunction(newFunction);
+
 }
 
 void EnemyComponent::Update()
@@ -60,8 +82,13 @@ void EnemyComponent::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>&
 {
 	writer.StartObject();
 	writer.Key("name");
-	writer.String(typeid(this).name());
+	writer.String(typeid(*this).name());
 	writer.EndObject();
+}
+
+void EnemyComponent::Deserialize(dae::GameObject* pGameObject, rapidjson::Value&)
+{
+	m_pGameObject = pGameObject;
 }
 
 void EnemyComponent::EnemyDeath()

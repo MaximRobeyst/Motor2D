@@ -12,14 +12,16 @@ namespace dae
 	class RigidbodyComponent : public Component
 	{
 	public:
+		RigidbodyComponent() = default;
 		RigidbodyComponent(dae::GameObject* pGameobject, b2BodyType bodyType = b2_dynamicBody, float density = 1.0f, float friction = 1.0f, bool IsSensor = false);
 		~RigidbodyComponent();
 
+		void Start() override;
 		void Update() override;
 		void Render() const override;
 
 		void Serialize(rapidjson::PrettyWriter< rapidjson::StringBuffer>& writer) override;
-
+		void Deserialize(GameObject* /*pGameobject*/, rapidjson::Value& /*value*/) override;
 
 		void OnBeginContact(dae::RigidbodyComponent* pTriggeredBody, RigidbodyComponent* pOtherBody, b2Contact* pContact);
 		void OnEndContact(dae::RigidbodyComponent* pTriggeredBody, RigidbodyComponent* pOtherBody, b2Contact* pContact);
@@ -45,6 +47,8 @@ namespace dae
 
 		float m_Density{};
 		float m_Friction{};
+		bool m_IsSensor{};
+		b2BodyType m_Bodydef{};
 	};
 }
 

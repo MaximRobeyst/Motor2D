@@ -6,26 +6,13 @@
 #include <fstream>
 #include <istreamwrapper.h>
 
+dae::Creator<dae::Component, dae::AnimatorComponent> s_TranformComponentCreate{};
+
 dae::AnimatorComponent::AnimatorComponent(dae::GameObject* pGameobject, const std::string& filename)
 	: Component(pGameobject)
+	, m_Path{filename}
 {
-	m_pSpriteRendererComponent = pGameobject->GetComponent<SpriteRendererComponent>();
-
-	if (std::ifstream anim{ filename })
-	{
-		rapidjson::IStreamWrapper isw{ anim };
-
-		rapidjson::Document animationFile;
-		animationFile.ParseStream(isw);
-
-		for (auto iter = animationFile.Begin(); iter != animationFile.End(); ++iter)
-		{
-			const rapidjson::Value& animation = *iter;
-
-			const rapidjson::Value& animationName = animation["name"];
-			m_pAnimations[animationName.GetString()] = new Animation(animation["duration"].GetFloat(), animation["framesPerSeconds"].GetFloat(), animation["looping"].GetBool(), animation["keyframes"]);
-		}
-	}
+	LoadAnimFile(filename);
 
 	SetAnimation("Idle");
 	m_IsPlaying = true;
@@ -38,6 +25,11 @@ dae::AnimatorComponent::~AnimatorComponent()
 		delete iter->second;
 	}
 	m_pAnimations.clear();
+}
+
+void dae::AnimatorComponent::Start()
+{
+	m_pSpriteRendererComponent = m_pGameObject->GetComponent<SpriteRendererComponent>();
 }
 
 void dae::AnimatorComponent::Update()
@@ -54,7 +46,29 @@ void dae::AnimatorComponent::Serialize(rapidjson::PrettyWriter<rapidjson::String
 	writer.StartObject();
 	writer.Key("name");
 	writer.String(typeid(*this).name());
+	writer.Key("Path");
+	writer.String(m_Path.c_str());
+	writer.Key("CurrentAnimation");
+	auto findResult = std::find_if(m_pAnimations.begin(), m_pAnimations.end(), [&](const std::pair<std::string, Animation*>& pair)
+		{
+			return pair.second == m_CurrentAnimation;
+		});
+
+	writer.String(findResult->first.c_str());
+	writer.Key("Playing");
+	writer.Bool(m_IsPlaying);
+
 	writer.EndObject();
+}
+
+void dae::AnimatorComponent::Deserialize(GameObject* pGameobject, rapidjson::Value& value)
+{
+	m_pGameObject = pGameobject;
+	m_Path = value["Path"].GetString();
+	LoadAnimFile(m_Path);
+
+	SetAnimation(value["CurrentAnimation"].GetString());
+	m_IsPlaying = value["Playing"].GetBool();
 }
 
 bool dae::AnimatorComponent::IsAnimationDone() const
@@ -62,11 +76,40 @@ bool dae::AnimatorComponent::IsAnimationDone() const
 	return !m_CurrentAnimation->IsLooping() && m_CurrentAnimation->IsDone();
 }
 
+void dae::AnimatorComponent::SetAnimation(int i)
+{
+	auto it = m_pAnimations.begin();
+	std::advance(it, i);
+
+	if (m_CurrentAnimation == it->second || it == m_pAnimations.end()) return;
+	
+	m_CurrentAnimation = it->second;
+}
+
 void dae::AnimatorComponent::SetAnimation(const std::string& name)
 {
 	if (m_CurrentAnimation == m_pAnimations[name]) return;
 
 	m_CurrentAnimation = m_pAnimations[name];
+}
+
+void dae::AnimatorComponent::LoadAnimFile(const std::string& filename)
+{
+	if (std::ifstream anim{ filename })
+	{
+		rapidjson::IStreamWrapper isw{ anim };
+
+		rapidjson::Document animationFile;
+		animationFile.ParseStream(isw);
+
+		for (auto iter = animationFile.Begin(); iter != animationFile.End(); ++iter)
+		{
+			const rapidjson::Value& animation = *iter;
+
+			const rapidjson::Value& animationName = animation["name"];
+			m_pAnimations[animationName.GetString()] = new Animation(animation["duration"].GetFloat(), animation["framesPerSeconds"].GetFloat(), animation["looping"].GetBool(), animation["keyframes"]);
+		}
+	}
 }
 
 dae::Animation::Animation(float duration, float nrOfFramesPerSecond, bool looping, const rapidjson::Value& keyframes)

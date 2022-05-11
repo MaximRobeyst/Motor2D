@@ -7,12 +7,14 @@
 class EnemyComponent : public dae::Component
 {
 public:
+	EnemyComponent();
 	EnemyComponent(dae::GameObject* pGameobject, dae::TransformComponent* pPlayerTransform);
 
+	void Start() override;
 	void Update() override;
 
 	void Serialize(rapidjson::PrettyWriter< rapidjson::StringBuffer>& writer) override;
-
+	void Deserialize(dae::GameObject* /*pGameobject*/, rapidjson::Value& /*value*/) override;
 
 	void EnemyDeath();
 	
@@ -29,6 +31,6 @@ private:
 	dae::RigidbodyComponent* m_pRigidbodyComponent;
 	dae::TransformComponent* m_pTransfomComponent;
 
-	dae::TransformComponent* m_pPlayerTransform;
+	dae::TransformComponent* m_pPlayerTransform{nullptr};
 	std::unique_ptr<Subject> m_pSubject;
 };

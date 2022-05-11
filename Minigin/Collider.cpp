@@ -9,6 +9,8 @@
 #include "Scene.h"
 #include "RigidbodyComponent.h"
 
+dae::Creator<dae::Component, dae::ColliderComponent> s_TranformComponentCreate{};
+
 dae::ColliderComponent::ColliderComponent(dae::GameObject* pGameObject)
 	: Component(pGameObject)
 	, m_DynamicBox{new b2PolygonShape()}
@@ -59,6 +61,9 @@ dae::ColliderComponent::~ColliderComponent()
 
 void dae::ColliderComponent::Start()
 {
+	if (m_pTransform == nullptr)
+		m_pTransform = m_pGameObject->GetComponent<dae::TransformComponent>();
+
 	m_pRigidbody = m_pGameObject->GetComponent<dae::RigidbodyComponent>();
 }
 
@@ -82,7 +87,30 @@ void dae::ColliderComponent::Serialize(rapidjson::PrettyWriter<rapidjson::String
 	writer.StartObject();
 	writer.Key("name");
 	writer.String(typeid(*this).name());
+	writer.Key("Box");
+	writer.StartObject();
+	writer.Key("x");
+	writer.Double(static_cast<double>(m_Center.x));
+	writer.Key("y");
+	writer.Double(static_cast<double>(m_Center.y));
+	writer.Key("w");
+	writer.Double(static_cast<double>(m_Width));
+	writer.Key("h");
+	writer.Double(static_cast<double>(m_Height));
 	writer.EndObject();
+	writer.EndObject();
+}
+
+void dae::ColliderComponent::Deserialize(GameObject* pGameOject, rapidjson::Value& value)
+{
+	m_pGameObject = pGameOject;
+
+	m_Center = glm::vec2{ static_cast<float>(value["Box"]["x"].GetDouble()), static_cast<float>(value["Box"]["y"].GetDouble()) };
+	m_Width = static_cast<float>(value["Box"]["w"].GetDouble());
+	m_Height = static_cast<float>(value["Box"]["h"].GetDouble());
+
+	m_DynamicBox = new b2PolygonShape();
+	m_DynamicBox->SetAsBox(m_Width / 2, m_Height / 2, b2Vec2{ m_Center.x, m_Center.y }, 0.0f);
 }
 
 glm::vec2 dae::ColliderComponent::GetSize() const

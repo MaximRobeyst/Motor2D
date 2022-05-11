@@ -16,13 +16,27 @@
 #include <ServiceLocator.h>
 #include <Collider.h>
 
-FoodComponent::FoodComponent(dae::GameObject* pGameobject)
-	: Component(pGameobject)
-	, m_pTransform(pGameobject->GetComponent<dae::TransformComponent>())
-	, m_pRigidbody{pGameobject->GetComponent<dae::RigidbodyComponent>()}
+dae::Creator<dae::Component, FoodComponent> s_TranformComponentCreate{};
+
+FoodComponent::FoodComponent()
+	:Component()
 	, m_pSubject(std::make_unique<Subject>())
 {
-	std::function<void(dae::RigidbodyComponent* ,dae::RigidbodyComponent*, b2Contact*)> enterFunction = [](dae::RigidbodyComponent*  pTriggeredBody, dae::RigidbodyComponent* otherBody, b2Contact*)
+}
+
+FoodComponent::FoodComponent(dae::GameObject* pGameobject)
+	: Component(pGameobject)
+	, m_pSubject(std::make_unique<Subject>())
+{
+}
+
+void FoodComponent::Start()
+{
+	m_pCollider = m_pGameObject->GetComponent<dae::ColliderComponent>();
+	m_pTransform = m_pGameObject->GetComponent<dae::TransformComponent>();
+	m_pRigidbody = m_pGameObject->GetComponent<dae::RigidbodyComponent>();
+
+	std::function<void(dae::RigidbodyComponent*, dae::RigidbodyComponent*, b2Contact*)> enterFunction = [](dae::RigidbodyComponent* pTriggeredBody, dae::RigidbodyComponent* otherBody, b2Contact*)
 	{
 		auto pOtherGO = otherBody->GetGameobject();
 		auto foodComp = pTriggeredBody->GetGameobject()->GetComponent<FoodComponent>();
@@ -76,11 +90,6 @@ FoodComponent::FoodComponent(dae::GameObject* pGameobject)
 	m_pRigidbody->SetOnExitFunction(exitFunction);
 }
 
-void FoodComponent::Start()
-{
-	m_pCollider = m_pGameObject->GetComponent<dae::ColliderComponent>();
-}
-
 void FoodComponent::Update()
 {
 	if (m_CollidingWithPlayer)
@@ -112,6 +121,10 @@ void FoodComponent::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>& 
 	writer.Key("name");
 	writer.String(typeid(*this).name());
 	writer.EndObject();
+}
+void FoodComponent::Deserialize(dae::GameObject* pGameobject, rapidjson::Value& /*value*/)
+{
+	m_pGameObject = pGameobject;
 }
 #ifdef _DEBUG
 void FoodComponent::RenderGUI()

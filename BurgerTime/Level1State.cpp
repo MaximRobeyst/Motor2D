@@ -85,7 +85,7 @@ void Level1State::OnEnter()
 	go->AddComponent(pScoreDisplay);
 	scene.AddGameObject(go);
 
-	auto pPeperGameObject = new GameObject();
+	auto pPeperGameObject = new GameObject("PeterPete_Player");
 	auto pPlayerTransform = new TransformComponent(pPeperGameObject, glm::vec3{ 96.f, 296.f, 0 }, glm::vec3{ 2.f });
 	pPeperGameObject->AddComponent(pPlayerTransform);
 	pPeperGameObject->AddComponent(new SpriteRendererComponent(pPeperGameObject, "BurgerTime_SpriteSheet.png"));
@@ -99,7 +99,7 @@ void Level1State::OnEnter()
 	pPeperGameObject->SetTag("Player");
 	scene.AddGameObject(pPeperGameObject);
 
-	auto pHotDogGameObject = new GameObject();
+	auto pHotDogGameObject = new GameObject("MrHotDog");
 	pHotDogGameObject->AddComponent(new TransformComponent(pHotDogGameObject, glm::vec3(256.f, 144.f, 0), glm::vec3{ 2.f }));
 	pHotDogGameObject->AddComponent(new SpriteRendererComponent(pHotDogGameObject, "BurgerTime_SpriteSheet.png"));
 	pHotDogGameObject->AddComponent(new AnimatorComponent(pHotDogGameObject, "../Data/Animations/HotdogAnimations.json"));
@@ -111,7 +111,7 @@ void Level1State::OnEnter()
 	pHotDogGameObject->SetTag("Enemy");
 	scene.AddGameObject(pHotDogGameObject);
 
-	auto pEggGameObject = new GameObject();
+	auto pEggGameObject = new GameObject("MrEgg");
 	pEggGameObject->AddComponent(new TransformComponent(pEggGameObject, glm::vec3(288.f, 144.f, 0), glm::vec3{ 2.f }));
 	pEggGameObject->AddComponent(new SpriteRendererComponent(pEggGameObject, "BurgerTime_SpriteSheet.png"));
 	pEggGameObject->AddComponent(new AnimatorComponent(pEggGameObject, "../Data/Animations/EggAnimations.json"));
@@ -123,7 +123,7 @@ void Level1State::OnEnter()
 	pEggGameObject->SetTag("Enemy");
 	scene.AddGameObject(pEggGameObject);
 
-	auto pBurgerTop = new GameObject();
+	auto pBurgerTop = new GameObject("BurgerTop");
 	pBurgerTop->AddComponent(new TransformComponent(pBurgerTop, glm::vec3(224.f, 32.f, 0.f), glm::vec2{ 2.f }));
 	pBurgerTop->AddComponent(new SpriteRendererComponent(pBurgerTop, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 48.f, 32.f, 8.f }));
 	pBurgerTop->AddComponent(new ColliderComponent(pBurgerTop, 32.f, 4.f));

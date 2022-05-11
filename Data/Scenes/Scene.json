@@ -8,6 +8,7 @@
     "gameobjects": [
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -37,6 +38,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -66,6 +68,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -92,15 +95,26 @@
                     }
                 },
                 {
-                    "name": "class dae::ColliderComponent"
+                    "name": "class dae::ColliderComponent",
+                    "Box": {
+                        "x": 8.0,
+                        "y": 12.0,
+                        "w": 16.0,
+                        "h": 8.0
+                    }
                 },
                 {
-                    "name": "class dae::RigidbodyComponent"
+                    "name": "class dae::RigidbodyComponent",
+                    "Density": 1.0,
+                    "Friction": 1.0,
+                    "IsSensor": false,
+                    "BodyDef": 0
                 }
             ]
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -130,6 +144,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -159,6 +174,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -185,15 +201,26 @@
                     }
                 },
                 {
-                    "name": "class dae::ColliderComponent"
+                    "name": "class dae::ColliderComponent",
+                    "Box": {
+                        "x": 8.0,
+                        "y": 12.0,
+                        "w": 16.0,
+                        "h": 8.0
+                    }
                 },
                 {
-                    "name": "class dae::RigidbodyComponent"
+                    "name": "class dae::RigidbodyComponent",
+                    "Density": 1.0,
+                    "Friction": 1.0,
+                    "IsSensor": false,
+                    "BodyDef": 0
                 }
             ]
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -223,6 +250,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -252,6 +280,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -278,15 +307,26 @@
                     }
                 },
                 {
-                    "name": "class dae::ColliderComponent"
+                    "name": "class dae::ColliderComponent",
+                    "Box": {
+                        "x": 8.0,
+                        "y": 12.0,
+                        "w": 16.0,
+                        "h": 8.0
+                    }
                 },
                 {
-                    "name": "class dae::RigidbodyComponent"
+                    "name": "class dae::RigidbodyComponent",
+                    "Density": 1.0,
+                    "Friction": 1.0,
+                    "IsSensor": false,
+                    "BodyDef": 0
                 }
             ]
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -316,6 +356,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -345,6 +386,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -371,15 +413,26 @@
                     }
                 },
                 {
-                    "name": "class dae::ColliderComponent"
+                    "name": "class dae::ColliderComponent",
+                    "Box": {
+                        "x": 8.0,
+                        "y": 12.0,
+                        "w": 16.0,
+                        "h": 8.0
+                    }
                 },
                 {
-                    "name": "class dae::RigidbodyComponent"
+                    "name": "class dae::RigidbodyComponent",
+                    "Density": 1.0,
+                    "Friction": 1.0,
+                    "IsSensor": false,
+                    "BodyDef": 0
                 }
             ]
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -409,6 +462,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -438,6 +492,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -464,15 +519,26 @@
                     }
                 },
                 {
-                    "name": "class dae::ColliderComponent"
+                    "name": "class dae::ColliderComponent",
+                    "Box": {
+                        "x": 8.0,
+                        "y": 12.0,
+                        "w": 16.0,
+                        "h": 8.0
+                    }
                 },
                 {
-                    "name": "class dae::RigidbodyComponent"
+                    "name": "class dae::RigidbodyComponent",
+                    "Density": 1.0,
+                    "Friction": 1.0,
+                    "IsSensor": false,
+                    "BodyDef": 0
                 }
             ]
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -502,6 +568,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -531,6 +598,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -557,15 +625,26 @@
                     }
                 },
                 {
-                    "name": "class dae::ColliderComponent"
+                    "name": "class dae::ColliderComponent",
+                    "Box": {
+                        "x": 8.0,
+                        "y": 12.0,
+                        "w": 16.0,
+                        "h": 8.0
+                    }
                 },
                 {
-                    "name": "class dae::RigidbodyComponent"
+                    "name": "class dae::RigidbodyComponent",
+                    "Density": 1.0,
+                    "Friction": 1.0,
+                    "IsSensor": false,
+                    "BodyDef": 0
                 }
             ]
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -595,6 +674,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -624,6 +704,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -650,15 +731,26 @@
                     }
                 },
                 {
-                    "name": "class dae::ColliderComponent"
+                    "name": "class dae::ColliderComponent",
+                    "Box": {
+                        "x": 8.0,
+                        "y": 12.0,
+                        "w": 16.0,
+                        "h": 8.0
+                    }
                 },
                 {
-                    "name": "class dae::RigidbodyComponent"
+                    "name": "class dae::RigidbodyComponent",
+                    "Density": 1.0,
+                    "Friction": 1.0,
+                    "IsSensor": false,
+                    "BodyDef": 0
                 }
             ]
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -688,6 +780,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -717,6 +810,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -743,15 +837,26 @@
                     }
                 },
                 {
-                    "name": "class dae::ColliderComponent"
+                    "name": "class dae::ColliderComponent",
+                    "Box": {
+                        "x": 8.0,
+                        "y": 12.0,
+                        "w": 16.0,
+                        "h": 8.0
+                    }
                 },
                 {
-                    "name": "class dae::RigidbodyComponent"
+                    "name": "class dae::RigidbodyComponent",
+                    "Density": 1.0,
+                    "Friction": 1.0,
+                    "IsSensor": false,
+                    "BodyDef": 0
                 }
             ]
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -781,6 +886,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -810,6 +916,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -839,6 +946,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -868,6 +976,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -897,6 +1006,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -926,6 +1036,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -955,6 +1066,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -984,6 +1096,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -1013,6 +1126,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -1042,6 +1156,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -1071,6 +1186,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -1100,6 +1216,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -1129,6 +1246,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -1158,6 +1276,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -1187,6 +1306,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -1216,6 +1336,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -1245,6 +1366,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -1274,6 +1396,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -1303,6 +1426,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -1332,6 +1456,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -1361,6 +1486,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -1390,6 +1516,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -1419,6 +1546,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -1448,6 +1576,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -1477,6 +1606,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -1506,6 +1636,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -1535,6 +1666,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -1564,6 +1696,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -1593,6 +1726,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -1622,6 +1756,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -1651,6 +1786,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -1680,6 +1816,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -1709,6 +1846,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -1738,6 +1876,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -1767,6 +1906,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -1796,6 +1936,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -1825,6 +1966,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -1854,6 +1996,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -1883,6 +2026,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -1912,6 +2056,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -1941,6 +2086,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -1970,6 +2116,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -1999,6 +2146,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -2028,6 +2176,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -2057,6 +2206,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -2086,6 +2236,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -2115,6 +2266,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -2144,6 +2296,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -2173,6 +2326,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -2202,6 +2356,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -2231,6 +2386,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -2260,6 +2416,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -2286,15 +2443,26 @@
                     }
                 },
                 {
-                    "name": "class dae::ColliderComponent"
+                    "name": "class dae::ColliderComponent",
+                    "Box": {
+                        "x": 8.0,
+                        "y": 12.0,
+                        "w": 16.0,
+                        "h": 8.0
+                    }
                 },
                 {
-                    "name": "class dae::RigidbodyComponent"
+                    "name": "class dae::RigidbodyComponent",
+                    "Density": 1.0,
+                    "Friction": 1.0,
+                    "IsSensor": false,
+                    "BodyDef": 0
                 }
             ]
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -2324,6 +2492,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -2353,6 +2522,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -2379,15 +2549,26 @@
                     }
                 },
                 {
-                    "name": "class dae::ColliderComponent"
+                    "name": "class dae::ColliderComponent",
+                    "Box": {
+                        "x": 8.0,
+                        "y": 12.0,
+                        "w": 16.0,
+                        "h": 8.0
+                    }
                 },
                 {
-                    "name": "class dae::RigidbodyComponent"
+                    "name": "class dae::RigidbodyComponent",
+                    "Density": 1.0,
+                    "Friction": 1.0,
+                    "IsSensor": false,
+                    "BodyDef": 0
                 }
             ]
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -2417,6 +2598,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -2446,6 +2628,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -2475,6 +2658,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -2504,6 +2688,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -2533,6 +2718,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -2562,6 +2748,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -2588,15 +2775,26 @@
                     }
                 },
                 {
-                    "name": "class dae::ColliderComponent"
+                    "name": "class dae::ColliderComponent",
+                    "Box": {
+                        "x": 8.0,
+                        "y": 12.0,
+                        "w": 16.0,
+                        "h": 8.0
+                    }
                 },
                 {
-                    "name": "class dae::RigidbodyComponent"
+                    "name": "class dae::RigidbodyComponent",
+                    "Density": 1.0,
+                    "Friction": 1.0,
+                    "IsSensor": false,
+                    "BodyDef": 0
                 }
             ]
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -2626,6 +2824,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -2655,6 +2854,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -2681,15 +2881,26 @@
                     }
                 },
                 {
-                    "name": "class dae::ColliderComponent"
+                    "name": "class dae::ColliderComponent",
+                    "Box": {
+                        "x": 8.0,
+                        "y": 12.0,
+                        "w": 16.0,
+                        "h": 8.0
+                    }
                 },
                 {
-                    "name": "class dae::RigidbodyComponent"
+                    "name": "class dae::RigidbodyComponent",
+                    "Density": 1.0,
+                    "Friction": 1.0,
+                    "IsSensor": false,
+                    "BodyDef": 0
                 }
             ]
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -2719,6 +2930,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -2748,6 +2960,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -2774,15 +2987,26 @@
                     }
                 },
                 {
-                    "name": "class dae::ColliderComponent"
+                    "name": "class dae::ColliderComponent",
+                    "Box": {
+                        "x": 8.0,
+                        "y": 12.0,
+                        "w": 16.0,
+                        "h": 8.0
+                    }
                 },
                 {
-                    "name": "class dae::RigidbodyComponent"
+                    "name": "class dae::RigidbodyComponent",
+                    "Density": 1.0,
+                    "Friction": 1.0,
+                    "IsSensor": false,
+                    "BodyDef": 0
                 }
             ]
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -2812,6 +3036,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -2841,6 +3066,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -2867,15 +3093,26 @@
                     }
                 },
                 {
-                    "name": "class dae::ColliderComponent"
+                    "name": "class dae::ColliderComponent",
+                    "Box": {
+                        "x": 8.0,
+                        "y": 12.0,
+                        "w": 16.0,
+                        "h": 8.0
+                    }
                 },
                 {
-                    "name": "class dae::RigidbodyComponent"
+                    "name": "class dae::RigidbodyComponent",
+                    "Density": 1.0,
+                    "Friction": 1.0,
+                    "IsSensor": false,
+                    "BodyDef": 0
                 }
             ]
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -2905,6 +3142,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -2934,6 +3172,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -2963,6 +3202,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -2992,6 +3232,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -3021,6 +3262,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -3050,6 +3292,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -3079,6 +3322,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -3108,6 +3352,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -3137,6 +3382,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -3166,6 +3412,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -3195,6 +3442,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -3224,6 +3472,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -3253,6 +3502,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -3282,6 +3532,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -3311,6 +3562,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -3340,6 +3592,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -3369,6 +3622,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -3398,6 +3652,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -3427,6 +3682,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -3456,6 +3712,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -3482,15 +3739,26 @@
                     }
                 },
                 {
-                    "name": "class dae::ColliderComponent"
+                    "name": "class dae::ColliderComponent",
+                    "Box": {
+                        "x": 8.0,
+                        "y": 12.0,
+                        "w": 16.0,
+                        "h": 8.0
+                    }
                 },
                 {
-                    "name": "class dae::RigidbodyComponent"
+                    "name": "class dae::RigidbodyComponent",
+                    "Density": 1.0,
+                    "Friction": 1.0,
+                    "IsSensor": false,
+                    "BodyDef": 0
                 }
             ]
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -3520,6 +3788,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -3549,6 +3818,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -3575,15 +3845,26 @@
                     }
                 },
                 {
-                    "name": "class dae::ColliderComponent"
+                    "name": "class dae::ColliderComponent",
+                    "Box": {
+                        "x": 8.0,
+                        "y": 12.0,
+                        "w": 16.0,
+                        "h": 8.0
+                    }
                 },
                 {
-                    "name": "class dae::RigidbodyComponent"
+                    "name": "class dae::RigidbodyComponent",
+                    "Density": 1.0,
+                    "Friction": 1.0,
+                    "IsSensor": false,
+                    "BodyDef": 0
                 }
             ]
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -3613,6 +3894,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -3642,6 +3924,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -3671,6 +3954,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -3700,6 +3984,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -3729,6 +4014,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -3758,6 +4044,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -3787,6 +4074,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -3816,6 +4104,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -3845,6 +4134,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -3874,6 +4164,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -3903,6 +4194,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -3932,6 +4224,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -3961,6 +4254,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -3990,6 +4284,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -4019,6 +4314,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -4048,6 +4344,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -4077,6 +4374,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -4106,6 +4404,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -4132,15 +4431,26 @@
                     }
                 },
                 {
-                    "name": "class dae::ColliderComponent"
+                    "name": "class dae::ColliderComponent",
+                    "Box": {
+                        "x": 8.0,
+                        "y": 12.0,
+                        "w": 16.0,
+                        "h": 8.0
+                    }
                 },
                 {
-                    "name": "class dae::RigidbodyComponent"
+                    "name": "class dae::RigidbodyComponent",
+                    "Density": 1.0,
+                    "Friction": 1.0,
+                    "IsSensor": false,
+                    "BodyDef": 0
                 }
             ]
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -4170,6 +4480,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -4199,6 +4510,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -4225,15 +4537,26 @@
                     }
                 },
                 {
-                    "name": "class dae::ColliderComponent"
+                    "name": "class dae::ColliderComponent",
+                    "Box": {
+                        "x": 8.0,
+                        "y": 12.0,
+                        "w": 16.0,
+                        "h": 8.0
+                    }
                 },
                 {
-                    "name": "class dae::RigidbodyComponent"
+                    "name": "class dae::RigidbodyComponent",
+                    "Density": 1.0,
+                    "Friction": 1.0,
+                    "IsSensor": false,
+                    "BodyDef": 0
                 }
             ]
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -4263,6 +4586,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -4292,6 +4616,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -4321,6 +4646,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -4350,6 +4676,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -4376,15 +4703,26 @@
                     }
                 },
                 {
-                    "name": "class dae::ColliderComponent"
+                    "name": "class dae::ColliderComponent",
+                    "Box": {
+                        "x": 8.0,
+                        "y": 12.0,
+                        "w": 16.0,
+                        "h": 8.0
+                    }
                 },
                 {
-                    "name": "class dae::RigidbodyComponent"
+                    "name": "class dae::RigidbodyComponent",
+                    "Density": 1.0,
+                    "Friction": 1.0,
+                    "IsSensor": false,
+                    "BodyDef": 0
                 }
             ]
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -4414,6 +4752,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -4443,6 +4782,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -4469,15 +4809,26 @@
                     }
                 },
                 {
-                    "name": "class dae::ColliderComponent"
+                    "name": "class dae::ColliderComponent",
+                    "Box": {
+                        "x": 8.0,
+                        "y": 12.0,
+                        "w": 16.0,
+                        "h": 8.0
+                    }
                 },
                 {
-                    "name": "class dae::RigidbodyComponent"
+                    "name": "class dae::RigidbodyComponent",
+                    "Density": 1.0,
+                    "Friction": 1.0,
+                    "IsSensor": false,
+                    "BodyDef": 0
                 }
             ]
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -4507,6 +4858,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -4536,6 +4888,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -4565,6 +4918,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -4594,6 +4948,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -4623,6 +4978,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -4652,6 +5008,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -4681,6 +5038,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -4710,6 +5068,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -4739,6 +5098,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -4768,6 +5128,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -4797,6 +5158,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -4826,6 +5188,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -4855,6 +5218,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -4884,6 +5248,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -4913,6 +5278,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -4942,6 +5308,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -4968,15 +5335,26 @@
                     }
                 },
                 {
-                    "name": "class dae::ColliderComponent"
+                    "name": "class dae::ColliderComponent",
+                    "Box": {
+                        "x": 8.0,
+                        "y": 12.0,
+                        "w": 16.0,
+                        "h": 8.0
+                    }
                 },
                 {
-                    "name": "class dae::RigidbodyComponent"
+                    "name": "class dae::RigidbodyComponent",
+                    "Density": 1.0,
+                    "Friction": 1.0,
+                    "IsSensor": false,
+                    "BodyDef": 0
                 }
             ]
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -5003,15 +5381,26 @@
                     }
                 },
                 {
-                    "name": "class dae::ColliderComponent"
+                    "name": "class dae::ColliderComponent",
+                    "Box": {
+                        "x": 8.0,
+                        "y": 12.0,
+                        "w": 16.0,
+                        "h": 8.0
+                    }
                 },
                 {
-                    "name": "class dae::RigidbodyComponent"
+                    "name": "class dae::RigidbodyComponent",
+                    "Density": 1.0,
+                    "Friction": 1.0,
+                    "IsSensor": false,
+                    "BodyDef": 0
                 }
             ]
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -5038,15 +5427,26 @@
                     }
                 },
                 {
-                    "name": "class dae::ColliderComponent"
+                    "name": "class dae::ColliderComponent",
+                    "Box": {
+                        "x": 8.0,
+                        "y": 12.0,
+                        "w": 16.0,
+                        "h": 8.0
+                    }
                 },
                 {
-                    "name": "class dae::RigidbodyComponent"
+                    "name": "class dae::RigidbodyComponent",
+                    "Density": 1.0,
+                    "Friction": 1.0,
+                    "IsSensor": false,
+                    "BodyDef": 0
                 }
             ]
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -5073,15 +5473,26 @@
                     }
                 },
                 {
-                    "name": "class dae::ColliderComponent"
+                    "name": "class dae::ColliderComponent",
+                    "Box": {
+                        "x": 8.0,
+                        "y": 12.0,
+                        "w": 16.0,
+                        "h": 8.0
+                    }
                 },
                 {
-                    "name": "class dae::RigidbodyComponent"
+                    "name": "class dae::RigidbodyComponent",
+                    "Density": 1.0,
+                    "Friction": 1.0,
+                    "IsSensor": false,
+                    "BodyDef": 0
                 }
             ]
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -5111,6 +5522,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -5140,6 +5552,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -5166,15 +5579,26 @@
                     }
                 },
                 {
-                    "name": "class dae::ColliderComponent"
+                    "name": "class dae::ColliderComponent",
+                    "Box": {
+                        "x": 8.0,
+                        "y": 12.0,
+                        "w": 16.0,
+                        "h": 8.0
+                    }
                 },
                 {
-                    "name": "class dae::RigidbodyComponent"
+                    "name": "class dae::RigidbodyComponent",
+                    "Density": 1.0,
+                    "Friction": 1.0,
+                    "IsSensor": false,
+                    "BodyDef": 0
                 }
             ]
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -5204,6 +5628,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -5233,6 +5658,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -5259,15 +5685,26 @@
                     }
                 },
                 {
-                    "name": "class dae::ColliderComponent"
+                    "name": "class dae::ColliderComponent",
+                    "Box": {
+                        "x": 8.0,
+                        "y": 12.0,
+                        "w": 16.0,
+                        "h": 8.0
+                    }
                 },
                 {
-                    "name": "class dae::RigidbodyComponent"
+                    "name": "class dae::RigidbodyComponent",
+                    "Density": 1.0,
+                    "Friction": 1.0,
+                    "IsSensor": false,
+                    "BodyDef": 0
                 }
             ]
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -5297,6 +5734,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -5326,6 +5764,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -5355,6 +5794,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -5384,6 +5824,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -5413,6 +5854,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -5442,6 +5884,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -5471,6 +5914,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -5500,6 +5944,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -5529,6 +5974,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -5558,6 +6004,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -5587,6 +6034,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -5616,6 +6064,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -5645,6 +6094,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -5674,6 +6124,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -5703,6 +6154,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -5732,6 +6184,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -5761,6 +6214,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -5790,6 +6244,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -5819,6 +6274,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -5848,6 +6304,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -5877,6 +6334,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -5906,6 +6364,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -5935,6 +6394,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -5964,6 +6424,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -5993,6 +6454,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -6022,6 +6484,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -6048,15 +6511,26 @@
                     }
                 },
                 {
-                    "name": "class dae::ColliderComponent"
+                    "name": "class dae::ColliderComponent",
+                    "Box": {
+                        "x": 8.0,
+                        "y": 12.0,
+                        "w": 16.0,
+                        "h": 8.0
+                    }
                 },
                 {
-                    "name": "class dae::RigidbodyComponent"
+                    "name": "class dae::RigidbodyComponent",
+                    "Density": 1.0,
+                    "Friction": 1.0,
+                    "IsSensor": false,
+                    "BodyDef": 0
                 }
             ]
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -6086,6 +6560,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -6115,6 +6590,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -6141,15 +6617,26 @@
                     }
                 },
                 {
-                    "name": "class dae::ColliderComponent"
+                    "name": "class dae::ColliderComponent",
+                    "Box": {
+                        "x": 8.0,
+                        "y": 12.0,
+                        "w": 16.0,
+                        "h": 8.0
+                    }
                 },
                 {
-                    "name": "class dae::RigidbodyComponent"
+                    "name": "class dae::RigidbodyComponent",
+                    "Density": 1.0,
+                    "Friction": 1.0,
+                    "IsSensor": false,
+                    "BodyDef": 0
                 }
             ]
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -6179,6 +6666,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -6208,6 +6696,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -6237,6 +6726,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -6266,6 +6756,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -6295,6 +6786,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -6324,6 +6816,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -6353,6 +6846,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -6382,6 +6876,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -6411,6 +6906,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -6440,6 +6936,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -6469,6 +6966,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -6498,6 +6996,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -6527,6 +7026,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -6556,6 +7056,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -6585,6 +7086,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -6614,6 +7116,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -6643,6 +7146,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -6672,6 +7176,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -6698,15 +7203,26 @@
                     }
                 },
                 {
-                    "name": "class dae::ColliderComponent"
+                    "name": "class dae::ColliderComponent",
+                    "Box": {
+                        "x": 8.0,
+                        "y": 12.0,
+                        "w": 16.0,
+                        "h": 8.0
+                    }
                 },
                 {
-                    "name": "class dae::RigidbodyComponent"
+                    "name": "class dae::RigidbodyComponent",
+                    "Density": 1.0,
+                    "Friction": 1.0,
+                    "IsSensor": false,
+                    "BodyDef": 0
                 }
             ]
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -6736,6 +7252,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -6765,6 +7282,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -6791,15 +7309,26 @@
                     }
                 },
                 {
-                    "name": "class dae::ColliderComponent"
+                    "name": "class dae::ColliderComponent",
+                    "Box": {
+                        "x": 8.0,
+                        "y": 12.0,
+                        "w": 16.0,
+                        "h": 8.0
+                    }
                 },
                 {
-                    "name": "class dae::RigidbodyComponent"
+                    "name": "class dae::RigidbodyComponent",
+                    "Density": 1.0,
+                    "Friction": 1.0,
+                    "IsSensor": false,
+                    "BodyDef": 0
                 }
             ]
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -6829,6 +7358,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -6858,6 +7388,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -6884,15 +7415,26 @@
                     }
                 },
                 {
-                    "name": "class dae::ColliderComponent"
+                    "name": "class dae::ColliderComponent",
+                    "Box": {
+                        "x": 8.0,
+                        "y": 12.0,
+                        "w": 16.0,
+                        "h": 8.0
+                    }
                 },
                 {
-                    "name": "class dae::RigidbodyComponent"
+                    "name": "class dae::RigidbodyComponent",
+                    "Density": 1.0,
+                    "Friction": 1.0,
+                    "IsSensor": false,
+                    "BodyDef": 0
                 }
             ]
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -6922,6 +7464,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -6951,6 +7494,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -6977,15 +7521,26 @@
                     }
                 },
                 {
-                    "name": "class dae::ColliderComponent"
+                    "name": "class dae::ColliderComponent",
+                    "Box": {
+                        "x": 8.0,
+                        "y": 12.0,
+                        "w": 16.0,
+                        "h": 8.0
+                    }
                 },
                 {
-                    "name": "class dae::RigidbodyComponent"
+                    "name": "class dae::RigidbodyComponent",
+                    "Density": 1.0,
+                    "Friction": 1.0,
+                    "IsSensor": false,
+                    "BodyDef": 0
                 }
             ]
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -7015,6 +7570,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -7044,6 +7600,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -7070,15 +7627,26 @@
                     }
                 },
                 {
-                    "name": "class dae::ColliderComponent"
+                    "name": "class dae::ColliderComponent",
+                    "Box": {
+                        "x": 8.0,
+                        "y": 12.0,
+                        "w": 16.0,
+                        "h": 8.0
+                    }
                 },
                 {
-                    "name": "class dae::RigidbodyComponent"
+                    "name": "class dae::RigidbodyComponent",
+                    "Density": 1.0,
+                    "Friction": 1.0,
+                    "IsSensor": false,
+                    "BodyDef": 0
                 }
             ]
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -7108,6 +7676,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -7137,6 +7706,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -7163,15 +7733,26 @@
                     }
                 },
                 {
-                    "name": "class dae::ColliderComponent"
+                    "name": "class dae::ColliderComponent",
+                    "Box": {
+                        "x": 8.0,
+                        "y": 12.0,
+                        "w": 16.0,
+                        "h": 8.0
+                    }
                 },
                 {
-                    "name": "class dae::RigidbodyComponent"
+                    "name": "class dae::RigidbodyComponent",
+                    "Density": 1.0,
+                    "Friction": 1.0,
+                    "IsSensor": false,
+                    "BodyDef": 0
                 }
             ]
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -7201,6 +7782,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -7230,6 +7812,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -7259,6 +7842,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -7288,6 +7872,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -7317,6 +7902,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -7346,6 +7932,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -7375,6 +7962,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -7404,6 +7992,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -7433,6 +8022,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -7462,6 +8052,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -7491,6 +8082,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -7520,6 +8112,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -7549,6 +8142,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -7578,6 +8172,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -7607,6 +8202,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -7636,6 +8232,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -7665,6 +8262,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -7694,6 +8292,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -7723,6 +8322,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -7752,6 +8352,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -7781,6 +8382,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -7810,6 +8412,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -7839,6 +8442,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -7868,6 +8472,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -7897,6 +8502,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -7926,6 +8532,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -7955,6 +8562,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -7984,6 +8592,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -8013,6 +8622,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -8042,6 +8652,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -8071,6 +8682,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -8100,6 +8712,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -8129,6 +8742,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -8158,6 +8772,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -8187,6 +8802,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -8216,6 +8832,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -8245,6 +8862,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -8274,6 +8892,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -8303,6 +8922,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -8332,6 +8952,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -8361,6 +8982,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -8390,6 +9012,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -8419,6 +9042,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -8448,6 +9072,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -8474,15 +9099,26 @@
                     }
                 },
                 {
-                    "name": "class dae::ColliderComponent"
+                    "name": "class dae::ColliderComponent",
+                    "Box": {
+                        "x": 8.0,
+                        "y": 12.0,
+                        "w": 16.0,
+                        "h": 8.0
+                    }
                 },
                 {
-                    "name": "class dae::RigidbodyComponent"
+                    "name": "class dae::RigidbodyComponent",
+                    "Density": 1.0,
+                    "Friction": 1.0,
+                    "IsSensor": false,
+                    "BodyDef": 0
                 }
             ]
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -8509,15 +9145,26 @@
                     }
                 },
                 {
-                    "name": "class dae::ColliderComponent"
+                    "name": "class dae::ColliderComponent",
+                    "Box": {
+                        "x": 8.0,
+                        "y": 12.0,
+                        "w": 16.0,
+                        "h": 8.0
+                    }
                 },
                 {
-                    "name": "class dae::RigidbodyComponent"
+                    "name": "class dae::RigidbodyComponent",
+                    "Density": 1.0,
+                    "Friction": 1.0,
+                    "IsSensor": false,
+                    "BodyDef": 0
                 }
             ]
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -8544,15 +9191,26 @@
                     }
                 },
                 {
-                    "name": "class dae::ColliderComponent"
+                    "name": "class dae::ColliderComponent",
+                    "Box": {
+                        "x": 8.0,
+                        "y": 12.0,
+                        "w": 16.0,
+                        "h": 8.0
+                    }
                 },
                 {
-                    "name": "class dae::RigidbodyComponent"
+                    "name": "class dae::RigidbodyComponent",
+                    "Density": 1.0,
+                    "Friction": 1.0,
+                    "IsSensor": false,
+                    "BodyDef": 0
                 }
             ]
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -8579,15 +9237,26 @@
                     }
                 },
                 {
-                    "name": "class dae::ColliderComponent"
+                    "name": "class dae::ColliderComponent",
+                    "Box": {
+                        "x": 8.0,
+                        "y": 12.0,
+                        "w": 16.0,
+                        "h": 8.0
+                    }
                 },
                 {
-                    "name": "class dae::RigidbodyComponent"
+                    "name": "class dae::RigidbodyComponent",
+                    "Density": 1.0,
+                    "Friction": 1.0,
+                    "IsSensor": false,
+                    "BodyDef": 0
                 }
             ]
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -8617,6 +9286,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -8646,6 +9316,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -8672,15 +9343,26 @@
                     }
                 },
                 {
-                    "name": "class dae::ColliderComponent"
+                    "name": "class dae::ColliderComponent",
+                    "Box": {
+                        "x": 8.0,
+                        "y": 12.0,
+                        "w": 16.0,
+                        "h": 8.0
+                    }
                 },
                 {
-                    "name": "class dae::RigidbodyComponent"
+                    "name": "class dae::RigidbodyComponent",
+                    "Density": 1.0,
+                    "Friction": 1.0,
+                    "IsSensor": false,
+                    "BodyDef": 0
                 }
             ]
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -8707,15 +9389,26 @@
                     }
                 },
                 {
-                    "name": "class dae::ColliderComponent"
+                    "name": "class dae::ColliderComponent",
+                    "Box": {
+                        "x": 8.0,
+                        "y": 12.0,
+                        "w": 16.0,
+                        "h": 8.0
+                    }
                 },
                 {
-                    "name": "class dae::RigidbodyComponent"
+                    "name": "class dae::RigidbodyComponent",
+                    "Density": 1.0,
+                    "Friction": 1.0,
+                    "IsSensor": false,
+                    "BodyDef": 0
                 }
             ]
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -8742,15 +9435,26 @@
                     }
                 },
                 {
-                    "name": "class dae::ColliderComponent"
+                    "name": "class dae::ColliderComponent",
+                    "Box": {
+                        "x": 8.0,
+                        "y": 12.0,
+                        "w": 16.0,
+                        "h": 8.0
+                    }
                 },
                 {
-                    "name": "class dae::RigidbodyComponent"
+                    "name": "class dae::RigidbodyComponent",
+                    "Density": 1.0,
+                    "Friction": 1.0,
+                    "IsSensor": false,
+                    "BodyDef": 0
                 }
             ]
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -8777,15 +9481,26 @@
                     }
                 },
                 {
-                    "name": "class dae::ColliderComponent"
+                    "name": "class dae::ColliderComponent",
+                    "Box": {
+                        "x": 8.0,
+                        "y": 12.0,
+                        "w": 16.0,
+                        "h": 8.0
+                    }
                 },
                 {
-                    "name": "class dae::RigidbodyComponent"
+                    "name": "class dae::RigidbodyComponent",
+                    "Density": 1.0,
+                    "Friction": 1.0,
+                    "IsSensor": false,
+                    "BodyDef": 0
                 }
             ]
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -8815,6 +9530,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -8844,6 +9560,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -8870,15 +9587,26 @@
                     }
                 },
                 {
-                    "name": "class dae::ColliderComponent"
+                    "name": "class dae::ColliderComponent",
+                    "Box": {
+                        "x": 8.0,
+                        "y": 12.0,
+                        "w": 16.0,
+                        "h": 8.0
+                    }
                 },
                 {
-                    "name": "class dae::RigidbodyComponent"
+                    "name": "class dae::RigidbodyComponent",
+                    "Density": 1.0,
+                    "Friction": 1.0,
+                    "IsSensor": false,
+                    "BodyDef": 0
                 }
             ]
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -8905,15 +9633,26 @@
                     }
                 },
                 {
-                    "name": "class dae::ColliderComponent"
+                    "name": "class dae::ColliderComponent",
+                    "Box": {
+                        "x": 8.0,
+                        "y": 12.0,
+                        "w": 16.0,
+                        "h": 8.0
+                    }
                 },
                 {
-                    "name": "class dae::RigidbodyComponent"
+                    "name": "class dae::RigidbodyComponent",
+                    "Density": 1.0,
+                    "Friction": 1.0,
+                    "IsSensor": false,
+                    "BodyDef": 0
                 }
             ]
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -8940,15 +9679,26 @@
                     }
                 },
                 {
-                    "name": "class dae::ColliderComponent"
+                    "name": "class dae::ColliderComponent",
+                    "Box": {
+                        "x": 8.0,
+                        "y": 12.0,
+                        "w": 16.0,
+                        "h": 8.0
+                    }
                 },
                 {
-                    "name": "class dae::RigidbodyComponent"
+                    "name": "class dae::RigidbodyComponent",
+                    "Density": 1.0,
+                    "Friction": 1.0,
+                    "IsSensor": false,
+                    "BodyDef": 0
                 }
             ]
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -8975,15 +9725,26 @@
                     }
                 },
                 {
-                    "name": "class dae::ColliderComponent"
+                    "name": "class dae::ColliderComponent",
+                    "Box": {
+                        "x": 8.0,
+                        "y": 12.0,
+                        "w": 16.0,
+                        "h": 8.0
+                    }
                 },
                 {
-                    "name": "class dae::RigidbodyComponent"
+                    "name": "class dae::RigidbodyComponent",
+                    "Density": 1.0,
+                    "Friction": 1.0,
+                    "IsSensor": false,
+                    "BodyDef": 0
                 }
             ]
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -9013,6 +9774,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -9042,6 +9804,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -9068,15 +9831,26 @@
                     }
                 },
                 {
-                    "name": "class dae::ColliderComponent"
+                    "name": "class dae::ColliderComponent",
+                    "Box": {
+                        "x": 8.0,
+                        "y": 12.0,
+                        "w": 16.0,
+                        "h": 8.0
+                    }
                 },
                 {
-                    "name": "class dae::RigidbodyComponent"
+                    "name": "class dae::RigidbodyComponent",
+                    "Density": 1.0,
+                    "Friction": 1.0,
+                    "IsSensor": false,
+                    "BodyDef": 0
                 }
             ]
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -9106,6 +9880,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -9135,6 +9910,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -9161,15 +9937,26 @@
                     }
                 },
                 {
-                    "name": "class dae::ColliderComponent"
+                    "name": "class dae::ColliderComponent",
+                    "Box": {
+                        "x": 8.0,
+                        "y": 12.0,
+                        "w": 16.0,
+                        "h": 8.0
+                    }
                 },
                 {
-                    "name": "class dae::RigidbodyComponent"
+                    "name": "class dae::RigidbodyComponent",
+                    "Density": 1.0,
+                    "Friction": 1.0,
+                    "IsSensor": false,
+                    "BodyDef": 0
                 }
             ]
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -9199,6 +9986,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -9228,6 +10016,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -9247,6 +10036,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -9266,6 +10056,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -9285,6 +10076,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -9304,6 +10096,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -9323,6 +10116,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -9342,6 +10136,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -9361,6 +10156,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -9380,6 +10176,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -9399,6 +10196,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -9418,6 +10216,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -9437,6 +10236,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -9456,6 +10256,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -9475,6 +10276,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -9494,6 +10296,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -9513,6 +10316,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -9532,6 +10336,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -9551,6 +10356,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -9570,6 +10376,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -9589,6 +10396,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -9608,6 +10416,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -9627,6 +10436,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -9646,6 +10456,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -9665,6 +10476,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -9684,6 +10496,7 @@
         },
         {
             "Name": "Logo",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -9725,7 +10538,8 @@
             ]
         },
         {
-            "Name": "Gameobject",
+            "Name": "PeterPete_Player",
+            "Tag": "Player",
             "Children": [],
             "Components": [
                 {
@@ -9752,16 +10566,29 @@
                     }
                 },
                 {
-                    "name": "class dae::AnimatorComponent"
+                    "name": "class dae::AnimatorComponent",
+                    "Path": "../Data/Animations/PlayerAnimations.json",
+                    "CurrentAnimation": "Idle",
+                    "Playing": true
                 },
                 {
                     "name": "class LifeComponent"
                 },
                 {
-                    "name": "class dae::ColliderComponent"
+                    "name": "class dae::ColliderComponent",
+                    "Box": {
+                        "x": 16.0,
+                        "y": 16.0,
+                        "w": 30.0,
+                        "h": 30.0
+                    }
                 },
                 {
-                    "name": "class dae::RigidbodyComponent"
+                    "name": "class dae::RigidbodyComponent",
+                    "Density": 1.0,
+                    "Friction": 0.30000001192092896,
+                    "IsSensor": false,
+                    "BodyDef": 2
                 },
                 {
                     "name": "class PlayerComponent"
@@ -9769,7 +10596,8 @@
             ]
         },
         {
-            "Name": "Gameobject",
+            "Name": "MrHotDog",
+            "Tag": "Enemy",
             "Children": [],
             "Components": [
                 {
@@ -9796,21 +10624,35 @@
                     }
                 },
                 {
-                    "name": "class dae::AnimatorComponent"
+                    "name": "class dae::AnimatorComponent",
+                    "Path": "../Data/Animations/HotdogAnimations.json",
+                    "CurrentAnimation": "WalkLeft",
+                    "Playing": true
                 },
                 {
-                    "name": "class dae::ColliderComponent"
+                    "name": "class dae::ColliderComponent",
+                    "Box": {
+                        "x": 16.0,
+                        "y": 17.0,
+                        "w": 30.0,
+                        "h": 30.0
+                    }
                 },
                 {
-                    "name": "class dae::RigidbodyComponent"
+                    "name": "class dae::RigidbodyComponent",
+                    "Density": 1.0,
+                    "Friction": 1.0,
+                    "IsSensor": false,
+                    "BodyDef": 2
                 },
                 {
-                    "name": "class EnemyComponent * __ptr64"
+                    "name": "class EnemyComponent"
                 }
             ]
         },
         {
-            "Name": "Gameobject",
+            "Name": "MrEgg",
+            "Tag": "Enemy",
             "Children": [],
             "Components": [
                 {
@@ -9837,21 +10679,35 @@
                     }
                 },
                 {
-                    "name": "class dae::AnimatorComponent"
+                    "name": "class dae::AnimatorComponent",
+                    "Path": "../Data/Animations/EggAnimations.json",
+                    "CurrentAnimation": "WalkLeft",
+                    "Playing": true
                 },
                 {
-                    "name": "class dae::ColliderComponent"
+                    "name": "class dae::ColliderComponent",
+                    "Box": {
+                        "x": 16.0,
+                        "y": 17.0,
+                        "w": 30.0,
+                        "h": 30.0
+                    }
                 },
                 {
-                    "name": "class dae::RigidbodyComponent"
+                    "name": "class dae::RigidbodyComponent",
+                    "Density": 1.0,
+                    "Friction": 1.0,
+                    "IsSensor": false,
+                    "BodyDef": 2
                 },
                 {
-                    "name": "class EnemyComponent * __ptr64"
+                    "name": "class EnemyComponent"
                 }
             ]
         },
         {
-            "Name": "Gameobject",
+            "Name": "BurgerTop",
+            "Tag": "Food",
             "Children": [],
             "Components": [
                 {
@@ -9878,10 +10734,20 @@
                     }
                 },
                 {
-                    "name": "class dae::ColliderComponent"
+                    "name": "class dae::ColliderComponent",
+                    "Box": {
+                        "x": 32.0,
+                        "y": 4.0,
+                        "w": 64.0,
+                        "h": 8.0
+                    }
                 },
                 {
-                    "name": "class dae::RigidbodyComponent"
+                    "name": "class dae::RigidbodyComponent",
+                    "Density": 1.0,
+                    "Friction": 1.0,
+                    "IsSensor": true,
+                    "BodyDef": 2
                 },
                 {
                     "name": "class FoodComponent"
@@ -9890,6 +10756,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "Food",
             "Children": [],
             "Components": [
                 {
@@ -9916,10 +10783,20 @@
                     }
                 },
                 {
-                    "name": "class dae::ColliderComponent"
+                    "name": "class dae::ColliderComponent",
+                    "Box": {
+                        "x": 32.0,
+                        "y": 4.0,
+                        "w": 64.0,
+                        "h": 8.0
+                    }
                 },
                 {
-                    "name": "class dae::RigidbodyComponent"
+                    "name": "class dae::RigidbodyComponent",
+                    "Density": 1.0,
+                    "Friction": 1.0,
+                    "IsSensor": true,
+                    "BodyDef": 2
                 },
                 {
                     "name": "class FoodComponent"
@@ -9928,6 +10805,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "Food",
             "Children": [],
             "Components": [
                 {
@@ -9954,10 +10832,20 @@
                     }
                 },
                 {
-                    "name": "class dae::ColliderComponent"
+                    "name": "class dae::ColliderComponent",
+                    "Box": {
+                        "x": 32.0,
+                        "y": 4.0,
+                        "w": 64.0,
+                        "h": 8.0
+                    }
                 },
                 {
-                    "name": "class dae::RigidbodyComponent"
+                    "name": "class dae::RigidbodyComponent",
+                    "Density": 1.0,
+                    "Friction": 1.0,
+                    "IsSensor": true,
+                    "BodyDef": 2
                 },
                 {
                     "name": "class FoodComponent"
@@ -9966,6 +10854,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "Plate",
             "Children": [],
             "Components": [
                 {
@@ -9992,10 +10881,20 @@
                     }
                 },
                 {
-                    "name": "class dae::ColliderComponent"
+                    "name": "class dae::ColliderComponent",
+                    "Box": {
+                        "x": 32.0,
+                        "y": 16.0,
+                        "w": 64.0,
+                        "h": 16.0
+                    }
                 },
                 {
-                    "name": "class dae::RigidbodyComponent"
+                    "name": "class dae::RigidbodyComponent",
+                    "Density": 1.0,
+                    "Friction": 1.0,
+                    "IsSensor": false,
+                    "BodyDef": 2
                 },
                 {
                     "name": "class PlateComponent"
@@ -10004,6 +10903,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -10026,6 +10926,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -10061,6 +10962,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -10103,6 +11005,7 @@
         },
         {
             "Name": "Gameobject",
+            "Tag": "",
             "Children": [],
             "Components": [
                 {
@@ -10130,7 +11033,7 @@
                 },
                 {
                     "name": "class dae::TextComponent",
-                    "Text": "58 FPS",
+                    "Text": "60 FPS",
                     "Color": {
                         "r": 255,
                         "g": 255,

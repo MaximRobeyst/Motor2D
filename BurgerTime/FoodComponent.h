@@ -7,13 +7,14 @@
 class FoodComponent : public dae::Component
 {
 public:
+	FoodComponent();
 	FoodComponent(dae::GameObject* pGameobject);
 
 	void Start() override;
 	void Update() override;
 
 	void Serialize(rapidjson::PrettyWriter< rapidjson::StringBuffer>& writer) override;
-
+	void Deserialize(dae::GameObject* /*pGameobject*/, rapidjson::Value& /*value*/) override;
 
 #ifdef _DEBUG
 	void RenderGUI() override;

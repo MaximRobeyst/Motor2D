@@ -15,6 +15,7 @@ class PlayerComponent : public dae::Component
 	};
 
 public:
+	PlayerComponent() = default;
 	PlayerComponent(dae::GameObject* pGameobject);
 	~PlayerComponent() override = default;
 
@@ -22,7 +23,7 @@ public:
 	void Update() override;
 
 	void Serialize(rapidjson::PrettyWriter< rapidjson::StringBuffer>& writer) override;
-
+	void Deserialize(dae::GameObject* /*pGameobject*/, rapidjson::Value& /*value*/) override;
 
 	void PlayerDeath();
 	bool IsDead() const;
