@@ -134,7 +134,7 @@ void Level1State::OnEnter()
 	pFoodComponent->GetSubject()->AddObserver(pScoreDisplay);
 	scene.AddGameObject(pBurgerTop);
 
-	auto pCheese = new GameObject();
+	auto pCheese = new GameObject("Cheddar");
 	pCheese->AddComponent(new TransformComponent(pCheese, glm::vec3(224.f, 112.f, 0.f), glm::vec2{ 2.f }));
 	pCheese->AddComponent(new SpriteRendererComponent(pCheese, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 64.f, 32.f, 8.f }));
 	pCheese->AddComponent(new ColliderComponent(pCheese, 32.f, 4.f));
@@ -145,7 +145,7 @@ void Level1State::OnEnter()
 	pFoodComponent->GetSubject()->AddObserver(pScoreDisplay);
 	scene.AddGameObject(pCheese);
 
-	auto pBurgerBottom = new GameObject();
+	auto pBurgerBottom = new GameObject("Burger Bottom");
 	pBurgerBottom->AddComponent(new TransformComponent(pBurgerBottom, glm::vec3{ 224.f, 320.f, 0.f }, glm::vec2{ 2.f }));
 	pBurgerBottom->AddComponent(new SpriteRendererComponent(pBurgerBottom, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 56.f, 32.f, 8.f }));
 	pBurgerBottom->AddComponent(new ColliderComponent(pBurgerBottom, 32.f, 4.f));
@@ -168,7 +168,7 @@ void Level1State::OnEnter()
 	//pFoodComponent->GetSubject()->AddObserver(pScoreDisplay);
 	//scene.AddGameObject(pBurgerBottom);
 
-	auto pPlate = new GameObject();
+	auto pPlate = new GameObject("Plate");
 	pPlate->AddComponent(new TransformComponent(pPlate, glm::vec3{ 224.f, 448.f, 0.f }, glm::vec2{ 2.f }));
 	pPlate->AddComponent(new SpriteRendererComponent(pPlate, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 96.f, 32.f, 8.f }));
 	pPlate->AddComponent(new ColliderComponent(pPlate, 32.f, 8.f, glm::vec2{ 16.f, 8.f }));
@@ -178,7 +178,7 @@ void Level1State::OnEnter()
 	scene.AddGameObject(pPlate);
 
 
-	go = new GameObject();
+	go = new GameObject("Live display");
 	go->AddComponent(new TransformComponent(go, glm::vec3{ 10.f, 750.f, 0.f }));
 	//go->AddComponent(new SpriteRendererComponent(go, "logo.png"));
 	//go->AddComponent(new TextComponent(go, "Lives: ", font, SDL_Color{ 255, 255, 0 }));
@@ -187,7 +187,7 @@ void Level1State::OnEnter()
 	go->AddComponent(pLifeDisplay);
 	scene.AddGameObject(go);
 
-	auto pPeperGameObject2 = new GameObject();
+	auto pPeperGameObject2 = new GameObject("Second player");
 	pPeperGameObject2->AddComponent(new TransformComponent(pPeperGameObject2, glm::vec3{ 900.f, 100.f, 0 }, glm::vec3{ 5, 5, 5 }));
 	pPeperGameObject2->AddComponent(new SpriteRendererComponent(pPeperGameObject2, "MainCharacter.png"));
 	pPeperGameObject2->AddComponent(new MovementComponent(pPeperGameObject2, 100.f));
@@ -204,7 +204,7 @@ void Level1State::OnEnter()
 	//go->AddComponent(pLifeDisplay);
 	//scene.AddGameObject(go);
 
-	go = new GameObject();
+	go = new GameObject("Score_Display");
 	go->AddComponent(new TransformComponent(go, glm::vec3(1100.f, 550.f, 0.f)));
 	go->AddComponent(new SpriteRendererComponent(go, "logo.png"));
 	go->AddComponent(new TextComponent(go, "Score:", font, SDL_Color{ 0, 255, 0 }));
@@ -322,6 +322,13 @@ void Level1State::MakeLevel(Scene& pScene)
 		".BBBBBBBBBBBBBBBBBBBBBBBB."
 	};
 
+	int ladder{};
+	int platform{};
+
+	GameObject* pLevelGameobject = new GameObject("Level");
+	pLevelGameobject->AddComponent(new TransformComponent(pLevelGameobject));
+	pScene.AddGameObject(pLevelGameobject);
+
 	float scale{ 2.f };
 	for (int i = 0; i < size; ++i)
 	{
@@ -330,13 +337,14 @@ void Level1State::MakeLevel(Scene& pScene)
 			if (s[i][j] == '.')
 				continue;
 
-			GameObject* pGameobject = new GameObject;
+			GameObject* pGameobject = new GameObject();
 			pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ j * 8.f * scale, i * 8.f * scale, 0.0f }, glm::vec3{ scale }));
 
 			switch (s[i][j])
 			{
 			case 'L':
 			{
+				pGameobject->SetName("Ladder " + std::to_string(++ladder));
 				float y{};
 				if ((i + 1 < size && s[i + 1][j] == 'L' && i - 1 > 0 && s[i - 1][j] == 'L') &&
 					((j + 1 < size && s[i][j + 1] == 'P') || (j - 1 > 0 && s[i][j - 1] == 'P')))
@@ -356,18 +364,18 @@ void Level1State::MakeLevel(Scene& pScene)
 				break;
 			}
 			case 'P':
+				pGameobject->SetName("Platform " + std::to_string(++platform));
 				pGameobject->AddComponent(new SpriteRendererComponent(pGameobject, "Level_SpriteSheet.png", SDL_FRect{ 16, 8, 8, 8 }));
 				pGameobject->AddComponent(new ColliderComponent(pGameobject, 8.f, 4.f, glm::vec2{ 4.0f, 6.0f }));
 				pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
 				break;
-			case'.':
-
+			default:
+				delete pGameobject;
+				continue;
 				break;
 			}
-
-
-
 			pScene.AddGameObject(pGameobject);
+			pGameobject->SetParent(pLevelGameobject);
 
 
 			//pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 13 * 16.f * scale, 0.f * 8.f * scale, 0.0f }, glm::vec3{ scale }));

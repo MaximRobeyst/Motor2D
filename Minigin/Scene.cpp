@@ -114,7 +114,10 @@ void dae::Scene::RenderGUI()
 			if (ImGui::MenuItem("Save"))
 				Serialize();
 			if (ImGui::MenuItem("Load"))
-				Deserialize();
+			{
+				std::string path = "../Data/Scenes/" + m_Name + ".json";
+				Deserialize(path);
+			}
 			ImGui::EndMenu();
 		}
 		ImGui::EndMenuBar();
@@ -157,7 +160,7 @@ void dae::Scene::RenderGUI()
 }
 void dae::Scene::Serialize()
 {
-	std::ofstream levelFile{ "../Data/Scenes/Scene.json" };
+	std::ofstream levelFile{ "../Data/Scenes/" + m_Name + ".json" };
 	if (!levelFile.is_open())
 	{
 		std::cerr << "Could not open file" << std::endl;
@@ -194,9 +197,9 @@ void dae::Scene::Serialize()
 	levelFile << outputFile.GetString();
 	levelFile.close();
 }
-dae::Scene* dae::Scene::Deserialize()
+dae::Scene* dae::Scene::Deserialize(std::string& sceneFile)
 {
-	std::ifstream levelFile{ "../Data/Scenes/Scene.json" };
+	std::ifstream levelFile{ sceneFile };
 	if (!levelFile.is_open())
 	{
 		std::cerr << "Could not open file" << std::endl;

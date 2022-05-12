@@ -21,7 +21,7 @@ using namespace dae;
 
 void MainMenuState::OnEnter()
 {
-	auto& scene = SceneManager::GetInstance().CreateScene("Main Menu");
+	auto& scene = SceneManager::GetInstance().CreateScene("Main_Menu");
 	auto& input = InputManager::GetInstance();
 
 

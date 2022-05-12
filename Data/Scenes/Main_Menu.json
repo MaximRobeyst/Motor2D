@@ -1,0 +1,121 @@
+{
+    "sceneName": "Main_Menu",
+    "gameobjectCount": 3,
+    "Gravity": {
+        "X": 0.0,
+        "Y": 0.0
+    },
+    "gameobjects": [
+        {
+            "Name": "Logo",
+            "Tag": "",
+            "Children": [
+                {
+                    "Name": "Gameobject",
+                    "Tag": "",
+                    "Children": [],
+                    "Components": [
+                        {
+                            "name": "class dae::TransformComponent",
+                            "Position": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0
+                            },
+                            "Rotation": 0.0,
+                            "Scale": {
+                                "x": 1.0,
+                                "y": 1.0
+                            }
+                        },
+                        {
+                            "name": "class dae::SpriteRendererComponent",
+                            "Path": "logo.png",
+                            "SampleRect": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "w": 0.0,
+                                "h": 0.0
+                            }
+                        },
+                        {
+                            "name": "class dae::TextComponent",
+                            "Text": "not Hovering",
+                            "Color": {
+                                "r": 255,
+                                "g": 255,
+                                "b": 255,
+                                "a": 255
+                            }
+                        }
+                    ]
+                }
+            ],
+            "Components": [
+                {
+                    "name": "class dae::TransformComponent",
+                    "Position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "Rotation": 0.0,
+                    "Scale": {
+                        "x": 1.0,
+                        "y": 1.0
+                    }
+                },
+                {
+                    "name": "class dae::SpriteRendererComponent",
+                    "Path": "logo.png",
+                    "SampleRect": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "w": 0.0,
+                        "h": 0.0
+                    }
+                }
+            ]
+        },
+        {
+            "Name": "Gameobject",
+            "Tag": "",
+            "Children": [],
+            "Components": [
+                {
+                    "name": "class dae::TransformComponent",
+                    "Position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "Rotation": 0.0,
+                    "Scale": {
+                        "x": 1.0,
+                        "y": 1.0
+                    }
+                },
+                {
+                    "name": "class dae::SpriteRendererComponent",
+                    "Path": "logo.png",
+                    "SampleRect": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "w": 0.0,
+                        "h": 0.0
+                    }
+                },
+                {
+                    "name": "class dae::TextComponent",
+                    "Text": "2 Players",
+                    "Color": {
+                        "r": 255,
+                        "g": 255,
+                        "b": 255,
+                        "a": 0
+                    }
+                }
+            ]
+        }
+    ]
+}

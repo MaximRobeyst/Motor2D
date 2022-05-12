@@ -19,10 +19,11 @@ dae::GameObject::GameObject(GameObject* pParent, std::vector<GameObject*> pChild
 
 dae::GameObject::~GameObject()
 {
-	for (auto& child : m_pChildren)
-		child->SetParent(nullptr);
 	if (m_pParent != nullptr)
 		SetParent(nullptr);
+
+	m_pChildren.clear();
+	
 
 	for (auto iter = m_pComponents.begin(); iter != m_pComponents.end(); ++iter)
 		delete *iter;
@@ -135,6 +136,10 @@ void dae::GameObject::AddComponent(Component* component)
 
 void dae::GameObject::SetParent(GameObject* pParent, bool /*worldPositionStays*/)
 {
+
+	if (m_Name == "Ladder 135")
+		std::cout << "The sussy baka" << std::endl;
+
 	// Remove itself as a child from the previous parent
 	if (m_pParent != nullptr)
 		m_pParent->RemoveChild(this);
@@ -165,9 +170,12 @@ void dae::GameObject::AddChild(GameObject* pChild)
 
 void dae::GameObject::RemoveChild(GameObject* pGameObject)
 {
-	auto gameObject = std::find(m_pChildren.begin(), m_pChildren.end(), pGameObject);
-	std::swap(*gameObject, m_pChildren[m_pChildren.size() - 1]);
-	m_pChildren.pop_back();
+	if (m_pChildren.size() <= 0) return;
+
+	auto it = std::remove_if(m_pChildren.begin(), m_pChildren.end(), [&](GameObject* pChild) {
+		return pChild == pGameObject;
+		});
+	//m_pChildren.erase()
 
 	//pGameObject->SetParent(nullptr);
 
@@ -199,4 +207,9 @@ std::string dae::GameObject::GetTag() const
 std::string dae::GameObject::GetName() const
 {
 	return m_Name;
+}
+
+void dae::GameObject::SetName(const std::string& newName)
+{
+	m_Name = newName;
 }

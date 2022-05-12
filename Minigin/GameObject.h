@@ -74,6 +74,7 @@ namespace dae
 		std::string GetTag() const;
 
 		std::string GetName() const;
+		void SetName(const std::string& newName);
 
 
 	private:

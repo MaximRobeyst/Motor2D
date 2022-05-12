@@ -26,7 +26,7 @@ namespace dae
 #endif // _DEBUG
 
 		void Serialize();
-		static Scene* Deserialize();
+		static Scene* Deserialize(std::string& sceneFile);
 
 
 		~Scene();

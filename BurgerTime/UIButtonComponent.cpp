@@ -69,6 +69,6 @@ void UIButtonComponent::SetOnClickFunction(std::function<void()> function)
 
 bool UIButtonComponent::OverLapping(const glm::vec2& mousePosition) const
 {
-	return mousePosition.x > m_BoundsMin.x && mousePosition.y < m_BoundsMax.x 
+	return mousePosition.x > m_BoundsMin.x && mousePosition.x < m_BoundsMax.x 
 		&& mousePosition.y > m_BoundsMin.y && mousePosition.y < m_BoundsMax.y;
 }
