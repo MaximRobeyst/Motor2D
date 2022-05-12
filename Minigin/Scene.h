@@ -46,6 +46,7 @@ namespace dae
 		CollisionHandler* m_pCollisionHandler{ nullptr };
 
 		static unsigned int m_IdCounter; 
+		bool m_Started{ false };
 	};
 
 }

@@ -37,6 +37,10 @@ Scene::~Scene()
 void Scene::AddGameObject(dae::GameObject* object)
 {
 	m_pObjects.push_back(object);
+	object->SetScene(this);
+
+	if(m_Started)
+		object->Start();
 }
 
 void dae::Scene::RemoveGameObject(dae::GameObject* object)
@@ -68,6 +72,7 @@ std::shared_ptr<b2World> dae::Scene::GetPhysicsWorld() const
 
 void dae::Scene::Start()
 {
+	m_Started = true;
 	for (auto& object : m_pObjects)
 	{
 		object->Start();

@@ -13,18 +13,20 @@
 LifeDisplayComponent::LifeDisplayComponent(dae::GameObject* pGameObject, int number, const std::string& extraDisplayText)
 	: dae::Component{pGameObject}
 	, m_ExtraDisplayText{extraDisplayText}
+	, m_NumberOfLives{number}
 {
-	//m_pTextComponent = pGameObject->GetComponent<dae::TextComponent>();
-	//m_pTextComponent->SetText(extraDisplayText + std::to_string(number));
+}
 
-	auto scene = dae::SceneManager::GetInstance().GetScene(0);
+void LifeDisplayComponent::Start()
+{
+	auto scene = m_pGameObject->GetScene();
 
-	m_pLifeSprites.reserve(number);
-	for (int i = 0; i < number; ++i)
+	m_pLifeSprites.reserve(m_NumberOfLives);
+	for (int i = 0; i < m_NumberOfLives; ++i)
 	{
-		auto go = new dae::GameObject();
+		auto go = new dae::GameObject("Live");
 		go->SetParent(m_pGameObject);
-		go->AddComponent(new dae::TransformComponent(go, glm::vec3{ 0.0f, -(i * 20.f), 0.0f}, glm::vec3{ 2.f }));
+		go->AddComponent(new dae::TransformComponent(go, glm::vec3{ 0.0f, -(i * 20.f), 0.0f }, glm::vec3{ 2.f }));
 		go->AddComponent(new dae::SpriteRendererComponent(go, "BurgerTime_SpriteSheet.png", SDL_FRect{ 200.f, 0.f, 8.f, 8.f }));
 
 		scene->AddGameObject(go);

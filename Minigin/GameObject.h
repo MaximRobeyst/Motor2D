@@ -70,6 +70,9 @@ namespace dae
 		GameObject* GetChildFromIndex(int i) const;
 		size_t GetAmountOfChildren() const;
 
+		void SetScene(Scene* pScene);
+		Scene* GetScene() const;
+
 		void SetTag(std::string tag);
 		std::string GetTag() const;
 
@@ -84,6 +87,8 @@ namespace dae
 		// Extra data
 		std::string m_Name{};
 		std::string m_Tag{};
+
+		Scene* m_pCurrentScene{};
 
 		// Components
 		std::vector<Component*> m_pComponents{};

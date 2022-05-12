@@ -10,6 +10,7 @@ class LifeDisplayComponent : public dae::Component, public Observer
 public:
 	LifeDisplayComponent(dae::GameObject* pGameObject, int number, const std::string& extraDisplayText = "");
 
+	void Start() override;
 	void Render() const override;
 
 	void Serialize(rapidjson::PrettyWriter< rapidjson::StringBuffer>& writer) override;
@@ -21,6 +22,7 @@ public:
 private:
 	dae::TextComponent* m_pTextComponent;
 	std::string m_ExtraDisplayText;
+	int m_NumberOfLives{};
 
 	std::vector<dae::GameObject*> m_pLifeSprites;
 };

@@ -275,7 +275,7 @@ void Level1State::OnEnter()
 
 	//font = ResourceManager::GetInstance().LoadFont("Lingua.otf", 16);
 	//
-	go = new GameObject();
+	go = new GameObject("FPS_Counter");
 	go->AddComponent(new TransformComponent(go, glm::vec3{ 800, 750, 0 }));
 	go->AddComponent(new SpriteRendererComponent(go, "logo.png"));
 	go->AddComponent(new TextComponent(go, "Programming 4 Assignment", font, { 255,255,0 }));

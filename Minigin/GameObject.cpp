@@ -194,6 +194,16 @@ size_t dae::GameObject::GetAmountOfChildren() const
 	return m_pChildren.size();
 }
 
+void dae::GameObject::SetScene(Scene* pScene)
+{
+	m_pCurrentScene = pScene;
+}
+
+dae::Scene* dae::GameObject::GetScene() const
+{
+	return m_pCurrentScene;
+}
+
 void dae::GameObject::SetTag(std::string tag)
 {
 	m_Tag = tag;
