@@ -29,9 +29,11 @@ namespace dae
 	private:
 		void FinalRemoveScene(int index);
 
+
 		friend class Singleton<SceneManager>;
 		SceneManager() = default;
 		std::vector<Scene*> m_Scenes;
 		std::vector<int> m_ScenesToRemove;
+		char m_TargetSceneName[128];
 	};
 }

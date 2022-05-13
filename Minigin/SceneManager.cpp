@@ -42,6 +42,17 @@ void dae::SceneManager::RenderGUI(SDL_Window* window)
 	ImGui_ImplSDL2_NewFrame(window);
 	ImGui::NewFrame();
 
+	ImGui::Begin("SceneManager");
+	if (ImGui::InputTextWithHint("Scene name", "Put Scene Name here", m_TargetSceneName, 128))
+
+	if(ImGui::Button("Load"))
+	{
+		std::string newScene = m_TargetSceneName;
+		m_Scenes.push_back(Scene::Deserialize(newScene));
+	}
+
+	ImGui::End();
+
 	for (const auto& scene : m_Scenes)
 	{
 		scene->RenderGUI();
