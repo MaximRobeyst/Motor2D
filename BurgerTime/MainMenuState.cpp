@@ -31,7 +31,7 @@ void MainMenuState::OnEnter()
 	scene.AddGameObject(pLogo);
 
 
-	auto pGameobject = new GameObject();
+	auto pGameobject = new GameObject("Singleplayer button");
 	pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3(480.f, 200.f, 0.f)));
 	pGameobject->AddComponent(new SpriteRendererComponent(pGameobject, "logo.png"));
 	auto font = ResourceManager::GetInstance().LoadFont("Early GameBoy.ttf", 17);
@@ -44,7 +44,7 @@ void MainMenuState::OnEnter()
 
 	pUIButtonComp->SetOnClickFunction(newOnClickFunction);
 
-	pGameobject = new GameObject();
+	pGameobject = new GameObject("Multiplayer button");
 	pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3(480.f, 250.f, 0.f)));
 	pGameobject->AddComponent(new SpriteRendererComponent(pGameobject, "logo.png"));
 	pGameobject->AddComponent(new TextComponent(pGameobject, "2 Players", font, SDL_Color{ 255, 255, 255 }));

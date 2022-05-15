@@ -38,6 +38,13 @@ namespace dae
 	private: 
 		explicit Scene(const std::string& name, const b2Vec2& gravity = b2Vec2{ 0.f, 0.f });
 
+#ifdef _DEBUG
+		void RenderGameObjectGUI(GameObject* pGameobject);
+		
+		GameObject* m_pSelectedObject;
+
+#endif // _DEBUG
+
 		std::string m_Name;
 		std::vector < dae::GameObject*> m_pObjects{};
 		std::vector < dae::GameObject*> m_pObjectsToDelete{};

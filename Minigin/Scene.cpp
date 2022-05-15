@@ -25,6 +25,28 @@ Scene::Scene(const std::string& name, const b2Vec2& gravity)
 	m_PhysicsWorld->SetContactListener(m_pCollisionHandler);
 }
 
+#ifdef _DEBUG
+void dae::Scene::RenderGameObjectGUI(GameObject* pGameobject)
+{
+	ImGuiTreeNodeFlags baseFlags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick | ImGuiTreeNodeFlags_SpanAvailWidth;
+
+	bool nodeOpen = ImGui::TreeNodeEx(pGameobject->GetName().c_str(), baseFlags);
+	if (ImGui::IsItemClicked() && ImGui::IsItemToggledOpen())
+		m_pSelectedObject = pGameobject;
+
+	if(nodeOpen)
+	{
+		baseFlags |= ImGuiTreeNodeFlags_Selected;
+		for (int i = 0; i < pGameobject->GetAmountOfChildren(); ++i)
+		{
+			RenderGameObjectGUI(pGameobject->GetChildFromIndex(i));
+		}
+		ImGui::TreePop();
+	}
+
+}
+#endif // _DEBUG
+
 Scene::~Scene()
 {
 	for (auto iter = m_pObjects.begin(); iter != m_pObjects.end(); ++iter)
@@ -144,22 +166,14 @@ void dae::Scene::RenderGUI()
 	{
 		for (auto& gameobject : m_pObjects)
 		{
-			ImGuiTreeNodeFlags base_flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick | ImGuiTreeNodeFlags_SpanAvailWidth;
-			if(gameobject->GetAmountOfChildren() == 0) base_flags |= ImGuiTreeNodeFlags_Leaf | ImGuiTreeNodeFlags_NoTreePushOnOpen; // ImGuiTreeNodeFlags_Bullet;
-
-			if (gameobject->GetParent() == nullptr && ImGui::TreeNode(gameobject->GetName().c_str()))
-			{
-				for (int i = 0; i < gameobject->GetAmountOfChildren(); ++i)
-				{
-					if (ImGui::TreeNode(gameobject->GetChildFromIndex(i)->GetName().c_str()))
-					{
-						ImGui::TreePop();
-					}
-				}
-				ImGui::TreePop();
-			}
+			if(gameobject->GetParent() == nullptr)
+				RenderGameObjectGUI(gameobject);
 		}
 	}
+
+	if (m_pSelectedObject != nullptr)
+		m_pSelectedObject->RenderGUI();
+
 	ImGui::End();
 
 }

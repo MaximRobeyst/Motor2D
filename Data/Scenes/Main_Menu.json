@@ -11,7 +11,7 @@
             "Tag": "",
             "Children": [
                 {
-                    "Name": "Gameobject",
+                    "Name": "Singleplayer button",
                     "Tag": "",
                     "Children": [],
                     "Components": [
@@ -81,7 +81,7 @@
             ]
         },
         {
-            "Name": "Gameobject",
+            "Name": "Multiplayer button",
             "Tag": "",
             "Children": [],
             "Components": [

@@ -62,10 +62,13 @@ void dae::GameObject::Render() const
 #ifdef _DEBUG
 void dae::GameObject::RenderGUI()
 {
+	ImGui::BeginChild(m_Name.c_str(), ImVec2{ ImGui::GetContentRegionAvail().x, 250.f }, true);
 	for (auto iter = m_pComponents.begin(); iter != m_pComponents.end(); ++iter)
 	{
-		(*iter)->RenderGUI();
+		if (ImGui::CollapsingHeader(typeid(**iter).name()))
+			(*iter)->RenderGUI();
 	}
+	ImGui::EndChild();
 }
 void dae::GameObject::Sertialize(rapidjson::PrettyWriter< rapidjson::StringBuffer>& writer)
 {
