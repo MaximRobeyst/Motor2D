@@ -329,6 +329,11 @@ void Level1State::MakeLevel(Scene& pScene)
 	pLevelGameobject->AddComponent(new TransformComponent(pLevelGameobject));
 	pScene.AddGameObject(pLevelGameobject);
 
+	GameObject* pColliderObject = new GameObject("Colliders");
+	pColliderObject->AddComponent(new TransformComponent(pColliderObject));
+	pColliderObject->SetParent(pLevelGameobject);
+	pScene.AddGameObject(pColliderObject);
+
 	float scale{ 2.f };
 	for (int i = 0; i < size; ++i)
 	{
@@ -376,11 +381,26 @@ void Level1State::MakeLevel(Scene& pScene)
 			pScene.AddGameObject(pGameobject);
 			pGameobject->SetParent(pLevelGameobject);
 
-
 			//pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 13 * 16.f * scale, 0.f * 8.f * scale, 0.0f }, glm::vec3{ scale }));
 			//pGameobject->AddComponent(new SpriteRendererComponent(pGameobject, "Platform.png"));
 			//pGameobject->AddComponent(new ColliderComponent(pGameobject));
 			//pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
 		}
 	}
+
+	GameObject* pGameobject = new GameObject("Collider 0");
+	pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 0.f, 328.f, 0.f }));
+	pGameobject->AddComponent(new ColliderComponent(pGameobject, 416, 40, glm::vec2{ 208.f, 20.f }));
+	pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
+	pGameobject->SetParent(pColliderObject);
+
+	pScene.AddGameObject(pGameobject);
+
+	pGameobject = new GameObject("Collider 1");
+	pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 0.f, 264.f, 0.f }));
+	pGameobject->AddComponent(new ColliderComponent(pGameobject, 256.f, 32, glm::vec2{ 164.f, 16.f }));
+	pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
+	pGameobject->SetParent(pColliderObject);
+	
+	pScene.AddGameObject(pGameobject);
 }
