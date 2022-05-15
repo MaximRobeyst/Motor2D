@@ -95,9 +95,9 @@ std::shared_ptr<b2World> dae::Scene::GetPhysicsWorld() const
 void dae::Scene::Start()
 {
 	m_Started = true;
-	for (auto& object : m_pObjects)
+	for(int i =0 ; i < m_pObjects.size(); ++i)
 	{
-		object->Start();
+		m_pObjects[i]->Start();
 	}
 }
 

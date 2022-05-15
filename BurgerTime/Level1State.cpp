@@ -366,7 +366,7 @@ void Level1State::MakeLevel(Scene& pScene)
 			case 'P':
 				pGameobject->SetName("Platform " + std::to_string(++platform));
 				pGameobject->AddComponent(new SpriteRendererComponent(pGameobject, "Level_SpriteSheet.png", SDL_FRect{ 16, 8, 8, 8 }));
-				pGameobject->AddComponent(new ColliderComponent(pGameobject, 8.f, 4.f, glm::vec2{ 4.0f, 6.0f }));
+				//pGameobject->AddComponent(new ColliderComponent(pGameobject, 8.f, 4.f, glm::vec2{ 4.0f, 6.0f }));
 				break;
 			default:
 				delete pGameobject;

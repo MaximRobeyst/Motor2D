@@ -9,13 +9,15 @@
 
 #include "glm/glm.hpp"
 
-#include "SwitchStateCommand.h"
+#include "MenuCommands.h"
 #include <Renderer.h>
 #include <ResourceManager.h>
 #include "UIButtonComponent.h"
 
 #include <GameStateManager.h>
 #include "Level1State.h"
+#include "MenuComponent.h"
+#include "MenuCommands.h"
 
 using namespace dae;
 
@@ -28,8 +30,9 @@ void MainMenuState::OnEnter()
 	GameObject* pLogo = new GameObject("Logo");
 	pLogo->AddComponent(new TransformComponent(pLogo, glm::vec3{ 480.f, 100.f, 0.f}));
 	pLogo->AddComponent(new SpriteRendererComponent(pLogo, "logo.png"));
+	auto pMenuComp = new MenuComponent(pLogo);
+	pLogo->AddComponent(pMenuComp);
 	scene.AddGameObject(pLogo);
-
 
 	auto pGameobject = new GameObject("Singleplayer button");
 	pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3(480.f, 200.f, 0.f)));
@@ -48,6 +51,9 @@ void MainMenuState::OnEnter()
 	pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3(480.f, 250.f, 0.f)));
 	pGameobject->AddComponent(new SpriteRendererComponent(pGameobject, "logo.png"));
 	pGameobject->AddComponent(new TextComponent(pGameobject, "2 Players", font, SDL_Color{ 255, 255, 255 }));
+	pUIButtonComp = new UIButtonComponent(pGameobject);
+	pGameobject->AddComponent(pUIButtonComp);
+	pGameobject->SetParent(pLogo);
 	scene.AddGameObject(pGameobject);
 
 
@@ -56,6 +62,12 @@ void MainMenuState::OnEnter()
 		KeyboardKeyData{ SDLK_SPACE, KeyState::JustUp },
 		std::make_unique<SwitchStateCommand>()
 	);
+
+	keyboard->AddKeyboardMapping(
+		KeyboardKeyData{ SDLK_e, KeyState::JustUp },
+		std::make_unique<PressButtonCommand>(pMenuComp)
+	);
+
 }
 
 void MainMenuState::OnExit()

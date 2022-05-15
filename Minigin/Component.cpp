@@ -11,3 +11,8 @@ void dae::Component::SetGameObject(GameObject* pGameObject)
 
 	m_pGameObject = pGameObject;
 }
+
+dae::GameObject* dae::Component::GetGameObject() const
+{
+	return m_pGameObject;
+}

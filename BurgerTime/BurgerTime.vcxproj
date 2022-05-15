@@ -162,13 +162,14 @@
     <ClCompile Include="LifeComponent.cpp" />
     <ClCompile Include="LifeDisplayComponent.cpp" />
     <ClCompile Include="MainMenuState.cpp" />
+    <ClCompile Include="MenuComponent.cpp" />
     <ClCompile Include="MovementComponent.cpp" />
     <ClCompile Include="MrHotDogComponent.cpp" />
     <ClCompile Include="PlateComponent.cpp" />
     <ClCompile Include="PlayAudioCommand.cpp" />
     <ClCompile Include="PlayerComponent.cpp" />
     <ClCompile Include="ScoreDisplayComponent.cpp" />
-    <ClCompile Include="SwitchStateCommand.cpp" />
+    <ClCompile Include="MenuCommands.cpp" />
     <ClCompile Include="UIButtonComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -179,13 +180,14 @@
     <ClInclude Include="LifeComponent.h" />
     <ClInclude Include="LifeDisplayComponent.h" />
     <ClInclude Include="MainMenuState.h" />
+    <ClInclude Include="MenuComponent.h" />
     <ClInclude Include="MovementComponent.h" />
     <ClInclude Include="MrHotDogComponent.h" />
     <ClInclude Include="PlateComponent.h" />
     <ClInclude Include="PlayAudioCommand.h" />
     <ClInclude Include="PlayerComponent.h" />
     <ClInclude Include="ScoreDisplayComponent.h" />
-    <ClInclude Include="SwitchStateCommand.h" />
+    <ClInclude Include="MenuCommands.h" />
     <ClInclude Include="UIButtonComponent.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

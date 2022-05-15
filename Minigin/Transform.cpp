@@ -137,6 +137,15 @@ void dae::TransformComponent::Render() const
 {
 }
 
+void dae::TransformComponent::RenderGUI()
+{
+	float position[3] = { m_Transform.worldPosition.x, m_Transform.worldPosition.y, m_Transform.worldPosition.z };
+	if (ImGui::InputFloat3("Position", position))
+		m_Transform.worldPosition = glm::vec3{ position[0], position[1], position[2] };
+	//ImGui::InputFloat("Rotation", &m_Transform.rotation);
+	//ImGui::InputFloat2("Scale", glm::value_ptr(m_Transform.scale));
+}
+
 dae::TransformComponent::Transform& dae::TransformComponent::GetTransform()
 {
 	m_Dirty = true;

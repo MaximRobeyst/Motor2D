@@ -57,7 +57,7 @@
     <ClCompile Include="MainMenuState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="SwitchStateCommand.cpp">
+    <ClCompile Include="MenuCommands.cpp">
       <Filter>Commands</Filter>
     </ClCompile>
     <ClCompile Include="Level1State.cpp">
@@ -65,6 +65,9 @@
     </ClCompile>
     <ClCompile Include="UIButtonComponent.cpp">
       <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuComponent.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -104,13 +107,16 @@
     <ClInclude Include="MainMenuState.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="SwitchStateCommand.h">
+    <ClInclude Include="MenuCommands.h">
       <Filter>Commands</Filter>
     </ClInclude>
     <ClInclude Include="Level1State.h">
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="UIButtonComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
   </ItemGroup>

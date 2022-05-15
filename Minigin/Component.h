@@ -19,14 +19,14 @@ namespace dae
 		virtual void Start() {};
 		virtual void Update() {};
 		virtual void Render() const {};
-#ifdef _DEBUG
-		virtual void RenderGUI() {};
-#endif // _DEBUG
 
-		virtual void Serialize(rapidjson::PrettyWriter< rapidjson::StringBuffer>& writer) = 0 ;
+		virtual void RenderGUI() {};
+
+		virtual void Serialize(rapidjson::PrettyWriter< rapidjson::StringBuffer>& /*writer*/) {};
 		virtual void Deserialize(GameObject* /*pGameobject*/, rapidjson::Value& /*value*/) {};
 
 		void SetGameObject(GameObject* pGameObject);
+		GameObject* GetGameObject() const;
 
 	protected:
 		GameObject* m_pGameObject;

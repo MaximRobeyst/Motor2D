@@ -1,6 +1,9 @@
 #pragma once
 #include "Component.h"
+
+#pragma warning(push, 0)
 #include <glm/glm.hpp>
+#pragma warning(pop)
 
 #include "Factory.h"
 
@@ -20,9 +23,6 @@ namespace dae
 		TransformComponent() = default;
 		TransformComponent(GameObject* pGameobject, glm::vec3 position = glm::vec3{}, glm::vec2 scale = glm::vec2{ 1 });
 
-		void Serialize(rapidjson::PrettyWriter< rapidjson::StringBuffer>& writer) override;
-		void Deserialize(GameObject* /*pGameobject*/, rapidjson::Value& /*value*/) override;
-
 		// Position
 		const glm::vec3& GetPosition() const;
 		void SetPosition(float x, float y);
@@ -41,6 +41,11 @@ namespace dae
 		void Start() override;
 		void Update() override;
 		void Render() const override;
+
+		void RenderGUI() override;
+
+		void Serialize(rapidjson::PrettyWriter< rapidjson::StringBuffer>& writer) override;
+		void Deserialize(GameObject* /*pGameobject*/, rapidjson::Value& /*value*/) override;
 
 		Transform& GetTransform();
 		const Transform& GetTransformConst() const;
