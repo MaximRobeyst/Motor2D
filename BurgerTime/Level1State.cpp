@@ -397,10 +397,179 @@ void Level1State::MakeLevel(Scene& pScene)
 	pScene.AddGameObject(pGameobject);
 
 	pGameobject = new GameObject("Collider 1");
-	pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 0.f, 264.f, 0.f }));
-	pGameobject->AddComponent(new ColliderComponent(pGameobject, 256.f, 32, glm::vec2{ 164.f, 16.f }));
+	pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 128.f, 248.f, 0.f }));
+	pGameobject->AddComponent(new ColliderComponent(pGameobject, 64.f, 32.f, glm::vec2{ 32.f, 32.f }));
 	pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
 	pGameobject->SetParent(pColliderObject);
-	
+
+	pScene.AddGameObject(pGameobject);
+
+	pGameobject = new GameObject("Collider 2");
+	pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 32.f, 248.f, 0.f }));
+	pGameobject->AddComponent(new ColliderComponent(pGameobject, 64.f, 32.f, glm::vec2{ 32.f, 32.f }));
+	pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
+	pGameobject->SetParent(pColliderObject);
+
+	pScene.AddGameObject(pGameobject);
+
+	pGameobject = new GameObject("Collider 3");
+	pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 224.f, 248.f, 0.f }));
+	pGameobject->AddComponent(new ColliderComponent(pGameobject, 64.f, 32.f, glm::vec2{ 32.f, 32.f }));
+	pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
+	pGameobject->SetParent(pColliderObject);
+
+	pScene.AddGameObject(pGameobject);
+
+	pGameobject = new GameObject("Collider 4");
+	pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 224.f, 184.f, 0.f }));
+	pGameobject->AddComponent(new ColliderComponent(pGameobject, 64.f, 32.f, glm::vec2{ 32.f, 32.f }));
+	pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
+	pGameobject->SetParent(pColliderObject);
+
+	pScene.AddGameObject(pGameobject);
+
+	pGameobject = new GameObject("Collider 5");
+	pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 128.f, 184.f, 0.f }));
+	pGameobject->AddComponent(new ColliderComponent(pGameobject, 64.f, 32.f, glm::vec2{ 32.f, 32.f }));
+	pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
+	pGameobject->SetParent(pColliderObject);
+
+	pScene.AddGameObject(pGameobject);
+
+	pGameobject = new GameObject("Collider 6");
+	pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 32.f, 160.f, 0.f }));
+	pGameobject->AddComponent(new ColliderComponent(pGameobject, 16.f, 48.f, glm::vec2{ 8.f, 48.f }));
+	pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
+	pGameobject->SetParent(pColliderObject);
+
+	pScene.AddGameObject(pGameobject);
+
+	pGameobject = new GameObject("Collider 7");
+	pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 80.f, 160.f, 0.f }));
+	pGameobject->AddComponent(new ColliderComponent(pGameobject, 16.f, 48.f, glm::vec2{ 8.f, 48.f }));
+	pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
+	pGameobject->SetParent(pColliderObject);
+
+	pScene.AddGameObject(pGameobject);
+
+	pGameobject = new GameObject("Collider 8");
+	pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 320.f, 200.f, 0.f }));
+	pGameobject->AddComponent(new ColliderComponent(pGameobject, 16.f, 64.f, glm::vec2{ 8.f, 64.f }));
+	pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
+	pGameobject->SetParent(pColliderObject);
+
+	pScene.AddGameObject(pGameobject);
+
+	pGameobject = new GameObject("Collider 9");
+	pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 368.f, 200.f, 0.f }));
+	pGameobject->AddComponent(new ColliderComponent(pGameobject, 16.f, 64.f, glm::vec2{ 8.f, 64.f }));
+	pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
+	pGameobject->SetParent(pColliderObject);
+
+	pScene.AddGameObject(pGameobject);
+
+	pGameobject = new GameObject("Collider 10");
+	pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 320.f, 152.f, 0.f }));
+	pGameobject->AddComponent(new ColliderComponent(pGameobject, 16.f, 32.f, glm::vec2{ 8.f, 32.f }));
+	pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
+	pGameobject->SetParent(pColliderObject);
+
+	pScene.AddGameObject(pGameobject);
+
+	pGameobject = new GameObject("Collider 11");
+	pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 368.f, 152.f, 0.f }));
+	pGameobject->AddComponent(new ColliderComponent(pGameobject, 48.f, 32.f, glm::vec2{ 24.f, 32.f }));
+	pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
+	pGameobject->SetParent(pColliderObject);
+
+	pScene.AddGameObject(pGameobject);
+
+	pGameobject = new GameObject("Collider 12");
+	pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 344.f, 112.f, 0.f }));
+	pGameobject->AddComponent(new ColliderComponent(pGameobject, 64.f, 16.f, glm::vec2{ 8.f, 16.f }));
+	pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
+	pGameobject->SetParent(pColliderObject);
+
+	pScene.AddGameObject(pGameobject);
+
+	pGameobject = new GameObject("Collider 13");
+	pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 344.f, 16.f, 0.f }));
+	pGameobject->AddComponent(new ColliderComponent(pGameobject, 64.f, 48.f, glm::vec2{ 8.f, 48.f }));
+	pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
+	pGameobject->SetParent(pColliderObject);
+
+	pScene.AddGameObject(pGameobject);
+
+	pGameobject = new GameObject("Collider 14");
+	pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 248.f, 16.f, 0.f }));
+	pGameobject->AddComponent(new ColliderComponent(pGameobject, 64.f, 48.f, glm::vec2{ 8.f, 48.f }));
+	pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
+	pGameobject->SetParent(pColliderObject);
+
+	pScene.AddGameObject(pGameobject);
+
+	pGameobject = new GameObject("Collider 15");
+	pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 224.f, 96.f, 0.f }));
+	pGameobject->AddComponent(new ColliderComponent(pGameobject, 16.f, 48.f, glm::vec2{ 8.f, 48.f }));
+	pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
+	pGameobject->SetParent(pColliderObject);
+
+	pScene.AddGameObject(pGameobject);
+
+	pGameobject = new GameObject("Collider 16");
+	pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 272.f, 96.f, 0.f }));
+	pGameobject->AddComponent(new ColliderComponent(pGameobject, 16.f, 48.f, glm::vec2{ 8.f, 48.f }));
+	pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
+	pGameobject->SetParent(pColliderObject);
+
+	pScene.AddGameObject(pGameobject);
+
+
+	pGameobject = new GameObject("Collider 17");
+	pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 32.f, 104.f, 0.f }));
+	pGameobject->AddComponent(new ColliderComponent(pGameobject, 16.f, 32.f, glm::vec2{ 8.f, 32.f }));
+	pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
+	pGameobject->SetParent(pColliderObject);
+
+	pScene.AddGameObject(pGameobject);
+
+	pGameobject = new GameObject("Collider 18");
+	pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 80.f, 104.f, 0.f }));
+	pGameobject->AddComponent(new ColliderComponent(pGameobject, 16.f, 32.f, glm::vec2{ 8.f, 32.f }));
+	pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
+	pGameobject->SetParent(pColliderObject);
+
+	pScene.AddGameObject(pGameobject);
+
+	pGameobject = new GameObject("Collider 19");
+	pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 0.f, 16.f, 0.f }));
+	pGameobject->AddComponent(new ColliderComponent(pGameobject, 64.f, 48.f, glm::vec2{ 64.f, 48.f }));
+	pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
+	pGameobject->SetParent(pColliderObject);
+
+	pScene.AddGameObject(pGameobject);
+
+	pGameobject = new GameObject("Collider 20");
+	pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 96.f, 144.f, 0.f }));
+	pGameobject->AddComponent(new ColliderComponent(pGameobject, 64.f, 16.f, glm::vec2{ 64.f, 16.f }));
+	pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
+	pGameobject->SetParent(pColliderObject);
+
+	pScene.AddGameObject(pGameobject);
+
+	pGameobject = new GameObject("Collider 21");
+	pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 128.f, 16.f, 0.f }));
+	pGameobject->AddComponent(new ColliderComponent(pGameobject, 16.f, 80.f, glm::vec2{ 8.f, 64.f }));
+	pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
+	pGameobject->SetParent(pColliderObject);
+
+	pScene.AddGameObject(pGameobject);
+
+	pGameobject = new GameObject("Collider 22");
+	pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 176.f, 16.f, 0.f }));
+	pGameobject->AddComponent(new ColliderComponent(pGameobject, 16.f, 80.f, glm::vec2{ 8.f, 64.f }));
+	pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
+	pGameobject->SetParent(pColliderObject);
+
 	pScene.AddGameObject(pGameobject);
 }

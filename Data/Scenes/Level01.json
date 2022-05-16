@@ -1,6 +1,6 @@
 {
     "sceneName": "Level01",
-    "gameobjectCount": 324,
+    "gameobjectCount": 348,
     "Gravity": {
         "X": 0.0,
         "Y": 0.0
@@ -10,6 +10,855 @@
             "Name": "Level",
             "Tag": "",
             "Children": [
+                {
+                    "Name": "Colliders",
+                    "Tag": "",
+                    "Children": [
+                        {
+                            "Name": "Collider 0",
+                            "Tag": "",
+                            "Children": [],
+                            "Components": [
+                                {
+                                    "name": "class dae::TransformComponent",
+                                    "Position": {
+                                        "x": 0.0,
+                                        "y": 328.0,
+                                        "z": 0.0
+                                    },
+                                    "Rotation": 0.0,
+                                    "Scale": {
+                                        "x": 1.0,
+                                        "y": 1.0
+                                    }
+                                },
+                                {
+                                    "name": "class dae::ColliderComponent",
+                                    "Box": {
+                                        "x": 208.0,
+                                        "y": 20.0,
+                                        "w": 416.0,
+                                        "h": 40.0
+                                    }
+                                },
+                                {
+                                    "name": "class dae::RigidbodyComponent",
+                                    "Density": 1.0,
+                                    "Friction": 1.0,
+                                    "IsSensor": false,
+                                    "BodyDef": 0
+                                }
+                            ]
+                        },
+                        {
+                            "Name": "Collider 1",
+                            "Tag": "",
+                            "Children": [],
+                            "Components": [
+                                {
+                                    "name": "class dae::TransformComponent",
+                                    "Position": {
+                                        "x": 128.0,
+                                        "y": 248.0,
+                                        "z": 0.0
+                                    },
+                                    "Rotation": 0.0,
+                                    "Scale": {
+                                        "x": 1.0,
+                                        "y": 1.0
+                                    }
+                                },
+                                {
+                                    "name": "class dae::ColliderComponent",
+                                    "Box": {
+                                        "x": 32.0,
+                                        "y": 32.0,
+                                        "w": 64.0,
+                                        "h": 32.0
+                                    }
+                                },
+                                {
+                                    "name": "class dae::RigidbodyComponent",
+                                    "Density": 1.0,
+                                    "Friction": 1.0,
+                                    "IsSensor": false,
+                                    "BodyDef": 0
+                                }
+                            ]
+                        },
+                        {
+                            "Name": "Collider 2",
+                            "Tag": "",
+                            "Children": [],
+                            "Components": [
+                                {
+                                    "name": "class dae::TransformComponent",
+                                    "Position": {
+                                        "x": 32.0,
+                                        "y": 248.0,
+                                        "z": 0.0
+                                    },
+                                    "Rotation": 0.0,
+                                    "Scale": {
+                                        "x": 1.0,
+                                        "y": 1.0
+                                    }
+                                },
+                                {
+                                    "name": "class dae::ColliderComponent",
+                                    "Box": {
+                                        "x": 32.0,
+                                        "y": 32.0,
+                                        "w": 64.0,
+                                        "h": 32.0
+                                    }
+                                },
+                                {
+                                    "name": "class dae::RigidbodyComponent",
+                                    "Density": 1.0,
+                                    "Friction": 1.0,
+                                    "IsSensor": false,
+                                    "BodyDef": 0
+                                }
+                            ]
+                        },
+                        {
+                            "Name": "Collider 3",
+                            "Tag": "",
+                            "Children": [],
+                            "Components": [
+                                {
+                                    "name": "class dae::TransformComponent",
+                                    "Position": {
+                                        "x": 224.0,
+                                        "y": 248.0,
+                                        "z": 0.0
+                                    },
+                                    "Rotation": 0.0,
+                                    "Scale": {
+                                        "x": 1.0,
+                                        "y": 1.0
+                                    }
+                                },
+                                {
+                                    "name": "class dae::ColliderComponent",
+                                    "Box": {
+                                        "x": 32.0,
+                                        "y": 32.0,
+                                        "w": 64.0,
+                                        "h": 32.0
+                                    }
+                                },
+                                {
+                                    "name": "class dae::RigidbodyComponent",
+                                    "Density": 1.0,
+                                    "Friction": 1.0,
+                                    "IsSensor": false,
+                                    "BodyDef": 0
+                                }
+                            ]
+                        },
+                        {
+                            "Name": "Collider 4",
+                            "Tag": "",
+                            "Children": [],
+                            "Components": [
+                                {
+                                    "name": "class dae::TransformComponent",
+                                    "Position": {
+                                        "x": 224.0,
+                                        "y": 184.0,
+                                        "z": 0.0
+                                    },
+                                    "Rotation": 0.0,
+                                    "Scale": {
+                                        "x": 1.0,
+                                        "y": 1.0
+                                    }
+                                },
+                                {
+                                    "name": "class dae::ColliderComponent",
+                                    "Box": {
+                                        "x": 32.0,
+                                        "y": 32.0,
+                                        "w": 64.0,
+                                        "h": 32.0
+                                    }
+                                },
+                                {
+                                    "name": "class dae::RigidbodyComponent",
+                                    "Density": 1.0,
+                                    "Friction": 1.0,
+                                    "IsSensor": false,
+                                    "BodyDef": 0
+                                }
+                            ]
+                        },
+                        {
+                            "Name": "Collider 5",
+                            "Tag": "",
+                            "Children": [],
+                            "Components": [
+                                {
+                                    "name": "class dae::TransformComponent",
+                                    "Position": {
+                                        "x": 128.0,
+                                        "y": 184.0,
+                                        "z": 0.0
+                                    },
+                                    "Rotation": 0.0,
+                                    "Scale": {
+                                        "x": 1.0,
+                                        "y": 1.0
+                                    }
+                                },
+                                {
+                                    "name": "class dae::ColliderComponent",
+                                    "Box": {
+                                        "x": 32.0,
+                                        "y": 32.0,
+                                        "w": 64.0,
+                                        "h": 32.0
+                                    }
+                                },
+                                {
+                                    "name": "class dae::RigidbodyComponent",
+                                    "Density": 1.0,
+                                    "Friction": 1.0,
+                                    "IsSensor": false,
+                                    "BodyDef": 0
+                                }
+                            ]
+                        },
+                        {
+                            "Name": "Collider 6",
+                            "Tag": "",
+                            "Children": [],
+                            "Components": [
+                                {
+                                    "name": "class dae::TransformComponent",
+                                    "Position": {
+                                        "x": 32.0,
+                                        "y": 160.0,
+                                        "z": 0.0
+                                    },
+                                    "Rotation": 0.0,
+                                    "Scale": {
+                                        "x": 1.0,
+                                        "y": 1.0
+                                    }
+                                },
+                                {
+                                    "name": "class dae::ColliderComponent",
+                                    "Box": {
+                                        "x": 8.0,
+                                        "y": 48.0,
+                                        "w": 16.0,
+                                        "h": 48.0
+                                    }
+                                },
+                                {
+                                    "name": "class dae::RigidbodyComponent",
+                                    "Density": 1.0,
+                                    "Friction": 1.0,
+                                    "IsSensor": false,
+                                    "BodyDef": 0
+                                }
+                            ]
+                        },
+                        {
+                            "Name": "Collider 7",
+                            "Tag": "",
+                            "Children": [],
+                            "Components": [
+                                {
+                                    "name": "class dae::TransformComponent",
+                                    "Position": {
+                                        "x": 80.0,
+                                        "y": 160.0,
+                                        "z": 0.0
+                                    },
+                                    "Rotation": 0.0,
+                                    "Scale": {
+                                        "x": 1.0,
+                                        "y": 1.0
+                                    }
+                                },
+                                {
+                                    "name": "class dae::ColliderComponent",
+                                    "Box": {
+                                        "x": 8.0,
+                                        "y": 48.0,
+                                        "w": 16.0,
+                                        "h": 48.0
+                                    }
+                                },
+                                {
+                                    "name": "class dae::RigidbodyComponent",
+                                    "Density": 1.0,
+                                    "Friction": 1.0,
+                                    "IsSensor": false,
+                                    "BodyDef": 0
+                                }
+                            ]
+                        },
+                        {
+                            "Name": "Collider 8",
+                            "Tag": "",
+                            "Children": [],
+                            "Components": [
+                                {
+                                    "name": "class dae::TransformComponent",
+                                    "Position": {
+                                        "x": 320.0,
+                                        "y": 200.0,
+                                        "z": 0.0
+                                    },
+                                    "Rotation": 0.0,
+                                    "Scale": {
+                                        "x": 1.0,
+                                        "y": 1.0
+                                    }
+                                },
+                                {
+                                    "name": "class dae::ColliderComponent",
+                                    "Box": {
+                                        "x": 8.0,
+                                        "y": 64.0,
+                                        "w": 16.0,
+                                        "h": 64.0
+                                    }
+                                },
+                                {
+                                    "name": "class dae::RigidbodyComponent",
+                                    "Density": 1.0,
+                                    "Friction": 1.0,
+                                    "IsSensor": false,
+                                    "BodyDef": 0
+                                }
+                            ]
+                        },
+                        {
+                            "Name": "Collider 9",
+                            "Tag": "",
+                            "Children": [],
+                            "Components": [
+                                {
+                                    "name": "class dae::TransformComponent",
+                                    "Position": {
+                                        "x": 368.0,
+                                        "y": 200.0,
+                                        "z": 0.0
+                                    },
+                                    "Rotation": 0.0,
+                                    "Scale": {
+                                        "x": 1.0,
+                                        "y": 1.0
+                                    }
+                                },
+                                {
+                                    "name": "class dae::ColliderComponent",
+                                    "Box": {
+                                        "x": 8.0,
+                                        "y": 64.0,
+                                        "w": 16.0,
+                                        "h": 64.0
+                                    }
+                                },
+                                {
+                                    "name": "class dae::RigidbodyComponent",
+                                    "Density": 1.0,
+                                    "Friction": 1.0,
+                                    "IsSensor": false,
+                                    "BodyDef": 0
+                                }
+                            ]
+                        },
+                        {
+                            "Name": "Collider 10",
+                            "Tag": "",
+                            "Children": [],
+                            "Components": [
+                                {
+                                    "name": "class dae::TransformComponent",
+                                    "Position": {
+                                        "x": 320.0,
+                                        "y": 152.0,
+                                        "z": 0.0
+                                    },
+                                    "Rotation": 0.0,
+                                    "Scale": {
+                                        "x": 1.0,
+                                        "y": 1.0
+                                    }
+                                },
+                                {
+                                    "name": "class dae::ColliderComponent",
+                                    "Box": {
+                                        "x": 8.0,
+                                        "y": 32.0,
+                                        "w": 16.0,
+                                        "h": 32.0
+                                    }
+                                },
+                                {
+                                    "name": "class dae::RigidbodyComponent",
+                                    "Density": 1.0,
+                                    "Friction": 1.0,
+                                    "IsSensor": false,
+                                    "BodyDef": 0
+                                }
+                            ]
+                        },
+                        {
+                            "Name": "Collider 11",
+                            "Tag": "",
+                            "Children": [],
+                            "Components": [
+                                {
+                                    "name": "class dae::TransformComponent",
+                                    "Position": {
+                                        "x": 368.0,
+                                        "y": 152.0,
+                                        "z": 0.0
+                                    },
+                                    "Rotation": 0.0,
+                                    "Scale": {
+                                        "x": 1.0,
+                                        "y": 1.0
+                                    }
+                                },
+                                {
+                                    "name": "class dae::ColliderComponent",
+                                    "Box": {
+                                        "x": 24.0,
+                                        "y": 32.0,
+                                        "w": 48.0,
+                                        "h": 32.0
+                                    }
+                                },
+                                {
+                                    "name": "class dae::RigidbodyComponent",
+                                    "Density": 1.0,
+                                    "Friction": 1.0,
+                                    "IsSensor": false,
+                                    "BodyDef": 0
+                                }
+                            ]
+                        },
+                        {
+                            "Name": "Collider 12",
+                            "Tag": "",
+                            "Children": [],
+                            "Components": [
+                                {
+                                    "name": "class dae::TransformComponent",
+                                    "Position": {
+                                        "x": 344.0,
+                                        "y": 112.0,
+                                        "z": 0.0
+                                    },
+                                    "Rotation": 0.0,
+                                    "Scale": {
+                                        "x": 1.0,
+                                        "y": 1.0
+                                    }
+                                },
+                                {
+                                    "name": "class dae::ColliderComponent",
+                                    "Box": {
+                                        "x": 8.0,
+                                        "y": 16.0,
+                                        "w": 64.0,
+                                        "h": 16.0
+                                    }
+                                },
+                                {
+                                    "name": "class dae::RigidbodyComponent",
+                                    "Density": 1.0,
+                                    "Friction": 1.0,
+                                    "IsSensor": false,
+                                    "BodyDef": 0
+                                }
+                            ]
+                        },
+                        {
+                            "Name": "Collider 13",
+                            "Tag": "",
+                            "Children": [],
+                            "Components": [
+                                {
+                                    "name": "class dae::TransformComponent",
+                                    "Position": {
+                                        "x": 344.0,
+                                        "y": 16.0,
+                                        "z": 0.0
+                                    },
+                                    "Rotation": 0.0,
+                                    "Scale": {
+                                        "x": 1.0,
+                                        "y": 1.0
+                                    }
+                                },
+                                {
+                                    "name": "class dae::ColliderComponent",
+                                    "Box": {
+                                        "x": 8.0,
+                                        "y": 48.0,
+                                        "w": 64.0,
+                                        "h": 48.0
+                                    }
+                                },
+                                {
+                                    "name": "class dae::RigidbodyComponent",
+                                    "Density": 1.0,
+                                    "Friction": 1.0,
+                                    "IsSensor": false,
+                                    "BodyDef": 0
+                                }
+                            ]
+                        },
+                        {
+                            "Name": "Collider 14",
+                            "Tag": "",
+                            "Children": [],
+                            "Components": [
+                                {
+                                    "name": "class dae::TransformComponent",
+                                    "Position": {
+                                        "x": 248.0,
+                                        "y": 16.0,
+                                        "z": 0.0
+                                    },
+                                    "Rotation": 0.0,
+                                    "Scale": {
+                                        "x": 1.0,
+                                        "y": 1.0
+                                    }
+                                },
+                                {
+                                    "name": "class dae::ColliderComponent",
+                                    "Box": {
+                                        "x": 8.0,
+                                        "y": 48.0,
+                                        "w": 64.0,
+                                        "h": 48.0
+                                    }
+                                },
+                                {
+                                    "name": "class dae::RigidbodyComponent",
+                                    "Density": 1.0,
+                                    "Friction": 1.0,
+                                    "IsSensor": false,
+                                    "BodyDef": 0
+                                }
+                            ]
+                        },
+                        {
+                            "Name": "Collider 15",
+                            "Tag": "",
+                            "Children": [],
+                            "Components": [
+                                {
+                                    "name": "class dae::TransformComponent",
+                                    "Position": {
+                                        "x": 224.0,
+                                        "y": 96.0,
+                                        "z": 0.0
+                                    },
+                                    "Rotation": 0.0,
+                                    "Scale": {
+                                        "x": 1.0,
+                                        "y": 1.0
+                                    }
+                                },
+                                {
+                                    "name": "class dae::ColliderComponent",
+                                    "Box": {
+                                        "x": 8.0,
+                                        "y": 48.0,
+                                        "w": 16.0,
+                                        "h": 48.0
+                                    }
+                                },
+                                {
+                                    "name": "class dae::RigidbodyComponent",
+                                    "Density": 1.0,
+                                    "Friction": 1.0,
+                                    "IsSensor": false,
+                                    "BodyDef": 0
+                                }
+                            ]
+                        },
+                        {
+                            "Name": "Collider 16",
+                            "Tag": "",
+                            "Children": [],
+                            "Components": [
+                                {
+                                    "name": "class dae::TransformComponent",
+                                    "Position": {
+                                        "x": 272.0,
+                                        "y": 96.0,
+                                        "z": 0.0
+                                    },
+                                    "Rotation": 0.0,
+                                    "Scale": {
+                                        "x": 1.0,
+                                        "y": 1.0
+                                    }
+                                },
+                                {
+                                    "name": "class dae::ColliderComponent",
+                                    "Box": {
+                                        "x": 8.0,
+                                        "y": 48.0,
+                                        "w": 16.0,
+                                        "h": 48.0
+                                    }
+                                },
+                                {
+                                    "name": "class dae::RigidbodyComponent",
+                                    "Density": 1.0,
+                                    "Friction": 1.0,
+                                    "IsSensor": false,
+                                    "BodyDef": 0
+                                }
+                            ]
+                        },
+                        {
+                            "Name": "Collider 17",
+                            "Tag": "",
+                            "Children": [],
+                            "Components": [
+                                {
+                                    "name": "class dae::TransformComponent",
+                                    "Position": {
+                                        "x": 32.0,
+                                        "y": 104.0,
+                                        "z": 0.0
+                                    },
+                                    "Rotation": 0.0,
+                                    "Scale": {
+                                        "x": 1.0,
+                                        "y": 1.0
+                                    }
+                                },
+                                {
+                                    "name": "class dae::ColliderComponent",
+                                    "Box": {
+                                        "x": 8.0,
+                                        "y": 32.0,
+                                        "w": 16.0,
+                                        "h": 32.0
+                                    }
+                                },
+                                {
+                                    "name": "class dae::RigidbodyComponent",
+                                    "Density": 1.0,
+                                    "Friction": 1.0,
+                                    "IsSensor": false,
+                                    "BodyDef": 0
+                                }
+                            ]
+                        },
+                        {
+                            "Name": "Collider 18",
+                            "Tag": "",
+                            "Children": [],
+                            "Components": [
+                                {
+                                    "name": "class dae::TransformComponent",
+                                    "Position": {
+                                        "x": 80.0,
+                                        "y": 104.0,
+                                        "z": 0.0
+                                    },
+                                    "Rotation": 0.0,
+                                    "Scale": {
+                                        "x": 1.0,
+                                        "y": 1.0
+                                    }
+                                },
+                                {
+                                    "name": "class dae::ColliderComponent",
+                                    "Box": {
+                                        "x": 8.0,
+                                        "y": 32.0,
+                                        "w": 16.0,
+                                        "h": 32.0
+                                    }
+                                },
+                                {
+                                    "name": "class dae::RigidbodyComponent",
+                                    "Density": 1.0,
+                                    "Friction": 1.0,
+                                    "IsSensor": false,
+                                    "BodyDef": 0
+                                }
+                            ]
+                        },
+                        {
+                            "Name": "Collider 19",
+                            "Tag": "",
+                            "Children": [],
+                            "Components": [
+                                {
+                                    "name": "class dae::TransformComponent",
+                                    "Position": {
+                                        "x": 0.0,
+                                        "y": 16.0,
+                                        "z": 0.0
+                                    },
+                                    "Rotation": 0.0,
+                                    "Scale": {
+                                        "x": 1.0,
+                                        "y": 1.0
+                                    }
+                                },
+                                {
+                                    "name": "class dae::ColliderComponent",
+                                    "Box": {
+                                        "x": 64.0,
+                                        "y": 48.0,
+                                        "w": 64.0,
+                                        "h": 48.0
+                                    }
+                                },
+                                {
+                                    "name": "class dae::RigidbodyComponent",
+                                    "Density": 1.0,
+                                    "Friction": 1.0,
+                                    "IsSensor": false,
+                                    "BodyDef": 0
+                                }
+                            ]
+                        },
+                        {
+                            "Name": "Collider 20",
+                            "Tag": "",
+                            "Children": [],
+                            "Components": [
+                                {
+                                    "name": "class dae::TransformComponent",
+                                    "Position": {
+                                        "x": 96.0,
+                                        "y": 144.0,
+                                        "z": 0.0
+                                    },
+                                    "Rotation": 0.0,
+                                    "Scale": {
+                                        "x": 1.0,
+                                        "y": 1.0
+                                    }
+                                },
+                                {
+                                    "name": "class dae::ColliderComponent",
+                                    "Box": {
+                                        "x": 64.0,
+                                        "y": 16.0,
+                                        "w": 64.0,
+                                        "h": 16.0
+                                    }
+                                },
+                                {
+                                    "name": "class dae::RigidbodyComponent",
+                                    "Density": 1.0,
+                                    "Friction": 1.0,
+                                    "IsSensor": false,
+                                    "BodyDef": 0
+                                }
+                            ]
+                        },
+                        {
+                            "Name": "Collider 21",
+                            "Tag": "",
+                            "Children": [],
+                            "Components": [
+                                {
+                                    "name": "class dae::TransformComponent",
+                                    "Position": {
+                                        "x": 128.0,
+                                        "y": 16.0,
+                                        "z": 0.0
+                                    },
+                                    "Rotation": 0.0,
+                                    "Scale": {
+                                        "x": 1.0,
+                                        "y": 1.0
+                                    }
+                                },
+                                {
+                                    "name": "class dae::ColliderComponent",
+                                    "Box": {
+                                        "x": 8.0,
+                                        "y": 64.0,
+                                        "w": 16.0,
+                                        "h": 80.0
+                                    }
+                                },
+                                {
+                                    "name": "class dae::RigidbodyComponent",
+                                    "Density": 1.0,
+                                    "Friction": 1.0,
+                                    "IsSensor": false,
+                                    "BodyDef": 0
+                                }
+                            ]
+                        },
+                        {
+                            "Name": "Collider 22",
+                            "Tag": "",
+                            "Children": [],
+                            "Components": [
+                                {
+                                    "name": "class dae::TransformComponent",
+                                    "Position": {
+                                        "x": 176.0,
+                                        "y": 16.0,
+                                        "z": 0.0
+                                    },
+                                    "Rotation": 0.0,
+                                    "Scale": {
+                                        "x": 1.0,
+                                        "y": 1.0
+                                    }
+                                },
+                                {
+                                    "name": "class dae::ColliderComponent",
+                                    "Box": {
+                                        "x": 8.0,
+                                        "y": 64.0,
+                                        "w": 16.0,
+                                        "h": 80.0
+                                    }
+                                },
+                                {
+                                    "name": "class dae::RigidbodyComponent",
+                                    "Density": 1.0,
+                                    "Friction": 1.0,
+                                    "IsSensor": false,
+                                    "BodyDef": 0
+                                }
+                            ]
+                        }
+                    ],
+                    "Components": [
+                        {
+                            "name": "class dae::TransformComponent",
+                            "Position": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0
+                            },
+                            "Rotation": 0.0,
+                            "Scale": {
+                                "x": 1.0,
+                                "y": 1.0
+                            }
+                        }
+                    ]
+                },
                 {
                     "Name": "Ladder 1",
                     "Tag": "",
@@ -97,22 +946,6 @@
                                 "w": 8.0,
                                 "h": 8.0
                             }
-                        },
-                        {
-                            "name": "class dae::ColliderComponent",
-                            "Box": {
-                                "x": 8.0,
-                                "y": 12.0,
-                                "w": 16.0,
-                                "h": 8.0
-                            }
-                        },
-                        {
-                            "name": "class dae::RigidbodyComponent",
-                            "Density": 1.0,
-                            "Friction": 1.0,
-                            "IsSensor": false,
-                            "BodyDef": 0
                         }
                     ]
                 },
@@ -203,22 +1036,6 @@
                                 "w": 8.0,
                                 "h": 8.0
                             }
-                        },
-                        {
-                            "name": "class dae::ColliderComponent",
-                            "Box": {
-                                "x": 8.0,
-                                "y": 12.0,
-                                "w": 16.0,
-                                "h": 8.0
-                            }
-                        },
-                        {
-                            "name": "class dae::RigidbodyComponent",
-                            "Density": 1.0,
-                            "Friction": 1.0,
-                            "IsSensor": false,
-                            "BodyDef": 0
                         }
                     ]
                 },
@@ -309,22 +1126,6 @@
                                 "w": 8.0,
                                 "h": 8.0
                             }
-                        },
-                        {
-                            "name": "class dae::ColliderComponent",
-                            "Box": {
-                                "x": 8.0,
-                                "y": 12.0,
-                                "w": 16.0,
-                                "h": 8.0
-                            }
-                        },
-                        {
-                            "name": "class dae::RigidbodyComponent",
-                            "Density": 1.0,
-                            "Friction": 1.0,
-                            "IsSensor": false,
-                            "BodyDef": 0
                         }
                     ]
                 },
@@ -415,22 +1216,6 @@
                                 "w": 8.0,
                                 "h": 8.0
                             }
-                        },
-                        {
-                            "name": "class dae::ColliderComponent",
-                            "Box": {
-                                "x": 8.0,
-                                "y": 12.0,
-                                "w": 16.0,
-                                "h": 8.0
-                            }
-                        },
-                        {
-                            "name": "class dae::RigidbodyComponent",
-                            "Density": 1.0,
-                            "Friction": 1.0,
-                            "IsSensor": false,
-                            "BodyDef": 0
                         }
                     ]
                 },
@@ -521,22 +1306,6 @@
                                 "w": 8.0,
                                 "h": 8.0
                             }
-                        },
-                        {
-                            "name": "class dae::ColliderComponent",
-                            "Box": {
-                                "x": 8.0,
-                                "y": 12.0,
-                                "w": 16.0,
-                                "h": 8.0
-                            }
-                        },
-                        {
-                            "name": "class dae::RigidbodyComponent",
-                            "Density": 1.0,
-                            "Friction": 1.0,
-                            "IsSensor": false,
-                            "BodyDef": 0
                         }
                     ]
                 },
@@ -627,22 +1396,6 @@
                                 "w": 8.0,
                                 "h": 8.0
                             }
-                        },
-                        {
-                            "name": "class dae::ColliderComponent",
-                            "Box": {
-                                "x": 8.0,
-                                "y": 12.0,
-                                "w": 16.0,
-                                "h": 8.0
-                            }
-                        },
-                        {
-                            "name": "class dae::RigidbodyComponent",
-                            "Density": 1.0,
-                            "Friction": 1.0,
-                            "IsSensor": false,
-                            "BodyDef": 0
                         }
                     ]
                 },
@@ -733,22 +1486,6 @@
                                 "w": 8.0,
                                 "h": 8.0
                             }
-                        },
-                        {
-                            "name": "class dae::ColliderComponent",
-                            "Box": {
-                                "x": 8.0,
-                                "y": 12.0,
-                                "w": 16.0,
-                                "h": 8.0
-                            }
-                        },
-                        {
-                            "name": "class dae::RigidbodyComponent",
-                            "Density": 1.0,
-                            "Friction": 1.0,
-                            "IsSensor": false,
-                            "BodyDef": 0
                         }
                     ]
                 },
@@ -839,22 +1576,6 @@
                                 "w": 8.0,
                                 "h": 8.0
                             }
-                        },
-                        {
-                            "name": "class dae::ColliderComponent",
-                            "Box": {
-                                "x": 8.0,
-                                "y": 12.0,
-                                "w": 16.0,
-                                "h": 8.0
-                            }
-                        },
-                        {
-                            "name": "class dae::RigidbodyComponent",
-                            "Density": 1.0,
-                            "Friction": 1.0,
-                            "IsSensor": false,
-                            "BodyDef": 0
                         }
                     ]
                 },
@@ -2445,22 +3166,6 @@
                                 "w": 8.0,
                                 "h": 8.0
                             }
-                        },
-                        {
-                            "name": "class dae::ColliderComponent",
-                            "Box": {
-                                "x": 8.0,
-                                "y": 12.0,
-                                "w": 16.0,
-                                "h": 8.0
-                            }
-                        },
-                        {
-                            "name": "class dae::RigidbodyComponent",
-                            "Density": 1.0,
-                            "Friction": 1.0,
-                            "IsSensor": false,
-                            "BodyDef": 0
                         }
                     ]
                 },
@@ -2551,22 +3256,6 @@
                                 "w": 8.0,
                                 "h": 8.0
                             }
-                        },
-                        {
-                            "name": "class dae::ColliderComponent",
-                            "Box": {
-                                "x": 8.0,
-                                "y": 12.0,
-                                "w": 16.0,
-                                "h": 8.0
-                            }
-                        },
-                        {
-                            "name": "class dae::RigidbodyComponent",
-                            "Density": 1.0,
-                            "Friction": 1.0,
-                            "IsSensor": false,
-                            "BodyDef": 0
                         }
                     ]
                 },
@@ -2777,22 +3466,6 @@
                                 "w": 8.0,
                                 "h": 8.0
                             }
-                        },
-                        {
-                            "name": "class dae::ColliderComponent",
-                            "Box": {
-                                "x": 8.0,
-                                "y": 12.0,
-                                "w": 16.0,
-                                "h": 8.0
-                            }
-                        },
-                        {
-                            "name": "class dae::RigidbodyComponent",
-                            "Density": 1.0,
-                            "Friction": 1.0,
-                            "IsSensor": false,
-                            "BodyDef": 0
                         }
                     ]
                 },
@@ -2883,22 +3556,6 @@
                                 "w": 8.0,
                                 "h": 8.0
                             }
-                        },
-                        {
-                            "name": "class dae::ColliderComponent",
-                            "Box": {
-                                "x": 8.0,
-                                "y": 12.0,
-                                "w": 16.0,
-                                "h": 8.0
-                            }
-                        },
-                        {
-                            "name": "class dae::RigidbodyComponent",
-                            "Density": 1.0,
-                            "Friction": 1.0,
-                            "IsSensor": false,
-                            "BodyDef": 0
                         }
                     ]
                 },
@@ -2989,22 +3646,6 @@
                                 "w": 8.0,
                                 "h": 8.0
                             }
-                        },
-                        {
-                            "name": "class dae::ColliderComponent",
-                            "Box": {
-                                "x": 8.0,
-                                "y": 12.0,
-                                "w": 16.0,
-                                "h": 8.0
-                            }
-                        },
-                        {
-                            "name": "class dae::RigidbodyComponent",
-                            "Density": 1.0,
-                            "Friction": 1.0,
-                            "IsSensor": false,
-                            "BodyDef": 0
                         }
                     ]
                 },
@@ -3095,22 +3736,6 @@
                                 "w": 8.0,
                                 "h": 8.0
                             }
-                        },
-                        {
-                            "name": "class dae::ColliderComponent",
-                            "Box": {
-                                "x": 8.0,
-                                "y": 12.0,
-                                "w": 16.0,
-                                "h": 8.0
-                            }
-                        },
-                        {
-                            "name": "class dae::RigidbodyComponent",
-                            "Density": 1.0,
-                            "Friction": 1.0,
-                            "IsSensor": false,
-                            "BodyDef": 0
                         }
                     ]
                 },
@@ -3741,22 +4366,6 @@
                                 "w": 8.0,
                                 "h": 8.0
                             }
-                        },
-                        {
-                            "name": "class dae::ColliderComponent",
-                            "Box": {
-                                "x": 8.0,
-                                "y": 12.0,
-                                "w": 16.0,
-                                "h": 8.0
-                            }
-                        },
-                        {
-                            "name": "class dae::RigidbodyComponent",
-                            "Density": 1.0,
-                            "Friction": 1.0,
-                            "IsSensor": false,
-                            "BodyDef": 0
                         }
                     ]
                 },
@@ -3847,22 +4456,6 @@
                                 "w": 8.0,
                                 "h": 8.0
                             }
-                        },
-                        {
-                            "name": "class dae::ColliderComponent",
-                            "Box": {
-                                "x": 8.0,
-                                "y": 12.0,
-                                "w": 16.0,
-                                "h": 8.0
-                            }
-                        },
-                        {
-                            "name": "class dae::RigidbodyComponent",
-                            "Density": 1.0,
-                            "Friction": 1.0,
-                            "IsSensor": false,
-                            "BodyDef": 0
                         }
                     ]
                 },
@@ -4433,22 +5026,6 @@
                                 "w": 8.0,
                                 "h": 8.0
                             }
-                        },
-                        {
-                            "name": "class dae::ColliderComponent",
-                            "Box": {
-                                "x": 8.0,
-                                "y": 12.0,
-                                "w": 16.0,
-                                "h": 8.0
-                            }
-                        },
-                        {
-                            "name": "class dae::RigidbodyComponent",
-                            "Density": 1.0,
-                            "Friction": 1.0,
-                            "IsSensor": false,
-                            "BodyDef": 0
                         }
                     ]
                 },
@@ -4539,22 +5116,6 @@
                                 "w": 8.0,
                                 "h": 8.0
                             }
-                        },
-                        {
-                            "name": "class dae::ColliderComponent",
-                            "Box": {
-                                "x": 8.0,
-                                "y": 12.0,
-                                "w": 16.0,
-                                "h": 8.0
-                            }
-                        },
-                        {
-                            "name": "class dae::RigidbodyComponent",
-                            "Density": 1.0,
-                            "Friction": 1.0,
-                            "IsSensor": false,
-                            "BodyDef": 0
                         }
                     ]
                 },
@@ -4705,22 +5266,6 @@
                                 "w": 8.0,
                                 "h": 8.0
                             }
-                        },
-                        {
-                            "name": "class dae::ColliderComponent",
-                            "Box": {
-                                "x": 8.0,
-                                "y": 12.0,
-                                "w": 16.0,
-                                "h": 8.0
-                            }
-                        },
-                        {
-                            "name": "class dae::RigidbodyComponent",
-                            "Density": 1.0,
-                            "Friction": 1.0,
-                            "IsSensor": false,
-                            "BodyDef": 0
                         }
                     ]
                 },
@@ -4811,22 +5356,6 @@
                                 "w": 8.0,
                                 "h": 8.0
                             }
-                        },
-                        {
-                            "name": "class dae::ColliderComponent",
-                            "Box": {
-                                "x": 8.0,
-                                "y": 12.0,
-                                "w": 16.0,
-                                "h": 8.0
-                            }
-                        },
-                        {
-                            "name": "class dae::RigidbodyComponent",
-                            "Density": 1.0,
-                            "Friction": 1.0,
-                            "IsSensor": false,
-                            "BodyDef": 0
                         }
                     ]
                 },
@@ -5337,22 +5866,6 @@
                                 "w": 8.0,
                                 "h": 8.0
                             }
-                        },
-                        {
-                            "name": "class dae::ColliderComponent",
-                            "Box": {
-                                "x": 8.0,
-                                "y": 12.0,
-                                "w": 16.0,
-                                "h": 8.0
-                            }
-                        },
-                        {
-                            "name": "class dae::RigidbodyComponent",
-                            "Density": 1.0,
-                            "Friction": 1.0,
-                            "IsSensor": false,
-                            "BodyDef": 0
                         }
                     ]
                 },
@@ -5383,22 +5896,6 @@
                                 "w": 8.0,
                                 "h": 8.0
                             }
-                        },
-                        {
-                            "name": "class dae::ColliderComponent",
-                            "Box": {
-                                "x": 8.0,
-                                "y": 12.0,
-                                "w": 16.0,
-                                "h": 8.0
-                            }
-                        },
-                        {
-                            "name": "class dae::RigidbodyComponent",
-                            "Density": 1.0,
-                            "Friction": 1.0,
-                            "IsSensor": false,
-                            "BodyDef": 0
                         }
                     ]
                 },
@@ -5429,22 +5926,6 @@
                                 "w": 8.0,
                                 "h": 8.0
                             }
-                        },
-                        {
-                            "name": "class dae::ColliderComponent",
-                            "Box": {
-                                "x": 8.0,
-                                "y": 12.0,
-                                "w": 16.0,
-                                "h": 8.0
-                            }
-                        },
-                        {
-                            "name": "class dae::RigidbodyComponent",
-                            "Density": 1.0,
-                            "Friction": 1.0,
-                            "IsSensor": false,
-                            "BodyDef": 0
                         }
                     ]
                 },
@@ -5475,22 +5956,6 @@
                                 "w": 8.0,
                                 "h": 8.0
                             }
-                        },
-                        {
-                            "name": "class dae::ColliderComponent",
-                            "Box": {
-                                "x": 8.0,
-                                "y": 12.0,
-                                "w": 16.0,
-                                "h": 8.0
-                            }
-                        },
-                        {
-                            "name": "class dae::RigidbodyComponent",
-                            "Density": 1.0,
-                            "Friction": 1.0,
-                            "IsSensor": false,
-                            "BodyDef": 0
                         }
                     ]
                 },
@@ -5581,22 +6046,6 @@
                                 "w": 8.0,
                                 "h": 8.0
                             }
-                        },
-                        {
-                            "name": "class dae::ColliderComponent",
-                            "Box": {
-                                "x": 8.0,
-                                "y": 12.0,
-                                "w": 16.0,
-                                "h": 8.0
-                            }
-                        },
-                        {
-                            "name": "class dae::RigidbodyComponent",
-                            "Density": 1.0,
-                            "Friction": 1.0,
-                            "IsSensor": false,
-                            "BodyDef": 0
                         }
                     ]
                 },
@@ -5687,22 +6136,6 @@
                                 "w": 8.0,
                                 "h": 8.0
                             }
-                        },
-                        {
-                            "name": "class dae::ColliderComponent",
-                            "Box": {
-                                "x": 8.0,
-                                "y": 12.0,
-                                "w": 16.0,
-                                "h": 8.0
-                            }
-                        },
-                        {
-                            "name": "class dae::RigidbodyComponent",
-                            "Density": 1.0,
-                            "Friction": 1.0,
-                            "IsSensor": false,
-                            "BodyDef": 0
                         }
                     ]
                 },
@@ -6513,22 +6946,6 @@
                                 "w": 8.0,
                                 "h": 8.0
                             }
-                        },
-                        {
-                            "name": "class dae::ColliderComponent",
-                            "Box": {
-                                "x": 8.0,
-                                "y": 12.0,
-                                "w": 16.0,
-                                "h": 8.0
-                            }
-                        },
-                        {
-                            "name": "class dae::RigidbodyComponent",
-                            "Density": 1.0,
-                            "Friction": 1.0,
-                            "IsSensor": false,
-                            "BodyDef": 0
                         }
                     ]
                 },
@@ -6619,22 +7036,6 @@
                                 "w": 8.0,
                                 "h": 8.0
                             }
-                        },
-                        {
-                            "name": "class dae::ColliderComponent",
-                            "Box": {
-                                "x": 8.0,
-                                "y": 12.0,
-                                "w": 16.0,
-                                "h": 8.0
-                            }
-                        },
-                        {
-                            "name": "class dae::RigidbodyComponent",
-                            "Density": 1.0,
-                            "Friction": 1.0,
-                            "IsSensor": false,
-                            "BodyDef": 0
                         }
                     ]
                 },
@@ -7205,22 +7606,6 @@
                                 "w": 8.0,
                                 "h": 8.0
                             }
-                        },
-                        {
-                            "name": "class dae::ColliderComponent",
-                            "Box": {
-                                "x": 8.0,
-                                "y": 12.0,
-                                "w": 16.0,
-                                "h": 8.0
-                            }
-                        },
-                        {
-                            "name": "class dae::RigidbodyComponent",
-                            "Density": 1.0,
-                            "Friction": 1.0,
-                            "IsSensor": false,
-                            "BodyDef": 0
                         }
                     ]
                 },
@@ -7311,22 +7696,6 @@
                                 "w": 8.0,
                                 "h": 8.0
                             }
-                        },
-                        {
-                            "name": "class dae::ColliderComponent",
-                            "Box": {
-                                "x": 8.0,
-                                "y": 12.0,
-                                "w": 16.0,
-                                "h": 8.0
-                            }
-                        },
-                        {
-                            "name": "class dae::RigidbodyComponent",
-                            "Density": 1.0,
-                            "Friction": 1.0,
-                            "IsSensor": false,
-                            "BodyDef": 0
                         }
                     ]
                 },
@@ -7417,22 +7786,6 @@
                                 "w": 8.0,
                                 "h": 8.0
                             }
-                        },
-                        {
-                            "name": "class dae::ColliderComponent",
-                            "Box": {
-                                "x": 8.0,
-                                "y": 12.0,
-                                "w": 16.0,
-                                "h": 8.0
-                            }
-                        },
-                        {
-                            "name": "class dae::RigidbodyComponent",
-                            "Density": 1.0,
-                            "Friction": 1.0,
-                            "IsSensor": false,
-                            "BodyDef": 0
                         }
                     ]
                 },
@@ -7523,22 +7876,6 @@
                                 "w": 8.0,
                                 "h": 8.0
                             }
-                        },
-                        {
-                            "name": "class dae::ColliderComponent",
-                            "Box": {
-                                "x": 8.0,
-                                "y": 12.0,
-                                "w": 16.0,
-                                "h": 8.0
-                            }
-                        },
-                        {
-                            "name": "class dae::RigidbodyComponent",
-                            "Density": 1.0,
-                            "Friction": 1.0,
-                            "IsSensor": false,
-                            "BodyDef": 0
                         }
                     ]
                 },
@@ -7629,22 +7966,6 @@
                                 "w": 8.0,
                                 "h": 8.0
                             }
-                        },
-                        {
-                            "name": "class dae::ColliderComponent",
-                            "Box": {
-                                "x": 8.0,
-                                "y": 12.0,
-                                "w": 16.0,
-                                "h": 8.0
-                            }
-                        },
-                        {
-                            "name": "class dae::RigidbodyComponent",
-                            "Density": 1.0,
-                            "Friction": 1.0,
-                            "IsSensor": false,
-                            "BodyDef": 0
                         }
                     ]
                 },
@@ -7735,22 +8056,6 @@
                                 "w": 8.0,
                                 "h": 8.0
                             }
-                        },
-                        {
-                            "name": "class dae::ColliderComponent",
-                            "Box": {
-                                "x": 8.0,
-                                "y": 12.0,
-                                "w": 16.0,
-                                "h": 8.0
-                            }
-                        },
-                        {
-                            "name": "class dae::RigidbodyComponent",
-                            "Density": 1.0,
-                            "Friction": 1.0,
-                            "IsSensor": false,
-                            "BodyDef": 0
                         }
                     ]
                 },
@@ -9101,22 +9406,6 @@
                                 "w": 8.0,
                                 "h": 8.0
                             }
-                        },
-                        {
-                            "name": "class dae::ColliderComponent",
-                            "Box": {
-                                "x": 8.0,
-                                "y": 12.0,
-                                "w": 16.0,
-                                "h": 8.0
-                            }
-                        },
-                        {
-                            "name": "class dae::RigidbodyComponent",
-                            "Density": 1.0,
-                            "Friction": 1.0,
-                            "IsSensor": false,
-                            "BodyDef": 0
                         }
                     ]
                 },
@@ -9147,22 +9436,6 @@
                                 "w": 8.0,
                                 "h": 8.0
                             }
-                        },
-                        {
-                            "name": "class dae::ColliderComponent",
-                            "Box": {
-                                "x": 8.0,
-                                "y": 12.0,
-                                "w": 16.0,
-                                "h": 8.0
-                            }
-                        },
-                        {
-                            "name": "class dae::RigidbodyComponent",
-                            "Density": 1.0,
-                            "Friction": 1.0,
-                            "IsSensor": false,
-                            "BodyDef": 0
                         }
                     ]
                 },
@@ -9193,22 +9466,6 @@
                                 "w": 8.0,
                                 "h": 8.0
                             }
-                        },
-                        {
-                            "name": "class dae::ColliderComponent",
-                            "Box": {
-                                "x": 8.0,
-                                "y": 12.0,
-                                "w": 16.0,
-                                "h": 8.0
-                            }
-                        },
-                        {
-                            "name": "class dae::RigidbodyComponent",
-                            "Density": 1.0,
-                            "Friction": 1.0,
-                            "IsSensor": false,
-                            "BodyDef": 0
                         }
                     ]
                 },
@@ -9239,22 +9496,6 @@
                                 "w": 8.0,
                                 "h": 8.0
                             }
-                        },
-                        {
-                            "name": "class dae::ColliderComponent",
-                            "Box": {
-                                "x": 8.0,
-                                "y": 12.0,
-                                "w": 16.0,
-                                "h": 8.0
-                            }
-                        },
-                        {
-                            "name": "class dae::RigidbodyComponent",
-                            "Density": 1.0,
-                            "Friction": 1.0,
-                            "IsSensor": false,
-                            "BodyDef": 0
                         }
                     ]
                 },
@@ -9345,22 +9586,6 @@
                                 "w": 8.0,
                                 "h": 8.0
                             }
-                        },
-                        {
-                            "name": "class dae::ColliderComponent",
-                            "Box": {
-                                "x": 8.0,
-                                "y": 12.0,
-                                "w": 16.0,
-                                "h": 8.0
-                            }
-                        },
-                        {
-                            "name": "class dae::RigidbodyComponent",
-                            "Density": 1.0,
-                            "Friction": 1.0,
-                            "IsSensor": false,
-                            "BodyDef": 0
                         }
                     ]
                 },
@@ -9391,22 +9616,6 @@
                                 "w": 8.0,
                                 "h": 8.0
                             }
-                        },
-                        {
-                            "name": "class dae::ColliderComponent",
-                            "Box": {
-                                "x": 8.0,
-                                "y": 12.0,
-                                "w": 16.0,
-                                "h": 8.0
-                            }
-                        },
-                        {
-                            "name": "class dae::RigidbodyComponent",
-                            "Density": 1.0,
-                            "Friction": 1.0,
-                            "IsSensor": false,
-                            "BodyDef": 0
                         }
                     ]
                 },
@@ -9437,22 +9646,6 @@
                                 "w": 8.0,
                                 "h": 8.0
                             }
-                        },
-                        {
-                            "name": "class dae::ColliderComponent",
-                            "Box": {
-                                "x": 8.0,
-                                "y": 12.0,
-                                "w": 16.0,
-                                "h": 8.0
-                            }
-                        },
-                        {
-                            "name": "class dae::RigidbodyComponent",
-                            "Density": 1.0,
-                            "Friction": 1.0,
-                            "IsSensor": false,
-                            "BodyDef": 0
                         }
                     ]
                 },
@@ -9483,22 +9676,6 @@
                                 "w": 8.0,
                                 "h": 8.0
                             }
-                        },
-                        {
-                            "name": "class dae::ColliderComponent",
-                            "Box": {
-                                "x": 8.0,
-                                "y": 12.0,
-                                "w": 16.0,
-                                "h": 8.0
-                            }
-                        },
-                        {
-                            "name": "class dae::RigidbodyComponent",
-                            "Density": 1.0,
-                            "Friction": 1.0,
-                            "IsSensor": false,
-                            "BodyDef": 0
                         }
                     ]
                 },
@@ -9589,22 +9766,6 @@
                                 "w": 8.0,
                                 "h": 8.0
                             }
-                        },
-                        {
-                            "name": "class dae::ColliderComponent",
-                            "Box": {
-                                "x": 8.0,
-                                "y": 12.0,
-                                "w": 16.0,
-                                "h": 8.0
-                            }
-                        },
-                        {
-                            "name": "class dae::RigidbodyComponent",
-                            "Density": 1.0,
-                            "Friction": 1.0,
-                            "IsSensor": false,
-                            "BodyDef": 0
                         }
                     ]
                 },
@@ -9635,22 +9796,6 @@
                                 "w": 8.0,
                                 "h": 8.0
                             }
-                        },
-                        {
-                            "name": "class dae::ColliderComponent",
-                            "Box": {
-                                "x": 8.0,
-                                "y": 12.0,
-                                "w": 16.0,
-                                "h": 8.0
-                            }
-                        },
-                        {
-                            "name": "class dae::RigidbodyComponent",
-                            "Density": 1.0,
-                            "Friction": 1.0,
-                            "IsSensor": false,
-                            "BodyDef": 0
                         }
                     ]
                 },
@@ -9681,22 +9826,6 @@
                                 "w": 8.0,
                                 "h": 8.0
                             }
-                        },
-                        {
-                            "name": "class dae::ColliderComponent",
-                            "Box": {
-                                "x": 8.0,
-                                "y": 12.0,
-                                "w": 16.0,
-                                "h": 8.0
-                            }
-                        },
-                        {
-                            "name": "class dae::RigidbodyComponent",
-                            "Density": 1.0,
-                            "Friction": 1.0,
-                            "IsSensor": false,
-                            "BodyDef": 0
                         }
                     ]
                 },
@@ -9727,22 +9856,6 @@
                                 "w": 8.0,
                                 "h": 8.0
                             }
-                        },
-                        {
-                            "name": "class dae::ColliderComponent",
-                            "Box": {
-                                "x": 8.0,
-                                "y": 12.0,
-                                "w": 16.0,
-                                "h": 8.0
-                            }
-                        },
-                        {
-                            "name": "class dae::RigidbodyComponent",
-                            "Density": 1.0,
-                            "Friction": 1.0,
-                            "IsSensor": false,
-                            "BodyDef": 0
                         }
                     ]
                 },
@@ -9833,22 +9946,6 @@
                                 "w": 8.0,
                                 "h": 8.0
                             }
-                        },
-                        {
-                            "name": "class dae::ColliderComponent",
-                            "Box": {
-                                "x": 8.0,
-                                "y": 12.0,
-                                "w": 16.0,
-                                "h": 8.0
-                            }
-                        },
-                        {
-                            "name": "class dae::RigidbodyComponent",
-                            "Density": 1.0,
-                            "Friction": 1.0,
-                            "IsSensor": false,
-                            "BodyDef": 0
                         }
                     ]
                 },
@@ -9939,22 +10036,6 @@
                                 "w": 8.0,
                                 "h": 8.0
                             }
-                        },
-                        {
-                            "name": "class dae::ColliderComponent",
-                            "Box": {
-                                "x": 8.0,
-                                "y": 12.0,
-                                "w": 16.0,
-                                "h": 8.0
-                            }
-                        },
-                        {
-                            "name": "class dae::RigidbodyComponent",
-                            "Density": 1.0,
-                            "Friction": 1.0,
-                            "IsSensor": false,
-                            "BodyDef": 0
                         }
                     ]
                 },
@@ -10158,7 +10239,7 @@
                     "name": "class dae::SpriteRendererComponent",
                     "Path": "BurgerTime_SpriteSheet.png",
                     "SampleRect": {
-                        "x": 32.0,
+                        "x": 48.0,
                         "y": 32.0,
                         "w": 16.0,
                         "h": 16.0
@@ -10213,7 +10294,7 @@
                     "name": "class dae::SpriteRendererComponent",
                     "Path": "BurgerTime_SpriteSheet.png",
                     "SampleRect": {
-                        "x": 32.0,
+                        "x": 48.0,
                         "y": 96.0,
                         "w": 16.0,
                         "h": 16.0
