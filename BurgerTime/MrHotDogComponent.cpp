@@ -7,6 +7,7 @@
 
 #include <Scene.h>
 #include <ServiceLocator.h>
+#include <RaycastCallback.h>
 
 dae::Creator<dae::Component, EnemyComponent> s_TranformComponentCreate{};
 
@@ -64,6 +65,16 @@ void EnemyComponent::Start()
 
 void EnemyComponent::Update()
 {
+	dae::RaycastCallback raycastCallback;
+	auto pos = m_pTransfomComponent->GetPosition();
+	b2Vec2 startPosition{ pos.x, pos.y };
+	b2Vec2 endPosition{ startPosition + b2Vec2{1,0} };
+
+	m_pGameObject->GetScene()->GetPhysicsWorld()->RayCast(&raycastCallback, startPosition, endPosition);
+
+
+	if(m_pPlayerTransform->GetPosition().y > 0)
+
 	if (m_pPlayerTransform->GetPosition().x <= m_pTransfomComponent->GetPosition().x)
 		m_pRigidbodyComponent->GetBody()->SetLinearVelocity(b2Vec2{ -m_Speed, 0.f });
 	else if(m_pPlayerTransform->GetPosition().x >= m_pTransfomComponent->GetPosition().x)

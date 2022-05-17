@@ -1,6 +1,6 @@
 {
     "sceneName": "Level01",
-    "gameobjectCount": 348,
+    "gameobjectCount": 351,
     "Gravity": {
         "X": 0.0,
         "Y": 0.0
@@ -856,6 +856,53 @@
                                 "x": 1.0,
                                 "y": 1.0
                             }
+                        }
+                    ]
+                },
+                {
+                    "Name": "EnemySpawner",
+                    "Tag": "",
+                    "Children": [],
+                    "Components": [
+                        {
+                            "name": "class dae::TransformComponent",
+                            "Position": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "z": 0.0
+                            },
+                            "Rotation": 0.0,
+                            "Scale": {
+                                "x": 1.0,
+                                "y": 1.0
+                            }
+                        },
+                        {
+                            "name": "class EnemySpawnerComponent",
+                            "MaxCount": 4,
+                            "SpawnPoints": [
+                                {
+                                    "X": 0.0,
+                                    "Y": 32.0,
+                                    "Z": 0.0
+                                },
+                                {
+                                    "X": 0.0,
+                                    "Y": 296.0,
+                                    "Z": 0.0
+                                },
+                                {
+                                    "X": 416.0,
+                                    "Y": 296.0,
+                                    "Z": 0.0
+                                },
+                                {
+                                    "X": 416.0,
+                                    "Y": 32.0,
+                                    "Z": 0.0
+                                }
+                            ],
+                            "TimeBetweenSpawns": 1.5
                         }
                     ]
                 },
@@ -10118,7 +10165,7 @@
         },
         {
             "Name": "Logo",
-            "Tag": "",
+            "Tag": "Score",
             "Children": [],
             "Components": [
                 {
@@ -10214,116 +10261,6 @@
                 },
                 {
                     "name": "class PlayerComponent"
-                }
-            ]
-        },
-        {
-            "Name": "MrHotDog",
-            "Tag": "Enemy",
-            "Children": [],
-            "Components": [
-                {
-                    "name": "class dae::TransformComponent",
-                    "Position": {
-                        "x": 256.0,
-                        "y": 144.0,
-                        "z": 0.0
-                    },
-                    "Rotation": 0.0,
-                    "Scale": {
-                        "x": 2.0,
-                        "y": 2.0
-                    }
-                },
-                {
-                    "name": "class dae::SpriteRendererComponent",
-                    "Path": "BurgerTime_SpriteSheet.png",
-                    "SampleRect": {
-                        "x": 48.0,
-                        "y": 32.0,
-                        "w": 16.0,
-                        "h": 16.0
-                    }
-                },
-                {
-                    "name": "class dae::AnimatorComponent",
-                    "Path": "../Data/Animations/HotdogAnimations.json",
-                    "CurrentAnimation": "WalkLeft",
-                    "Playing": true
-                },
-                {
-                    "name": "class dae::ColliderComponent",
-                    "Box": {
-                        "x": 16.0,
-                        "y": 17.0,
-                        "w": 30.0,
-                        "h": 30.0
-                    }
-                },
-                {
-                    "name": "class dae::RigidbodyComponent",
-                    "Density": 1.0,
-                    "Friction": 1.0,
-                    "IsSensor": false,
-                    "BodyDef": 2
-                },
-                {
-                    "name": "class EnemyComponent"
-                }
-            ]
-        },
-        {
-            "Name": "MrEgg",
-            "Tag": "Enemy",
-            "Children": [],
-            "Components": [
-                {
-                    "name": "class dae::TransformComponent",
-                    "Position": {
-                        "x": 288.0,
-                        "y": 144.0,
-                        "z": 0.0
-                    },
-                    "Rotation": 0.0,
-                    "Scale": {
-                        "x": 2.0,
-                        "y": 2.0
-                    }
-                },
-                {
-                    "name": "class dae::SpriteRendererComponent",
-                    "Path": "BurgerTime_SpriteSheet.png",
-                    "SampleRect": {
-                        "x": 48.0,
-                        "y": 96.0,
-                        "w": 16.0,
-                        "h": 16.0
-                    }
-                },
-                {
-                    "name": "class dae::AnimatorComponent",
-                    "Path": "../Data/Animations/EggAnimations.json",
-                    "CurrentAnimation": "WalkLeft",
-                    "Playing": true
-                },
-                {
-                    "name": "class dae::ColliderComponent",
-                    "Box": {
-                        "x": 16.0,
-                        "y": 17.0,
-                        "w": 30.0,
-                        "h": 30.0
-                    }
-                },
-                {
-                    "name": "class dae::RigidbodyComponent",
-                    "Density": 1.0,
-                    "Friction": 1.0,
-                    "IsSensor": false,
-                    "BodyDef": 2
-                },
-                {
-                    "name": "class EnemyComponent"
                 }
             ]
         },
@@ -10426,58 +10363,59 @@
             ]
         },
         {
-            "Name": "Burger Bottom",
-            "Tag": "Food",
-            "Children": [],
-            "Components": [
-                {
-                    "name": "class dae::TransformComponent",
-                    "Position": {
-                        "x": 224.0,
-                        "y": 320.0,
-                        "z": 0.0
-                    },
-                    "Rotation": 0.0,
-                    "Scale": {
-                        "x": 2.0,
-                        "y": 2.0
-                    }
-                },
-                {
-                    "name": "class dae::SpriteRendererComponent",
-                    "Path": "BurgerTime_SpriteSheet.png",
-                    "SampleRect": {
-                        "x": 112.0,
-                        "y": 56.0,
-                        "w": 32.0,
-                        "h": 8.0
-                    }
-                },
-                {
-                    "name": "class dae::ColliderComponent",
-                    "Box": {
-                        "x": 32.0,
-                        "y": 4.0,
-                        "w": 64.0,
-                        "h": 8.0
-                    }
-                },
-                {
-                    "name": "class dae::RigidbodyComponent",
-                    "Density": 1.0,
-                    "Friction": 1.0,
-                    "IsSensor": true,
-                    "BodyDef": 2
-                },
-                {
-                    "name": "class FoodComponent"
-                }
-            ]
-        },
-        {
             "Name": "Plate",
             "Tag": "Plate",
-            "Children": [],
+            "Children": [
+                {
+                    "Name": "Burger Bottom",
+                    "Tag": "Plate",
+                    "Children": [],
+                    "Components": [
+                        {
+                            "name": "class dae::TransformComponent",
+                            "Position": {
+                                "x": 224.0,
+                                "y": 320.0,
+                                "z": 0.0
+                            },
+                            "Rotation": 0.0,
+                            "Scale": {
+                                "x": 2.0,
+                                "y": 2.0
+                            }
+                        },
+                        {
+                            "name": "class dae::SpriteRendererComponent",
+                            "Path": "BurgerTime_SpriteSheet.png",
+                            "SampleRect": {
+                                "x": 112.0,
+                                "y": 56.0,
+                                "w": 32.0,
+                                "h": 8.0
+                            }
+                        },
+                        {
+                            "name": "class dae::ColliderComponent",
+                            "Box": {
+                                "x": 32.0,
+                                "y": 4.0,
+                                "w": 64.0,
+                                "h": 8.0
+                            }
+                        },
+                        {
+                            "name": "class dae::RigidbodyComponent",
+                            "Density": 1.0,
+                            "Friction": 1.0,
+                            "IsSensor": true,
+                            "BodyDef": 2
+                        },
+                        {
+                            "name": "class FoodComponent"
+                        }
+                    ]
+                }
+            ],
             "Components": [
                 {
                     "name": "class dae::TransformComponent",
@@ -10746,7 +10684,7 @@
                 },
                 {
                     "name": "class dae::TextComponent",
-                    "Text": "60 FPS",
+                    "Text": "57 FPS",
                     "Color": {
                         "r": 255,
                         "g": 255,

@@ -16,7 +16,6 @@ dae::Creator<dae::Component, EnemySpawnerComponent> g_EnemySpawnerComponentCreat
 EnemySpawnerComponent::EnemySpawnerComponent(dae::GameObject* pGameobject)
 	: dae::Component(pGameobject)
 {
-	std::cout << "Size creator: " << std::to_string(sizeof(g_EnemySpawnerComponentCreator)) << std::endl;
 }
 
 EnemySpawnerComponent::~EnemySpawnerComponent()
@@ -51,6 +50,59 @@ void EnemySpawnerComponent::Render() const
 	{
 		dae::Renderer::GetInstance().RenderCircle(point, 2.f);
 	}
+}
+
+void EnemySpawnerComponent::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>& writer)
+{
+	writer.StartObject();
+	writer.Key("name");
+	writer.String(typeid(*this).name());
+	writer.Key("MaxCount");
+	writer.Int(m_MaxCount);
+	writer.Key("SpawnPoints");
+	writer.StartArray();
+	for (auto spawnPoint : m_SpawnPoints)
+	{
+		writer.StartObject();
+
+		writer.Key("X");
+		writer.Double(static_cast<double>(spawnPoint.x));
+		writer.Key("Y");
+		writer.Double(static_cast<double>(spawnPoint.y));
+		writer.Key("Z");
+		writer.Double(static_cast<double>(spawnPoint.z));
+
+		writer.EndObject();
+	}
+	writer.EndArray();
+
+	writer.Key("TimeBetweenSpawns");
+	writer.Double(static_cast<double>(m_TimebetweenSpawns));
+
+
+
+	writer.EndObject();
+}
+
+void EnemySpawnerComponent::Deserialize(dae::GameObject* pGameobject, rapidjson::Value& value)
+{
+	m_pGameObject = pGameobject;
+
+	m_MaxCount = value["MaxCount"].GetInt();
+	
+	int size = value["SpawnPoints"].GetArray().Size();
+	for (int i = 0; i < size; ++i)
+	{
+		auto &pos = value["SpawnPoints"].GetArray()[i];
+
+		m_SpawnPoints.push_back( glm::vec3{
+			static_cast<float>(pos["X"].GetDouble()),
+			static_cast<float>(pos["Y"].GetDouble()),
+			static_cast<float>(pos["Z"].GetDouble())
+		});
+	}
+
+	m_TimebetweenSpawns = static_cast<float>(value["TimeBetweenSpawns"].GetDouble());
 }
 
 void EnemySpawnerComponent::AddSpawnPosition(glm::vec3 spawnPosition)

@@ -23,6 +23,9 @@ public:
 	void Update() override;
 	void Render() const override;
 
+	void Serialize(rapidjson::PrettyWriter< rapidjson::StringBuffer>& /*writer*/);
+	void Deserialize(dae::GameObject* /*pGameobject*/, rapidjson::Value& /*value*/);
+
 	// Enemy Spawner functions
 	void AddSpawnPosition(glm::vec3 spawnPosition);
 

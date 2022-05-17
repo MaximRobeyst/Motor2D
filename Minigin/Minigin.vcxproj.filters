@@ -28,6 +28,9 @@
     <Filter Include="Engine Files\Audio">
       <UniqueIdentifier>{e3c1a685-781e-4408-9fe8-bf9fed04db62}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine Files\Physics">
+      <UniqueIdentifier>{3a5c87fb-9540-4a29-bb74-a1b1a0174364}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Transform.h">
@@ -166,7 +169,10 @@
       <Filter>Engine Files</Filter>
     </ClInclude>
     <ClInclude Include="PhysicsDebugDraw.h">
-      <Filter>Engine Files</Filter>
+      <Filter>Engine Files\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="RaycastCallback.h">
+      <Filter>Engine Files\Physics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -294,7 +300,10 @@
       <Filter>Engine Files</Filter>
     </ClCompile>
     <ClCompile Include="PhysicsDebugDraw.cpp">
-      <Filter>Engine Files</Filter>
+      <Filter>Engine Files\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="RaycastCallback.cpp">
+      <Filter>Engine Files\Physics</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -245,6 +245,7 @@
     <ClInclude Include="NullAudioSystem.h" />
     <ClInclude Include="Observer.h" />
     <ClInclude Include="PhysicsDebugDraw.h" />
+    <ClInclude Include="RaycastCallback.h" />
     <ClInclude Include="RigidbodyComponent.h" />
     <ClInclude Include="SceneObject.h" />
     <ClInclude Include="Renderer.h" />
@@ -345,6 +346,7 @@
     </ClCompile>
     <ClCompile Include="NullAudioSystem.cpp" />
     <ClCompile Include="PhysicsDebugDraw.cpp" />
+    <ClCompile Include="RaycastCallback.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="RigidbodyComponent.cpp" />
