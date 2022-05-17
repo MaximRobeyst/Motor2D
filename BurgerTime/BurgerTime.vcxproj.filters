@@ -66,8 +66,11 @@
     <ClCompile Include="UIButtonComponent.cpp">
       <Filter>Components</Filter>
     </ClCompile>
+    <ClCompile Include="EnemySpawnerComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
     <ClCompile Include="MenuComponent.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -117,6 +120,9 @@
       <Filter>Components</Filter>
     </ClInclude>
     <ClInclude Include="MenuComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemySpawnerComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
   </ItemGroup>

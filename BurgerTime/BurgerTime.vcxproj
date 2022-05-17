@@ -156,6 +156,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AchievementComponent.cpp" />
+    <ClCompile Include="EnemySpawnerComponent.cpp" />
     <ClCompile Include="FoodComponent.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Level1State.cpp" />
@@ -174,6 +175,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AchievementComponent.h" />
+    <ClInclude Include="EnemySpawnerComponent.h" />
     <ClInclude Include="Event.h" />
     <ClInclude Include="FoodComponent.h" />
     <ClInclude Include="Level1State.h" />

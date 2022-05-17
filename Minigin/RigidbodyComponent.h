@@ -34,6 +34,8 @@ namespace dae
 
 		GameObject* GetGameobject() const;
 
+		void ChangeShape(b2Shape* pShape);
+
 	private:
 		b2Body* m_pBody;
 

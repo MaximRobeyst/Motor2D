@@ -142,6 +142,14 @@ void dae::TransformComponent::RenderGUI()
 	float position[3] = { m_Transform.worldPosition.x, m_Transform.worldPosition.y, m_Transform.worldPosition.z };
 	if (ImGui::InputFloat3("Position", position))
 		m_Transform.worldPosition = glm::vec3{ position[0], position[1], position[2] };
+
+	float rotation = { m_Transform.rotation };
+	if (ImGui::InputFloat("Rotation", &rotation))
+		m_Transform.rotation = rotation;
+
+	float scale[2] = { m_Transform.scale.x, m_Transform.scale.y};
+	if (ImGui::InputFloat2("Scale", scale))
+		m_Transform.scale = glm::vec2{ scale[0], scale[1]};
 	//ImGui::InputFloat("Rotation", &m_Transform.rotation);
 	//ImGui::InputFloat2("Scale", glm::value_ptr(m_Transform.scale));
 }

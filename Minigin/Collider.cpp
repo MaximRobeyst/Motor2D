@@ -121,13 +121,25 @@ glm::vec2 dae::ColliderComponent::GetSize() const
 #ifdef _DEBUG
 void dae::ColliderComponent::RenderGUI()
 {
+	bool changed{ false };
+
 	ImGui::Text("Collider");
-	ImGui::DragFloat("Width", &m_Width, 1.0f, 1.0f, 100.0f);
-	ImGui::DragFloat("Height", &m_Height, 1.0f, 1.0f, 100.0f);
+	if (ImGui::DragFloat("Width", &m_Width, 1.0f, 1.0f, 100.0f))
+		changed = true;
+	if (ImGui::DragFloat("Height", &m_Height, 1.0f, 1.0f, 100.0f))
+		changed = true;
 	float center[2]{ m_Center.x, m_Center.y };
-	ImGui::DragFloat2("Center", center);
-	m_Center.x = center[0];
-	m_Center.y = center[1];
+	if (ImGui::DragFloat2("Center", center))
+		changed = true;
+
+	if (changed)
+	{
+		m_Center.x = center[0];
+		m_Center.y = center[1];
+
+		m_DynamicBox->SetAsBox(m_Width / 2, m_Height / 2, b2Vec2{ m_Center.x, m_Center.y }, 0.0f);
+		m_pRigidbody->ChangeShape(m_DynamicBox);
+	}
 }
 #endif // _DEBUG
 

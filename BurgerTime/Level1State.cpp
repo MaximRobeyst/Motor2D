@@ -5,6 +5,17 @@
 #include <ResourceManager.h>
 #include <InputManager.h>
 
+#include "AchievementComponent.h"
+#include "FoodComponent.h"
+#include "LifeComponent.h"
+#include "LifeDisplayComponent.h"
+#include "MovementComponent.h"
+#include "PlayerComponent.h"
+#include "ScoreDisplayComponent.h"
+#include "MrHotDogComponent.h"
+#include "PlateComponent.h"
+#include "EnemySpawnerComponent.h"
+
 #include <SpriteRendererComponent.h>
 #include <Transform.h>
 #include <Collider.h>
@@ -19,15 +30,6 @@
 #include <AudioSystem.h>
 #include <SDLAudioSystem.h>
 
-#include "AchievementComponent.h"
-#include "FoodComponent.h"
-#include "LifeComponent.h"
-#include "LifeDisplayComponent.h"
-#include "MovementComponent.h"
-#include "PlayerComponent.h"
-#include "ScoreDisplayComponent.h"
-#include "MrHotDogComponent.h"
-#include "PlateComponent.h"
 
 #include "PlayAudioCommand.h"
 #include <LoggedAudio.h>
@@ -333,6 +335,12 @@ void Level1State::MakeLevel(Scene& pScene)
 	pColliderObject->AddComponent(new TransformComponent(pColliderObject));
 	pColliderObject->SetParent(pLevelGameobject);
 	pScene.AddGameObject(pColliderObject);
+
+	GameObject* pEnemySpawner = new GameObject("EnemySpawner");
+	pEnemySpawner->AddComponent(new TransformComponent(pEnemySpawner));
+	pEnemySpawner->AddComponent(new EnemySpawnerComponent(pEnemySpawner));
+	pEnemySpawner->SetParent(pLevelGameobject);
+	pScene.AddGameObject(pEnemySpawner);
 
 	float scale{ 2.f };
 	for (int i = 0; i < size; ++i)

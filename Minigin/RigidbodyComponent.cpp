@@ -161,3 +161,14 @@ dae::GameObject* dae::RigidbodyComponent::GetGameobject() const
 {
 	return m_pGameObject;
 }
+
+void dae::RigidbodyComponent::ChangeShape(b2Shape* pShape)
+{
+	b2FixtureDef fixtureDef;
+	fixtureDef.shape = pShape;
+	fixtureDef.density = m_Density;
+	fixtureDef.friction = m_Friction;
+	fixtureDef.isSensor = m_IsSensor;
+
+	m_pBody->CreateFixture(&fixtureDef);
+}

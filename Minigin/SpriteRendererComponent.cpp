@@ -57,6 +57,13 @@ void dae::SpriteRendererComponent::Render() const
 		Renderer::GetInstance().RenderTexture(*m_pTexture, m_SampleRectangle, pos.x, pos.y, m_SampleRectangle.w * abs(scale.x), m_SampleRectangle.h * abs(scale.y), scale.x < 0);
 }
 
+void dae::SpriteRendererComponent::RenderGUI()
+{
+	float rect[4] = { m_SampleRectangle.x, m_SampleRectangle.y, m_SampleRectangle.w, m_SampleRectangle.h };
+	if (ImGui::InputFloat4("Sample rect", rect))
+		m_SampleRectangle = SDL_FRect{ rect[0], rect[1], rect[2], rect[3] };
+}
+
 void dae::SpriteRendererComponent::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>& writer)
 {
 	writer.StartObject();

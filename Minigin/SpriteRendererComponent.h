@@ -1,5 +1,6 @@
 #pragma once
 #include "Component.h"
+#include <SDL.h>
 
 namespace dae
 {
@@ -27,6 +28,8 @@ namespace dae
 
 		void Start() override;
 		void Render() const override;
+
+		void RenderGUI() override;
 
 		void Serialize(rapidjson::PrettyWriter< rapidjson::StringBuffer>& writer) override;
 		void Deserialize(GameObject* /*pGameobject*/, rapidjson::Value& /*value*/) override;
