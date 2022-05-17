@@ -25,8 +25,11 @@ dae::GameObject::~GameObject()
 	m_pChildren.clear();
 	
 
-	for (auto iter = m_pComponents.begin(); iter != m_pComponents.end(); ++iter)
-		delete *iter;
+	//for (auto iter = m_pComponents.begin(); iter != m_pComponents.end(); ++iter)
+	//	delete *iter;
+	for (int i = 0; i < m_pComponents.size(); ++i)
+		delete m_pComponents[i];
+
 	m_pComponents.clear();
 
 	m_pChildren.clear();

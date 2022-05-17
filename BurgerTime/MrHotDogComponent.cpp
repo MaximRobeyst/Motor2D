@@ -27,7 +27,7 @@ void EnemyComponent::Start()
 {
 	if (m_pPlayerTransform == nullptr)
 	{
-		auto pPlayerobject = dae::SceneManager::GetInstance().GetScene(0)->FindGmeobjectWithTag("Player");
+		auto pPlayerobject = m_pGameObject->GetScene()->FindGameobjectWithTag("Player");
 		if (pPlayerobject != nullptr)
 		{
 			m_pPlayerTransform = pPlayerobject->GetComponent<dae::TransformComponent>();

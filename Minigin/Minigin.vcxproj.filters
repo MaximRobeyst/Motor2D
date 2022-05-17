@@ -165,6 +165,9 @@
     <ClInclude Include="Factory.h">
       <Filter>Engine Files</Filter>
     </ClInclude>
+    <ClInclude Include="PhysicsDebugDraw.h">
+      <Filter>Engine Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MiniginPCH.cpp">
@@ -288,6 +291,9 @@
       <Filter>Component Files</Filter>
     </ClCompile>
     <ClCompile Include="Factory.cpp">
+      <Filter>Engine Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicsDebugDraw.cpp">
       <Filter>Engine Files</Filter>
     </ClCompile>
   </ItemGroup>

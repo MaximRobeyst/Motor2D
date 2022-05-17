@@ -26,8 +26,15 @@ namespace dae
 		void RenderTexture(const Texture2D& texture, const SDL_FRect& srcRect, float x, float y, float width, float height, bool flipHorizontal = false) const;
 
 		void RenderBox(float x, float y, float width, float height) const;
+
 		void RenderPolygon(glm::vec2* points, const int count, glm::vec4 color = glm::vec4{0.f, 255.f, 0.f, 255.f});
-		void RenderPolygon(b2Vec2* points, const int count, glm::vec4 color = glm::vec4{ 0.f, 255.f, 0.f, 255.f });
+		void RenderPolygon(const b2Vec2* points, const int32 count, glm::vec4 color = glm::vec4{ 0.f, 255.f, 0.f, 255.f });
+
+		void RenderCircle(glm::vec2 position, float radius, glm::vec4 color = glm::vec4{ 0.f,255.5, 0.5, 255.f });
+		void RenderCircle(b2Vec2 position, float radius, glm::vec4 color);
+
+		void RenderLine(glm::vec2 p1, glm::vec2 p2, glm::vec4 color);
+		void RenderLine(const b2Vec2& p1, const b2Vec2& p2, glm::vec4 color);
 
 		SDL_Renderer* GetSDLRenderer() const { return m_Renderer; }
 

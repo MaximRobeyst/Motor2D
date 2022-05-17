@@ -4,6 +4,7 @@
 #include <box2d.h>
 
 class CollisionHandler;
+class PhysicsDebugDraw;
 namespace dae
 {
 	class SceneObject;
@@ -14,7 +15,7 @@ namespace dae
 		void AddGameObject(dae::GameObject* object);
 		void RemoveGameObject(dae::GameObject* object);
 
-		GameObject* FindGmeobjectWithTag(const std::string& tag);
+		GameObject* FindGameobjectWithTag(const std::string& tag);
 
 		std::shared_ptr<b2World> GetPhysicsWorld() const;
 
@@ -51,6 +52,7 @@ namespace dae
 		std::shared_ptr<b2World> m_PhysicsWorld;
 
 		CollisionHandler* m_pCollisionHandler{ nullptr };
+		PhysicsDebugDraw* m_pPhysicsDebugDraw{ nullptr };
 
 		static unsigned int m_IdCounter; 
 		bool m_Started{ false };

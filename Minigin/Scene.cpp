@@ -13,6 +13,8 @@
 #include <prettywriter.h>
 #include <istreamwrapper.h>
 
+#include "PhysicsDebugDraw.h"
+
 using namespace dae;
 
 unsigned int Scene::m_IdCounter = 0;
@@ -22,7 +24,20 @@ Scene::Scene(const std::string& name, const b2Vec2& gravity)
 	m_PhysicsWorld{ std::make_shared<b2World>(gravity) }
 {
 	m_pCollisionHandler = new CollisionHandler();
+
 	m_PhysicsWorld->SetContactListener(m_pCollisionHandler);
+
+
+	//m_pPhysicsDebugDraw = new PhysicsDebugDraw();
+	//
+	//uint32 flags = 0;
+	//flags += b2Draw::e_shapeBit;
+	//flags += b2Draw::e_jointBit;
+	//flags += b2Draw::e_aabbBit;
+	//flags += b2Draw::e_centerOfMassBit;
+	//m_pPhysicsDebugDraw->SetFlags(flags);
+	//
+	//m_PhysicsWorld->SetDebugDraw(m_pPhysicsDebugDraw);
 }
 
 #ifdef _DEBUG
@@ -53,6 +68,8 @@ Scene::~Scene()
 		delete* iter;
 
 	delete m_pCollisionHandler;
+	if(m_pPhysicsDebugDraw != nullptr)
+		delete m_pPhysicsDebugDraw;
 	m_pObjects.clear();
 }
 
@@ -76,7 +93,7 @@ void dae::Scene::RemoveGameObject(dae::GameObject* object)
 	m_pObjectsToDelete.push_back(object);
 }
 
-GameObject* dae::Scene::FindGmeobjectWithTag(const std::string& tag)
+GameObject* dae::Scene::FindGameobjectWithTag(const std::string& tag)
 {
 	auto objectWithTag = std::find_if(m_pObjects.begin(), m_pObjects.end(), [&](GameObject* pGameobject) {
 		return pGameobject->GetTag() == tag;
@@ -124,6 +141,8 @@ void Scene::Render() const
 	{
 		object->Render();
 	}
+
+	m_PhysicsWorld->DebugDraw();
 }
 
 #ifdef _DEBUG

@@ -85,6 +85,7 @@ void Level1State::OnEnter()
 	auto pScoreDisplay = new ScoreDisplayComponent(go, 0);
 	//pScoreDisplay->GetSubject()->AddObserver(pAchievmentComponent);
 	go->AddComponent(pScoreDisplay);
+	go->SetTag("Score");
 	scene.AddGameObject(go);
 
 	auto pPeperGameObject = new GameObject("PeterPete_Player");
@@ -100,30 +101,6 @@ void Level1State::OnEnter()
 	pPeperGameObject->AddComponent(new PlayerComponent(pPeperGameObject));
 	pPeperGameObject->SetTag("Player");
 	scene.AddGameObject(pPeperGameObject);
-
-	auto pHotDogGameObject = new GameObject("MrHotDog");
-	pHotDogGameObject->AddComponent(new TransformComponent(pHotDogGameObject, glm::vec3(256.f, 144.f, 0), glm::vec3{ 2.f }));
-	pHotDogGameObject->AddComponent(new SpriteRendererComponent(pHotDogGameObject, "BurgerTime_SpriteSheet.png"));
-	pHotDogGameObject->AddComponent(new AnimatorComponent(pHotDogGameObject, "../Data/Animations/HotdogAnimations.json"));
-	pHotDogGameObject->AddComponent(new ColliderComponent(pHotDogGameObject, 15.f, 15.f, glm::vec2{ 8.f, 8.5f }));
-	pHotDogGameObject->AddComponent(new RigidbodyComponent(pHotDogGameObject));
-	auto pEnemyComponent = new EnemyComponent(pHotDogGameObject, pPlayerTransform);
-	pHotDogGameObject->AddComponent(pEnemyComponent);
-	pEnemyComponent->GetSubject()->AddObserver(pScoreDisplay);
-	pHotDogGameObject->SetTag("Enemy");
-	scene.AddGameObject(pHotDogGameObject);
-
-	auto pEggGameObject = new GameObject("MrEgg");
-	pEggGameObject->AddComponent(new TransformComponent(pEggGameObject, glm::vec3(288.f, 144.f, 0), glm::vec3{ 2.f }));
-	pEggGameObject->AddComponent(new SpriteRendererComponent(pEggGameObject, "BurgerTime_SpriteSheet.png"));
-	pEggGameObject->AddComponent(new AnimatorComponent(pEggGameObject, "../Data/Animations/EggAnimations.json"));
-	pEggGameObject->AddComponent(new ColliderComponent(pEggGameObject, 15.f, 15.f, glm::vec2{ 8.f, 8.5f }));
-	pEggGameObject->AddComponent(new RigidbodyComponent(pEggGameObject));
-	pEnemyComponent = new EnemyComponent(pEggGameObject, pPlayerTransform);
-	pEggGameObject->AddComponent(pEnemyComponent);
-	pEnemyComponent->GetSubject()->AddObserver(pScoreDisplay);
-	pEggGameObject->SetTag("Enemy");
-	scene.AddGameObject(pEggGameObject);
 
 	auto pBurgerTop = new GameObject("BurgerTop");
 	pBurgerTop->AddComponent(new TransformComponent(pBurgerTop, glm::vec3(224.f, 32.f, 0.f), glm::vec2{ 2.f }));
@@ -338,7 +315,14 @@ void Level1State::MakeLevel(Scene& pScene)
 
 	GameObject* pEnemySpawner = new GameObject("EnemySpawner");
 	pEnemySpawner->AddComponent(new TransformComponent(pEnemySpawner));
-	pEnemySpawner->AddComponent(new EnemySpawnerComponent(pEnemySpawner));
+	auto pEnemySpawnerComponent = new EnemySpawnerComponent(pEnemySpawner);
+	pEnemySpawner->AddComponent(pEnemySpawnerComponent);
+
+	pEnemySpawnerComponent->AddSpawnPosition(glm::vec3{ 0.f, 32.f, 0.f });
+	pEnemySpawnerComponent->AddSpawnPosition(glm::vec3{ 0.f, 296.f, 0.f });
+	pEnemySpawnerComponent->AddSpawnPosition(glm::vec3{ 416.f, 296.f, 0.f });
+	pEnemySpawnerComponent->AddSpawnPosition(glm::vec3{ 416.f, 32.f, 0.f });
+
 	pEnemySpawner->SetParent(pLevelGameobject);
 	pScene.AddGameObject(pEnemySpawner);
 

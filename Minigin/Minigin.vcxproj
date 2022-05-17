@@ -244,6 +244,7 @@
     <ClInclude Include="MiniginPCH.h" />
     <ClInclude Include="NullAudioSystem.h" />
     <ClInclude Include="Observer.h" />
+    <ClInclude Include="PhysicsDebugDraw.h" />
     <ClInclude Include="RigidbodyComponent.h" />
     <ClInclude Include="SceneObject.h" />
     <ClInclude Include="Renderer.h" />
@@ -343,6 +344,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MiniginPCH.h</PrecompiledHeaderFile>
     </ClCompile>
     <ClCompile Include="NullAudioSystem.cpp" />
+    <ClCompile Include="PhysicsDebugDraw.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="RigidbodyComponent.cpp" />

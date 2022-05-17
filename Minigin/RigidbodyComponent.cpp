@@ -49,7 +49,7 @@ dae::RigidbodyComponent::~RigidbodyComponent()
 void dae::RigidbodyComponent::Start()
 {
 	m_pTransformComponent = m_pGameObject->GetComponent<TransformComponent>();
-	m_pWorld = SceneManager::GetInstance().GetScene(1)->GetPhysicsWorld();
+	m_pWorld = m_pGameObject->GetScene()->GetPhysicsWorld();
 
 	m_pColliderComponent = m_pGameObject->GetComponent<dae::ColliderComponent>();
 

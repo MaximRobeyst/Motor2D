@@ -5,6 +5,7 @@
 #include <backends/imgui_impl_sdl.h>
 #include <backends/imgui_impl_opengl2.h>
 #include <chrono>
+#include <gl\GL.h>
 
 
 int GetOpenGLDriverIndex()
@@ -137,7 +138,7 @@ void dae::Renderer::RenderPolygon(glm::vec2* points, const int count, glm::vec4 
 	SDL_SetRenderDrawColor(GetSDLRenderer(), r, g, b, a);
 }
 
-void dae::Renderer::RenderPolygon(b2Vec2* points, const int count, glm::vec4 color)
+void dae::Renderer::RenderPolygon(const b2Vec2* points, const int32 count, glm::vec4 color)
 {
 	std::vector<SDL_FPoint> pointsSDL(count);
 	for (int i = 0; i < count; ++i)
@@ -146,6 +147,67 @@ void dae::Renderer::RenderPolygon(b2Vec2* points, const int count, glm::vec4 col
 	Uint8 r, g, b, a;
 	SDL_GetRenderDrawColor(GetSDLRenderer(), &r, &g, &b, &a);
 	SDL_SetRenderDrawColor(GetSDLRenderer(), (Uint8)color.r, (Uint8)color.g, (Uint8)color.b, (Uint8)color.a);
-	SDL_RenderDrawPointsF(GetSDLRenderer(), pointsSDL.data(), count);
+	
+	glLineWidth(0.1f);
+	glBegin(GL_LINE_LOOP);
+	{
+		for (size_t idx{ 0 }; idx < count; ++idx)
+		{
+			glVertex2f(points[idx].x, points[idx].y);
+		}
+	}
+	glEnd();
+
 	SDL_SetRenderDrawColor(GetSDLRenderer(), r, g, b, a);
+}
+
+void dae::Renderer::RenderCircle(glm::vec2 position, float radius, glm::vec4 color)
+{
+	Uint8 r, g, b, a;
+	SDL_GetRenderDrawColor(GetSDLRenderer(), &r, &g, &b, &a);
+	SDL_SetRenderDrawColor(GetSDLRenderer(), (Uint8)color.r, (Uint8)color.g, (Uint8)color.b, (Uint8)color.a);
+
+	float dAngle{ radius > radius ? float(M_PI / radius) : float(M_PI / radius) };
+
+	glLineWidth(1.0f);
+	glBegin(GL_LINE_LOOP);
+	{
+		for (float angle = 0.0; angle < float(2 * M_PI); angle += dAngle)
+		{
+			glVertex2f(position.x + radius * float(cos(angle)), position.y + radius * float(sin(angle)));
+		}
+	}
+	glEnd();
+	SDL_SetRenderDrawColor(GetSDLRenderer(), r, g, b, a);
+}
+
+void dae::Renderer::RenderCircle(b2Vec2 position, float radius, glm::vec4 color)
+{
+	Uint8 r, g, b, a;
+	SDL_GetRenderDrawColor(GetSDLRenderer(), &r, &g, &b, &a);
+	SDL_SetRenderDrawColor(GetSDLRenderer(), (Uint8)color.r, (Uint8)color.g, (Uint8)color.b, (Uint8)color.a);
+
+	RenderCircle(glm::vec2{ position.x, position.y }, radius, color);
+	SDL_SetRenderDrawColor(GetSDLRenderer(), r, g, b, a);
+}
+
+void dae::Renderer::RenderLine(glm::vec2 p1, glm::vec2 p2, glm::vec4 color)
+{
+	Uint8 r, g, b, a;
+	SDL_GetRenderDrawColor(GetSDLRenderer(), &r, &g, &b, &a);
+	SDL_SetRenderDrawColor(GetSDLRenderer(), (Uint8)color.r, (Uint8)color.g, (Uint8)color.b, (Uint8)color.a);
+
+	glLineWidth(1.f);
+	glBegin(GL_LINES);
+	{
+		glVertex2f(p1.x, p1.y);
+		glVertex2f(p1.x, p2.y);
+	}
+	glEnd();
+	SDL_SetRenderDrawColor(GetSDLRenderer(), r, g, b, a);
+}
+
+void dae::Renderer::RenderLine(const b2Vec2& p1, const b2Vec2& p2, glm::vec4 color)
+{
+	RenderLine(glm::vec2{ p1.x, p2.x }, glm::vec2{ p2.x, p2.y }, color);
 }

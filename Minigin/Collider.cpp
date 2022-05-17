@@ -75,11 +75,6 @@ void dae::ColliderComponent::Render() const
 {
 	auto pos = m_pRigidbody->GetPosition();
 	Renderer::GetInstance().RenderBox((pos.x + m_Center.x) - (m_Width / 2), (pos.y + m_Center.y) - (m_Height / 2), m_Width, m_Height);
-
-	auto points = m_DynamicBox->m_vertices;
-	auto count = m_DynamicBox->m_count;
-
-	Renderer::GetInstance().RenderPolygon(points, count);
 }
 
 void dae::ColliderComponent::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>& writer)
