@@ -31,6 +31,10 @@ void EnemySpawnerComponent::Notify(const dae::GameObject& gameObject, const Even
 void EnemySpawnerComponent::Start()
 {
 	m_pScoreDisplay = m_pGameObject->GetScene()->FindGameobjectWithTag("Score")->GetComponent<ScoreDisplayComponent>();
+	for (int i = 0; i < m_MaxCount; ++i)
+	{
+		SpawnEnemyAtLocation(m_SpawnPoints[i]);
+	}
 }
 
 void EnemySpawnerComponent::Update()
@@ -121,6 +125,7 @@ void EnemySpawnerComponent::SpawnEnemyAtLocation(glm::vec3 position)
 dae::GameObject* EnemySpawnerComponent::CreateMrHotDog(glm::vec3 position)
 {
 	auto pHotDogGameObject = new dae::GameObject("MrHotDog");
+	pHotDogGameObject->SetTag("Enemy");
 	pHotDogGameObject->AddComponent(new dae::TransformComponent(pHotDogGameObject, position, glm::vec3{ 2.f }));
 	pHotDogGameObject->AddComponent(new dae::SpriteRendererComponent(pHotDogGameObject, "BurgerTime_SpriteSheet.png"));
 	pHotDogGameObject->AddComponent(new dae::AnimatorComponent(pHotDogGameObject, "../Data/Animations/HotdogAnimations.json"));
@@ -129,7 +134,7 @@ dae::GameObject* EnemySpawnerComponent::CreateMrHotDog(glm::vec3 position)
 	auto pEnemyComponent = new EnemyComponent(pHotDogGameObject, nullptr);
 	pHotDogGameObject->AddComponent(pEnemyComponent);
 	pEnemyComponent->GetSubject()->AddObserver(m_pScoreDisplay);
-	pHotDogGameObject->SetParent(pHotDogGameObject);
+	pHotDogGameObject->SetParent(m_pGameObject);
 	pHotDogGameObject->SetTag("Enemy");
 
 	return pHotDogGameObject;

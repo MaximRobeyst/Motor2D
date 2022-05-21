@@ -5,6 +5,8 @@
 
 #include "Scene.h"
 
+#include <misc/cpp/imgui_stdlib.h>
+
 dae::GameObject::GameObject(const std::string& name)
 	: m_Name{name}
 {
@@ -45,6 +47,9 @@ void dae::GameObject::Start()
 
 void dae::GameObject::Update()
 {
+	if (!m_Enabled)
+		return;
+
 	for (auto iter = m_pComponents.begin(); iter != m_pComponents.end(); ++iter)
 	{
 		(*iter)->Update();
@@ -53,8 +58,9 @@ void dae::GameObject::Update()
 
 void dae::GameObject::Render() const
 {
-	//const auto& pos = m_Transform.GetPosition();
-	//Renderer::GetInstance().RenderTexture(*m_Texture, pos.x, pos.y);
+	if (!m_Enabled)
+		return;
+
 	for (auto iter = m_pComponents.begin(); iter != m_pComponents.end(); ++iter)
 	{
 		(*iter)->Render();
@@ -66,6 +72,11 @@ void dae::GameObject::Render() const
 void dae::GameObject::RenderGUI()
 {
 	ImGui::BeginChild(m_Name.c_str(), ImVec2{ ImGui::GetContentRegionAvail().x, 250.f }, true);
+
+	ImGui::Text(m_Name.c_str());
+	if (ImGui::Checkbox("Enabled", &m_Enabled))
+		SetEnabled(m_Enabled);
+
 	for (auto iter = m_pComponents.begin(); iter != m_pComponents.end(); ++iter)
 	{
 		if (ImGui::CollapsingHeader(typeid(**iter).name()))
@@ -142,10 +153,6 @@ void dae::GameObject::AddComponent(Component* component)
 
 void dae::GameObject::SetParent(GameObject* pParent, bool /*worldPositionStays*/)
 {
-
-	if (m_Name == "Ladder 135")
-		std::cout << "The sussy baka" << std::endl;
-
 	// Remove itself as a child from the previous parent
 	if (m_pParent != nullptr)
 		m_pParent->RemoveChild(this);
@@ -228,4 +235,20 @@ std::string dae::GameObject::GetName() const
 void dae::GameObject::SetName(const std::string& newName)
 {
 	m_Name = newName;
+}
+
+bool dae::GameObject::IsEnable() const
+{
+	return m_Enabled;
+}
+
+void dae::GameObject::SetEnabled(bool newValue, bool AffectChildren)
+{
+	m_Enabled = newValue;
+	if (!AffectChildren) return;
+
+	for (auto iter = m_pChildren.begin(); iter != m_pChildren.end(); ++iter)
+	{
+		(*iter)->SetEnabled(newValue, AffectChildren);
+	}
 }

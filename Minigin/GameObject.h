@@ -79,6 +79,9 @@ namespace dae
 		std::string GetName() const;
 		void SetName(const std::string& newName);
 
+		bool IsEnable() const;
+		void SetEnabled(bool newValue, bool AffectChildren = true);
+
 
 	private:
 		void AddChild(GameObject* pChild);
@@ -87,6 +90,8 @@ namespace dae
 		// Extra data
 		std::string m_Name{};
 		std::string m_Tag{};
+
+		bool m_Enabled{ true };
 
 		Scene* m_pCurrentScene{};
 

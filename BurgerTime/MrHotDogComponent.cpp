@@ -26,15 +26,6 @@ EnemyComponent::EnemyComponent(dae::GameObject* pGameobject, dae::TransformCompo
 
 void EnemyComponent::Start()
 {
-	if (m_pPlayerTransform == nullptr)
-	{
-		auto pPlayerobject = m_pGameObject->GetScene()->FindGameobjectWithTag("Player");
-		if (pPlayerobject != nullptr)
-		{
-			m_pPlayerTransform = pPlayerobject->GetComponent<dae::TransformComponent>();
-		}
-	}
-
 	m_pTransfomComponent = m_pGameObject->GetComponent<dae::TransformComponent>();
 	m_pRigidbodyComponent = m_pGameObject->GetComponent<dae::RigidbodyComponent>();
 	m_pAnimatorComponent = m_pGameObject->GetComponent<dae::AnimatorComponent>();
@@ -61,32 +52,45 @@ void EnemyComponent::Start()
 
 	rigidBodyComponent->SetOnEnterFunction(newFunction);
 
+	if (m_pPlayerTransform == nullptr)
+	{
+		return;
+		/*auto pPlayerobject = m_pGameObject->GetScene()->FindGameobjectWithTag("Player");
+		if (pPlayerobject != nullptr)
+		{
+			m_pPlayerTransform = pPlayerobject->GetComponent<dae::TransformComponent>();
+		}*/
+	}
+
 }
 
 void EnemyComponent::Update()
 {
-	dae::RaycastCallback raycastCallback;
-	auto pos = m_pTransfomComponent->GetPosition();
-	b2Vec2 startPosition{ pos.x, pos.y };
-	b2Vec2 endPosition{ startPosition + b2Vec2{1,0} };
+	dae::RaycastCallback raycastCallback{m_pGameObject->GetScene()->GetPhysicsWorld().get()};
+	dae::RaycastHit hit{};
 
-	m_pGameObject->GetScene()->GetPhysicsWorld()->RayCast(&raycastCallback, startPosition, endPosition);
+	raycastCallback.Raycast(m_pTransfomComponent->GetPosition(), glm::vec2{ 0,1 }, 1.f, hit);
+	if (hit.pHitObject != nullptr)
+	{
+	
+	}
 
+	if (m_Dead)
+	{
+		if (m_pAnimatorComponent->IsAnimationDone())
+			dae::SceneManager::GetInstance().GetScene(0)->RemoveGameObject(m_pGameObject);
 
-	if(m_pPlayerTransform->GetPosition().y > 0)
+		return;
+	}
 
+	//if(m_pPlayerTransform->GetPosition().y > 0)
+
+	if (m_pPlayerTransform == nullptr) return;
 	if (m_pPlayerTransform->GetPosition().x <= m_pTransfomComponent->GetPosition().x)
 		m_pRigidbodyComponent->GetBody()->SetLinearVelocity(b2Vec2{ -m_Speed, 0.f });
 	else if(m_pPlayerTransform->GetPosition().x >= m_pTransfomComponent->GetPosition().x)
 		m_pRigidbodyComponent->GetBody()->SetLinearVelocity(b2Vec2{ m_Speed, 0.f });
 
-	if (m_Dead)
-	{
-		if(m_pAnimatorComponent->IsAnimationDone())
-			dae::SceneManager::GetInstance().GetScene(0)->RemoveGameObject(m_pGameObject);
-
-		return;
-	}
 }
 
 void EnemyComponent::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>& writer)
