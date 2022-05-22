@@ -7,7 +7,7 @@ void CollisionHandler::BeginContact(b2Contact* pContact)
 	auto pRigidbody1 = (dae::RigidbodyComponent*)(pContact->GetFixtureA()->GetBody()->GetUserData().pointer);
 	auto pRigidbody2 = (dae::RigidbodyComponent*)(pContact->GetFixtureB()->GetBody()->GetUserData().pointer);
 
-	if (pRigidbody1 == nullptr || pRigidbody2 != nullptr)  return;
+	if (pRigidbody1 == nullptr || pRigidbody2 == nullptr)  return;
 
 	pRigidbody1->OnBeginContact(pRigidbody1, pRigidbody2, pContact);
 }
@@ -17,7 +17,7 @@ void CollisionHandler::EndContact(b2Contact* pContact)
 	auto pRigidbody1 = reinterpret_cast<dae::RigidbodyComponent*>(pContact->GetFixtureA()->GetBody()->GetUserData().pointer);
 	auto pRigidbody2 = reinterpret_cast<dae::RigidbodyComponent*>(pContact->GetFixtureB()->GetBody()->GetUserData().pointer);
 
-	if (pRigidbody1 == nullptr || pRigidbody2 != nullptr)  return;
+	if (pRigidbody1 == nullptr || pRigidbody2 == nullptr)  return;
 
 	pRigidbody1->OnEndContact(pRigidbody1, pRigidbody2, pContact);
 }

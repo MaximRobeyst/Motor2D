@@ -33,8 +33,8 @@ namespace dae
 		void RenderCircle(glm::vec2 position, float radius, glm::vec4 color = glm::vec4{ 0.f,255.5, 0.5, 255.f });
 		void RenderCircle(b2Vec2 position, float radius, glm::vec4 color);
 
-		void RenderLine(glm::vec2 p1, glm::vec2 p2, glm::vec4 color);
-		void RenderLine(const b2Vec2& p1, const b2Vec2& p2, glm::vec4 color);
+		void RenderLine(glm::vec2 p1, glm::vec2 p2, glm::vec4 color, float linewidth = 1.0f);
+		void RenderLine(const b2Vec2& p1, const b2Vec2& p2, glm::vec4 color, float linewidth = 1.0f);
 
 		SDL_Renderer* GetSDLRenderer() const { return m_Renderer; }
 

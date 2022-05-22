@@ -183,31 +183,24 @@ void dae::Renderer::RenderCircle(glm::vec2 position, float radius, glm::vec4 col
 
 void dae::Renderer::RenderCircle(b2Vec2 position, float radius, glm::vec4 color)
 {
-	Uint8 r, g, b, a;
-	SDL_GetRenderDrawColor(GetSDLRenderer(), &r, &g, &b, &a);
 	SDL_SetRenderDrawColor(GetSDLRenderer(), (Uint8)color.r, (Uint8)color.g, (Uint8)color.b, (Uint8)color.a);
 
 	RenderCircle(glm::vec2{ position.x, position.y }, radius, color);
-	SDL_SetRenderDrawColor(GetSDLRenderer(), r, g, b, a);
 }
 
-void dae::Renderer::RenderLine(glm::vec2 p1, glm::vec2 p2, glm::vec4 color)
+void dae::Renderer::RenderLine(glm::vec2 p1, glm::vec2 p2, glm::vec4 color, float linewidth)
 {
-	Uint8 r, g, b, a;
-	SDL_GetRenderDrawColor(GetSDLRenderer(), &r, &g, &b, &a);
 	SDL_SetRenderDrawColor(GetSDLRenderer(), (Uint8)color.r, (Uint8)color.g, (Uint8)color.b, (Uint8)color.a);
-
-	glLineWidth(1.f);
+	glLineWidth(linewidth);
 	glBegin(GL_LINES);
 	{
 		glVertex2f(p1.x, p1.y);
-		glVertex2f(p1.x, p2.y);
+		glVertex2f(p2.x, p2.y);
 	}
 	glEnd();
-	SDL_SetRenderDrawColor(GetSDLRenderer(), r, g, b, a);
 }
 
-void dae::Renderer::RenderLine(const b2Vec2& p1, const b2Vec2& p2, glm::vec4 color)
+void dae::Renderer::RenderLine(const b2Vec2& p1, const b2Vec2& p2, glm::vec4 color, float linewidth)
 {
-	RenderLine(glm::vec2{ p1.x, p2.x }, glm::vec2{ p2.x, p2.y }, color);
+	RenderLine(glm::vec2{ p1.x, p1.y }, glm::vec2{ p2.x, p2.y }, color, linewidth);
 }

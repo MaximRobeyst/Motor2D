@@ -35,6 +35,8 @@ namespace dae
 		Keyboard()  = default;
 		virtual ~Keyboard() = default;
 
+		void ClearInput();
+
 		void ProcessInput(const SDL_Event* event);
 		bool IsDownThisFrame(int key);
 		bool IsUpThisFrame(int key);

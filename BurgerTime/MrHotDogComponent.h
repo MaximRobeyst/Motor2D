@@ -1,8 +1,17 @@
 #pragma once
 #include <Component.h>
-#include <AnimatorComponent.h>
-#include <Subject.h>
 #include <Transform.h>
+
+namespace dae
+{
+	class AnimatorComponent;
+	class RigidbodyComponent;
+	class TransformComponent;
+	class ColliderComponent;
+
+}
+
+class Subject;
 
 class EnemyComponent : public dae::Component
 {
@@ -12,6 +21,7 @@ public:
 
 	void Start() override;
 	void Update() override;
+	void Render() const override;
 
 	void Serialize(rapidjson::PrettyWriter< rapidjson::StringBuffer>& writer) override;
 	void Deserialize(dae::GameObject* /*pGameobject*/, rapidjson::Value& /*value*/) override;
@@ -22,6 +32,15 @@ public:
 
 	std::unique_ptr<Subject>& GetSubject();
 private:
+	void UpdateWalk();
+	void UpdateClimb();
+	void UpdatePlayerDeath();
+
+	bool SpaceAbove();
+	bool SpaceBelow();
+	bool SpaceLeft();
+	bool SpaceRight();
+
 	int m_Score{100};
 	bool m_Dead{};
 
@@ -30,7 +49,21 @@ private:
 	dae::AnimatorComponent* m_pAnimatorComponent;
 	dae::RigidbodyComponent* m_pRigidbodyComponent;
 	dae::TransformComponent* m_pTransfomComponent;
+	dae::ColliderComponent* m_pColliderComponent;
 
 	dae::TransformComponent* m_pPlayerTransform{nullptr};
 	std::unique_ptr<Subject> m_pSubject;
+
+	glm::vec2 m_CurrentDirection{};
+
+	// State machine
+	enum class EnemyState
+	{
+		Walk,
+		Climb,
+		Playerdead
+	};
+
+	EnemyState m_CurrentState{ EnemyState::Walk };
 };
+

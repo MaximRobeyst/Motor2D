@@ -56,6 +56,15 @@ void MainMenuState::OnEnter()
 	pGameobject->SetParent(pLogo);
 	scene.AddGameObject(pGameobject);
 
+	pGameobject = new GameObject("Versus button");
+	pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3(480.f, 300.f, 0.f)));
+	pGameobject->AddComponent(new SpriteRendererComponent(pGameobject, "logo.png"));
+	pGameobject->AddComponent(new TextComponent(pGameobject, "Versus mode", font, SDL_Color{ 255, 255, 255 }));
+	pUIButtonComp = new UIButtonComponent(pGameobject);
+	pGameobject->AddComponent(pUIButtonComp);
+	pGameobject->SetParent(pLogo);
+	scene.AddGameObject(pGameobject);
+
 
 	auto keyboard = input.GetKeyboard();
 	keyboard->AddKeyboardMapping(

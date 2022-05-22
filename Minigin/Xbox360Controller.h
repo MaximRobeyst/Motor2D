@@ -54,6 +54,8 @@ namespace dae
 		Xbox360Controller& operator=(const Xbox360Controller&) = delete;
 		Xbox360Controller& operator= (const Xbox360Controller&&) = delete;
 
+		void ClearInputs();
+
 		void ProcessInput();
 		bool IsDownThisFrame(ControllerButton button) const;
 		bool IsUpThisFrame(ControllerButton button) const ;

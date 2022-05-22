@@ -68,6 +68,11 @@ dae::Xbox360Controller::Xbox360Controller(int controllerIndex)
 
 dae::Xbox360Controller::~Xbox360Controller() = default;
 
+void dae::Xbox360Controller::ClearInputs()
+{
+	m_ControllerMap.clear();
+}
+
 void dae::Xbox360Controller::ProcessInput()
 {
 	m_pImpl->Update();

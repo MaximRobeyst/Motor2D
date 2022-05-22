@@ -45,6 +45,7 @@ void Level1State::OnEnter()
 {
 	auto& scene = dae::SceneManager::GetInstance().CreateScene("Level01");
 	auto& input = InputManager::GetInstance();
+	//input.ClearInputs();
 
 	MakeLevel(scene);
 
@@ -318,9 +319,9 @@ void Level1State::MakeLevel(Scene& pScene)
 	auto pEnemySpawnerComponent = new EnemySpawnerComponent(pEnemySpawner);
 	pEnemySpawner->AddComponent(pEnemySpawnerComponent);
 
+	pEnemySpawnerComponent->AddSpawnPosition(glm::vec3{ 384.f, 296.f, 0.f });
 	pEnemySpawnerComponent->AddSpawnPosition(glm::vec3{ 0.f, 32.f, 0.f });
 	pEnemySpawnerComponent->AddSpawnPosition(glm::vec3{ 0.f, 296.f, 0.f });
-	pEnemySpawnerComponent->AddSpawnPosition(glm::vec3{ 416.f, 296.f, 0.f });
 	pEnemySpawnerComponent->AddSpawnPosition(glm::vec3{ 416.f, 32.f, 0.f });
 
 	pEnemySpawner->SetParent(pLevelGameobject);
@@ -560,6 +561,29 @@ void Level1State::MakeLevel(Scene& pScene)
 	pGameobject = new GameObject("Collider 22");
 	pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 176.f, 16.f, 0.f }));
 	pGameobject->AddComponent(new ColliderComponent(pGameobject, 16.f, 80.f, glm::vec2{ 8.f, 64.f }));
+	pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
+	pGameobject->SetParent(pColliderObject);
+
+	pScene.AddGameObject(pGameobject);
+
+	pGameobject = new GameObject("Collider 23");
+	pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 0.f, 0.f, 0.f }));
+	pGameobject->AddComponent(new ColliderComponent(pGameobject, 416.f, 8.f, glm::vec2{ 0.f, 0.f }));
+	pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
+	pGameobject->SetParent(pColliderObject);
+
+	pScene.AddGameObject(pGameobject);
+
+	pGameobject = new GameObject("Collider 23");
+	pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 416.f, 0.f, 0.f }));
+	pGameobject->AddComponent(new ColliderComponent(pGameobject, 64.f, 416.f, glm::vec2{ 0.f, 0.f }));
+	pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
+	pGameobject->SetParent(pColliderObject);
+	pScene.AddGameObject(pGameobject);
+
+	pGameobject = new GameObject("Collider 24");
+	pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ -64.f, 0.f, 0.f }));
+	pGameobject->AddComponent(new ColliderComponent(pGameobject, 64.f, 416.f, glm::vec2{ 0.f, 0.f }));
 	pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
 	pGameobject->SetParent(pColliderObject);
 

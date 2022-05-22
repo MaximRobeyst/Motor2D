@@ -9,6 +9,10 @@
 #include <ServiceLocator.h>
 #include <RaycastCallback.h>
 #include <Renderer.h>
+#include <AnimatorComponent.h>
+#include <Collider.h>
+
+#include <Subject.h>
 
 dae::Creator<dae::Component, EnemyComponent> s_TranformComponentCreate{};
 
@@ -30,6 +34,7 @@ void EnemyComponent::Start()
 	m_pTransfomComponent = m_pGameObject->GetComponent<dae::TransformComponent>();
 	m_pRigidbodyComponent = m_pGameObject->GetComponent<dae::RigidbodyComponent>();
 	m_pAnimatorComponent = m_pGameObject->GetComponent<dae::AnimatorComponent>();
+	m_pColliderComponent = m_pGameObject->GetComponent < dae::ColliderComponent>();
 
 	m_pAnimatorComponent->SetAnimation("WalkLeft");
 
@@ -66,23 +71,18 @@ void EnemyComponent::Start()
 
 void EnemyComponent::Update()
 {
-	dae::RaycastCallback raycastCallback;
-	auto pos = m_pTransfomComponent->GetPosition();
-	b2Vec2 startPosition{ pos.x, pos.y };
-	b2Vec2 endPosition{ startPosition + b2Vec2{1,0} };
-
-	m_pGameObject->GetScene()->GetPhysicsWorld()->RayCast(&raycastCallback, startPosition, endPosition);
-
-	auto hit = raycastCallback.GetLatestHit();
-
-	if (hit.pHitObject == nullptr && m_pTransfomComponent->GetPosition().y > (m_pPlayerTransform->GetPosition().y - 10.0f))
+	switch (m_CurrentState)
 	{
-		m_pRigidbodyComponent->GetBody()->SetLinearVelocity(b2Vec2{ 0.f, -m_Speed });
+	case EnemyState::Walk:
+		UpdateWalk();
+		break;
+	case EnemyState::Climb:
+		UpdateClimb();
+	case EnemyState::Playerdead:
+		UpdatePlayerDeath();
 	}
-	else
-	{
-		m_pRigidbodyComponent->GetBody()->SetLinearVelocity(b2Vec2{ -m_Speed, 0.f });
-	}
+	return;
+
 
 	if (m_Dead)
 	{
@@ -100,6 +100,18 @@ void EnemyComponent::Update()
 	//else if(m_pPlayerTransform->GetPosition().x >= m_pTransfomComponent->GetPosition().x)
 	//	m_pRigidbodyComponent->GetBody()->SetLinearVelocity(b2Vec2{ m_Speed, 0.f });
 
+}
+
+void EnemyComponent::Render() const
+{
+	auto pos = m_pTransfomComponent->GetPosition();
+	b2Vec2 startPosition{ pos.x, pos.y + 1.0f };
+	b2Vec2 endPosition{ startPosition + b2Vec2{0,-2.f} };
+	dae::Renderer::GetInstance().RenderLine(startPosition, endPosition, glm::vec4{ 255.f, 0.f, 0.f, 255.f }, 2.0f);
+
+	startPosition = b2Vec2 {pos.x + 1.0f, pos.y };
+	endPosition = b2Vec2{ startPosition + b2Vec2{-2.f,0.f} };
+	dae::Renderer::GetInstance().RenderLine(startPosition, endPosition, glm::vec4{ 255.f, 0.f, 0.f, 255.f }, 2.0f);
 }
 
 void EnemyComponent::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>& writer)
@@ -131,4 +143,131 @@ int EnemyComponent::GetScore() const
 std::unique_ptr<Subject>& EnemyComponent::GetSubject()
 {
 	return m_pSubject;
+}
+
+void EnemyComponent::UpdateWalk()
+{
+	// Raycast up to check if we can climb a ladder
+	bool spaceAbove = SpaceAbove();
+	//bool spaceBelow = SpaceBelow();
+
+	//std::cout << "My position ["
+	//	<< m_pTransfomComponent->GetPosition().x << " , " << m_pTransfomComponent->GetPosition().y << " ]" << std::endl << 
+	//	"The players Position[" << m_pPlayerTransform->GetPosition().x << " , " << m_pPlayerTransform->GetPosition().y << " ] " << std::endl << 
+	//	"Space above head: ?" << spaceAbove << " " << std::endl;
+
+	if (spaceAbove && fabsf((m_pTransfomComponent->GetPosition().y - m_pPlayerTransform->GetPosition().y)) > 1.0f)
+	{
+		//m_pRigidbodyComponent->GetBody()->SetLinearVelocity(b2Vec2{ 0.f, -m_Speed });
+		m_CurrentState = EnemyState::Climb;
+		return;
+	}
+	m_pRigidbodyComponent->GetBody()->SetLinearVelocity(b2Vec2{ -m_Speed, 0.f });
+}
+
+void EnemyComponent::UpdateClimb()
+{
+	// Raycast up to check if we can climb a ladder
+	if (!SpaceAbove())
+	{
+		if (m_pPlayerTransform->GetPosition().x < m_pTransfomComponent->GetPosition().x)
+			m_CurrentDirection.x = -1.f;
+		else
+			m_CurrentDirection.x = 1.f;
+	}
+
+	if(SpaceLeft() && m_CurrentDirection.x)
+		m_pRigidbodyComponent->GetBody()->SetLinearVelocity(b2Vec2{ 0.f, -m_Speed });
+}
+
+void EnemyComponent::UpdatePlayerDeath()
+{
+}
+
+bool EnemyComponent::SpaceAbove()
+{
+	dae::RaycastCallback raycastCallback;
+	const auto pos = m_pTransfomComponent->GetPosition();
+	b2Vec2 startPosition{ pos.x, pos.y + 1.0f };
+	b2Vec2 endPosition{ startPosition + b2Vec2{0,-3.f} };
+
+	int sections = 3;
+	float sizeDevidedBySections = m_pColliderComponent->GetSize().x / (sections- 1.f);
+
+	for (int i = 0; i < sections; ++i)
+	{
+		m_pGameObject->GetScene()->GetPhysicsWorld()->RayCast(&raycastCallback, startPosition + b2Vec2{ sizeDevidedBySections * i, 0.f }, endPosition + b2Vec2{ sizeDevidedBySections * i, 0.f });
+		auto hit = raycastCallback.GetLatestHit();
+
+		std::cout << "hit " << std::to_string(i) << ": " << (hit.pHitObject ? hit.pHitObject->GetName() : "NULL") << std::endl;
+		if (hit.pHitObject != nullptr)
+			return false;
+	}
+	return true;
+}
+
+bool EnemyComponent::SpaceBelow()
+{
+	dae::RaycastCallback raycastCallback;
+	const auto pos = m_pTransfomComponent->GetPosition();
+	b2Vec2 startPosition{ pos.x, pos.y + 1.0f };
+	b2Vec2 endPosition{ startPosition + b2Vec2{0,-2.f} };
+
+	int sections = 3;
+	float sizeDevidedBySections = m_pColliderComponent->GetSize().x / sections;
+
+	for (int i = 0; i < sections; ++i)
+	{
+		m_pGameObject->GetScene()->GetPhysicsWorld()->RayCast(&raycastCallback, startPosition +b2Vec2{sizeDevidedBySections * i, 0.f}, endPosition + b2Vec2{sizeDevidedBySections * i, 0.f});
+		auto hit = raycastCallback.GetLatestHit();
+
+		std::cout << "hit " << std::to_string(i) << ": " << (hit.pHitObject ? hit.pHitObject->GetName() : "NULL") << std::endl;
+		if (hit.pHitObject != nullptr)
+			return false;
+	}
+	return true;
+}
+
+bool EnemyComponent::SpaceLeft()
+{
+	dae::RaycastCallback raycastCallback;
+	const auto pos = m_pTransfomComponent->GetPosition();
+	b2Vec2 startPosition{ pos.x, pos.y - 1.0f };
+	b2Vec2 endPosition{ startPosition + b2Vec2{0,2.f} };
+
+	int sections = 3;
+	float sizeDevidedBySections = m_pColliderComponent->GetSize().x / sections;
+
+	for (int i = 0; i < sections; ++i)
+	{
+		m_pGameObject->GetScene()->GetPhysicsWorld()->RayCast(&raycastCallback, startPosition + b2Vec2{ sizeDevidedBySections * i, 0.f }, endPosition + b2Vec2{ sizeDevidedBySections * i, 0.f });
+		auto hit = raycastCallback.GetLatestHit();
+
+		std::cout << "hit " << std::to_string(i) << ": " << (hit.pHitObject ? hit.pHitObject->GetName() : "NULL") << std::endl;
+		if (hit.pHitObject != nullptr)
+			return false;
+	}
+	return true;
+}
+
+bool EnemyComponent::SpaceRight()
+{
+	dae::RaycastCallback raycastCallback;
+	const auto pos = m_pTransfomComponent->GetPosition();
+	b2Vec2 startPosition{ pos.x + 1.0f, pos.y };
+	b2Vec2 endPosition{ startPosition + b2Vec2{-2.f, 0.f} };
+
+	int sections = 3;
+	float sizeDevidedBySections = m_pColliderComponent->GetSize().x / sections;
+
+	for (int i = 0; i < sections; ++i)
+	{
+		m_pGameObject->GetScene()->GetPhysicsWorld()->RayCast(&raycastCallback, startPosition + b2Vec2{ 0.f, sizeDevidedBySections * i}, endPosition + b2Vec2{ 0.f,  sizeDevidedBySections * i });
+		auto hit = raycastCallback.GetLatestHit();
+
+		std::cout << "hit " << std::to_string(i) << ": " << (hit.pHitObject ? hit.pHitObject->GetName() : "NULL") << std::endl;
+		if (hit.pHitObject != nullptr)
+			return false;
+	}
+	return true;
 }

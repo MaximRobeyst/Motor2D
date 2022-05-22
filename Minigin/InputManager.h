@@ -12,6 +12,7 @@ namespace dae
 		bool ProcessInput();
 
 		void AddController(std::shared_ptr<dae::Xbox360Controller>& controller);
+		void ClearInputs();
 
 		std::shared_ptr<dae::Xbox360Controller> GetController(int index);
 		std::shared_ptr<dae::Keyboard> GetKeyboard() const;

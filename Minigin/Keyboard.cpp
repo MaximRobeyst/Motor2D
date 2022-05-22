@@ -1,6 +1,11 @@
 #include "MiniginPCH.h"
 #include "Keyboard.h"
 
+void dae::Keyboard::ClearInput()
+{
+    m_KeyboardMap.clear();
+}
+
 void dae::Keyboard::ProcessInput(const SDL_Event* event)
 {
     UpdateKeys();
@@ -18,6 +23,9 @@ void dae::Keyboard::ProcessInput(const SDL_Event* event)
     }
     for (auto it = m_KeyboardMap.begin(); it != m_KeyboardMap.end(); ++it)
     {
+        if (it == m_KeyboardMap.end())
+            break;
+
         if (it->first.state == KeyState::Hold && IsPressed(it->first.key))
             it->second->Execute();
         if (it->first.state == KeyState::Down && IsDownThisFrame(it->first.key))

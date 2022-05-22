@@ -28,6 +28,16 @@ void dae::InputManager::AddController(std::shared_ptr<dae::Xbox360Controller>& c
 	m_pXbox360Controllers.push_back(controller);
 }
 
+void dae::InputManager::ClearInputs()
+{
+	for (auto controller : m_pXbox360Controllers)
+	{
+		controller->ClearInputs();
+	}
+
+	m_pKeyboard->ClearInput();
+}
+
 std::shared_ptr<dae::Xbox360Controller> dae::InputManager::GetController(int index)
 {
 	return m_pXbox360Controllers[index];
