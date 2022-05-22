@@ -1,6 +1,6 @@
 {
     "sceneName": "Main_Menu",
-    "gameobjectCount": 3,
+    "gameobjectCount": 4,
     "Gravity": {
         "X": 0.0,
         "Y": 0.0
@@ -40,16 +40,89 @@
                         },
                         {
                             "name": "class dae::TextComponent",
-                            "Text": "not Hovering",
+                            "Text": "1 Player",
                             "Color": {
                                 "r": 255,
                                 "g": 255,
                                 "b": 255,
-                                "a": 255
+                                "a": 0
                             }
                         },
                         {
                             "name": "class UIButtonComponent"
+                        }
+                    ]
+                },
+                {
+                    "Name": "Multiplayer button",
+                    "Tag": "",
+                    "Children": [],
+                    "Components": [
+                        {
+                            "name": "class dae::TransformComponent",
+                            "Position": {
+                                "x": 480.0,
+                                "y": 250.0,
+                                "z": 0.0
+                            },
+                            "Rotation": 0.0,
+                            "Scale": {
+                                "x": 1.0,
+                                "y": 1.0
+                            }
+                        },
+                        {
+                            "name": "class dae::SpriteRendererComponent",
+                            "Path": "logo.png",
+                            "SampleRect": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "w": 0.0,
+                                "h": 0.0
+                            }
+                        },
+                        {
+                            "name": "class dae::TextComponent",
+                            "Text": "2 Players",
+                            "Color": {
+                                "r": 255,
+                                "g": 255,
+                                "b": 255,
+                                "a": 0
+                            }
+                        },
+                        {
+                            "name": "class UIButtonComponent"
+                        }
+                    ]
+                },
+                {
+                    "Name": "Pointer",
+                    "Tag": "",
+                    "Children": [],
+                    "Components": [
+                        {
+                            "name": "class dae::TransformComponent",
+                            "Position": {
+                                "x": 480.0,
+                                "y": 200.0,
+                                "z": 0.0
+                            },
+                            "Rotation": 0.0,
+                            "Scale": {
+                                "x": 1.0,
+                                "y": 1.0
+                            }
+                        },
+                        {
+                            "name": "class dae::SpriteRendererComponent",
+                            "Path": "MainCharacter.png",
+                            "SampleRect": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "w": 0.0,
+                                "h": 0.0
+                            }
                         }
                     ]
                 }
@@ -76,46 +149,6 @@
                         "y": 0.0,
                         "w": 0.0,
                         "h": 0.0
-                    }
-                }
-            ]
-        },
-        {
-            "Name": "Multiplayer button",
-            "Tag": "",
-            "Children": [],
-            "Components": [
-                {
-                    "name": "class dae::TransformComponent",
-                    "Position": {
-                        "x": 480.0,
-                        "y": 250.0,
-                        "z": 0.0
-                    },
-                    "Rotation": 0.0,
-                    "Scale": {
-                        "x": 1.0,
-                        "y": 1.0
-                    }
-                },
-                {
-                    "name": "class dae::SpriteRendererComponent",
-                    "Path": "logo.png",
-                    "SampleRect": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "w": 0.0,
-                        "h": 0.0
-                    }
-                },
-                {
-                    "name": "class dae::TextComponent",
-                    "Text": "2 Players",
-                    "Color": {
-                        "r": 255,
-                        "g": 255,
-                        "b": 255,
-                        "a": 0
                     }
                 }
             ]

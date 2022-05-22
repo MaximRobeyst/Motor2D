@@ -237,7 +237,7 @@ void dae::GameObject::SetName(const std::string& newName)
 	m_Name = newName;
 }
 
-bool dae::GameObject::IsEnable() const
+bool dae::GameObject::IsEnabled() const
 {
 	return m_Enabled;
 }

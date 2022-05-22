@@ -32,8 +32,6 @@ namespace dae
 		b2Vec2 GetPosition() const;
 		b2Body* GetBody() const;
 
-		GameObject* GetGameobject() const;
-
 		void ChangeShape(b2Shape* pShape);
 
 	private:

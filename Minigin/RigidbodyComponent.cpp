@@ -117,6 +117,9 @@ void dae::RigidbodyComponent::Deserialize(GameObject* pGameObject, rapidjson::Va
 
 void dae::RigidbodyComponent::OnBeginContact(dae::RigidbodyComponent* pTriggeredBody, RigidbodyComponent* pOtherBody, b2Contact* pContact)
 {
+	if (!pTriggeredBody->GetGameObject()->IsEnabled() || !pOtherBody->GetGameObject()->IsEnabled())
+		return;
+
 	if (m_OnEnterFunction == nullptr && pOtherBody->m_OnEnterFunction != nullptr)
 	{
 		pOtherBody->OnBeginContact(pOtherBody, pTriggeredBody, pContact);
@@ -128,6 +131,9 @@ void dae::RigidbodyComponent::OnBeginContact(dae::RigidbodyComponent* pTriggered
 
 void dae::RigidbodyComponent::OnEndContact(dae::RigidbodyComponent* pTriggeredBody, RigidbodyComponent* pOtherBody, b2Contact* pContact)
 {
+	if (!pTriggeredBody->GetGameObject()->IsEnabled() || !pOtherBody->GetGameObject()->IsEnabled())
+		return;
+
 	if (m_OnExitFunction == nullptr && pOtherBody->m_OnExitFunction != nullptr)
 	{
 		pOtherBody->OnEndContact(pOtherBody, pTriggeredBody, pContact);
@@ -155,11 +161,6 @@ b2Vec2 dae::RigidbodyComponent::GetPosition() const
 b2Body* dae::RigidbodyComponent::GetBody() const
 {
 	return m_pBody;
-}
-
-dae::GameObject* dae::RigidbodyComponent::GetGameobject() const
-{
-	return m_pGameObject;
 }
 
 void dae::RigidbodyComponent::ChangeShape(b2Shape* pShape)

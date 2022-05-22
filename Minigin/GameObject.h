@@ -79,7 +79,7 @@ namespace dae
 		std::string GetName() const;
 		void SetName(const std::string& newName);
 
-		bool IsEnable() const;
+		bool IsEnabled() const;
 		void SetEnabled(bool newValue, bool AffectChildren = true);
 
 

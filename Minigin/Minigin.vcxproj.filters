@@ -141,9 +141,6 @@
     <ClInclude Include="AnimatorComponent.h">
       <Filter>Component Files</Filter>
     </ClInclude>
-    <ClInclude Include="CollisionHandler.h">
-      <Filter>Engine Files</Filter>
-    </ClInclude>
     <ClInclude Include="AudioSystem.h">
       <Filter>Engine Files\Audio</Filter>
     </ClInclude>
@@ -172,6 +169,9 @@
       <Filter>Engine Files\Physics</Filter>
     </ClInclude>
     <ClInclude Include="RaycastCallback.h">
+      <Filter>Engine Files\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionHandler.h">
       <Filter>Engine Files\Physics</Filter>
     </ClInclude>
   </ItemGroup>
@@ -269,9 +269,6 @@
     <ClCompile Include="AnimatorComponent.cpp">
       <Filter>Component Files</Filter>
     </ClCompile>
-    <ClCompile Include="CollisionHandler.cpp">
-      <Filter>Engine Files</Filter>
-    </ClCompile>
     <ClCompile Include="ServiceLocator.cpp">
       <Filter>Engine Files</Filter>
     </ClCompile>
@@ -303,6 +300,9 @@
       <Filter>Engine Files\Physics</Filter>
     </ClCompile>
     <ClCompile Include="RaycastCallback.cpp">
+      <Filter>Engine Files\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionHandler.cpp">
       <Filter>Engine Files\Physics</Filter>
     </ClCompile>
   </ItemGroup>

@@ -8,6 +8,7 @@
 #include <Scene.h>
 #include <ServiceLocator.h>
 #include <RaycastCallback.h>
+#include <Renderer.h>
 
 dae::Creator<dae::Component, EnemyComponent> s_TranformComponentCreate{};
 
@@ -36,7 +37,7 @@ void EnemyComponent::Start()
 
 	std::function<void(dae::RigidbodyComponent*, dae::RigidbodyComponent*, b2Contact*)> newFunction = [](dae::RigidbodyComponent* pTriggeredbody, dae::RigidbodyComponent* otherBody, b2Contact*)
 	{
-		auto pOtherGO = otherBody->GetGameobject();
+		auto pOtherGO = otherBody->GetGameObject();
 
 		if (pOtherGO->GetTag() == "Player")
 		{
@@ -45,7 +46,7 @@ void EnemyComponent::Start()
 		}
 		else if (pOtherGO->GetTag() == "Food")
 		{
-			auto enemyComp = pTriggeredbody->GetGameobject()->GetComponent<EnemyComponent>();
+			auto enemyComp = pTriggeredbody->GetGameObject()->GetComponent<EnemyComponent>();
 			enemyComp->EnemyDeath();
 		}
 	};
@@ -54,25 +55,33 @@ void EnemyComponent::Start()
 
 	if (m_pPlayerTransform == nullptr)
 	{
-		return;
-		/*auto pPlayerobject = m_pGameObject->GetScene()->FindGameobjectWithTag("Player");
+		auto pPlayerobject = m_pGameObject->GetScene()->FindGameobjectWithTag("Player");
 		if (pPlayerobject != nullptr)
 		{
 			m_pPlayerTransform = pPlayerobject->GetComponent<dae::TransformComponent>();
-		}*/
+		}
 	}
 
 }
 
 void EnemyComponent::Update()
 {
-	dae::RaycastCallback raycastCallback{m_pGameObject->GetScene()->GetPhysicsWorld().get()};
-	dae::RaycastHit hit{};
+	dae::RaycastCallback raycastCallback;
+	auto pos = m_pTransfomComponent->GetPosition();
+	b2Vec2 startPosition{ pos.x, pos.y };
+	b2Vec2 endPosition{ startPosition + b2Vec2{1,0} };
 
-	raycastCallback.Raycast(m_pTransfomComponent->GetPosition(), glm::vec2{ 0,1 }, 1.f, hit);
-	if (hit.pHitObject != nullptr)
+	m_pGameObject->GetScene()->GetPhysicsWorld()->RayCast(&raycastCallback, startPosition, endPosition);
+
+	auto hit = raycastCallback.GetLatestHit();
+
+	if (hit.pHitObject == nullptr && m_pTransfomComponent->GetPosition().y > (m_pPlayerTransform->GetPosition().y - 10.0f))
 	{
-	
+		m_pRigidbodyComponent->GetBody()->SetLinearVelocity(b2Vec2{ 0.f, -m_Speed });
+	}
+	else
+	{
+		m_pRigidbodyComponent->GetBody()->SetLinearVelocity(b2Vec2{ -m_Speed, 0.f });
 	}
 
 	if (m_Dead)
@@ -85,11 +94,11 @@ void EnemyComponent::Update()
 
 	//if(m_pPlayerTransform->GetPosition().y > 0)
 
-	if (m_pPlayerTransform == nullptr) return;
-	if (m_pPlayerTransform->GetPosition().x <= m_pTransfomComponent->GetPosition().x)
-		m_pRigidbodyComponent->GetBody()->SetLinearVelocity(b2Vec2{ -m_Speed, 0.f });
-	else if(m_pPlayerTransform->GetPosition().x >= m_pTransfomComponent->GetPosition().x)
-		m_pRigidbodyComponent->GetBody()->SetLinearVelocity(b2Vec2{ m_Speed, 0.f });
+	//if (m_pPlayerTransform == nullptr) return;
+	//if (m_pPlayerTransform->GetPosition().x <= m_pTransfomComponent->GetPosition().x)
+	//	m_pRigidbodyComponent->GetBody()->SetLinearVelocity(b2Vec2{ -m_Speed, 0.f });
+	//else if(m_pPlayerTransform->GetPosition().x >= m_pTransfomComponent->GetPosition().x)
+	//	m_pRigidbodyComponent->GetBody()->SetLinearVelocity(b2Vec2{ m_Speed, 0.f });
 
 }
 
@@ -112,7 +121,6 @@ void EnemyComponent::EnemyDeath()
 	m_pAnimatorComponent->SetAnimation("Death");
 	m_pSubject->Notify(*m_pGameObject, Event::Enemy_Died);
 	m_Dead = true;
-
 }
 
 int EnemyComponent::GetScore() const

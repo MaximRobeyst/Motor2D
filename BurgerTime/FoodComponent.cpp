@@ -38,8 +38,8 @@ void FoodComponent::Start()
 
 	std::function<void(dae::RigidbodyComponent*, dae::RigidbodyComponent*, b2Contact*)> enterFunction = [](dae::RigidbodyComponent* pTriggeredBody, dae::RigidbodyComponent* otherBody, b2Contact*)
 	{
-		auto pOtherGO = otherBody->GetGameobject();
-		auto foodComp = pTriggeredBody->GetGameobject()->GetComponent<FoodComponent>();
+		auto pOtherGO = otherBody->GetGameObject();
+		auto foodComp = pTriggeredBody->GetGameObject()->GetComponent<FoodComponent>();
 
 		if (pOtherGO->GetTag() == "Player")
 		{
@@ -63,22 +63,22 @@ void FoodComponent::Start()
 			else
 				plateComp = pOtherGO->GetComponent<PlateComponent>();
 
-			plateComp->AddIngredient(pTriggeredBody->GetGameobject());
+			plateComp->AddIngredient(pTriggeredBody->GetGameObject());
 		}
 
 		else if (foodComp->GetFalling() && pOtherGO->GetTag().empty())
 		{
 			foodComp->SetFalling(false);
 
-			foodComp->GetSubject()->Notify(*pTriggeredBody->GetGameobject(), Event::Burger_Drop);
+			foodComp->GetSubject()->Notify(*pTriggeredBody->GetGameObject(), Event::Burger_Drop);
 			ServiceLocator::GetAudio()->PlaySound("../Data/Audio/eat_ghost.wav");
 		}
 	};
 
 	std::function<void(dae::RigidbodyComponent*, dae::RigidbodyComponent*, b2Contact*)> exitFunction = [](dae::RigidbodyComponent* pTriggeredBody, dae::RigidbodyComponent* otherBody, b2Contact*)
 	{
-		auto pOtherGO = otherBody->GetGameobject();
-		auto foodComp = pTriggeredBody->GetGameobject()->GetComponent<FoodComponent>();
+		auto pOtherGO = otherBody->GetGameObject();
+		auto foodComp = pTriggeredBody->GetGameObject()->GetComponent<FoodComponent>();
 
 		if (pOtherGO->GetTag() == "Player")
 		{
