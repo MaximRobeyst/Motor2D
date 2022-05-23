@@ -5,6 +5,7 @@
 #include <memory>
 #include<SDL.h>
 #include <vector>
+#include <set>
 
 namespace dae
 {
@@ -33,7 +34,7 @@ namespace dae
 		friend class Singleton<SceneManager>;
 		SceneManager() = default;
 		std::vector<Scene*> m_Scenes;
-		std::vector<int> m_ScenesToRemove;
+		std::set<int> m_ScenesToRemove;
 		char m_TargetSceneName[128];
 	};
 }

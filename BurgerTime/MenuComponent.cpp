@@ -21,11 +21,12 @@ void MenuComponent::Start()
 
 	m_pMenuPointer = new dae::GameObject("Pointer");
 	m_pMenuPointer->SetParent(m_pGameObject);
-	m_pMenuPointer->AddComponent(
-		new dae::TransformComponent(m_pMenuPointer,
-			m_pButtonObjects[m_CurrentSelection]->GetGameObject()->GetComponent<dae::TransformComponent>()->GetPosition()));
-	m_pMenuPointer->AddComponent(
-		new dae::SpriteRendererComponent(m_pMenuPointer, "MainCharacter.png"));
+	auto pTransform = new dae::TransformComponent(m_pMenuPointer,
+		m_pButtonObjects[m_CurrentSelection]->GetGameObject()->GetComponent<dae::TransformComponent>()->GetPosition(), glm::vec2{ 2.f });
+	m_pMenuPointer->AddComponent(pTransform);
+	auto pSpriteRenderer = new dae::SpriteRendererComponent(m_pMenuPointer, "MainCharacter.png");
+	m_pMenuPointer->AddComponent(pSpriteRenderer);
+	pTransform->SetPosition(pTransform->GetPosition() - glm::vec3{ pSpriteRenderer->GetSampleRectangle().w * pTransform->GetScale().x, 0.f, 0.f });
 	
 
 	m_pGameObject->GetScene()->AddGameObject(m_pMenuPointer);
@@ -34,9 +35,14 @@ void MenuComponent::Start()
 void MenuComponent::SwitchSelection(int i)
 {
 	m_CurrentSelection += i;
+	if (m_CurrentSelection == -1)
+		m_CurrentSelection = m_pButtonObjects.size() - 1;
 	m_CurrentSelection %= m_pButtonObjects.size();
 
-	m_pMenuPointer->GetComponent<dae::TransformComponent>()->SetPosition(m_pButtonObjects[m_CurrentSelection]->GetGameObject()->GetComponent<dae::TransformComponent>()->GetPosition());
+	auto pTransformComponent = m_pMenuPointer->GetComponent<dae::TransformComponent>();
+	pTransformComponent->SetPosition(m_pButtonObjects[m_CurrentSelection]->GetGameObject()->GetComponent<dae::TransformComponent>()->GetPosition());
+	pTransformComponent->SetPosition(pTransformComponent->GetPosition() - 
+		glm::vec3{ m_pMenuPointer->GetComponent<dae::SpriteRendererComponent>()->GetSampleRectangle().w * pTransformComponent->GetScale().x, 0.f, 0.f});
 }
 
 void MenuComponent::PressButton()

@@ -20,9 +20,9 @@ void dae::SceneManager::Update()
 	}
 
 	// Remove the scene only after the update function insuring the update is done
-	for (int i = 0; i < m_ScenesToRemove.size(); ++i)
+	for(auto i : m_ScenesToRemove)
 	{
-		FinalRemoveScene(m_ScenesToRemove[i]);
+		FinalRemoveScene(i);
 	}
 	m_ScenesToRemove.clear();
 }
@@ -81,6 +81,7 @@ dae::Scene& dae::SceneManager::CreateScene(const std::string& name)
 {
 	const auto& scene = new Scene(name);
 	m_Scenes.push_back(scene);
+	//scene->Start();
 
 	return *scene;
 }
@@ -92,7 +93,7 @@ void dae::SceneManager::AddScene(Scene* pScene)
 
 void dae::SceneManager::RemoveScene(int index)
 {
-	m_ScenesToRemove.push_back(index);
+	m_ScenesToRemove.emplace(index);
 }
 
 void dae::SceneManager::Cleanup()

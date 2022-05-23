@@ -71,8 +71,11 @@ int main(int, char* [])
 
 void LoadGame()
 {
-	//auto& scene = SceneManager::GetInstance().CreateScene("Demo");
-	//auto& input = InputManager::GetInstance();
+#ifdef _DEBUG
+	ServiceLocator::ProvideAudio(new LoggedAudio(new SDLAudioSystem()));
+#else
+	ServiceLocator::ProvideAudio(new SDLAudioSystem());
+#endif // _DEBUG
 
 	GameStateManager::GetInstance().SwitchGameState(new MainMenuState());
 }

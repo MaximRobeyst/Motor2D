@@ -138,7 +138,6 @@ dae::GameObject* EnemySpawnerComponent::CreateMrHotDog(glm::vec3 position)
 	pHotDogGameObject->AddComponent(pEnemyComponent);
 	pEnemyComponent->GetSubject()->AddObserver(m_pScoreDisplay);
 	pHotDogGameObject->SetParent(m_pGameObject);
-	pHotDogGameObject->SetTag("Enemy");
 
 	return pHotDogGameObject;
 

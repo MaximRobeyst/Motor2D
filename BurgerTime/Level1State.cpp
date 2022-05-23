@@ -69,12 +69,6 @@ void Level1State::OnEnter()
 	//LoggedAudio* pLoggedAudioSystem = new LoggedAudio(pSoundSystem);
 
 	//ServiceLocator::ProvideAudio(pSoundSystem);
-#ifdef _DEBUG
-	ServiceLocator::ProvideAudio(new LoggedAudio(new SDLAudioSystem()));
-#else
-	ServiceLocator::ProvideAudio(new SDLAudioSystem());
-#endif // _DEBUG
-
 	//pSoundSystem->AddAudioClip("../Data/Audio/death_1.wav");
 
 	//ServiceLocator::GetAudio()->PlaySound("../Data/Audio/burgertime_theme.wav", -1, true);
@@ -267,7 +261,7 @@ void Level1State::OnEnter()
 
 void Level1State::OnExit()
 {
-	//SceneManager::GetInstance().RemoveScene(0);
+	SceneManager::GetInstance().RemoveScene(0);
 }
 
 void Level1State::MakeLevel(Scene& pScene)
@@ -316,13 +310,13 @@ void Level1State::MakeLevel(Scene& pScene)
 
 	GameObject* pEnemySpawner = new GameObject("EnemySpawner");
 	pEnemySpawner->AddComponent(new TransformComponent(pEnemySpawner));
-	auto pEnemySpawnerComponent = new EnemySpawnerComponent(pEnemySpawner);
-	pEnemySpawner->AddComponent(pEnemySpawnerComponent);
-
-	pEnemySpawnerComponent->AddSpawnPosition(glm::vec3{ 384.f, 296.f, 0.f });
-	pEnemySpawnerComponent->AddSpawnPosition(glm::vec3{ 0.f, 32.f, 0.f });
-	pEnemySpawnerComponent->AddSpawnPosition(glm::vec3{ 0.f, 296.f, 0.f });
-	pEnemySpawnerComponent->AddSpawnPosition(glm::vec3{ 416.f, 32.f, 0.f });
+	//auto pEnemySpawnerComponent = new EnemySpawnerComponent(pEnemySpawner);
+	//pEnemySpawner->AddComponent(pEnemySpawnerComponent);
+	//
+	//pEnemySpawnerComponent->AddSpawnPosition(glm::vec3{ 384.f, 296.f, 0.f });
+	//pEnemySpawnerComponent->AddSpawnPosition(glm::vec3{ 0.f, 32.f, 0.f });
+	//pEnemySpawnerComponent->AddSpawnPosition(glm::vec3{ 0.f, 296.f, 0.f });
+	//pEnemySpawnerComponent->AddSpawnPosition(glm::vec3{ 416.f, 32.f, 0.f });
 
 	pEnemySpawner->SetParent(pLevelGameobject);
 	pScene.AddGameObject(pEnemySpawner);

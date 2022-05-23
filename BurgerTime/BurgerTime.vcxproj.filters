@@ -72,6 +72,12 @@
     <ClCompile Include="MenuComponent.cpp">
       <Filter>Components</Filter>
     </ClCompile>
+    <ClCompile Include="MultiplayerState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="VersusState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AchievementComponent.h">
@@ -124,6 +130,12 @@
     </ClInclude>
     <ClInclude Include="EnemySpawnerComponent.h">
       <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="MultiplayerState.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="VersusState.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

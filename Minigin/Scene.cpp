@@ -28,16 +28,16 @@ Scene::Scene(const std::string& name, const b2Vec2& gravity)
 	m_PhysicsWorld->SetContactListener(m_pCollisionHandler);
 
 
-	//m_pPhysicsDebugDraw = new PhysicsDebugDraw();
-	//
-	//uint32 flags = 0;
-	//flags += b2Draw::e_shapeBit;
-	//flags += b2Draw::e_jointBit;
-	//flags += b2Draw::e_aabbBit;
-	//flags += b2Draw::e_centerOfMassBit;
-	//m_pPhysicsDebugDraw->SetFlags(flags);
-	//
-	//m_PhysicsWorld->SetDebugDraw(m_pPhysicsDebugDraw);
+	m_pPhysicsDebugDraw = new PhysicsDebugDraw();
+	
+	uint32 flags = 0;
+	flags += b2Draw::e_shapeBit;
+	flags += b2Draw::e_jointBit;
+	flags += b2Draw::e_aabbBit;
+	flags += b2Draw::e_centerOfMassBit;
+	m_pPhysicsDebugDraw->SetFlags(flags);
+	
+	m_PhysicsWorld->SetDebugDraw(m_pPhysicsDebugDraw);
 }
 
 #ifdef _DEBUG
@@ -120,6 +120,8 @@ void dae::Scene::Start()
 
 void Scene::Update()
 {
+	assert(m_Started);
+
 	// Update physics world
 	m_PhysicsWorld->Step(GameTime::GetInstance()->GetElapsed(), 6, 2);
 
@@ -137,6 +139,8 @@ void Scene::Update()
 
 void Scene::Render() const
 {
+	assert(m_Started);
+
 	for (const auto& object : m_pObjects)
 	{
 		object->Render();
@@ -198,7 +202,7 @@ void dae::Scene::RenderGUI()
 }
 void dae::Scene::Serialize()
 {
-	std::ofstream levelFile{ "../Data/Scenes/" + m_Name + ".json" };
+	std::ofstream levelFile{ "../Data/Scenes/" + m_Name + ".json"};
 	if (!levelFile.is_open())
 	{
 		std::cerr << "Could not open file" << std::endl;
@@ -235,7 +239,7 @@ void dae::Scene::Serialize()
 	levelFile << outputFile.GetString();
 	levelFile.close();
 }
-dae::Scene* dae::Scene::Deserialize(std::string& sceneFile)
+dae::Scene* dae::Scene::Deserialize(const std::string& sceneFile)
 {
 	std::ifstream levelFile{ sceneFile };
 	if (!levelFile.is_open())

@@ -16,8 +16,16 @@
 
 #include <GameStateManager.h>
 #include "Level1State.h"
+#include "MultiplayerState.h"
+#include "VersusState.h"
+
 #include "MenuComponent.h"
 #include "MenuCommands.h"
+
+#include <ServiceLocator.h>
+#include <AudioSystem.h>
+#include <SDLAudioSystem.h>
+#include <LoggedAudio.h>
 
 using namespace dae;
 
@@ -55,6 +63,9 @@ void MainMenuState::OnEnter()
 	pGameobject->AddComponent(pUIButtonComp);
 	pGameobject->SetParent(pLogo);
 	scene.AddGameObject(pGameobject);
+	newOnClickFunction = []() {GameStateManager::GetInstance().SwitchGameState(new MultiplayerState()); };
+
+	pUIButtonComp->SetOnClickFunction(newOnClickFunction);
 
 	pGameobject = new GameObject("Versus button");
 	pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3(480.f, 300.f, 0.f)));
@@ -64,12 +75,15 @@ void MainMenuState::OnEnter()
 	pGameobject->AddComponent(pUIButtonComp);
 	pGameobject->SetParent(pLogo);
 	scene.AddGameObject(pGameobject);
+	newOnClickFunction = []() {GameStateManager::GetInstance().SwitchGameState(new VersusState()); };
+
+	pUIButtonComp->SetOnClickFunction(newOnClickFunction);
 
 
 	auto keyboard = input.GetKeyboard();
 	keyboard->AddKeyboardMapping(
 		KeyboardKeyData{ SDLK_SPACE, KeyState::JustUp },
-		std::make_unique<SwitchStateCommand>()
+		std::make_unique<SwitchMenuStateCommand>()
 	);
 
 	keyboard->AddKeyboardMapping(
@@ -77,6 +91,22 @@ void MainMenuState::OnEnter()
 		std::make_unique<PressButtonCommand>(pMenuComp)
 	);
 
+	keyboard->AddKeyboardMapping(
+		KeyboardKeyData{ SDLK_UP, KeyState::JustUp },
+		std::make_unique<ChangePointerCommand>(pMenuComp, -1)
+	);
+
+	keyboard->AddKeyboardMapping(
+		KeyboardKeyData{ SDLK_DOWN, KeyState::JustUp },
+		std::make_unique<ChangePointerCommand>(pMenuComp, 1)
+	);
+
+	keyboard->AddKeyboardMapping(
+		KeyboardKeyData{ SDLK_ESCAPE, KeyState::JustUp },
+		std::make_unique<SwitchMenuStateCommand>()
+	);
+
+	scene.Start();
 }
 
 void MainMenuState::OnExit()
