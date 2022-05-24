@@ -26,7 +26,7 @@ namespace dae
 		void RenderGUI();
 #endif // _DEBUG
 
-		void Serialize();
+		void Serialize(const std::string& name = " ");
 		static Scene* Deserialize(const std::string& sceneFile);
 
 

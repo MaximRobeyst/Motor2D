@@ -173,6 +173,17 @@ void dae::Scene::RenderGUI()
 		ImGui::EndMenuBar();
 	}
 
+	static char filename[128] = "scene.json";
+	ImGui::InputText("Scene filename: ", filename, 128);
+	if (ImGui::Button("Save"))
+	{
+		Serialize(filename);
+	}
+	if (ImGui::Button("Load"))
+	{
+		Deserialize(filename);
+	}
+
 	// Scene Settings
 	if (ImGui::CollapsingHeader((m_Name + " Scene settings").c_str()))
 	{
@@ -200,9 +211,9 @@ void dae::Scene::RenderGUI()
 	ImGui::End();
 
 }
-void dae::Scene::Serialize()
+void dae::Scene::Serialize(const std::string& name)
 {
-	std::ofstream levelFile{ "../Data/Scenes/" + m_Name + ".json"};
+	std::ofstream levelFile{ "../Data/Scenes/" + (name == " " ? m_Name : name) + ".json"};
 	if (!levelFile.is_open())
 	{
 		std::cerr << "Could not open file" << std::endl;
@@ -213,7 +224,7 @@ void dae::Scene::Serialize()
 
 	writer.StartObject();
 	writer.Key("sceneName");
-	writer.String(m_Name.c_str());
+	writer.String((name == " " ? m_Name : name).c_str());
 	writer.Key("gameobjectCount");
 	writer.Int((int) m_pObjects.size());
 	writer.Key("Gravity");
@@ -241,7 +252,7 @@ void dae::Scene::Serialize()
 }
 dae::Scene* dae::Scene::Deserialize(const std::string& sceneFile)
 {
-	std::ifstream levelFile{ sceneFile };
+	std::ifstream levelFile{ ("../Data/Scenes/" + sceneFile) };
 	if (!levelFile.is_open())
 	{
 		std::cerr << "Could not open file" << std::endl;

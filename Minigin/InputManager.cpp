@@ -8,14 +8,18 @@
 
 bool dae::InputManager::ProcessInput()
 {
+	auto& io = ImGui::GetIO();
 	// https://gamedev.stackexchange.com/questions/190070/how-do-i-implement-an-input-wrapper-like-unitys-in-sdl2
 	SDL_Event e;
 	while (SDL_PollEvent(&e)) {
+
+		ImGui_ImplSDL2_ProcessEvent(&e);
 		if (e.type == SDL_QUIT) {
 			return false;
 		}
+		if (io.WantCaptureKeyboard)
+			continue;
 		m_pKeyboard->ProcessInput(&e);
-		ImGui_ImplSDL2_ProcessEvent(&e);
 	}
 
 	for (size_t i = 0; i < m_pXbox360Controllers.size(); i++)
