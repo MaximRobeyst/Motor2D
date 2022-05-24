@@ -12,8 +12,8 @@ dae::TransformComponent::TransformComponent(GameObject* pGameobject, glm::vec3 p
 {
 	if(pGameobject->GetParent() != nullptr)
 		m_pParentComponent = pGameobject->GetParent()->GetComponent<dae::TransformComponent>();
-	if (m_pParentComponent != nullptr)
-		m_Transform.worldPosition += m_pParentComponent->GetPosition();
+	//if (m_pParentComponent != nullptr)
+	//	m_Transform.worldPosition += m_pParentComponent->GetPosition();
 }
 
 void dae::TransformComponent::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>& writer)

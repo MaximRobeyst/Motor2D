@@ -112,6 +112,7 @@ void dae::Minigin::Run()
 			//SteamAPI_RunCallbacks();
 		}
 
+		InputManager::GetInstance().ClearInputs();
 		SceneManager::GetInstance().Cleanup();
 		delete GameTime::GetInstance();
 	}

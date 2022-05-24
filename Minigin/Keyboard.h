@@ -3,11 +3,6 @@
 #include "Command.h"
 #include <SDL.h>
 
-enum class KeyboardAndMouseButton
-{
-
-};
-
 enum class KeyState
 {
 	JustUp,

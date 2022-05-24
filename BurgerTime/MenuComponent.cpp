@@ -21,12 +21,11 @@ void MenuComponent::Start()
 
 	m_pMenuPointer = new dae::GameObject("Pointer");
 	m_pMenuPointer->SetParent(m_pGameObject);
-	auto pTransform = new dae::TransformComponent(m_pMenuPointer,
-		m_pButtonObjects[m_CurrentSelection]->GetGameObject()->GetComponent<dae::TransformComponent>()->GetPosition(), glm::vec2{ 2.f });
+	auto pTransform = new dae::TransformComponent(m_pMenuPointer, glm::vec3{}, glm::vec2{ 2.f });
 	m_pMenuPointer->AddComponent(pTransform);
 	auto pSpriteRenderer = new dae::SpriteRendererComponent(m_pMenuPointer, "MainCharacter.png");
 	m_pMenuPointer->AddComponent(pSpriteRenderer);
-	pTransform->SetPosition(pTransform->GetPosition() - glm::vec3{ pSpriteRenderer->GetSampleRectangle().w * pTransform->GetScale().x, 0.f, 0.f });
+	pTransform->SetPosition(m_pButtonObjects[0]->GetGameObject()->GetComponent<dae::TransformComponent>()->GetPosition() - glm::vec3{pSpriteRenderer->GetSampleRectangle().w * pTransform->GetScale().x, 0.f, 0.f});
 	
 
 	m_pGameObject->GetScene()->AddGameObject(m_pMenuPointer);

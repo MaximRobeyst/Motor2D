@@ -3,43 +3,44 @@
 #include <memory>
 
 class Command;
-enum class ControllerButton
-{
-	DPadUp = 0x0001,
-	DPadDown = 0x0002,
-	DPadLeft = 0x0004,
-	DPadRight = 0x0008,
-	Start = 0x0010,
-	Back = 0x0020,
-	LeftThumb = 0x0040,
-	RightThumb = 0x0080,
-	LeftShoulder = 0x0100,
-	RightShoulder = 0x0200,
-	ButtonA = 0x1000,
-	ButtonB = 0x2000,
-	ButtonX = 0x4000,
-	ButtonY = 0x8000
-};
-enum class ButtonState
-{
-	Hold,
-	Down,
-	Up,
-};
-
-struct ControllerButtonData
-{
-	ControllerButton controllerButton = {};
-	ButtonState buttonState = {};
-};
-
-inline bool operator< (const ControllerButtonData& lhs, const ControllerButtonData& rhs)
-{
-	return lhs.controllerButton < rhs.controllerButton;
-}
 
 namespace dae
 {
+	enum class ControllerButton
+	{
+		DPadUp = 0x0001,
+		DPadDown = 0x0002,
+		DPadLeft = 0x0004,
+		DPadRight = 0x0008,
+		Start = 0x0010,
+		Back = 0x0020,
+		LeftThumb = 0x0040,
+		RightThumb = 0x0080,
+		LeftShoulder = 0x0100,
+		RightShoulder = 0x0200,
+		ButtonA = 0x1000,
+		ButtonB = 0x2000,
+		ButtonX = 0x4000,
+		ButtonY = 0x8000
+	};
+	enum class ButtonState
+	{
+		Hold,
+		Down,
+		Up,
+	};
+
+	struct ControllerButtonData
+	{
+		ControllerButton controllerButton = {};
+		ButtonState buttonState = {};
+	};
+
+	inline bool operator< (const ControllerButtonData& lhs, const ControllerButtonData& rhs)
+	{
+		return lhs.controllerButton < rhs.controllerButton;
+	}
+
 	class Xbox360Controller final
 	{
 		class Xbox360ControllerImpl;

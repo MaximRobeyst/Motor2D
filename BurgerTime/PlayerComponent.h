@@ -3,6 +3,8 @@
 #include "RigidbodyComponent.h"
 #include "AnimatorComponent.h"
 
+#include <InputManager.h>
+
 class LifeComponent;
 class PlayerComponent : public dae::Component
 {
@@ -28,6 +30,9 @@ public:
 	void PlayerDeath();
 	bool IsDead() const;
 
+	void SetVerticalAxis(dae::AxisManager* verticalAxis);
+	void SetHorizontalAxis(dae::AxisManager* horizontalAxis);
+
 private:
 	void UpdateDefault();
 	void UpdatePeper();
@@ -41,5 +46,7 @@ private:
 	dae::AnimatorComponent* m_pAnimatorComponent;
 	LifeComponent* m_pLifeComponent;
 
+	dae::AxisManager* m_pHorizontalAxis{};
+	dae::AxisManager* m_pVerticalAxis{};
 };
 

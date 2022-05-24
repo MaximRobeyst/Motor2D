@@ -93,7 +93,15 @@ void Level1State::OnEnter()
 	pPeperGameObject->AddComponent(pLifeComponent);
 	pPeperGameObject->AddComponent(new ColliderComponent(pPeperGameObject, 15.f, 15.f, glm::vec2{ 8.0f, 8.0f }));
 	pPeperGameObject->AddComponent(new RigidbodyComponent(pPeperGameObject, b2_dynamicBody, 1.f, 0.3f));
-	pPeperGameObject->AddComponent(new PlayerComponent(pPeperGameObject));
+	auto pPlayerComp = new PlayerComponent(pPeperGameObject);
+	pPeperGameObject->AddComponent(pPlayerComp);
+	
+	InputManager::GetInstance().AddAxis("keyboard_horizontal", new KeyboardAxis(SDLK_d, SDLK_a, InputManager::GetInstance().GetKeyboard()));
+	InputManager::GetInstance().AddAxis("keyboard_vertical", new KeyboardAxis(SDLK_s, SDLK_w, InputManager::GetInstance().GetKeyboard()));
+
+	pPlayerComp->SetHorizontalAxis(InputManager::GetInstance().GetAxis("keyboard_horizontal"));
+	pPlayerComp->SetVerticalAxis(InputManager::GetInstance().GetAxis("keyboard_vertical"));
+
 	pPeperGameObject->SetTag("Player");
 	scene.AddGameObject(pPeperGameObject);
 

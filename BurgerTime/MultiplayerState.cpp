@@ -11,6 +11,9 @@
 #include <RigidbodyComponent.h>
 #include "PlayerComponent.h"
 #include <SceneManager.h>
+#include <InputManager.h>
+
+#include <Xbox360Controller.h>
 
 void MultiplayerState::OnEnter()
 {
@@ -26,7 +29,18 @@ void MultiplayerState::OnEnter()
 	pPeperGameObject->AddComponent(pLifeComponent);
 	pPeperGameObject->AddComponent(new dae::ColliderComponent(pPeperGameObject, 15.f, 15.f, glm::vec2{ 8.0f, 8.0f }));
 	pPeperGameObject->AddComponent(new dae::RigidbodyComponent(pPeperGameObject, b2_dynamicBody, 1.f, 0.3f));
-	pPeperGameObject->AddComponent(new PlayerComponent(pPeperGameObject));
+	auto pPlayercomp = new PlayerComponent(pPeperGameObject);
+	pPeperGameObject->AddComponent(pPlayercomp);
+	
+	auto controller = std::make_shared<dae::Xbox360Controller>(0);
+	dae::InputManager::GetInstance().AddController(controller);
+
+	dae::InputManager::GetInstance().AddAxis("controller_horizontal", new dae::ControllerAxis(dae::ControllerButton::DPadRight, dae::ControllerButton::DPadLeft, dae::InputManager::GetInstance().GetController(0)));
+	dae::InputManager::GetInstance().AddAxis("controller_vertical", new dae::ControllerAxis(dae::ControllerButton::DPadDown, dae::ControllerButton::DPadUp,dae::InputManager::GetInstance().GetController(0)));
+
+	pPlayercomp->SetHorizontalAxis(dae::InputManager::GetInstance().GetAxis("controller_horizontal"));
+	pPlayercomp->SetVerticalAxis(dae::InputManager::GetInstance().GetAxis("controller_vertical"));
+
 	pPeperGameObject->SetTag("Player");
 	scene->AddGameObject(pPeperGameObject);
 }

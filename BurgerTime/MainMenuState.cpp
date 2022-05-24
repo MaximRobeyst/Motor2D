@@ -26,6 +26,7 @@
 #include <AudioSystem.h>
 #include <SDLAudioSystem.h>
 #include <LoggedAudio.h>
+#include <Xbox360Controller.h>
 
 using namespace dae;
 
@@ -79,6 +80,8 @@ void MainMenuState::OnEnter()
 
 	pUIButtonComp->SetOnClickFunction(newOnClickFunction);
 
+	auto controller = std::make_shared<dae::Xbox360Controller>(0);
+	dae::InputManager::GetInstance().AddController(controller);
 
 	auto keyboard = input.GetKeyboard();
 	keyboard->AddKeyboardMapping(
@@ -86,13 +89,28 @@ void MainMenuState::OnEnter()
 		std::make_unique<SwitchMenuStateCommand>()
 	);
 
+	controller->AddControllerMapping(
+		ControllerButtonData{ ControllerButton::ButtonA, ButtonState::Up },
+		std::make_unique<PressButtonCommand>(pMenuComp)
+	);
+
 	keyboard->AddKeyboardMapping(
 		KeyboardKeyData{ SDLK_e, KeyState::JustUp },
 		std::make_unique<PressButtonCommand>(pMenuComp)
 	);
 
+	controller->AddControllerMapping(
+		ControllerButtonData{ ControllerButton::DPadUp, ButtonState::Up },
+		std::make_unique<ChangePointerCommand>(pMenuComp, -1)
+	);
+
 	keyboard->AddKeyboardMapping(
 		KeyboardKeyData{ SDLK_UP, KeyState::JustUp },
+		std::make_unique<ChangePointerCommand>(pMenuComp, -1)
+	);
+
+	controller->AddControllerMapping(
+		ControllerButtonData{ ControllerButton::DPadDown, ButtonState::Up },
 		std::make_unique<ChangePointerCommand>(pMenuComp, -1)
 	);
 
@@ -106,7 +124,7 @@ void MainMenuState::OnEnter()
 		std::make_unique<SwitchMenuStateCommand>()
 	);
 
-	scene.Start();
+	//scene.Start();
 }
 
 void MainMenuState::OnExit()

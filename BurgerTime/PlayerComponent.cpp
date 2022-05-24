@@ -22,6 +22,18 @@ void PlayerComponent::Start()
 	m_pLifeComponent = m_pGameObject->GetComponent<LifeComponent>();
 
 	m_StartPosition = m_pTranformComponent->GetPosition();
+
+	if (m_pVerticalAxis == nullptr)
+	{
+		dae::InputManager::GetInstance().AddAxis("keyboard_vertical", new dae::KeyboardAxis(SDLK_s, SDLK_w, dae::InputManager::GetInstance().GetKeyboard()));
+		SetVerticalAxis(dae::InputManager::GetInstance().GetAxis("keyboard_vertical"));
+	}
+
+	if (m_pHorizontalAxis == nullptr)
+	{
+		dae::InputManager::GetInstance().AddAxis("keyboard_horizontal", new dae::KeyboardAxis(SDLK_d, SDLK_a, dae::InputManager::GetInstance().GetKeyboard()));
+		SetHorizontalAxis(dae::InputManager::GetInstance().GetAxis("keyboard_horizontal"));
+	}
 }
 
 void PlayerComponent::Update()
@@ -68,6 +80,16 @@ bool PlayerComponent::IsDead() const
 	return m_CurrentState == PlayerState::State_Dying;
 }
 
+void PlayerComponent::SetVerticalAxis(dae::AxisManager* verticalAxis)
+{
+	m_pVerticalAxis = verticalAxis;
+}
+
+void PlayerComponent::SetHorizontalAxis(dae::AxisManager* horizontalAxis)
+{
+	m_pHorizontalAxis = horizontalAxis;
+}
+
 void PlayerComponent::UpdateDefault()
 {
 	auto keyboard = dae::InputManager::GetInstance().GetKeyboard();
@@ -75,10 +97,15 @@ void PlayerComponent::UpdateDefault()
 
 	b2Vec2 vel{};
 
+	assert(m_pHorizontalAxis != nullptr && m_pVerticalAxis != nullptr);
 	// TODO: make axis support
 	// TODO: give transform & rigidbody struct to make it easier to change values within them
-	int horAxis = (int)(keyboard->IsPressed(SDLK_d) - keyboard->IsPressed(SDLK_a));
-	int verAxis = (int)(keyboard->IsPressed(SDLK_s) - keyboard->IsPressed(SDLK_w));
+
+	//int horAxis = (int)(keyboard->IsPressed(SDLK_d) - keyboard->IsPressed(SDLK_a));
+	//int verAxis = (int)(keyboard->IsPressed(SDLK_s) - keyboard->IsPressed(SDLK_w));
+	int horAxis = m_pHorizontalAxis->GetAxisValue();
+	int verAxis = m_pVerticalAxis->GetAxisValue();
+
 
 	if ((horAxis >= 0 && transform.scale.x > 0) || (horAxis <= -1 && transform.scale.x < 0)) m_pTranformComponent->GetTransform().scale.x *= -1;
 
