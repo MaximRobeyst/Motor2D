@@ -1,7 +1,6 @@
 #pragma once
 #include "Singleton.h"
 #include <imgui.h>
-#include <imgui_plot.h>
 #include <box2d.h>
 
 namespace dae

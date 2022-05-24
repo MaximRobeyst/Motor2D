@@ -4,6 +4,8 @@
 #include "Xbox360Controller.h"
 #include "Keyboard.h"
 
+#include <backends/imgui_impl_sdl.h>
+
 bool dae::InputManager::ProcessInput()
 {
 	// https://gamedev.stackexchange.com/questions/190070/how-do-i-implement-an-input-wrapper-like-unitys-in-sdl2
@@ -13,6 +15,7 @@ bool dae::InputManager::ProcessInput()
 			return false;
 		}
 		m_pKeyboard->ProcessInput(&e);
+		ImGui_ImplSDL2_ProcessEvent(&e);
 	}
 
 	for (size_t i = 0; i < m_pXbox360Controllers.size(); i++)
