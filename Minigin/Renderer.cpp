@@ -45,7 +45,15 @@ void dae::Renderer::Render() const
 
 	SceneManager::GetInstance().Render();
 #ifdef _DEBUG
+
+	ImGui_ImplOpenGL2_NewFrame();
+	ImGui_ImplSDL2_NewFrame(m_Window);
+	ImGui::NewFrame();
+
 	SceneManager::GetInstance().RenderGUI(m_Window);
+
+	ImGui::Render();
+	ImGui_ImplOpenGL2_RenderDrawData(ImGui::GetDrawData());
 #endif // _DEBUG
 	SDL_RenderPresent(m_Renderer);
 }

@@ -14,7 +14,7 @@
 
 void MultiplayerState::OnEnter()
 {
-	auto scene = dae::Scene::Deserialize("../Data./Scenes/Level01.json");
+	auto scene = dae::Scene::Deserialize("Level01");
 
 	auto pPeperGameObject = new dae::GameObject("PeterPete_Player2");
 	auto pPlayerTransform = new dae::TransformComponent(pPeperGameObject, glm::vec3{ 224.f, 296.f, 0 }, glm::vec3{ 2.f });

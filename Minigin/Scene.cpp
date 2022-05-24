@@ -28,16 +28,16 @@ Scene::Scene(const std::string& name, const b2Vec2& gravity)
 	m_PhysicsWorld->SetContactListener(m_pCollisionHandler);
 
 
-	m_pPhysicsDebugDraw = new PhysicsDebugDraw();
-	
-	uint32 flags = 0;
-	flags += b2Draw::e_shapeBit;
-	flags += b2Draw::e_jointBit;
-	flags += b2Draw::e_aabbBit;
-	flags += b2Draw::e_centerOfMassBit;
-	m_pPhysicsDebugDraw->SetFlags(flags);
-	
-	m_PhysicsWorld->SetDebugDraw(m_pPhysicsDebugDraw);
+	//m_pPhysicsDebugDraw = new PhysicsDebugDraw();
+	//
+	//uint32 flags = 0;
+	//flags += b2Draw::e_shapeBit;
+	//flags += b2Draw::e_jointBit;
+	//flags += b2Draw::e_aabbBit;
+	//flags += b2Draw::e_centerOfMassBit;
+	//m_pPhysicsDebugDraw->SetFlags(flags);
+	//
+	//m_PhysicsWorld->SetDebugDraw(m_pPhysicsDebugDraw);
 }
 
 #ifdef _DEBUG
@@ -146,7 +146,7 @@ void Scene::Render() const
 		object->Render();
 	}
 
-	m_PhysicsWorld->DebugDraw();
+	//m_PhysicsWorld->DebugDraw();
 }
 
 #ifdef _DEBUG
@@ -165,8 +165,7 @@ void dae::Scene::RenderGUI()
 				Serialize();
 			if (ImGui::MenuItem("Load"))
 			{
-				std::string path = "../Data/Scenes/" + m_Name + ".json";
-				Deserialize(path);
+				Deserialize(m_Name);
 			}
 			ImGui::EndMenu();
 		}
@@ -252,7 +251,7 @@ void dae::Scene::Serialize(const std::string& name)
 }
 dae::Scene* dae::Scene::Deserialize(const std::string& sceneFile)
 {
-	std::ifstream levelFile{ ("../Data/Scenes/" + sceneFile) };
+	std::ifstream levelFile{ ("../Data/Scenes/" + sceneFile + ".json")};
 	if (!levelFile.is_open())
 	{
 		std::cerr << "Could not open file" << std::endl;

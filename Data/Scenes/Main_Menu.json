@@ -1,6 +1,6 @@
 {
     "sceneName": "Main_Menu",
-    "gameobjectCount": 5,
+    "gameobjectCount": 6,
     "Gravity": {
         "X": 0.0,
         "Y": 0.0
@@ -153,8 +153,38 @@
                             },
                             "Rotation": 0.0,
                             "Scale": {
-                                "x": 1.0,
-                                "y": 1.0
+                                "x": 2.0,
+                                "y": 2.0
+                            }
+                        },
+                        {
+                            "name": "class dae::SpriteRendererComponent",
+                            "Path": "MainCharacter.png",
+                            "SampleRect": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "w": 0.0,
+                                "h": 0.0
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Name": "Pointer",
+                    "Tag": "",
+                    "Children": [],
+                    "Components": [
+                        {
+                            "name": "class dae::TransformComponent",
+                            "Position": {
+                                "x": 480.0,
+                                "y": 200.0,
+                                "z": 0.0
+                            },
+                            "Rotation": 0.0,
+                            "Scale": {
+                                "x": 2.0,
+                                "y": 2.0
                             }
                         },
                         {
