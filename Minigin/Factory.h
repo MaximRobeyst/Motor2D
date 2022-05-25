@@ -36,7 +36,7 @@ namespace dae
 		{
 			for (const auto& classRegister : m_ClassCreators)
 			{
-				std::cout << classRegister.first << std::endl();
+				std::cout << classRegister.first << std::endl;
 			}
 		}
 

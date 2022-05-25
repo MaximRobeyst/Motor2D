@@ -70,6 +70,11 @@ dae::Xbox360Controller::~Xbox360Controller() = default;
 
 void dae::Xbox360Controller::ClearInputs()
 {
+	for (auto controllerCommand : m_ControllerMap)
+	{
+		delete controllerCommand.second;
+	}
+
 	m_ControllerMap.clear();
 }
 
@@ -103,7 +108,11 @@ bool dae::Xbox360Controller::IsPressed(ControllerButton button) const
 	return m_pImpl->IsPressed(static_cast<unsigned int>(button));
 }
 
-void dae::Xbox360Controller::AddControllerMapping(const ControllerButtonData& controllerData, std::unique_ptr<Command>&& pCommand)
+void dae::Xbox360Controller::AddControllerMapping(const ControllerButtonData& controllerData, Command* pCommand)
 {
-	m_ControllerMap[controllerData] = std::move(pCommand);
+
+	if (m_ControllerMap[controllerData] != nullptr)
+		delete m_ControllerMap[controllerData];
+
+	m_ControllerMap[controllerData] = pCommand;
 }

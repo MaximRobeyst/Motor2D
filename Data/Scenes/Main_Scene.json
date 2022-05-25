@@ -1,5 +1,5 @@
 {
-    "sceneName": "Main_Menu",
+    "sceneName": "Main_Scene",
     "gameobjectCount": 5,
     "Gravity": {
         "X": 0.0,
@@ -7,43 +7,10 @@
     },
     "gameobjects": [
         {
-            "Id": 1,
-            "Name": "Pointer",
-            "Tag": "",
-            "Children": [],
-            "Components": [
-                {
-                    "name": "class dae::TransformComponent",
-                    "Position": {
-                        "x": 448.0,
-                        "y": 100.0,
-                        "z": 0.0
-                    },
-                    "Rotation": 0.0,
-                    "Scale": {
-                        "x": 2.0,
-                        "y": 2.0
-                    }
-                },
-                {
-                    "name": "class dae::SpriteRendererComponent",
-                    "Path": "MainCharacter.png",
-                    "SampleRect": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "w": 0.0,
-                        "h": 0.0
-                    }
-                }
-            ]
-        },
-        {
-            "Id": 2,
             "Name": "Logo",
             "Tag": "",
             "Children": [
                 {
-                    "Id": 3,
                     "Name": "Singleplayer button",
                     "Tag": "",
                     "Children": [],
@@ -87,7 +54,6 @@
                     ]
                 },
                 {
-                    "Id": 4,
                     "Name": "Multiplayer button",
                     "Tag": "",
                     "Children": [],
@@ -131,7 +97,6 @@
                     ]
                 },
                 {
-                    "Id": 5,
                     "Name": "Versus button",
                     "Tag": "",
                     "Children": [],
@@ -173,6 +138,36 @@
                             "name": "class UIButtonComponent"
                         }
                     ]
+                },
+                {
+                    "Name": "Pointer",
+                    "Tag": "",
+                    "Children": [],
+                    "Components": [
+                        {
+                            "name": "class dae::TransformComponent",
+                            "Position": {
+                                "x": 448.0,
+                                "y": 200.0,
+                                "z": 0.0
+                            },
+                            "Rotation": 0.0,
+                            "Scale": {
+                                "x": 2.0,
+                                "y": 2.0
+                            }
+                        },
+                        {
+                            "name": "class dae::SpriteRendererComponent",
+                            "Path": "MainCharacter.png",
+                            "SampleRect": {
+                                "x": 0.0,
+                                "y": 0.0,
+                                "w": 0.0,
+                                "h": 0.0
+                            }
+                        }
+                    ]
                 }
             ],
             "Components": [
@@ -198,10 +193,6 @@
                         "w": 0.0,
                         "h": 0.0
                     }
-                },
-                {
-                    "name": "class MenuComponent",
-                    "pointer": 1
                 }
             ]
         }
@@ -228,7 +219,7 @@
                 "State": 0,
                 "Command": {
                     "Name": "class PressButtonCommand",
-                    "Menucomponent": 2
+                    "Menucomponent": 0
                 }
             },
             {
@@ -237,7 +228,7 @@
                 "Command": {
                     "Name": "class ChangePointerCommand",
                     "Change": 1,
-                    "Menucomponent": 2
+                    "Menucomponent": 0
                 }
             },
             {
@@ -246,7 +237,7 @@
                 "Command": {
                     "Name": "class ChangePointerCommand",
                     "Change": -1,
-                    "Menucomponent": 2
+                    "Menucomponent": 0
                 }
             }
         ]

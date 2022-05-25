@@ -87,6 +87,8 @@ void dae::GameObject::RenderGUI()
 void dae::GameObject::Sertialize(rapidjson::PrettyWriter< rapidjson::StringBuffer>& writer)
 {
 	writer.StartObject();
+	writer.Key("Id");
+	writer.Int(m_InstanceId);
 	writer.Key("Name");
 	writer.String(m_Name.c_str());
 	writer.Key("Tag");
@@ -118,6 +120,8 @@ dae::GameObject* dae::GameObject::Deserialize(Scene* pScene, rapidjson::Value& v
 {
 	GameObject* pGameobject = new GameObject(value["Name"].GetString());
 	pGameobject->SetTag(value["Tag"].GetString());
+	pGameobject->SetId(value["Id"].GetInt());
+	pGameobject->SetScene(pScene);
 
 	for (auto& gameobject : value["Children"].GetArray())
 	{
@@ -153,6 +157,8 @@ void dae::GameObject::AddComponent(Component* component)
 
 void dae::GameObject::SetParent(GameObject* pParent, bool /*worldPositionStays*/)
 {
+	if (pParent == this) return;
+
 	// Remove itself as a child from the previous parent
 	if (m_pParent != nullptr)
 		m_pParent->RemoveChild(this);
@@ -251,4 +257,14 @@ void dae::GameObject::SetEnabled(bool newValue, bool AffectChildren)
 	{
 		(*iter)->SetEnabled(newValue, AffectChildren);
 	}
+}
+
+void dae::GameObject::SetId(int id)
+{
+	m_InstanceId = id;
+}
+
+int dae::GameObject::GetId() const
+{
+	return m_InstanceId;
 }

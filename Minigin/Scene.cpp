@@ -76,8 +76,10 @@ Scene::~Scene()
 
 void Scene::AddGameObject(dae::GameObject* object)
 {
-	m_pObjects.push_back(object);
+	m_pObjects.emplace_back(object);
 	object->SetScene(this);
+	if(object->GetId() == 0)
+		object->SetId( static_cast<int>( m_pObjects.size()));
 
 	if(m_Started)
 		object->Start();
@@ -103,6 +105,14 @@ GameObject* dae::Scene::FindGameobjectWithTag(const std::string& tag)
 		return *objectWithTag;
 	
 	return nullptr;
+}
+
+GameObject* dae::Scene::GetGameobjectFromId(int id)
+{
+	return *std::find_if(m_pObjects.begin(), m_pObjects.end(), [&](GameObject* pGameobject)
+		{
+			return pGameobject->GetId() == id;
+		});
 }
 
 std::shared_ptr<b2World> dae::Scene::GetPhysicsWorld() const
@@ -225,8 +235,6 @@ void dae::Scene::Serialize(const std::string& name)
 	writer.StartObject();
 	writer.Key("sceneName");
 	writer.String((name == " " ? m_Name : name).c_str());
-	writer.Key("InputManager");
-	dae::InputManager::GetInstance().Serialize(writer);
 
 	writer.Key("gameobjectCount");
 	writer.Int((int) m_pObjects.size());
@@ -247,6 +255,8 @@ void dae::Scene::Serialize(const std::string& name)
 		gameobject->Sertialize(writer);
 	}
 	writer.EndArray();
+	writer.Key("InputManager");
+	dae::InputManager::GetInstance().Serialize(writer);
 	writer.EndObject();
 
 
@@ -265,6 +275,7 @@ dae::Scene* dae::Scene::Deserialize(const std::string& sceneFile)
 	rapidjson::Document levelDocument{};
 	levelDocument.ParseStream(isw);
 
+
 	std::string sceneName = levelDocument["sceneName"].GetString();
 	b2Vec2 gravity{};
 	gravity.x = static_cast<float>(levelDocument["Gravity"]["X"].GetDouble());
@@ -275,6 +286,8 @@ dae::Scene* dae::Scene::Deserialize(const std::string& sceneFile)
 	{
 		pScene->AddGameObject(GameObject::Deserialize(pScene, gamobject));
 	}
+	if (levelDocument.HasMember("InputManager"))
+		InputManager::GetInstance().Deserialize(levelDocument["InputManager"], pScene);
 
 	SceneManager::GetInstance().RemoveScene(0);
 	SceneManager::GetInstance().AddScene(pScene);

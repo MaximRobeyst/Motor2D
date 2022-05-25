@@ -5,10 +5,11 @@
 #include <Scene.h>
 #include <SpriteRendererComponent.h>
 
-dae::Creator<dae::Component, MenuComponent> s_TranformComponentCreate{};
+dae::Creator<dae::Component, MenuComponent> g_MenuComponent{};
 
-MenuComponent::MenuComponent(dae::GameObject* pGameobject)
+MenuComponent::MenuComponent(dae::GameObject* pGameobject, dae::GameObject* pPointer)
 	: Component(pGameobject)
+	, m_pMenuPointer{pPointer}
 {
 }
 
@@ -18,17 +19,22 @@ void MenuComponent::Start()
 	{
 		m_pButtonObjects.push_back(m_pGameObject->GetChildFromIndex(i)->GetComponent<UIButtonComponent>());
 	}
+}
 
-	m_pMenuPointer = new dae::GameObject("Pointer");
-	m_pMenuPointer->SetParent(m_pGameObject);
-	auto pTransform = new dae::TransformComponent(m_pMenuPointer, glm::vec3{}, glm::vec2{ 2.f });
-	m_pMenuPointer->AddComponent(pTransform);
-	auto pSpriteRenderer = new dae::SpriteRendererComponent(m_pMenuPointer, "MainCharacter.png");
-	m_pMenuPointer->AddComponent(pSpriteRenderer);
-	pTransform->SetPosition(m_pButtonObjects[0]->GetGameObject()->GetComponent<dae::TransformComponent>()->GetPosition() - glm::vec3{pSpriteRenderer->GetSampleRectangle().w * pTransform->GetScale().x, 0.f, 0.f});
-	
+void MenuComponent::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>& writer)
+{
+	writer.StartObject();
+	writer.Key("name");
+	writer.String(typeid(*this).name());
+	writer.Key("pointer");
+	writer.Int(m_pMenuPointer->GetId());
+	writer.EndObject();
+}
 
-	m_pGameObject->GetScene()->AddGameObject(m_pMenuPointer);
+void MenuComponent::Deserialize(dae::GameObject* pGameobject, rapidjson::Value& value)
+{
+	m_pGameObject = pGameobject;
+	m_pMenuPointer = pGameobject->GetScene()->GetGameobjectFromId(value["pointer"].GetInt());
 }
 
 void MenuComponent::SwitchSelection(int i)

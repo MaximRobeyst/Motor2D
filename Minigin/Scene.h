@@ -16,6 +16,7 @@ namespace dae
 		void RemoveGameObject(dae::GameObject* object);
 
 		GameObject* FindGameobjectWithTag(const std::string& tag);
+		GameObject* GetGameobjectFromId(int id);
 
 		std::shared_ptr<b2World> GetPhysicsWorld() const;
 

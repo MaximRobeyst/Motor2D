@@ -62,11 +62,11 @@ namespace dae
 		bool IsUpThisFrame(ControllerButton button) const ;
 		bool IsPressed(ControllerButton button) const;
 
-		void AddControllerMapping(const ControllerButtonData& controllerData, std::unique_ptr<Command>&& pCommand);
+		void AddControllerMapping(const ControllerButtonData& controllerData, Command* pCommand);
 		// RemoveControllerMapping
 
 	private:
-		using ControllerCommandMap = std::map<ControllerButtonData, std::unique_ptr<Command>>;
+		using ControllerCommandMap = std::map<ControllerButtonData, Command*>;
 		ControllerCommandMap m_ControllerMap{};
 	};
 }

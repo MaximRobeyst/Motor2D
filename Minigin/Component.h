@@ -22,8 +22,17 @@ namespace dae
 
 		virtual void RenderGUI() {};
 
-		virtual void Serialize(rapidjson::PrettyWriter< rapidjson::StringBuffer>& /*writer*/) {};
-		virtual void Deserialize(GameObject* /*pGameobject*/, rapidjson::Value& /*value*/) {};
+		virtual void Serialize(rapidjson::PrettyWriter< rapidjson::StringBuffer>& writer) 
+		{
+			writer.StartObject();
+			writer.Key("name");
+			writer.String(typeid(*this).name());
+			writer.EndObject();
+		};
+		virtual void Deserialize(GameObject* pGameobject, rapidjson::Value& /*value*/)
+		{
+			m_pGameObject = pGameobject;
+		};
 
 		void SetGameObject(GameObject* pGameObject);
 		GameObject* GetGameObject() const;

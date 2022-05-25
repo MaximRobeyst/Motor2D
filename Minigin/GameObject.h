@@ -82,12 +82,16 @@ namespace dae
 		bool IsEnabled() const;
 		void SetEnabled(bool newValue, bool AffectChildren = true);
 
+		void SetId(int id);
+		int GetId() const;
+
 
 	private:
 		void AddChild(GameObject* pChild);
 		void RemoveChild(GameObject* pChild);
 
 		// Extra data
+		int m_InstanceId{};
 		std::string m_Name{};
 		std::string m_Tag{};
 

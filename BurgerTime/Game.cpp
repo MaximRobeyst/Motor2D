@@ -53,6 +53,7 @@
 
 #include <GameStateManager.h>
 #include "MainMenuState.h"
+#include "MenuComponent.h"
 
 using namespace dae;
 
@@ -77,5 +78,6 @@ void LoadGame()
 	ServiceLocator::ProvideAudio(new SDLAudioSystem());
 #endif // _DEBUG
 
+	Factory<Component>::GetInstance().PrintRegisteredClasses();
 	GameStateManager::GetInstance().SwitchGameState(new MainMenuState());
 }

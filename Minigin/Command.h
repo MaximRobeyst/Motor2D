@@ -2,14 +2,19 @@
 #include "Transform.h"
 #include "RigidbodyComponent.h"
 
+namespace dae
+{
+	class Scene;
+}
+
 class Command 
 {
 public:
 	virtual ~Command() = default;
 	virtual void Execute() = 0;
 
-	virtual void Serialize(rapidjson::PrettyWriter< rapidjson::StringBuffer>&) {};
-	virtual void Deserialize(rapidjson::Value&) {};
+	virtual void Serialize(rapidjson::PrettyWriter< rapidjson::StringBuffer>&);
+	virtual void Deserialize(rapidjson::Value&, dae::Scene*) {};
 };
 
 class FoodComponent;

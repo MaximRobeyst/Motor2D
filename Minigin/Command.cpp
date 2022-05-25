@@ -36,3 +36,11 @@ void MoveCommand::Execute()
 {
 	//m_pRigidbody->SetVelocity(m_Movement * m_Speed /** Time::GetInstance()->GetElapsed()*/);
 }
+
+void Command::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>& writer)
+{
+	writer.StartObject();
+	writer.Key("Name");
+	writer.String(typeid(*this).name());
+	writer.EndObject();
+}

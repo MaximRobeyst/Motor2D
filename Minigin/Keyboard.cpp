@@ -3,6 +3,11 @@
 
 void dae::Keyboard::ClearInput()
 {
+    for (auto& keyboardCommand : m_KeyboardMap)
+    {
+        delete keyboardCommand.second;
+    }
+
     m_KeyboardMap.clear();
 }
 
@@ -21,6 +26,8 @@ void dae::Keyboard::ProcessInput(const SDL_Event* event)
 
         m_KeyStates[event->key.keysym.sym] = newState;
     }
+    if (m_KeyboardMap.size() == 0) return;
+
     for (auto it = m_KeyboardMap.begin(); it != m_KeyboardMap.end(); ++it)
     {
         if (it == m_KeyboardMap.end())
@@ -66,27 +73,52 @@ bool dae::Keyboard::IsPressed(int key)
     return false;
 }
 
-void dae::Keyboard::AddKeyboardMapping(const KeyboardKeyData& keyData, std::unique_ptr<Command>&& pCommand)
+void dae::Keyboard::AddKeyboardMapping(const KeyboardKeyData& keyData, Command* pCommand)
 {
-    m_KeyboardMap[keyData] = std::move(pCommand);
+    if (m_KeyboardMap[keyData] != nullptr)
+        delete m_KeyboardMap[keyData];
+
+    m_KeyboardMap[keyData] = pCommand;
 }
 
 void dae::Keyboard::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>& writer)
 {
-    writer.StartObject();
+    writer.StartArray();
 
     for (auto& p : m_KeyboardMap)
     {
+        std::cout << std::to_string( p.first.key) << std::endl;
+
+        writer.StartObject();
         writer.Key("Key");
         writer.Int(p.first.key);
         writer.Key("State");
         writer.Int( static_cast<int>(p.first.state));
         writer.Key("Command");
-        writer.String(typeid(p.second).name());
+        p.second->Serialize(writer);
+        writer.EndObject();
 
     }
 
-    writer.EndObject();
+    writer.EndArray();
+}
+
+void dae::Keyboard::Deserialize(rapidjson::Value& value, dae::Scene* pScene)
+{
+    ClearInput();
+    for (auto iter = value.Begin(); iter != value.End(); ++iter)
+    {
+        auto& key = *iter;
+        std::cout << "Key: " << key["Key"].GetInt() << std::endl;
+        std::cout << "State: " << key["State"].GetInt() << std::endl;
+        std::cout << "Command: " << key["Command"]["Name"].GetString() << std::endl;
+
+        KeyboardKeyData newCommand{ key["Key"].GetInt(), static_cast<KeyState>(key["State"].GetInt()) };
+
+        m_KeyboardMap[newCommand] = Factory<Command>::GetInstance().Create(key["Command"]["Name"].GetString());
+
+        m_KeyboardMap[newCommand]->Deserialize(key["Command"], pScene);
+   }
 }
 
 void dae::Keyboard::UpdateKeys()

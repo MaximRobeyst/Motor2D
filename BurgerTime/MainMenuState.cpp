@@ -35,11 +35,20 @@ void MainMenuState::OnEnter()
 	auto& scene = SceneManager::GetInstance().CreateScene("Main_Menu");
 	auto& input = InputManager::GetInstance();
 
+	auto pMenupointer = new dae::GameObject("Pointer");
+	auto pTransform = new dae::TransformComponent(pMenupointer, glm::vec3{}, glm::vec2{ 2.f });
+	pMenupointer->AddComponent(pTransform);
+	auto pSpriteRenderer = new dae::SpriteRendererComponent(pMenupointer, "MainCharacter.png");
+	pMenupointer->AddComponent(pSpriteRenderer);
+	pTransform->SetPosition(glm::vec3{ 480.f, 100.f, 0.f } - glm::vec3{ pSpriteRenderer->GetSampleRectangle().w * pTransform->GetScale().x, 0.f, 0.f });
+
+
+	scene.AddGameObject(pMenupointer);
 
 	GameObject* pLogo = new GameObject("Logo");
 	pLogo->AddComponent(new TransformComponent(pLogo, glm::vec3{ 480.f, 100.f, 0.f}));
 	pLogo->AddComponent(new SpriteRendererComponent(pLogo, "logo.png"));
-	auto pMenuComp = new MenuComponent(pLogo);
+	auto pMenuComp = new MenuComponent(pLogo, pMenupointer);
 	pLogo->AddComponent(pMenuComp);
 	scene.AddGameObject(pLogo);
 
@@ -86,42 +95,42 @@ void MainMenuState::OnEnter()
 	auto keyboard = input.GetKeyboard();
 	keyboard->AddKeyboardMapping(
 		KeyboardKeyData{ SDLK_SPACE, KeyState::JustUp },
-		std::make_unique<SwitchMenuStateCommand>()
+		new SwitchMenuStateCommand()
 	);
 
 	controller->AddControllerMapping(
 		ControllerButtonData{ ControllerButton::ButtonA, ButtonState::Up },
-		std::make_unique<PressButtonCommand>(pMenuComp)
+		new PressButtonCommand(pMenuComp)
 	);
 
 	keyboard->AddKeyboardMapping(
 		KeyboardKeyData{ SDLK_e, KeyState::JustUp },
-		std::make_unique<PressButtonCommand>(pMenuComp)
+		new PressButtonCommand(pMenuComp)
 	);
 
 	controller->AddControllerMapping(
 		ControllerButtonData{ ControllerButton::DPadUp, ButtonState::Up },
-		std::make_unique<ChangePointerCommand>(pMenuComp, -1)
+		new ChangePointerCommand(pMenuComp, -1)
 	);
 
 	keyboard->AddKeyboardMapping(
 		KeyboardKeyData{ SDLK_UP, KeyState::JustUp },
-		std::make_unique<ChangePointerCommand>(pMenuComp, -1)
+		new ChangePointerCommand(pMenuComp, -1)
 	);
 
 	controller->AddControllerMapping(
 		ControllerButtonData{ ControllerButton::DPadDown, ButtonState::Up },
-		std::make_unique<ChangePointerCommand>(pMenuComp, 1)
+		new ChangePointerCommand(pMenuComp, 1)
 	);
 
 	keyboard->AddKeyboardMapping(
 		KeyboardKeyData{ SDLK_DOWN, KeyState::JustUp },
-		std::make_unique<ChangePointerCommand>(pMenuComp, 1)
+		new ChangePointerCommand(pMenuComp, 1)
 	);
 
 	keyboard->AddKeyboardMapping(
 		KeyboardKeyData{ SDLK_ESCAPE, KeyState::JustUp },
-		std::make_unique<SwitchMenuStateCommand>()
+		new SwitchMenuStateCommand()
 	);
 
 	//scene.Start();
@@ -130,5 +139,5 @@ void MainMenuState::OnEnter()
 void MainMenuState::OnExit()
 {
 	SceneManager::GetInstance().RemoveScene(0);
-	InputManager::GetInstance().ClearInputs();
+	//InputManager::GetInstance().ClearInputs();
 }

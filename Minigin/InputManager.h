@@ -56,7 +56,7 @@ namespace dae
 		std::shared_ptr<dae::Keyboard> GetKeyboard() const;
 
 		void Serialize(rapidjson::PrettyWriter< rapidjson::StringBuffer>& writer);
-		void Deserialize(rapidjson::Value& value);
+		void Deserialize(rapidjson::Value& value, dae::Scene* pScene);
 
 		glm::vec2 GetMousePosition() const;
 

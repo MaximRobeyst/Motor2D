@@ -198,27 +198,27 @@ void Level1State::OnEnter()
 	////keyboard->AddKeyboardMapping(KeyboardKeyData{ SDLK_q, KeyState::JustUp }, std::make_unique<KillCommand>(pLifeComponent2));
 	keyboard->AddKeyboardMapping(
 		KeyboardKeyData{ SDLK_SPACE, KeyState::JustUp },
-		std::make_unique<PlayAudioCommand>()
+		new PlayAudioCommand()
 	);
 
 	keyboard->AddKeyboardMapping(
 		KeyboardKeyData{ SDLK_UP, KeyState::JustUp },
-		std::make_unique<VolumeChangeCommand>(1)
+		new VolumeChangeCommand(1)
 	);
 
 	keyboard->AddKeyboardMapping(
 		KeyboardKeyData{ SDLK_DOWN, KeyState::JustUp },
-		std::make_unique<VolumeChangeCommand>(-1)
+		new VolumeChangeCommand(-1)
 	);
 
 	keyboard->AddKeyboardMapping(
 		KeyboardKeyData{ SDLK_RIGHT, KeyState::JustUp },
-		std::make_unique<StopAudioCommand>()
+		new StopAudioCommand()
 	);
 
 	keyboard->AddKeyboardMapping(
 		KeyboardKeyData{ SDLK_LEFT, KeyState::JustUp },
-		std::make_unique<ResumeAudioCommand>()
+		new ResumeAudioCommand()
 	);
 
 	//keyboard->AddKeyboardMapping(
@@ -270,7 +270,6 @@ void Level1State::OnEnter()
 void Level1State::OnExit()
 {
 	SceneManager::GetInstance().RemoveScene(0);
-	InputManager::GetInstance().ClearInputs();
 }
 
 void Level1State::MakeLevel(Scene& pScene)

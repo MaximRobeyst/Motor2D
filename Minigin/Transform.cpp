@@ -24,11 +24,11 @@ void dae::TransformComponent::Serialize(rapidjson::PrettyWriter<rapidjson::Strin
 	writer.Key("Position");
 	writer.StartObject();
 	writer.Key("x");
-	writer.Double(static_cast<double>(m_Transform.localPosition.x));
+	writer.Double(static_cast<double>(m_Transform.worldPosition.x));
 	writer.Key("y");
-	writer.Double(static_cast<double>(m_Transform.localPosition.y));
+	writer.Double(static_cast<double>(m_Transform.worldPosition.y));
 	writer.Key("z");
-	writer.Double(static_cast<double>(m_Transform.localPosition.z));
+	writer.Double(static_cast<double>(m_Transform.worldPosition.z));
 	writer.EndObject();
 	writer.Key("Rotation");
 	writer.Double(static_cast<double>(m_Transform.rotation));

@@ -82,6 +82,12 @@ void dae::InputManager::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffe
 	writer.EndObject();
 }
 
+void dae::InputManager::Deserialize(rapidjson::Value& value, dae::Scene* pScene)
+{
+	m_pXbox360Controllers.reserve( value["ControllerCount"].GetInt());
+	m_pKeyboard->Deserialize(value["Keyboard"], pScene);
+}
+
 glm::vec2 dae::InputManager::GetMousePosition() const
 {
 	int x, y;

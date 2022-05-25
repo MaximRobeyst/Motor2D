@@ -37,15 +37,15 @@ namespace dae
 		bool IsUpThisFrame(int key);
 		bool IsPressed(int key);
 
-		void AddKeyboardMapping(const KeyboardKeyData& controllerData, std::unique_ptr<Command>&& pCommand);
+		void AddKeyboardMapping(const KeyboardKeyData& controllerData, Command* pCommand);
 
 		void Serialize(rapidjson::PrettyWriter< rapidjson::StringBuffer>& writer);
-		void Deserialize(rapidjson::Value& value);
+		void Deserialize(rapidjson::Value& value, dae::Scene* pScene);
 
 	private:
 		void UpdateKeys();
 
-		using KayboardCommandMap = std::map<KeyboardKeyData, std::unique_ptr<Command>>;
+		using KayboardCommandMap = std::map<KeyboardKeyData, Command*>;
 		KayboardCommandMap m_KeyboardMap{};
 
 		using keyIndex = int;
