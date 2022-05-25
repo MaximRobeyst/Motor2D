@@ -6,6 +6,7 @@ enum class Event
 	Enemy_Died,
 
 	Burger_Drop,
+	Burger_Made,
 
 	Game_Won
 };

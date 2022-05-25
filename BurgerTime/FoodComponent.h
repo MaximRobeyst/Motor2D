@@ -8,7 +8,7 @@ class FoodComponent : public dae::Component
 {
 public:
 	FoodComponent();
-	FoodComponent(dae::GameObject* pGameobject);
+	FoodComponent(dae::GameObject* pGameobject, bool topPart = false);
 
 	void Start() override;
 	void Update() override;
@@ -25,6 +25,7 @@ public:
 	bool GetFalling() const;
 	void SetState(int i, bool newState);
 	void SetCollidingWithPlayer(bool newState, dae::GameObject* pGameobject);
+	bool IsTop() const;
 
 	std::unique_ptr<Subject>& GetSubject();
 private:
@@ -43,6 +44,7 @@ private:
 
 	static const int m_Parts{ 5 };
 	bool m_PartStates[ m_Parts ];
+	bool m_TopPart{ false };
 
 };
 

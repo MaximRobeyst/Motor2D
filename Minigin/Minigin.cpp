@@ -17,6 +17,7 @@
 #include "Subject.h"
 #include <box2d.h>
 #include "ServiceLocator.h"
+#include "GameStateManager.h"
 
 using namespace std;
 
@@ -98,6 +99,7 @@ void dae::Minigin::Run()
 
 			//doContinue = input.ProcessInput();
 			doContinue = input.ProcessInput();
+			GameStateManager::GetInstance().Update();
 
 			while (lag >= msPerUpdate)
 			{

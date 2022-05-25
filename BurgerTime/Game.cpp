@@ -80,4 +80,5 @@ void LoadGame()
 
 	Factory<Component>::GetInstance().PrintRegisteredClasses();
 	GameStateManager::GetInstance().SwitchGameState(new MainMenuState());
+	GameStateManager::GetInstance().Update();
 }

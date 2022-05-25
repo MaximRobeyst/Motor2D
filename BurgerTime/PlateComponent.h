@@ -1,7 +1,9 @@
 #pragma once
 #include <Component.h>
 #include <RigidbodyComponent.h>
+#include <Subject.h>
 
+class FoodComponent;
 class PlateComponent : public dae::Component
 {
 public:
@@ -14,10 +16,15 @@ public:
 	void Serialize(rapidjson::PrettyWriter< rapidjson::StringBuffer>& writer) override;
 	void Deserialize(dae::GameObject* /*pGameobject*/, rapidjson::Value& /*value*/) override;
 
-	void AddIngredient(dae::GameObject* pGameobject);
+	void AddIngredient(FoodComponent* pFoodComponent);
 
+	std::unique_ptr<Subject>& GetSubject();
 private:
 	dae::RigidbodyComponent* m_pRigidbody{ nullptr };
-	std::vector<dae::GameObject*> m_pIngredients{};
+	std::vector<FoodComponent*> m_pIngredients{};
+
+	std::unique_ptr<Subject> m_pSubject;
+
+	bool m_BurgerMade{ false };
 };
 

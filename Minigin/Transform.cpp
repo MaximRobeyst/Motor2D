@@ -141,7 +141,11 @@ void dae::TransformComponent::RenderGUI()
 {
 	float position[3] = { m_Transform.worldPosition.x, m_Transform.worldPosition.y, m_Transform.worldPosition.z };
 	if (ImGui::InputFloat3("Position", position))
+	{
 		m_Transform.worldPosition = glm::vec3{ position[0], position[1], position[2] };
+		if (m_pRigidbodyComponent != nullptr)
+			m_pRigidbodyComponent->GetBody()->SetTransform(b2Vec2{ position[0], position[1] }, 0.0f);
+	}
 
 	float rotation = { m_Transform.rotation };
 	if (ImGui::InputFloat("Rotation", &rotation))

@@ -15,14 +15,22 @@ GameStateManager::~GameStateManager()
 
 void GameStateManager::SwitchGameState(IGameState* pGamestate)
 {
-	if(pGamestate != nullptr)
-		pGamestate->OnEnter();
-	if(m_pCurrentState != nullptr)
-		m_pCurrentState->OnExit();
+	m_pNewState = pGamestate;
+}
 
-	delete m_pCurrentState;
-	m_pCurrentState = nullptr;
-	m_pCurrentState = pGamestate;
+void GameStateManager::Update()
+{
+	if (m_pNewState != nullptr)
+	{
+		if (m_pCurrentState != nullptr)
+			m_pCurrentState->OnExit();
+		if (m_pNewState != nullptr)
+			m_pNewState->OnEnter();
+
+		delete m_pCurrentState;
+		m_pCurrentState = m_pNewState;
+		m_pNewState = nullptr;
+	}
 }
 
 IGameState* GameStateManager::GetGameState()

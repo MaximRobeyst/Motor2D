@@ -22,7 +22,7 @@ public:
 class VolumeChangeCommand : public Command
 {
 public:
-	VolumeChangeCommand(int volumeChange);
+	VolumeChangeCommand(int volumeChange = 1);
 	void Execute() override;
 
 private:

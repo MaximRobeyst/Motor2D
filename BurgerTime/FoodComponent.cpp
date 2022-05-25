@@ -24,9 +24,10 @@ FoodComponent::FoodComponent()
 {
 }
 
-FoodComponent::FoodComponent(dae::GameObject* pGameobject)
+FoodComponent::FoodComponent(dae::GameObject* pGameobject, bool topPart)
 	: Component(pGameobject)
 	, m_pSubject(std::make_unique<Subject>())
+	, m_TopPart{topPart}
 {
 }
 
@@ -63,7 +64,7 @@ void FoodComponent::Start()
 			else
 				plateComp = pOtherGO->GetComponent<PlateComponent>();
 
-			plateComp->AddIngredient(pTriggeredBody->GetGameObject());
+			plateComp->AddIngredient(pTriggeredBody->GetGameObject()->GetComponent<FoodComponent>());
 		}
 
 		else if (foodComp->GetFalling() && pOtherGO->GetTag().empty())
@@ -120,11 +121,15 @@ void FoodComponent::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>& 
 	writer.StartObject();
 	writer.Key("name");
 	writer.String(typeid(*this).name());
+	writer.Key("TopPart");
+	writer.Bool(m_TopPart);
 	writer.EndObject();
 }
-void FoodComponent::Deserialize(dae::GameObject* pGameobject, rapidjson::Value& /*value*/)
+void FoodComponent::Deserialize(dae::GameObject* pGameobject, rapidjson::Value& value)
 {
 	m_pGameObject = pGameobject;
+	m_TopPart = value["TopPart"].GetBool();
+
 }
 #ifdef _DEBUG
 void FoodComponent::RenderGUI()
@@ -164,6 +169,11 @@ void FoodComponent::SetCollidingWithPlayer(bool newState, dae::GameObject* pGame
 {
 	m_CollidingWithPlayer = newState;
 	m_pPlayer = pGameobject;
+}
+
+bool FoodComponent::IsTop() const
+{
+	return m_TopPart;
 }
 
 std::unique_ptr<Subject>& FoodComponent::GetSubject()

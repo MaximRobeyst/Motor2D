@@ -15,11 +15,13 @@ public:
 	GameStateManager& operator=(GameStateManager&& other) = delete;
 
 	void SwitchGameState(IGameState* pGamestate);
+	void Update();
 	IGameState* GetGameState();
 
 private:
 	friend class Singleton<GameStateManager>;
 	GameStateManager() = default;
 	IGameState* m_pCurrentState;
+	IGameState* m_pNewState{};
 };
 

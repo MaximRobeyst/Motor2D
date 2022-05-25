@@ -38,11 +38,15 @@
 #include "MainMenuState.h"
 
 #include <iostream>
+#include "GameManagerComponent.h"
+#include "MenuCommands.h"
 
 using namespace dae;
 
 void Level1State::OnEnter()
 {
+	//dae::InputManager::GetInstance().ClearInputs();
+
 	auto& scene = dae::SceneManager::GetInstance().CreateScene("Level01");
 	auto& input = InputManager::GetInstance();
 	//input.ClearInputs();
@@ -83,18 +87,18 @@ void Level1State::OnEnter()
 	go->SetTag("Score");
 	scene.AddGameObject(go);
 
-	auto pPeperGameObject = new GameObject("PeterPete_Player");
-	auto pPlayerTransform = new TransformComponent(pPeperGameObject, glm::vec3{ 96.f, 296.f, 0 }, glm::vec3{ 2.f });
-	pPeperGameObject->AddComponent(pPlayerTransform);
-	pPeperGameObject->AddComponent(new SpriteRendererComponent(pPeperGameObject, "BurgerTime_SpriteSheet.png"));
-	pPeperGameObject->AddComponent(new AnimatorComponent(pPeperGameObject, "../Data/Animations/PlayerAnimations.json"));
+	m_pPlayerObject = new GameObject("PeterPete_Player");
+	auto pPlayerTransform = new TransformComponent(m_pPlayerObject, glm::vec3{ 96.f, 296.f, 0 }, glm::vec3{ 2.f });
+	m_pPlayerObject->AddComponent(pPlayerTransform);
+	m_pPlayerObject->AddComponent(new SpriteRendererComponent(m_pPlayerObject, "BurgerTime_SpriteSheet.png"));
+	m_pPlayerObject->AddComponent(new AnimatorComponent(m_pPlayerObject, "../Data/Animations/PlayerAnimations.json"));
 	//pPeperGameObject->AddComponent(new MovementComponent(pPeperGameObject, 100.f));
-	auto pLifeComponent = new LifeComponent{ pPeperGameObject, 3 };
-	pPeperGameObject->AddComponent(pLifeComponent);
-	pPeperGameObject->AddComponent(new ColliderComponent(pPeperGameObject, 15.f, 15.f, glm::vec2{ 8.0f, 8.0f }));
-	pPeperGameObject->AddComponent(new RigidbodyComponent(pPeperGameObject, b2_dynamicBody, 1.f, 0.3f));
-	auto pPlayerComp = new PlayerComponent(pPeperGameObject);
-	pPeperGameObject->AddComponent(pPlayerComp);
+	auto pLifeComponent = new LifeComponent{ m_pPlayerObject, 3 };
+	m_pPlayerObject->AddComponent(pLifeComponent);
+	m_pPlayerObject->AddComponent(new ColliderComponent(m_pPlayerObject, 15.f, 15.f, glm::vec2{ 8.0f, 8.0f }));
+	m_pPlayerObject->AddComponent(new RigidbodyComponent(m_pPlayerObject, b2_dynamicBody, 1.f, 0.3f));
+	auto pPlayerComp = new PlayerComponent(m_pPlayerObject);
+	m_pPlayerObject->AddComponent(pPlayerComp);
 	
 	InputManager::GetInstance().AddAxis("keyboard_horizontal", new KeyboardAxis(SDLK_d, SDLK_a, InputManager::GetInstance().GetKeyboard()));
 	InputManager::GetInstance().AddAxis("keyboard_vertical", new KeyboardAxis(SDLK_s, SDLK_w, InputManager::GetInstance().GetKeyboard()));
@@ -102,15 +106,15 @@ void Level1State::OnEnter()
 	pPlayerComp->SetHorizontalAxis(InputManager::GetInstance().GetAxis("keyboard_horizontal"));
 	pPlayerComp->SetVerticalAxis(InputManager::GetInstance().GetAxis("keyboard_vertical"));
 
-	pPeperGameObject->SetTag("Player");
-	scene.AddGameObject(pPeperGameObject);
+	m_pPlayerObject->SetTag("Player");
+	scene.AddGameObject(m_pPlayerObject);
 
 	auto pBurgerTop = new GameObject("BurgerTop");
 	pBurgerTop->AddComponent(new TransformComponent(pBurgerTop, glm::vec3(224.f, 32.f, 0.f), glm::vec2{ 2.f }));
 	pBurgerTop->AddComponent(new SpriteRendererComponent(pBurgerTop, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 48.f, 32.f, 8.f }));
 	pBurgerTop->AddComponent(new ColliderComponent(pBurgerTop, 32.f, 4.f));
 	pBurgerTop->AddComponent(new RigidbodyComponent(pBurgerTop, b2_dynamicBody, 1.0f, 1.0f, true));
-	auto pFoodComponent = new FoodComponent(pBurgerTop);
+	auto pFoodComponent = new FoodComponent(pBurgerTop, true);
 	pBurgerTop->AddComponent(pFoodComponent);
 	pBurgerTop->SetTag("Food");
 	pFoodComponent->GetSubject()->AddObserver(pScoreDisplay);
@@ -150,14 +154,57 @@ void Level1State::OnEnter()
 	//pFoodComponent->GetSubject()->AddObserver(pScoreDisplay);
 	//scene.AddGameObject(pBurgerBottom);
 
-	auto pPlate = new GameObject("Plate");
+	GameObject* pGameManager = new GameObject("GameManager");
+	pGameManager->AddComponent(new TransformComponent(pGameManager));
+	m_pManagerComponent = new GameManagerComponent(pGameManager, m_pPlayerObject, 1);
+	pGameManager->AddComponent(m_pManagerComponent);
+	scene.AddGameObject(pGameManager);
+
+	auto pPlate = new GameObject("Plate 1");
 	pPlate->AddComponent(new TransformComponent(pPlate, glm::vec3{ 224.f, 448.f, 0.f }, glm::vec2{ 2.f }));
 	pPlate->AddComponent(new SpriteRendererComponent(pPlate, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 96.f, 32.f, 8.f }));
 	pPlate->AddComponent(new ColliderComponent(pPlate, 32.f, 8.f, glm::vec2{ 16.f, 8.f }));
-	pPlate->AddComponent(new RigidbodyComponent(pPlate, b2_dynamicBody, 1.0f, 1.0f));
-	pPlate->AddComponent(new PlateComponent(pPlate));
+	pPlate->AddComponent(new RigidbodyComponent(pPlate, b2_staticBody, 1.0f, 1.0f, true));
+	auto pPlateComponent = new PlateComponent(pPlate);
+	pPlate->AddComponent(pPlateComponent);
 	pPlate->SetTag("Plate");
 	scene.AddGameObject(pPlate);
+	pPlateComponent->GetSubject()->AddObserver(m_pManagerComponent);
+
+	pPlate = new GameObject("Plate 2");
+	pPlate->AddComponent(new TransformComponent(pPlate, glm::vec3{ 96.f, 448.f, 0.f }, glm::vec2{ 2.f }));
+	pPlate->AddComponent(new SpriteRendererComponent(pPlate, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 96.f, 32.f, 8.f }));
+	pPlate->AddComponent(new ColliderComponent(pPlate, 32.f, 8.f, glm::vec2{ 16.f, 8.f }));
+	pPlate->AddComponent(new RigidbodyComponent(pPlate, b2_staticBody, 1.0f, 1.0f, true));
+	pPlateComponent = new PlateComponent(pPlate);
+	pPlate->AddComponent(pPlateComponent);
+	pPlate->SetTag("Plate");
+	scene.AddGameObject(pPlate);
+	pPlateComponent->GetSubject()->AddObserver(m_pManagerComponent);
+
+	pPlate = new GameObject("Plate 3");
+	pPlate->AddComponent(new TransformComponent(pPlate, glm::vec3{ 224.f, 448.f, 0.f }, glm::vec2{ 2.f }));
+	pPlate->AddComponent(new SpriteRendererComponent(pPlate, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 96.f, 32.f, 8.f }));
+	pPlate->AddComponent(new ColliderComponent(pPlate, 32.f, 8.f, glm::vec2{ 16.f, 8.f }));
+	pPlate->AddComponent(new RigidbodyComponent(pPlate, b2_staticBody, 1.0f, 1.0f, true));
+	pPlateComponent = new PlateComponent(pPlate);
+	pPlate->AddComponent(pPlateComponent);
+	pPlate->SetTag("Plate");
+	scene.AddGameObject(pPlate);
+	pPlateComponent->GetSubject()->AddObserver(m_pManagerComponent);
+
+	pPlate = new GameObject("Plate 4");
+	pPlate->AddComponent(new TransformComponent(pPlate, glm::vec3{ 224.f, 448.f, 0.f }, glm::vec2{ 2.f }));
+	pPlate->AddComponent(new SpriteRendererComponent(pPlate, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 96.f, 32.f, 8.f }));
+	pPlate->AddComponent(new ColliderComponent(pPlate, 32.f, 8.f, glm::vec2{ 16.f, 8.f }));
+	pPlate->AddComponent(new RigidbodyComponent(pPlate, b2_staticBody, 1.0f, 1.0f, true));
+	pPlateComponent = new PlateComponent(pPlate);
+	pPlate->AddComponent(pPlateComponent);
+	pPlate->SetTag("Plate");
+	scene.AddGameObject(pPlate);
+	pPlateComponent->GetSubject()->AddObserver(m_pManagerComponent);
+	
+
 
 
 	go = new GameObject("Live display");
@@ -169,13 +216,6 @@ void Level1State::OnEnter()
 	go->AddComponent(pLifeDisplay);
 	scene.AddGameObject(go);
 
-	auto pPeperGameObject2 = new GameObject("Second player");
-	pPeperGameObject2->AddComponent(new TransformComponent(pPeperGameObject2, glm::vec3{ 900.f, 100.f, 0 }, glm::vec3{ 5, 5, 5 }));
-	pPeperGameObject2->AddComponent(new SpriteRendererComponent(pPeperGameObject2, "MainCharacter.png"));
-	pPeperGameObject2->AddComponent(new MovementComponent(pPeperGameObject2, 100.f));
-	auto pLifeComponent2 = new LifeComponent{ pPeperGameObject2, 3 };
-	pPeperGameObject2->AddComponent(pLifeComponent2);
-	scene.AddGameObject(pPeperGameObject2);
 
 	//go = new GameObject();
 	//go->AddComponent(new TransformComponent(go, glm::vec3{ 1100.f, 500.f, 0.f }));
@@ -219,6 +259,11 @@ void Level1State::OnEnter()
 	keyboard->AddKeyboardMapping(
 		KeyboardKeyData{ SDLK_LEFT, KeyState::JustUp },
 		new ResumeAudioCommand()
+	);
+
+	keyboard->AddKeyboardMapping(
+		KeyboardKeyData{ SDLK_ESCAPE, KeyState::JustUp },
+		new SwitchMenuStateCommand()
 	);
 
 	//keyboard->AddKeyboardMapping(

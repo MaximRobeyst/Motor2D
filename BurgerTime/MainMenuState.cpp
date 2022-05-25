@@ -32,6 +32,7 @@ using namespace dae;
 
 void MainMenuState::OnEnter()
 {
+
 	auto& scene = SceneManager::GetInstance().CreateScene("Main_Menu");
 	auto& input = InputManager::GetInstance();
 
@@ -40,7 +41,7 @@ void MainMenuState::OnEnter()
 	pMenupointer->AddComponent(pTransform);
 	auto pSpriteRenderer = new dae::SpriteRendererComponent(pMenupointer, "MainCharacter.png");
 	pMenupointer->AddComponent(pSpriteRenderer);
-	pTransform->SetPosition(glm::vec3{ 480.f, 100.f, 0.f } - glm::vec3{ pSpriteRenderer->GetSampleRectangle().w * pTransform->GetScale().x, 0.f, 0.f });
+	pTransform->SetPosition(glm::vec3{ 480.f, 200.f, 0.f } - glm::vec3{ pSpriteRenderer->GetSampleRectangle().w * pTransform->GetScale().x, 0.f, 0.f });
 
 
 	scene.AddGameObject(pMenupointer);
@@ -139,5 +140,5 @@ void MainMenuState::OnEnter()
 void MainMenuState::OnExit()
 {
 	SceneManager::GetInstance().RemoveScene(0);
-	//InputManager::GetInstance().ClearInputs();
+	dae::InputManager::GetInstance().ClearInputs();
 }
