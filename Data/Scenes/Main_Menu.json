@@ -1,6 +1,26 @@
 {
     "sceneName": "Main_Menu",
-    "gameobjectCount": 6,
+    "InputManager": {
+        "ControllerCount": 1,
+        "Keyboard": {
+            "Key": 27,
+            "State": 0,
+            "Command": "class std::unique_ptr<class Command,struct std::default_delete<class Command> >",
+            "Key": 32,
+            "State": 0,
+            "Command": "class std::unique_ptr<class Command,struct std::default_delete<class Command> >",
+            "Key": 101,
+            "State": 0,
+            "Command": "class std::unique_ptr<class Command,struct std::default_delete<class Command> >",
+            "Key": 1073741905,
+            "State": 0,
+            "Command": "class std::unique_ptr<class Command,struct std::default_delete<class Command> >",
+            "Key": 1073741906,
+            "State": 0,
+            "Command": "class std::unique_ptr<class Command,struct std::default_delete<class Command> >"
+        }
+    },
+    "gameobjectCount": 5,
     "Gravity": {
         "X": 0.0,
         "Y": 0.0
@@ -147,38 +167,8 @@
                         {
                             "name": "class dae::TransformComponent",
                             "Position": {
-                                "x": 480.0,
-                                "y": 200.0,
-                                "z": 0.0
-                            },
-                            "Rotation": 0.0,
-                            "Scale": {
-                                "x": 2.0,
-                                "y": 2.0
-                            }
-                        },
-                        {
-                            "name": "class dae::SpriteRendererComponent",
-                            "Path": "MainCharacter.png",
-                            "SampleRect": {
                                 "x": 0.0,
                                 "y": 0.0,
-                                "w": 0.0,
-                                "h": 0.0
-                            }
-                        }
-                    ]
-                },
-                {
-                    "Name": "Pointer",
-                    "Tag": "",
-                    "Children": [],
-                    "Components": [
-                        {
-                            "name": "class dae::TransformComponent",
-                            "Position": {
-                                "x": 480.0,
-                                "y": 200.0,
                                 "z": 0.0
                             },
                             "Rotation": 0.0,

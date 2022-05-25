@@ -11,6 +11,7 @@
 #include <RigidbodyComponent.h>
 #include "PlayerComponent.h"
 #include <SceneManager.h>
+#include <Xbox360Controller.h>
 
 void VersusState::OnEnter()
 {
@@ -27,6 +28,17 @@ void VersusState::OnEnter()
 	pPeperGameObject->AddComponent(new dae::ColliderComponent(pPeperGameObject, 15.f, 15.f, glm::vec2{ 8.0f, 8.0f }));
 	auto pRigidbody = new dae::RigidbodyComponent(pPeperGameObject, b2_dynamicBody, 1.f, 0.3f);
 	pPeperGameObject->AddComponent(pRigidbody);
+	auto pPlayercomp = new PlayerComponent(pPeperGameObject);
+	pPeperGameObject->AddComponent(pPlayercomp);
+
+	auto controller = std::make_shared<dae::Xbox360Controller>(0);
+	dae::InputManager::GetInstance().AddController(controller);
+
+	dae::InputManager::GetInstance().AddAxis("controller_horizontal", new dae::ControllerAxis(dae::ControllerButton::DPadRight, dae::ControllerButton::DPadLeft, dae::InputManager::GetInstance().GetController(0)));
+	dae::InputManager::GetInstance().AddAxis("controller_vertical", new dae::ControllerAxis(dae::ControllerButton::DPadDown, dae::ControllerButton::DPadUp, dae::InputManager::GetInstance().GetController(0)));
+
+	pPlayercomp->SetHorizontalAxis(dae::InputManager::GetInstance().GetAxis("controller_horizontal"));
+	pPlayercomp->SetVerticalAxis(dae::InputManager::GetInstance().GetAxis("controller_vertical"));
 
 	std::function<void(dae::RigidbodyComponent*, dae::RigidbodyComponent*, b2Contact*)> newFunction = [](dae::RigidbodyComponent* pTriggeredbody, dae::RigidbodyComponent* otherBody, b2Contact*)
 	{
@@ -52,4 +64,5 @@ void VersusState::OnEnter()
 void VersusState::OnExit()
 {
 	dae::SceneManager::GetInstance().RemoveScene(0);
+	dae::InputManager::GetInstance().ClearInputs();
 }

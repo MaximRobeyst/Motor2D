@@ -12,6 +12,7 @@
 #include <writer.h>
 #include <prettywriter.h>
 #include <istreamwrapper.h>
+#include "InputManager.h"
 
 #include "PhysicsDebugDraw.h"
 
@@ -224,6 +225,9 @@ void dae::Scene::Serialize(const std::string& name)
 	writer.StartObject();
 	writer.Key("sceneName");
 	writer.String((name == " " ? m_Name : name).c_str());
+	writer.Key("InputManager");
+	dae::InputManager::GetInstance().Serialize(writer);
+
 	writer.Key("gameobjectCount");
 	writer.Int((int) m_pObjects.size());
 	writer.Key("Gravity");

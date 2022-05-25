@@ -111,7 +111,7 @@ void MainMenuState::OnEnter()
 
 	controller->AddControllerMapping(
 		ControllerButtonData{ ControllerButton::DPadDown, ButtonState::Up },
-		std::make_unique<ChangePointerCommand>(pMenuComp, -1)
+		std::make_unique<ChangePointerCommand>(pMenuComp, 1)
 	);
 
 	keyboard->AddKeyboardMapping(
@@ -130,4 +130,5 @@ void MainMenuState::OnEnter()
 void MainMenuState::OnExit()
 {
 	SceneManager::GetInstance().RemoveScene(0);
+	InputManager::GetInstance().ClearInputs();
 }

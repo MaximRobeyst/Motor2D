@@ -55,6 +55,9 @@ namespace dae
 		std::shared_ptr<dae::Xbox360Controller> GetController(int index);
 		std::shared_ptr<dae::Keyboard> GetKeyboard() const;
 
+		void Serialize(rapidjson::PrettyWriter< rapidjson::StringBuffer>& writer);
+		void Deserialize(rapidjson::Value& value);
+
 		glm::vec2 GetMousePosition() const;
 
 		void AddAxis(const std::string& name, AxisManager* axis);

@@ -71,6 +71,24 @@ void dae::Keyboard::AddKeyboardMapping(const KeyboardKeyData& keyData, std::uniq
     m_KeyboardMap[keyData] = std::move(pCommand);
 }
 
+void dae::Keyboard::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>& writer)
+{
+    writer.StartObject();
+
+    for (auto& p : m_KeyboardMap)
+    {
+        writer.Key("Key");
+        writer.Int(p.first.key);
+        writer.Key("State");
+        writer.Int( static_cast<int>(p.first.state));
+        writer.Key("Command");
+        writer.String(typeid(p.second).name());
+
+    }
+
+    writer.EndObject();
+}
+
 void dae::Keyboard::UpdateKeys()
 {
     for (auto& [keyIndex, state] : m_KeyStates)

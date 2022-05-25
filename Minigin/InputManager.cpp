@@ -61,6 +61,27 @@ std::shared_ptr<dae::Keyboard> dae::InputManager::GetKeyboard() const
 	return m_pKeyboard;
 }
 
+void dae::InputManager::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>& writer)
+{
+	writer.StartObject();
+	writer.Key("ControllerCount");
+	writer.Int(static_cast<int>(m_pXbox360Controllers.size()));
+
+	writer.Key("Keyboard");
+	m_pKeyboard->Serialize(writer);
+
+	// Serialize controller
+
+	//for (auto& axis : m_Axeses)
+	//{
+	//	writer.Key("PositiveKey");
+	//	writer.Key("NegativeKey");
+	//	writer.Key("Device");
+	//}
+
+	writer.EndObject();
+}
+
 glm::vec2 dae::InputManager::GetMousePosition() const
 {
 	int x, y;

@@ -7,42 +7,10 @@ class Command
 public:
 	virtual ~Command() = default;
 	virtual void Execute() = 0;
-};
 
-class FireCommand : public Command
-{
-public:
-	void Execute() override;
+	virtual void Serialize(rapidjson::PrettyWriter< rapidjson::StringBuffer>&) {};
+	virtual void Deserialize(rapidjson::Value&) {};
 };
-
-class DuckCommand : public Command
-{
-public:
-	void Execute() override;
-};
-
-class JumpCommand : public Command
-{
-public:
-	void Execute() override;
-};
-
-class FartCommand : public Command
-{
-public:
-	void Execute() override;
-};
-
-//class LifeComponent;
-//class KillCommand : public Command
-//{
-//public:
-//	KillCommand(LifeComponent* pHealthTarget);
-//	void Execute() override;
-//
-//private:
-//	//LifeComponent* m_pLifeTarget;
-//};
 
 class FoodComponent;
 class FallCommand : public Command

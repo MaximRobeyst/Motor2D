@@ -39,6 +39,9 @@ namespace dae
 
 		void AddKeyboardMapping(const KeyboardKeyData& controllerData, std::unique_ptr<Command>&& pCommand);
 
+		void Serialize(rapidjson::PrettyWriter< rapidjson::StringBuffer>& writer);
+		void Deserialize(rapidjson::Value& value);
+
 	private:
 		void UpdateKeys();
 
