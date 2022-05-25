@@ -84,6 +84,8 @@ void dae::GameObject::RenderGUI()
 	}
 	ImGui::EndChild();
 }
+#endif // _DEBUG
+
 void dae::GameObject::Sertialize(rapidjson::PrettyWriter< rapidjson::StringBuffer>& writer)
 {
 	writer.StartObject();
@@ -146,7 +148,6 @@ dae::GameObject* dae::GameObject::Deserialize(Scene* pScene, rapidjson::Value& v
 
 	return pGameobject;
 }
-#endif // _DEBUG
 
 
 

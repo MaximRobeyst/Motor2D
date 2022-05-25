@@ -221,6 +221,8 @@ void dae::Scene::RenderGUI()
 	ImGui::End();
 
 }
+#endif
+
 void dae::Scene::Serialize(const std::string& name)
 {
 	std::ofstream levelFile{ "../Data/Scenes/" + (name == " " ? m_Name : name) + ".json"};
@@ -295,4 +297,3 @@ dae::Scene* dae::Scene::Deserialize(const std::string& sceneFile)
 
 	return pScene;
 }
-#endif
