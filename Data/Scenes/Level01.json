@@ -1,6 +1,6 @@
 {
     "sceneName": "Level01",
-    "gameobjectCount": 353,
+    "gameobjectCount": 366,
     "Gravity": {
         "X": 0.0,
         "Y": 0.0
@@ -10578,6 +10578,9 @@
                         "x": 1.0,
                         "y": 1.0
                     }
+                },
+                {
+                    "name": "class LevelComponent"
                 }
             ]
         },
@@ -10686,15 +10689,15 @@
         },
         {
             "Id": 340,
-            "Name": "BurgerTop",
+            "Name": "BurgerTop 1",
             "Tag": "Food",
             "Children": [],
             "Components": [
                 {
                     "name": "class dae::TransformComponent",
                     "Position": {
-                        "x": 224.0,
-                        "y": 32.0,
+                        "x": 32.0,
+                        "y": 112.0,
                         "z": 0.0
                     },
                     "Rotation": 0.0,
@@ -10737,7 +10740,7 @@
         },
         {
             "Id": 341,
-            "Name": "Cheddar",
+            "Name": "Lettuce",
             "Tag": "Food",
             "Children": [],
             "Components": [
@@ -10759,7 +10762,7 @@
                     "Path": "BurgerTime_SpriteSheet.png",
                     "SampleRect": {
                         "x": 112.0,
-                        "y": 64.0,
+                        "y": 88.0,
                         "w": 32.0,
                         "h": 8.0
                     }
@@ -10788,6 +10791,57 @@
         },
         {
             "Id": 342,
+            "Name": "Meat_Patty",
+            "Tag": "Food",
+            "Children": [],
+            "Components": [
+                {
+                    "name": "class dae::TransformComponent",
+                    "Position": {
+                        "x": 224.0,
+                        "y": 192.0,
+                        "z": 0.0
+                    },
+                    "Rotation": 0.0,
+                    "Scale": {
+                        "x": 2.0,
+                        "y": 2.0
+                    }
+                },
+                {
+                    "name": "class dae::SpriteRendererComponent",
+                    "Path": "BurgerTime_SpriteSheet.png",
+                    "SampleRect": {
+                        "x": 112.0,
+                        "y": 72.0,
+                        "w": 32.0,
+                        "h": 8.0
+                    }
+                },
+                {
+                    "name": "class dae::ColliderComponent",
+                    "Box": {
+                        "x": 32.0,
+                        "y": 4.0,
+                        "w": 64.0,
+                        "h": 8.0
+                    }
+                },
+                {
+                    "name": "class dae::RigidbodyComponent",
+                    "Density": 1.0,
+                    "Friction": 1.0,
+                    "IsSensor": true,
+                    "BodyDef": 2
+                },
+                {
+                    "name": "class FoodComponent",
+                    "TopPart": false
+                }
+            ]
+        },
+        {
+            "Id": 343,
             "Name": "Burger Bottom",
             "Tag": "Food",
             "Children": [],
@@ -10838,7 +10892,619 @@
             ]
         },
         {
-            "Id": 343,
+            "Id": 344,
+            "Name": "BurgerTop 2",
+            "Tag": "Food",
+            "Children": [],
+            "Components": [
+                {
+                    "name": "class dae::TransformComponent",
+                    "Position": {
+                        "x": 128.0,
+                        "y": 32.0,
+                        "z": 0.0
+                    },
+                    "Rotation": 0.0,
+                    "Scale": {
+                        "x": 2.0,
+                        "y": 2.0
+                    }
+                },
+                {
+                    "name": "class dae::SpriteRendererComponent",
+                    "Path": "BurgerTime_SpriteSheet.png",
+                    "SampleRect": {
+                        "x": 112.0,
+                        "y": 48.0,
+                        "w": 32.0,
+                        "h": 8.0
+                    }
+                },
+                {
+                    "name": "class dae::ColliderComponent",
+                    "Box": {
+                        "x": 32.0,
+                        "y": 4.0,
+                        "w": 64.0,
+                        "h": 8.0
+                    }
+                },
+                {
+                    "name": "class dae::RigidbodyComponent",
+                    "Density": 1.0,
+                    "Friction": 1.0,
+                    "IsSensor": true,
+                    "BodyDef": 2
+                },
+                {
+                    "name": "class FoodComponent",
+                    "TopPart": true
+                }
+            ]
+        },
+        {
+            "Id": 345,
+            "Name": "Lettuce 2",
+            "Tag": "Food",
+            "Children": [],
+            "Components": [
+                {
+                    "name": "class dae::TransformComponent",
+                    "Position": {
+                        "x": 320.0,
+                        "y": 112.0,
+                        "z": 0.0
+                    },
+                    "Rotation": 0.0,
+                    "Scale": {
+                        "x": 2.0,
+                        "y": 2.0
+                    }
+                },
+                {
+                    "name": "class dae::SpriteRendererComponent",
+                    "Path": "BurgerTime_SpriteSheet.png",
+                    "SampleRect": {
+                        "x": 112.0,
+                        "y": 88.0,
+                        "w": 32.0,
+                        "h": 8.0
+                    }
+                },
+                {
+                    "name": "class dae::ColliderComponent",
+                    "Box": {
+                        "x": 32.0,
+                        "y": 4.0,
+                        "w": 64.0,
+                        "h": 8.0
+                    }
+                },
+                {
+                    "name": "class dae::RigidbodyComponent",
+                    "Density": 1.0,
+                    "Friction": 1.0,
+                    "IsSensor": true,
+                    "BodyDef": 2
+                },
+                {
+                    "name": "class FoodComponent",
+                    "TopPart": false
+                }
+            ]
+        },
+        {
+            "Id": 346,
+            "Name": "Meat_Patty 2",
+            "Tag": "Food",
+            "Children": [],
+            "Components": [
+                {
+                    "name": "class dae::TransformComponent",
+                    "Position": {
+                        "x": 320.0,
+                        "y": 160.0,
+                        "z": 0.0
+                    },
+                    "Rotation": 0.0,
+                    "Scale": {
+                        "x": 2.0,
+                        "y": 2.0
+                    }
+                },
+                {
+                    "name": "class dae::SpriteRendererComponent",
+                    "Path": "BurgerTime_SpriteSheet.png",
+                    "SampleRect": {
+                        "x": 112.0,
+                        "y": 72.0,
+                        "w": 32.0,
+                        "h": 8.0
+                    }
+                },
+                {
+                    "name": "class dae::ColliderComponent",
+                    "Box": {
+                        "x": 32.0,
+                        "y": 4.0,
+                        "w": 64.0,
+                        "h": 8.0
+                    }
+                },
+                {
+                    "name": "class dae::RigidbodyComponent",
+                    "Density": 1.0,
+                    "Friction": 1.0,
+                    "IsSensor": true,
+                    "BodyDef": 2
+                },
+                {
+                    "name": "class FoodComponent",
+                    "TopPart": false
+                }
+            ]
+        },
+        {
+            "Id": 347,
+            "Name": "Burger Bottom 2",
+            "Tag": "Food",
+            "Children": [],
+            "Components": [
+                {
+                    "name": "class dae::TransformComponent",
+                    "Position": {
+                        "x": 320.0,
+                        "y": 224.0,
+                        "z": 0.0
+                    },
+                    "Rotation": 0.0,
+                    "Scale": {
+                        "x": 2.0,
+                        "y": 2.0
+                    }
+                },
+                {
+                    "name": "class dae::SpriteRendererComponent",
+                    "Path": "BurgerTime_SpriteSheet.png",
+                    "SampleRect": {
+                        "x": 112.0,
+                        "y": 56.0,
+                        "w": 32.0,
+                        "h": 8.0
+                    }
+                },
+                {
+                    "name": "class dae::ColliderComponent",
+                    "Box": {
+                        "x": 32.0,
+                        "y": 4.0,
+                        "w": 64.0,
+                        "h": 8.0
+                    }
+                },
+                {
+                    "name": "class dae::RigidbodyComponent",
+                    "Density": 1.0,
+                    "Friction": 1.0,
+                    "IsSensor": true,
+                    "BodyDef": 2
+                },
+                {
+                    "name": "class FoodComponent",
+                    "TopPart": false
+                }
+            ]
+        },
+        {
+            "Id": 348,
+            "Name": "BurgerTop 3",
+            "Tag": "Food",
+            "Children": [],
+            "Components": [
+                {
+                    "name": "class dae::TransformComponent",
+                    "Position": {
+                        "x": 224.0,
+                        "y": 32.0,
+                        "z": 0.0
+                    },
+                    "Rotation": 0.0,
+                    "Scale": {
+                        "x": 2.0,
+                        "y": 2.0
+                    }
+                },
+                {
+                    "name": "class dae::SpriteRendererComponent",
+                    "Path": "BurgerTime_SpriteSheet.png",
+                    "SampleRect": {
+                        "x": 112.0,
+                        "y": 48.0,
+                        "w": 32.0,
+                        "h": 8.0
+                    }
+                },
+                {
+                    "name": "class dae::ColliderComponent",
+                    "Box": {
+                        "x": 32.0,
+                        "y": 4.0,
+                        "w": 64.0,
+                        "h": 8.0
+                    }
+                },
+                {
+                    "name": "class dae::RigidbodyComponent",
+                    "Density": 1.0,
+                    "Friction": 1.0,
+                    "IsSensor": true,
+                    "BodyDef": 2
+                },
+                {
+                    "name": "class FoodComponent",
+                    "TopPart": true
+                }
+            ]
+        },
+        {
+            "Id": 349,
+            "Name": "Lettuce 3",
+            "Tag": "Food",
+            "Children": [],
+            "Components": [
+                {
+                    "name": "class dae::TransformComponent",
+                    "Position": {
+                        "x": 128.0,
+                        "y": 192.0,
+                        "z": 0.0
+                    },
+                    "Rotation": 0.0,
+                    "Scale": {
+                        "x": 2.0,
+                        "y": 2.0
+                    }
+                },
+                {
+                    "name": "class dae::SpriteRendererComponent",
+                    "Path": "BurgerTime_SpriteSheet.png",
+                    "SampleRect": {
+                        "x": 112.0,
+                        "y": 88.0,
+                        "w": 32.0,
+                        "h": 8.0
+                    }
+                },
+                {
+                    "name": "class dae::ColliderComponent",
+                    "Box": {
+                        "x": 32.0,
+                        "y": 4.0,
+                        "w": 64.0,
+                        "h": 8.0
+                    }
+                },
+                {
+                    "name": "class dae::RigidbodyComponent",
+                    "Density": 1.0,
+                    "Friction": 1.0,
+                    "IsSensor": true,
+                    "BodyDef": 2
+                },
+                {
+                    "name": "class FoodComponent",
+                    "TopPart": false
+                }
+            ]
+        },
+        {
+            "Id": 350,
+            "Name": "Meat_Patty 3",
+            "Tag": "Food",
+            "Children": [],
+            "Components": [
+                {
+                    "name": "class dae::TransformComponent",
+                    "Position": {
+                        "x": 128.0,
+                        "y": 256.0,
+                        "z": 0.0
+                    },
+                    "Rotation": 0.0,
+                    "Scale": {
+                        "x": 2.0,
+                        "y": 2.0
+                    }
+                },
+                {
+                    "name": "class dae::SpriteRendererComponent",
+                    "Path": "BurgerTime_SpriteSheet.png",
+                    "SampleRect": {
+                        "x": 112.0,
+                        "y": 72.0,
+                        "w": 32.0,
+                        "h": 8.0
+                    }
+                },
+                {
+                    "name": "class dae::ColliderComponent",
+                    "Box": {
+                        "x": 32.0,
+                        "y": 4.0,
+                        "w": 64.0,
+                        "h": 8.0
+                    }
+                },
+                {
+                    "name": "class dae::RigidbodyComponent",
+                    "Density": 1.0,
+                    "Friction": 1.0,
+                    "IsSensor": true,
+                    "BodyDef": 2
+                },
+                {
+                    "name": "class FoodComponent",
+                    "TopPart": false
+                }
+            ]
+        },
+        {
+            "Id": 351,
+            "Name": "Burger Bottom 3",
+            "Tag": "Food",
+            "Children": [],
+            "Components": [
+                {
+                    "name": "class dae::TransformComponent",
+                    "Position": {
+                        "x": 128.0,
+                        "y": 320.0,
+                        "z": 0.0
+                    },
+                    "Rotation": 0.0,
+                    "Scale": {
+                        "x": 2.0,
+                        "y": 2.0
+                    }
+                },
+                {
+                    "name": "class dae::SpriteRendererComponent",
+                    "Path": "BurgerTime_SpriteSheet.png",
+                    "SampleRect": {
+                        "x": 112.0,
+                        "y": 56.0,
+                        "w": 32.0,
+                        "h": 8.0
+                    }
+                },
+                {
+                    "name": "class dae::ColliderComponent",
+                    "Box": {
+                        "x": 32.0,
+                        "y": 4.0,
+                        "w": 64.0,
+                        "h": 8.0
+                    }
+                },
+                {
+                    "name": "class dae::RigidbodyComponent",
+                    "Density": 1.0,
+                    "Friction": 1.0,
+                    "IsSensor": true,
+                    "BodyDef": 2
+                },
+                {
+                    "name": "class FoodComponent",
+                    "TopPart": false
+                }
+            ]
+        },
+        {
+            "Id": 352,
+            "Name": "BurgerTop 4",
+            "Tag": "Food",
+            "Children": [],
+            "Components": [
+                {
+                    "name": "class dae::TransformComponent",
+                    "Position": {
+                        "x": 320.0,
+                        "y": 32.0,
+                        "z": 0.0
+                    },
+                    "Rotation": 0.0,
+                    "Scale": {
+                        "x": 2.0,
+                        "y": 2.0
+                    }
+                },
+                {
+                    "name": "class dae::SpriteRendererComponent",
+                    "Path": "BurgerTime_SpriteSheet.png",
+                    "SampleRect": {
+                        "x": 112.0,
+                        "y": 48.0,
+                        "w": 32.0,
+                        "h": 8.0
+                    }
+                },
+                {
+                    "name": "class dae::ColliderComponent",
+                    "Box": {
+                        "x": 32.0,
+                        "y": 4.0,
+                        "w": 64.0,
+                        "h": 8.0
+                    }
+                },
+                {
+                    "name": "class dae::RigidbodyComponent",
+                    "Density": 1.0,
+                    "Friction": 1.0,
+                    "IsSensor": true,
+                    "BodyDef": 2
+                },
+                {
+                    "name": "class FoodComponent",
+                    "TopPart": true
+                }
+            ]
+        },
+        {
+            "Id": 353,
+            "Name": "Lettuce 4",
+            "Tag": "Food",
+            "Children": [],
+            "Components": [
+                {
+                    "name": "class dae::TransformComponent",
+                    "Position": {
+                        "x": 32.0,
+                        "y": 176.0,
+                        "z": 0.0
+                    },
+                    "Rotation": 0.0,
+                    "Scale": {
+                        "x": 2.0,
+                        "y": 2.0
+                    }
+                },
+                {
+                    "name": "class dae::SpriteRendererComponent",
+                    "Path": "BurgerTime_SpriteSheet.png",
+                    "SampleRect": {
+                        "x": 112.0,
+                        "y": 88.0,
+                        "w": 32.0,
+                        "h": 8.0
+                    }
+                },
+                {
+                    "name": "class dae::ColliderComponent",
+                    "Box": {
+                        "x": 32.0,
+                        "y": 4.0,
+                        "w": 64.0,
+                        "h": 8.0
+                    }
+                },
+                {
+                    "name": "class dae::RigidbodyComponent",
+                    "Density": 1.0,
+                    "Friction": 1.0,
+                    "IsSensor": true,
+                    "BodyDef": 2
+                },
+                {
+                    "name": "class FoodComponent",
+                    "TopPart": false
+                }
+            ]
+        },
+        {
+            "Id": 354,
+            "Name": "Meat_Patty 4",
+            "Tag": "Food",
+            "Children": [],
+            "Components": [
+                {
+                    "name": "class dae::TransformComponent",
+                    "Position": {
+                        "x": 32.0,
+                        "y": 256.0,
+                        "z": 0.0
+                    },
+                    "Rotation": 0.0,
+                    "Scale": {
+                        "x": 2.0,
+                        "y": 2.0
+                    }
+                },
+                {
+                    "name": "class dae::SpriteRendererComponent",
+                    "Path": "BurgerTime_SpriteSheet.png",
+                    "SampleRect": {
+                        "x": 112.0,
+                        "y": 72.0,
+                        "w": 32.0,
+                        "h": 8.0
+                    }
+                },
+                {
+                    "name": "class dae::ColliderComponent",
+                    "Box": {
+                        "x": 32.0,
+                        "y": 4.0,
+                        "w": 64.0,
+                        "h": 8.0
+                    }
+                },
+                {
+                    "name": "class dae::RigidbodyComponent",
+                    "Density": 1.0,
+                    "Friction": 1.0,
+                    "IsSensor": true,
+                    "BodyDef": 2
+                },
+                {
+                    "name": "class FoodComponent",
+                    "TopPart": false
+                }
+            ]
+        },
+        {
+            "Id": 355,
+            "Name": "Burger Bottom 4",
+            "Tag": "Food",
+            "Children": [],
+            "Components": [
+                {
+                    "name": "class dae::TransformComponent",
+                    "Position": {
+                        "x": 32.0,
+                        "y": 320.0,
+                        "z": 0.0
+                    },
+                    "Rotation": 0.0,
+                    "Scale": {
+                        "x": 2.0,
+                        "y": 2.0
+                    }
+                },
+                {
+                    "name": "class dae::SpriteRendererComponent",
+                    "Path": "BurgerTime_SpriteSheet.png",
+                    "SampleRect": {
+                        "x": 112.0,
+                        "y": 56.0,
+                        "w": 32.0,
+                        "h": 8.0
+                    }
+                },
+                {
+                    "name": "class dae::ColliderComponent",
+                    "Box": {
+                        "x": 32.0,
+                        "y": 4.0,
+                        "w": 64.0,
+                        "h": 8.0
+                    }
+                },
+                {
+                    "name": "class dae::RigidbodyComponent",
+                    "Density": 1.0,
+                    "Friction": 1.0,
+                    "IsSensor": true,
+                    "BodyDef": 2
+                },
+                {
+                    "name": "class FoodComponent",
+                    "TopPart": false
+                }
+            ]
+        },
+        {
+            "Id": 356,
             "Name": "GameManager",
             "Tag": "",
             "Children": [],
@@ -10862,7 +11528,7 @@
             ]
         },
         {
-            "Id": 344,
+            "Id": 357,
             "Name": "Plate 1",
             "Tag": "Plate",
             "Children": [],
@@ -10912,7 +11578,7 @@
             ]
         },
         {
-            "Id": 345,
+            "Id": 358,
             "Name": "Plate 2",
             "Tag": "Plate",
             "Children": [],
@@ -10962,7 +11628,7 @@
             ]
         },
         {
-            "Id": 346,
+            "Id": 359,
             "Name": "Plate 3",
             "Tag": "Plate",
             "Children": [],
@@ -11012,7 +11678,7 @@
             ]
         },
         {
-            "Id": 347,
+            "Id": 360,
             "Name": "Plate 4",
             "Tag": "Plate",
             "Children": [],
@@ -11062,12 +11728,12 @@
             ]
         },
         {
-            "Id": 348,
+            "Id": 361,
             "Name": "Live display",
             "Tag": "",
             "Children": [
                 {
-                    "Id": 351,
+                    "Id": 364,
                     "Name": "Live",
                     "Tag": "",
                     "Children": [],
@@ -11098,7 +11764,7 @@
                     ]
                 },
                 {
-                    "Id": 352,
+                    "Id": 365,
                     "Name": "Live",
                     "Tag": "",
                     "Children": [],
@@ -11129,7 +11795,7 @@
                     ]
                 },
                 {
-                    "Id": 353,
+                    "Id": 366,
                     "Name": "Live",
                     "Tag": "",
                     "Children": [],
@@ -11180,7 +11846,7 @@
             ]
         },
         {
-            "Id": 349,
+            "Id": 362,
             "Name": "Score_Display",
             "Tag": "",
             "Children": [],
@@ -11224,7 +11890,7 @@
             ]
         },
         {
-            "Id": 350,
+            "Id": 363,
             "Name": "FPS_Counter",
             "Tag": "",
             "Children": [],
@@ -11254,7 +11920,7 @@
                 },
                 {
                     "name": "class dae::TextComponent",
-                    "Text": "59 FPS",
+                    "Text": "58 FPS",
                     "Color": {
                         "r": 255,
                         "g": 255,
@@ -11271,6 +11937,13 @@
     "InputManager": {
         "ControllerCount": 1,
         "Keyboard": [
+            {
+                "Key": 27,
+                "State": 0,
+                "Command": {
+                    "Name": "class SwitchMenuStateCommand"
+                }
+            },
             {
                 "Key": 32,
                 "State": 0,

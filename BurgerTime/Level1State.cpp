@@ -40,6 +40,7 @@
 #include <iostream>
 #include "GameManagerComponent.h"
 #include "MenuCommands.h"
+#include "LevelComponent.h"
 
 using namespace dae;
 
@@ -109,8 +110,9 @@ void Level1State::OnEnter()
 	m_pPlayerObject->SetTag("Player");
 	scene.AddGameObject(m_pPlayerObject);
 
-	auto pBurgerTop = new GameObject("BurgerTop");
-	pBurgerTop->AddComponent(new TransformComponent(pBurgerTop, glm::vec3(224.f, 32.f, 0.f), glm::vec2{ 2.f }));
+
+	auto pBurgerTop = new GameObject("BurgerTop 1");
+	pBurgerTop->AddComponent(new TransformComponent(pBurgerTop, glm::vec3(32.f, 112.f, 0.f), glm::vec2{ 2.f }));
 	pBurgerTop->AddComponent(new SpriteRendererComponent(pBurgerTop, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 48.f, 32.f, 8.f }));
 	pBurgerTop->AddComponent(new ColliderComponent(pBurgerTop, 32.f, 4.f));
 	pBurgerTop->AddComponent(new RigidbodyComponent(pBurgerTop, b2_dynamicBody, 1.0f, 1.0f, true));
@@ -120,9 +122,21 @@ void Level1State::OnEnter()
 	pFoodComponent->GetSubject()->AddObserver(pScoreDisplay);
 	scene.AddGameObject(pBurgerTop);
 
-	auto pCheese = new GameObject("Cheddar");
+
+	auto pCheese = new GameObject("Lettuce");
 	pCheese->AddComponent(new TransformComponent(pCheese, glm::vec3(224.f, 112.f, 0.f), glm::vec2{ 2.f }));
-	pCheese->AddComponent(new SpriteRendererComponent(pCheese, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 64.f, 32.f, 8.f }));
+	pCheese->AddComponent(new SpriteRendererComponent(pCheese, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 88.f, 32.f, 8.f }));
+	pCheese->AddComponent(new ColliderComponent(pCheese, 32.f, 4.f));
+	pCheese->AddComponent(new RigidbodyComponent(pCheese, b2_dynamicBody, 1.0f, 1.0f, true));
+	pFoodComponent = new FoodComponent(pCheese);
+	pCheese->AddComponent(pFoodComponent);
+	pCheese->SetTag("Food");
+	pFoodComponent->GetSubject()->AddObserver(pScoreDisplay);
+	scene.AddGameObject(pCheese);
+
+	pCheese = new GameObject("Meat_Patty");
+	pCheese->AddComponent(new TransformComponent(pCheese, glm::vec3(224.f, 192.f, 0.f), glm::vec2{ 2.f }));
+	pCheese->AddComponent(new SpriteRendererComponent(pCheese, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 72.f, 32.f, 8.f }));
 	pCheese->AddComponent(new ColliderComponent(pCheese, 32.f, 4.f));
 	pCheese->AddComponent(new RigidbodyComponent(pCheese, b2_dynamicBody, 1.0f, 1.0f, true));
 	pFoodComponent = new FoodComponent(pCheese);
@@ -133,6 +147,138 @@ void Level1State::OnEnter()
 
 	auto pBurgerBottom = new GameObject("Burger Bottom");
 	pBurgerBottom->AddComponent(new TransformComponent(pBurgerBottom, glm::vec3{ 224.f, 320.f, 0.f }, glm::vec2{ 2.f }));
+	pBurgerBottom->AddComponent(new SpriteRendererComponent(pBurgerBottom, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 56.f, 32.f, 8.f }));
+	pBurgerBottom->AddComponent(new ColliderComponent(pBurgerBottom, 32.f, 4.f));
+	pBurgerBottom->AddComponent(new RigidbodyComponent(pBurgerBottom, b2_dynamicBody, 1.0f, 1.0, true));
+	pFoodComponent = new FoodComponent(pBurgerBottom);
+	pBurgerBottom->AddComponent(pFoodComponent);
+	pBurgerBottom->SetTag("Food");
+	pFoodComponent->GetSubject()->AddObserver(pScoreDisplay);
+	scene.AddGameObject(pBurgerBottom);
+
+	pBurgerTop = new GameObject("BurgerTop 2");
+	pBurgerTop->AddComponent(new TransformComponent(pBurgerTop, glm::vec3(128.f, 32.f, 0.f), glm::vec2{ 2.f }));
+	pBurgerTop->AddComponent(new SpriteRendererComponent(pBurgerTop, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 48.f, 32.f, 8.f }));
+	pBurgerTop->AddComponent(new ColliderComponent(pBurgerTop, 32.f, 4.f));
+	pBurgerTop->AddComponent(new RigidbodyComponent(pBurgerTop, b2_dynamicBody, 1.0f, 1.0f, true));
+	pFoodComponent = new FoodComponent(pBurgerTop, true);
+	pBurgerTop->AddComponent(pFoodComponent);
+	pBurgerTop->SetTag("Food");
+	pFoodComponent->GetSubject()->AddObserver(pScoreDisplay);
+	scene.AddGameObject(pBurgerTop);
+
+	pCheese = new GameObject("Lettuce 2");
+	pCheese->AddComponent(new TransformComponent(pCheese, glm::vec3(320.f, 112.f, 0.f), glm::vec2{ 2.f }));
+	pCheese->AddComponent(new SpriteRendererComponent(pCheese, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 88.f, 32.f, 8.f }));
+	pCheese->AddComponent(new ColliderComponent(pCheese, 32.f, 4.f));
+	pCheese->AddComponent(new RigidbodyComponent(pCheese, b2_dynamicBody, 1.0f, 1.0f, true));
+	pFoodComponent = new FoodComponent(pCheese);
+	pCheese->AddComponent(pFoodComponent);
+	pCheese->SetTag("Food");
+	pFoodComponent->GetSubject()->AddObserver(pScoreDisplay);
+	scene.AddGameObject(pCheese);
+
+	pCheese = new GameObject("Meat_Patty 2");
+	pCheese->AddComponent(new TransformComponent(pCheese, glm::vec3(320.f, 160.f, 0.f), glm::vec2{ 2.f }));
+	pCheese->AddComponent(new SpriteRendererComponent(pCheese, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 72.f, 32.f, 8.f }));
+	pCheese->AddComponent(new ColliderComponent(pCheese, 32.f, 4.f));
+	pCheese->AddComponent(new RigidbodyComponent(pCheese, b2_dynamicBody, 1.0f, 1.0f, true));
+	pFoodComponent = new FoodComponent(pCheese);
+	pCheese->AddComponent(pFoodComponent);
+	pCheese->SetTag("Food");
+	pFoodComponent->GetSubject()->AddObserver(pScoreDisplay);
+	scene.AddGameObject(pCheese);
+
+	pBurgerBottom = new GameObject("Burger Bottom 2");
+	pBurgerBottom->AddComponent(new TransformComponent(pBurgerBottom, glm::vec3{ 320.f, 224.f, 0.f }, glm::vec2{ 2.f }));
+	pBurgerBottom->AddComponent(new SpriteRendererComponent(pBurgerBottom, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 56.f, 32.f, 8.f }));
+	pBurgerBottom->AddComponent(new ColliderComponent(pBurgerBottom, 32.f, 4.f));
+	pBurgerBottom->AddComponent(new RigidbodyComponent(pBurgerBottom, b2_dynamicBody, 1.0f, 1.0, true));
+	pFoodComponent = new FoodComponent(pBurgerBottom);
+	pBurgerBottom->AddComponent(pFoodComponent);
+	pBurgerBottom->SetTag("Food");
+	pFoodComponent->GetSubject()->AddObserver(pScoreDisplay);
+	scene.AddGameObject(pBurgerBottom);
+
+	pBurgerTop = new GameObject("BurgerTop 3");
+	pBurgerTop->AddComponent(new TransformComponent(pBurgerTop, glm::vec3(224.f, 32.f, 0.f), glm::vec2{ 2.f }));
+	pBurgerTop->AddComponent(new SpriteRendererComponent(pBurgerTop, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 48.f, 32.f, 8.f }));
+	pBurgerTop->AddComponent(new ColliderComponent(pBurgerTop, 32.f, 4.f));
+	pBurgerTop->AddComponent(new RigidbodyComponent(pBurgerTop, b2_dynamicBody, 1.0f, 1.0f, true));
+	pFoodComponent = new FoodComponent(pBurgerTop, true);
+	pBurgerTop->AddComponent(pFoodComponent);
+	pBurgerTop->SetTag("Food");
+	pFoodComponent->GetSubject()->AddObserver(pScoreDisplay);
+	scene.AddGameObject(pBurgerTop);
+
+	pCheese = new GameObject("Lettuce 3");
+	pCheese->AddComponent(new TransformComponent(pCheese, glm::vec3(128.f, 192.f, 0.f), glm::vec2{ 2.f }));
+	pCheese->AddComponent(new SpriteRendererComponent(pCheese, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 88.f, 32.f, 8.f }));
+	pCheese->AddComponent(new ColliderComponent(pCheese, 32.f, 4.f));
+	pCheese->AddComponent(new RigidbodyComponent(pCheese, b2_dynamicBody, 1.0f, 1.0f, true));
+	pFoodComponent = new FoodComponent(pCheese);
+	pCheese->AddComponent(pFoodComponent);
+	pCheese->SetTag("Food");
+	pFoodComponent->GetSubject()->AddObserver(pScoreDisplay);
+	scene.AddGameObject(pCheese);
+
+	pCheese = new GameObject("Meat_Patty 3");
+	pCheese->AddComponent(new TransformComponent(pCheese, glm::vec3(128.f, 256.f, 0.f), glm::vec2{ 2.f }));
+	pCheese->AddComponent(new SpriteRendererComponent(pCheese, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 72.f, 32.f, 8.f }));
+	pCheese->AddComponent(new ColliderComponent(pCheese, 32.f, 4.f));
+	pCheese->AddComponent(new RigidbodyComponent(pCheese, b2_dynamicBody, 1.0f, 1.0f, true));
+	pFoodComponent = new FoodComponent(pCheese);
+	pCheese->AddComponent(pFoodComponent);
+	pCheese->SetTag("Food");
+	pFoodComponent->GetSubject()->AddObserver(pScoreDisplay);
+	scene.AddGameObject(pCheese);
+
+	pBurgerBottom = new GameObject("Burger Bottom 3");
+	pBurgerBottom->AddComponent(new TransformComponent(pBurgerBottom, glm::vec3{ 128.f, 320.f, 0.f }, glm::vec2{ 2.f }));
+	pBurgerBottom->AddComponent(new SpriteRendererComponent(pBurgerBottom, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 56.f, 32.f, 8.f }));
+	pBurgerBottom->AddComponent(new ColliderComponent(pBurgerBottom, 32.f, 4.f));
+	pBurgerBottom->AddComponent(new RigidbodyComponent(pBurgerBottom, b2_dynamicBody, 1.0f, 1.0, true));
+	pFoodComponent = new FoodComponent(pBurgerBottom);
+	pBurgerBottom->AddComponent(pFoodComponent);
+	pBurgerBottom->SetTag("Food");
+	pFoodComponent->GetSubject()->AddObserver(pScoreDisplay);
+	scene.AddGameObject(pBurgerBottom);
+
+	pBurgerTop = new GameObject("BurgerTop 4");
+	pBurgerTop->AddComponent(new TransformComponent(pBurgerTop, glm::vec3(320.f, 32.f, 0.f), glm::vec2{ 2.f }));
+	pBurgerTop->AddComponent(new SpriteRendererComponent(pBurgerTop, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 48.f, 32.f, 8.f }));
+	pBurgerTop->AddComponent(new ColliderComponent(pBurgerTop, 32.f, 4.f));
+	pBurgerTop->AddComponent(new RigidbodyComponent(pBurgerTop, b2_dynamicBody, 1.0f, 1.0f, true));
+	pFoodComponent = new FoodComponent(pBurgerTop, true);
+	pBurgerTop->AddComponent(pFoodComponent);
+	pBurgerTop->SetTag("Food");
+	pFoodComponent->GetSubject()->AddObserver(pScoreDisplay);
+	scene.AddGameObject(pBurgerTop);
+
+	pCheese = new GameObject("Lettuce 4");
+	pCheese->AddComponent(new TransformComponent(pCheese, glm::vec3(32.f, 176.f, 0.f), glm::vec2{ 2.f }));
+	pCheese->AddComponent(new SpriteRendererComponent(pCheese, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 88.f, 32.f, 8.f }));
+	pCheese->AddComponent(new ColliderComponent(pCheese, 32.f, 4.f));
+	pCheese->AddComponent(new RigidbodyComponent(pCheese, b2_dynamicBody, 1.0f, 1.0f, true));
+	pFoodComponent = new FoodComponent(pCheese);
+	pCheese->AddComponent(pFoodComponent);
+	pCheese->SetTag("Food");
+	pFoodComponent->GetSubject()->AddObserver(pScoreDisplay);
+	scene.AddGameObject(pCheese);
+
+	pCheese = new GameObject("Meat_Patty 4");
+	pCheese->AddComponent(new TransformComponent(pCheese, glm::vec3(32.f, 256.f, 0.f), glm::vec2{ 2.f }));
+	pCheese->AddComponent(new SpriteRendererComponent(pCheese, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 72.f, 32.f, 8.f }));
+	pCheese->AddComponent(new ColliderComponent(pCheese, 32.f, 4.f));
+	pCheese->AddComponent(new RigidbodyComponent(pCheese, b2_dynamicBody, 1.0f, 1.0f, true));
+	pFoodComponent = new FoodComponent(pCheese);
+	pCheese->AddComponent(pFoodComponent);
+	pCheese->SetTag("Food");
+	pFoodComponent->GetSubject()->AddObserver(pScoreDisplay);
+	scene.AddGameObject(pCheese);
+
+	pBurgerBottom = new GameObject("Burger Bottom 4");
+	pBurgerBottom->AddComponent(new TransformComponent(pBurgerBottom, glm::vec3{ 32.f, 320.f, 0.f }, glm::vec2{ 2.f }));
 	pBurgerBottom->AddComponent(new SpriteRendererComponent(pBurgerBottom, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 56.f, 32.f, 8.f }));
 	pBurgerBottom->AddComponent(new ColliderComponent(pBurgerBottom, 32.f, 4.f));
 	pBurgerBottom->AddComponent(new RigidbodyComponent(pBurgerBottom, b2_dynamicBody, 1.0f, 1.0, true));
@@ -161,7 +307,7 @@ void Level1State::OnEnter()
 	scene.AddGameObject(pGameManager);
 
 	auto pPlate = new GameObject("Plate 1");
-	pPlate->AddComponent(new TransformComponent(pPlate, glm::vec3{ 224.f, 448.f, 0.f }, glm::vec2{ 2.f }));
+	pPlate->AddComponent(new TransformComponent(pPlate, glm::vec3{ 32.f, 448.f, 0.f }, glm::vec2{ 2.f }));
 	pPlate->AddComponent(new SpriteRendererComponent(pPlate, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 96.f, 32.f, 8.f }));
 	pPlate->AddComponent(new ColliderComponent(pPlate, 32.f, 8.f, glm::vec2{ 16.f, 8.f }));
 	pPlate->AddComponent(new RigidbodyComponent(pPlate, b2_staticBody, 1.0f, 1.0f, true));
@@ -172,7 +318,7 @@ void Level1State::OnEnter()
 	pPlateComponent->GetSubject()->AddObserver(m_pManagerComponent);
 
 	pPlate = new GameObject("Plate 2");
-	pPlate->AddComponent(new TransformComponent(pPlate, glm::vec3{ 96.f, 448.f, 0.f }, glm::vec2{ 2.f }));
+	pPlate->AddComponent(new TransformComponent(pPlate, glm::vec3{ 128.f, 448.f, 0.f }, glm::vec2{ 2.f }));
 	pPlate->AddComponent(new SpriteRendererComponent(pPlate, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 96.f, 32.f, 8.f }));
 	pPlate->AddComponent(new ColliderComponent(pPlate, 32.f, 8.f, glm::vec2{ 16.f, 8.f }));
 	pPlate->AddComponent(new RigidbodyComponent(pPlate, b2_staticBody, 1.0f, 1.0f, true));
@@ -194,7 +340,7 @@ void Level1State::OnEnter()
 	pPlateComponent->GetSubject()->AddObserver(m_pManagerComponent);
 
 	pPlate = new GameObject("Plate 4");
-	pPlate->AddComponent(new TransformComponent(pPlate, glm::vec3{ 224.f, 448.f, 0.f }, glm::vec2{ 2.f }));
+	pPlate->AddComponent(new TransformComponent(pPlate, glm::vec3{ 320.f, 448.f, 0.f }, glm::vec2{ 2.f }));
 	pPlate->AddComponent(new SpriteRendererComponent(pPlate, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 96.f, 32.f, 8.f }));
 	pPlate->AddComponent(new ColliderComponent(pPlate, 32.f, 8.f, glm::vec2{ 16.f, 8.f }));
 	pPlate->AddComponent(new RigidbodyComponent(pPlate, b2_staticBody, 1.0f, 1.0f, true));
@@ -319,41 +465,72 @@ void Level1State::OnExit()
 
 void Level1State::MakeLevel(Scene& pScene)
 {
-	const int size{ 26 };
-	std::string s[size]{
-		"..........................",
-		"..........................",
-		"LLPLLPLLPLLPLLPLLPLLPLLPLL",
-		"LL....LL.LL.LL....LL....LL",
-		"LL....LL.LL.LL....LL....LL",
-		"LL....LL.LL.LL....LL....LL",
-		"LL....LL.LL.LL....LL....LL",
-		"LLPLLPLL.LL.LLPLLPLLPLLPLL",
-		"...LL.LL.LL.LL.LL.LL....LL",
-		"...LL.LLPLLPLL.LL.LL....LL",
-		"...LL.LL....LL.LL.LLPLLPLL",
-		"LLPLLPLL....LL.LL.LL.LL...",
-		"LL.LL.LLPPPPLLPLLPLL.LL...",
-		"LL.LL.LL....LL....LL.LL...",
-		"LL.LL.LL....LL....LLPLLPLL",
-		"LL.LL.LL....LL....LL.LL.LL",
-		"LLPLLPLLPLLPLLPLLPLL.LL.LL",
-		"LL....LL....LL....LL.LL.LL",
-		"LL....LL....LL....LL.LL.LL",
-		"LL....LL....LL....LL.LL.LL",
-		"LLPPPPLLPPPPLLPPPPLLPLLPLL",
-		"..........................",
-		"..........................",
-		"..........................",
-		"..........................",
-		".BBBBBBBBBBBBBBBBBBBBBBBB."
+	std::vector<std::vector<char>> level =
+	{
+		{'.','.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.'},
+		{'.','.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.'},
+		{'L','L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L'},
+		{'L','L', '.', '.', '.', '.', 'L', 'L', '.', 'L', 'L', '.', 'L', 'L', '.', '.', '.', '.', 'L', 'L', '.', '.', '.', '.', 'L', 'L'},
+		{'L','L', '.', '.', '.', '.', 'L', 'L', '.', 'L', 'L', '.', 'L', 'L', '.', '.', '.', '.', 'L', 'L', '.', '.', '.', '.', 'L', 'L'},
+		{'L','L', '.', '.', '.', '.', 'L', 'L', '.', 'L', 'L', '.', 'L', 'L', '.', '.', '.', '.', 'L', 'L', '.', '.', '.', '.', 'L', 'L'},
+		{'L','L', '.', '.', '.', '.', 'L', 'L', '.', 'L', 'L', '.', 'L', 'L', '.', '.', '.', '.', 'L', 'L', '.', '.', '.', '.', 'L', 'L'},
+		{'L','L', 'P', 'L', 'L', 'P', 'L', 'L', '.', 'L', 'L', '.', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L'},
+		{'.','.', '.', 'L', 'L', '.', 'L', 'L', '.', 'L', 'L', '.', 'L', 'L', '.', 'L', 'L', '.', 'L', 'L', '.', '.', '.', '.', 'L', 'L'},
+		{'.','.', '.', 'L', 'L', '.', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', '.', 'L', 'L', '.', 'L', 'L', '.', '.', '.', '.', 'L', 'L'},
+		{'.','.', '.', 'L', 'L', '.', 'L', 'L', '.', '.', '.', '.', 'L', 'L', '.', 'L', 'L', '.', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L'},
+		{'L','L', 'P', 'L', 'L', 'P', 'L', 'L', '.', '.', '.', '.', 'L', 'L', '.', 'L', 'L', '.', 'L', 'L', '.', 'L', 'L', '.', '.', '.'},
+		{'L','L', '.', 'L', 'L', '.', 'L', 'L', 'P', 'P', 'P', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', '.', 'L', 'L', '.', '.', '.'},
+		{'L','L', '.', 'L', 'L', '.', 'L', 'L', '.', '.', '.', '.', 'L', 'L', '.', '.', '.', '.', 'L', 'L', '.', 'L', 'L', '.', '.', '.'},
+		{'L','L', '.', 'L', 'L', '.', 'L', 'L', '.', '.', '.', '.', 'L', 'L', '.', '.', '.', '.', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L'},
+		{'L','L', '.', 'L', 'L', '.', 'L', 'L', '.', '.', '.', '.', 'L', 'L', '.', '.', '.', '.', 'L', 'L', '.', 'L', 'L', '.', 'L', 'L'},
+		{'L','L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', '.', 'L', 'L', '.', 'L', 'L'},
+		{'L','L', '.', '.', '.', '.', 'L', 'L', '.', '.', '.', '.', 'L', 'L', '.', '.', '.', '.', 'L', 'L', '.', 'L', 'L', '.', 'L', 'L'},
+		{'L','L', '.', '.', '.', '.', 'L', 'L', '.', '.', '.', '.', 'L', 'L', '.', '.', '.', '.', 'L', 'L', '.', 'L', 'L', '.', 'L', 'L'},
+		{'L','L', '.', '.', '.', '.', 'L', 'L', '.', '.', '.', '.', 'L', 'L', '.', '.', '.', '.', 'L', 'L', '.', 'L', 'L', '.', 'L', 'L'},
+		{'L','L', 'P', 'P', 'P', 'P', 'L', 'L', 'P', 'P', 'P', 'P', 'L', 'L', 'P', 'P', 'P', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L'},
+		{'.','.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.'},
+		{'.','.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.'},
+		{'.','.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.'},
+		{'.','.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.'},
+		{'.','B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', '.'}
 	};
+
+
+	//std::string level[size]{
+	//	"..........................",
+	//	"..........................",
+	//	"LLPLLPLLPLLPLLPLLPLLPLLPLL",
+	//	"LL....LL.LL.LL....LL....LL",
+	//	"LL....LL.LL.LL....LL....LL",
+	//	"LL....LL.LL.LL....LL....LL",
+	//	"LL....LL.LL.LL....LL....LL",
+	//	"LLPLLPLL.LL.LLPLLPLLPLLPLL",
+	//	"...LL.LL.LL.LL.LL.LL....LL",
+	//	"...LL.LLPLLPLL.LL.LL....LL",
+	//	"...LL.LL....LL.LL.LLPLLPLL",
+	//	"LLPLLPLL....LL.LL.LL.LL...",
+	//	"LL.LL.LLPPPPLLPLLPLL.LL...",
+	//	"LL.LL.LL....LL....LL.LL...",
+	//	"LL.LL.LL....LL....LLPLLPLL",
+	//	"LL.LL.LL....LL....LL.LL.LL",
+	//	"LLPLLPLLPLLPLLPLLPLL.LL.LL",
+	//	"LL....LL....LL....LL.LL.LL",
+	//	"LL....LL....LL....LL.LL.LL",
+	//	"LL....LL....LL....LL.LL.LL",
+	//	"LLPPPPLLPPPPLLPPPPLLPLLPLL",
+	//	"..........................",
+	//	"..........................",
+	//	"..........................",
+	//	"..........................",
+	//	".BBBBBBBBBBBBBBBBBBBBBBBB."
+	//};
 
 	int ladder{};
 	int platform{};
 
 	GameObject* pLevelGameobject = new GameObject("Level");
 	pLevelGameobject->AddComponent(new TransformComponent(pLevelGameobject));
+	pLevelGameobject->AddComponent(new LevelComponent(pLevelGameobject, level[0].size(), level.size(), level));
 	pScene.AddGameObject(pLevelGameobject);
 
 	GameObject* pColliderObject = new GameObject("Colliders");
@@ -375,34 +552,34 @@ void Level1State::MakeLevel(Scene& pScene)
 	pScene.AddGameObject(pEnemySpawner);
 
 	float scale{ 2.f };
-	for (int i = 0; i < size; ++i)
+	for (int i = 0; i < level.size(); ++i)
 	{
-		for (int j = 0; j < s[0].size(); ++j)
+		for (int j = 0; j < level[i].size(); ++j)
 		{
-			if (s[i][j] == '.')
+			if (level[i][j] == '.')
 				continue;
 
 			GameObject* pGameobject = new GameObject();
 			pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ j * 8.f * scale, i * 8.f * scale, 0.0f }, glm::vec3{ scale }));
 
-			switch (s[i][j])
+			switch (level[i][j])
 			{
 			case 'L':
 			{
 				pGameobject->SetName("Ladder " + std::to_string(++ladder));
 				float y{};
-				if ((i + 1 < size && s[i + 1][j] == 'L' && i - 1 > 0 && s[i - 1][j] == 'L') &&
-					((j + 1 < size && s[i][j + 1] == 'P') || (j - 1 > 0 && s[i][j - 1] == 'P')))
+				if ((i + 1 < level.size() && level[i + 1][j] == 'L' && i - 1 > 0 && level[i - 1][j] == 'L') &&
+					((j + 1 < level.size() && level[i][j + 1] == 'P') || (j - 1 > 0 && level[i][j - 1] == 'P')))
 					y = 16;
-				else if ((i + 1 < size && s[i + 1][j] == 'L' && i - 1 > 0 && s[i - 1][j] == 'L') && (j - 1 > 0 && s[i][j - 1] == 'P'))
+				else if ((i + 1 < level.size() && level[i + 1][j] == 'L' && i - 1 > 0 && level[i - 1][j] == 'L') && (j - 1 > 0 && level[i][j - 1] == 'P'))
 					y = 16;
-				else if (i + 1 < size && s[i + 1][j] == 'L' && i - 1 > 0 && s[i - 1][j] == 'L')
+				else if (i + 1 < level.size() && level[i + 1][j] == 'L' && i - 1 > 0 && level[i - 1][j] == 'L')
 					y = 8;
-				else if (i + 1 < size && s[i + 1][j] == '.' && i - 1 > 0 && s[i - 1][j] == 'L')
+				else if (i + 1 < level.size() && level[i + 1][j] == '.' && i - 1 > 0 && level[i - 1][j] == 'L')
 					y = 16;
 
 
-				if (j + 1 < 26 && s[i][j + 1] == 'L')
+				if (j + 1 < level[i].size() && level[i][j + 1] == 'L')
 					pGameobject->AddComponent(new SpriteRendererComponent(pGameobject, "Level_SpriteSheet.png", SDL_FRect{ 0, y, 8, 8 }));
 				else
 					pGameobject->AddComponent(new SpriteRendererComponent(pGameobject, "Level_SpriteSheet.png", SDL_FRect{ 8, y, 8, 8 }));

@@ -24,6 +24,8 @@ public:
 	void Start() override;
 	void Update() override;
 
+	void RenderGUI() override;
+
 	void Serialize(rapidjson::PrettyWriter< rapidjson::StringBuffer>& writer) override;
 	void Deserialize(dae::GameObject* /*pGameobject*/, rapidjson::Value& /*value*/) override;
 

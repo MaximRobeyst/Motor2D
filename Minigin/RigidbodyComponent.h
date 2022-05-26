@@ -33,6 +33,7 @@ namespace dae
 		b2Body* GetBody() const;
 
 		void ChangeShape(b2Shape* pShape);
+		void ChangeBody(b2BodyType bodyType, float density = 1.0f, float friction = 1.0f, bool isSensor = false);
 
 	private:
 		b2Body* m_pBody;

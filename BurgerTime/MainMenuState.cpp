@@ -30,6 +30,41 @@
 
 using namespace dae;
 
+
+struct SwitchToLevelState : ButtonFunction
+{
+	void operator()() override;
+};
+
+void SwitchToLevelState::operator()()
+{
+	GameStateManager::GetInstance().SwitchGameState(new Level1State());
+}
+
+struct SwitchToMultiplayer : ButtonFunction
+{
+	void operator()() override;
+};
+
+void SwitchToMultiplayer::operator()()
+{
+	GameStateManager::GetInstance().SwitchGameState(new MultiplayerState());
+}
+
+struct SwitchToVersusState : ButtonFunction
+{
+	void operator()() override;
+};
+
+void SwitchToVersusState::operator()()
+{
+	GameStateManager::GetInstance().SwitchGameState(new VersusState());
+}
+
+dae::Creator<ButtonFunction, SwitchToLevelState> g_SwitchToLevelState{};
+dae::Creator<ButtonFunction, SwitchToMultiplayer> g_SwitchToMultiplayerState{};
+dae::Creator<ButtonFunction, SwitchToVersusState> g_SwitchToVersusState{};
+
 void MainMenuState::OnEnter()
 {
 
@@ -62,9 +97,9 @@ void MainMenuState::OnEnter()
 	pGameobject->AddComponent(pUIButtonComp);
 	scene.AddGameObject(pGameobject);
 	pGameobject->SetParent(pLogo);
-	std::function<void()> newOnClickFunction = []() {GameStateManager::GetInstance().SwitchGameState(new Level1State()); };
+	//std::function<void()> newOnClickFunction = []() {GameStateManager::GetInstance().SwitchGameState(new Level1State()); };
 
-	pUIButtonComp->SetOnClickFunction(newOnClickFunction);
+	pUIButtonComp->SetOnClickFunction(new SwitchToLevelState());
 
 	pGameobject = new GameObject("Multiplayer button");
 	pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3(480.f, 250.f, 0.f)));
@@ -74,9 +109,9 @@ void MainMenuState::OnEnter()
 	pGameobject->AddComponent(pUIButtonComp);
 	pGameobject->SetParent(pLogo);
 	scene.AddGameObject(pGameobject);
-	newOnClickFunction = []() {GameStateManager::GetInstance().SwitchGameState(new MultiplayerState()); };
+	//newOnClickFunction = []() {GameStateManager::GetInstance().SwitchGameState(new MultiplayerState()); };
 
-	pUIButtonComp->SetOnClickFunction(newOnClickFunction);
+	pUIButtonComp->SetOnClickFunction(new SwitchToMultiplayer());
 
 	pGameobject = new GameObject("Versus button");
 	pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3(480.f, 300.f, 0.f)));
@@ -86,9 +121,9 @@ void MainMenuState::OnEnter()
 	pGameobject->AddComponent(pUIButtonComp);
 	pGameobject->SetParent(pLogo);
 	scene.AddGameObject(pGameobject);
-	newOnClickFunction = []() {GameStateManager::GetInstance().SwitchGameState(new VersusState()); };
+	//newOnClickFunction = []() {GameStateManager::GetInstance().SwitchGameState(new VersusState()); };
 
-	pUIButtonComp->SetOnClickFunction(newOnClickFunction);
+	pUIButtonComp->SetOnClickFunction(new SwitchToVersusState());
 
 	auto controller = std::make_shared<dae::Xbox360Controller>(0);
 	dae::InputManager::GetInstance().AddController(controller);

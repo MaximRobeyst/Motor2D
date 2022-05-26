@@ -82,7 +82,8 @@
                             }
                         },
                         {
-                            "name": "class UIButtonComponent"
+                            "name": "class UIButtonComponent",
+                            "FunctionName": "struct SwitchToLevelState"
                         }
                     ]
                 },
@@ -126,7 +127,8 @@
                             }
                         },
                         {
-                            "name": "class UIButtonComponent"
+                            "name": "class UIButtonComponent",
+                            "FunctionName": "struct SwitchToMultiplayer"
                         }
                     ]
                 },
@@ -170,7 +172,8 @@
                             }
                         },
                         {
-                            "name": "class UIButtonComponent"
+                            "name": "class UIButtonComponent",
+                            "FunctionName": "struct SwitchToVersusState"
                         }
                     ]
                 }

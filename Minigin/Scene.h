@@ -19,6 +19,7 @@ namespace dae
 		GameObject* GetGameobjectFromId(int id);
 
 		std::shared_ptr<b2World> GetPhysicsWorld() const;
+		bool GetDebugPhysics() const;
 
 		void Start();
 		void Update();
@@ -57,6 +58,7 @@ namespace dae
 
 		static unsigned int m_IdCounter; 
 		bool m_Started{ false };
+		bool m_DebugPhysics{ false };
 	};
 
 }

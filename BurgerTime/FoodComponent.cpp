@@ -150,6 +150,7 @@ void FoodComponent::SetFalling(bool newValue)
 	}
 
 	m_Falling = newValue;
+
 	//if (m_Falling)
 	//	m_pSubject->Notify(*m_pGameObject, Event::Burger_Drop);
 }

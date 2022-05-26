@@ -6,6 +6,7 @@
 #include "GameTime.h"
 #include "LifeComponent.h"
 #include <ServiceLocator.h>
+#include <imgui.h>
 
 dae::Creator<dae::Component, PlayerComponent> s_TranformComponentCreate{};
 
@@ -50,6 +51,10 @@ void PlayerComponent::Update()
 		UpdateDying();
 		break;
 	}
+}
+
+void PlayerComponent::RenderGUI()
+{
 }
 
 void PlayerComponent::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>& writer)

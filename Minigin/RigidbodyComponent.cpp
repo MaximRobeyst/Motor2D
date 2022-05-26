@@ -53,23 +53,7 @@ void dae::RigidbodyComponent::Start()
 
 	m_pColliderComponent = m_pGameObject->GetComponent<dae::ColliderComponent>();
 
-	// Create body this is done with the collider
-	b2BodyDef bodyDef;
-	bodyDef.type = m_Bodydef;
-	bodyDef.fixedRotation = true;
-	bodyDef.allowSleep = false;
-	bodyDef.position.Set(m_pTransformComponent->GetPosition().x, m_pTransformComponent->GetPosition().y);
-	bodyDef.userData.pointer = reinterpret_cast<uintptr_t>(this);
-	m_pBody = m_pWorld->CreateBody(&bodyDef);
-
-	// Create the fxiture
-	b2FixtureDef fixtureDef;
-	fixtureDef.shape = m_pColliderComponent->GetDynamicBox();
-	fixtureDef.density = m_Density;
-	fixtureDef.friction = m_Friction;
-	fixtureDef.isSensor = m_IsSensor;
-
-	m_pBody->CreateFixture(&fixtureDef);
+	ChangeBody(m_Bodydef, m_Density, m_Friction, m_IsSensor);
 }
 
 void dae::RigidbodyComponent::Update()
@@ -170,6 +154,32 @@ void dae::RigidbodyComponent::ChangeShape(b2Shape* pShape)
 	fixtureDef.density = m_Density;
 	fixtureDef.friction = m_Friction;
 	fixtureDef.isSensor = m_IsSensor;
+
+	m_pBody->CreateFixture(&fixtureDef);
+}
+
+void dae::RigidbodyComponent::ChangeBody(b2BodyType bodyType, float density, float friction, bool isSensor)
+{
+	m_Bodydef = bodyType;
+	m_Density = density;
+	m_Friction = friction;
+	m_IsSensor = isSensor;
+
+	// Create body this is done with the collider
+	b2BodyDef bodyDef;
+	bodyDef.type = bodyType;
+	bodyDef.fixedRotation = true;
+	bodyDef.allowSleep = false;
+	bodyDef.position.Set(m_pTransformComponent->GetPosition().x, m_pTransformComponent->GetPosition().y);
+	bodyDef.userData.pointer = reinterpret_cast<uintptr_t>(this);
+	m_pBody = m_pWorld->CreateBody(&bodyDef);
+
+	// Create the fxiture
+	b2FixtureDef fixtureDef;
+	fixtureDef.shape = m_pColliderComponent->GetDynamicBox();
+	fixtureDef.density = density;
+	fixtureDef.friction = friction;
+	fixtureDef.isSensor = isSensor;
 
 	m_pBody->CreateFixture(&fixtureDef);
 }

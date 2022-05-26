@@ -120,6 +120,11 @@ std::shared_ptr<b2World> dae::Scene::GetPhysicsWorld() const
 	return m_PhysicsWorld;
 }
 
+bool dae::Scene::GetDebugPhysics() const
+{
+	return m_DebugPhysics;
+}
+
 void dae::Scene::Start()
 {
 	m_Started = true;
@@ -203,6 +208,8 @@ void dae::Scene::RenderGUI()
 		{
 			m_PhysicsWorld->SetGravity(b2Vec2{ vel[0], vel[1] });
 		}
+
+		ImGui::Checkbox("Draw debug phyiscs", &m_DebugPhysics);
 	}
 
 	// Scene graph

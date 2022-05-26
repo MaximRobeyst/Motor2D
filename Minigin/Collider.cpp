@@ -73,6 +73,8 @@ void dae::ColliderComponent::Update()
 
 void dae::ColliderComponent::Render() const
 {
+	if (!m_pGameObject->GetScene()->GetDebugPhysics()) return;
+
 	auto pos = m_pRigidbody->GetPosition();
 	Renderer::GetInstance().RenderBox((pos.x + m_Center.x) - (m_Width / 2), (pos.y + m_Center.y) - (m_Height / 2), m_Width, m_Height);
 }
@@ -119,12 +121,12 @@ void dae::ColliderComponent::RenderGUI()
 	bool changed{ false };
 
 	ImGui::Text("Collider");
-	if (ImGui::DragFloat("Width", &m_Width, 1.0f, 1.0f, 100.0f))
+	if (ImGui::InputFloat("Width", &m_Width))
 		changed = true;
-	if (ImGui::DragFloat("Height", &m_Height, 1.0f, 1.0f, 100.0f))
+	if (ImGui::InputFloat("Height", &m_Height))
 		changed = true;
 	float center[2]{ m_Center.x, m_Center.y };
-	if (ImGui::DragFloat2("Center", center))
+	if (ImGui::InputFloat2("Center", center))
 		changed = true;
 
 	if (changed)

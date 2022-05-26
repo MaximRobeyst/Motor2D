@@ -161,6 +161,7 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameManagerComponent.cpp" />
     <ClCompile Include="Level1State.cpp" />
+    <ClCompile Include="LevelComponent.cpp" />
     <ClCompile Include="LifeComponent.cpp" />
     <ClCompile Include="LifeDisplayComponent.cpp" />
     <ClCompile Include="MainMenuState.cpp" />
@@ -183,6 +184,7 @@
     <ClInclude Include="FoodComponent.h" />
     <ClInclude Include="GameManagerComponent.h" />
     <ClInclude Include="Level1State.h" />
+    <ClInclude Include="LevelComponent.h" />
     <ClInclude Include="LifeComponent.h" />
     <ClInclude Include="LifeDisplayComponent.h" />
     <ClInclude Include="MainMenuState.h" />

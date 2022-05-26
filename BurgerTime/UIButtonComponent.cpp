@@ -16,20 +16,34 @@ UIButtonComponent::UIButtonComponent(dae::GameObject* pGameobject, glm::vec4 col
 {
 }
 
+UIButtonComponent::~UIButtonComponent()
+{
+	delete m_pOnClickFunction;
+}
+
 void UIButtonComponent::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>& writer)
 {
 	writer.StartObject();
 	writer.Key("name");
 	writer.String(typeid(*this).name());
+	writer.Key("FunctionName");
+	writer.String(typeid(*m_pOnClickFunction).name());
 	writer.EndObject();
 }
 
-void UIButtonComponent::SetOnClickFunction(std::function<void()> function)
+void UIButtonComponent::Deserialize(dae::GameObject* pGameobject, rapidjson::Value& value)
 {
-	m_OnClickFunction = function;
+	m_pGameObject = pGameobject;
+	m_pOnClickFunction = dae::Factory<ButtonFunction>::GetInstance().Create(value["FunctionName"].GetString());
+
+};
+
+void UIButtonComponent::SetOnClickFunction(ButtonFunction* function)
+{
+	m_pOnClickFunction = function;
 }
 
 void UIButtonComponent::CallOnClickFunction()
 {
-	m_OnClickFunction();
+	(*m_pOnClickFunction)();
 }

@@ -45,6 +45,7 @@ private:
 	static const int m_Parts{ 5 };
 	bool m_PartStates[ m_Parts ];
 	bool m_TopPart{ false };
+	bool m_ChangeBody{};
 
 };
 
