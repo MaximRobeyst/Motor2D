@@ -53,7 +53,7 @@ namespace dae
 		template<typename T>
 		T* GetComponent() const
 		{
-			for (int i = 0; i < m_pComponents.size(); ++i)
+			for (size_t i = 0; i < m_pComponents.size(); ++i)
 			{
 				T* comp{ dynamic_cast<T*>(m_pComponents[i])};
 				if (comp != nullptr)

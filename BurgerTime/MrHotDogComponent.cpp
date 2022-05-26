@@ -13,6 +13,7 @@
 #include <Collider.h>
 
 #include <Subject.h>
+#include "FoodComponent.h"
 
 dae::Creator<dae::Component, EnemyComponent> s_TranformComponentCreate{};
 
@@ -37,6 +38,7 @@ void EnemyComponent::Start()
 	m_pColliderComponent = m_pGameObject->GetComponent < dae::ColliderComponent>();
 
 	m_pAnimatorComponent->SetAnimation("WalkLeft");
+	m_CurrentTarget = glm::vec2{ m_pTransfomComponent->GetPosition() };
 
 	auto rigidBodyComponent = m_pGameObject->GetComponent<dae::RigidbodyComponent>();
 
@@ -52,7 +54,10 @@ void EnemyComponent::Start()
 		else if (pOtherGO->GetTag() == "Food")
 		{
 			auto enemyComp = pTriggeredbody->GetGameObject()->GetComponent<EnemyComponent>();
-			enemyComp->EnemyDeath();
+			auto foodcomp = pOtherGO->GetComponent<FoodComponent>();
+
+			if(foodcomp->GetFalling())
+				enemyComp->EnemyDeath();
 		}
 	};
 
@@ -71,18 +76,7 @@ void EnemyComponent::Start()
 
 void EnemyComponent::Update()
 {
-	switch (m_CurrentState)
-	{
-	case EnemyState::Walk:
-		UpdateWalk();
-		break;
-	case EnemyState::Climb:
-		UpdateClimb();
-	case EnemyState::Playerdead:
-		UpdatePlayerDeath();
-	}
-	return;
-
+	UpdateWalk();
 
 	if (m_Dead)
 	{
@@ -104,14 +98,38 @@ void EnemyComponent::Update()
 
 void EnemyComponent::Render() const
 {
-	auto pos = m_pTransfomComponent->GetPosition();
-	b2Vec2 startPosition{ pos.x, pos.y + 1.0f };
-	b2Vec2 endPosition{ startPosition + b2Vec2{0,-2.f} };
-	dae::Renderer::GetInstance().RenderLine(startPosition, endPosition, glm::vec4{ 255.f, 0.f, 0.f, 255.f }, 2.0f);
+	dae::Renderer::GetInstance().RenderCircle(m_CurrentTarget, 1.f);
+	dae::Renderer::GetInstance().RenderLine(m_pTransfomComponent->GetPosition(), glm::vec2{ m_pTransfomComponent->GetPosition() } + m_CurrentDirection, glm::vec4{ 255.f, 255.f, 0.f, 255.f });
 
-	startPosition = b2Vec2 {pos.x + 1.0f, pos.y };
-	endPosition = b2Vec2{ startPosition + b2Vec2{-2.f,0.f} };
-	dae::Renderer::GetInstance().RenderLine(startPosition, endPosition, glm::vec4{ 255.f, 0.f, 0.f, 255.f }, 2.0f);
+
+	b2Vec2 startPosition{
+		m_pTransfomComponent->GetPosition().x + (m_pColliderComponent->GetSize().x / 2.0f),
+		m_pTransfomComponent->GetPosition().y + (m_pColliderComponent->GetSize().y / 2.0f),
+	};
+	float rayDistance = m_pColliderComponent->GetSize().x;
+
+	b2Vec2 directions[4] = { b2Vec2{0,-1 * rayDistance}, b2Vec2{-1 * rayDistance,0}, b2Vec2{0, 1 * rayDistance}, b2Vec2{1 * rayDistance, 0} };
+	int indexForShortestDistance{};
+
+	for (int i = 0; i < 4; ++i)
+	{
+		b2Vec2 endPosition = startPosition + directions[i];
+		dae::Renderer::GetInstance().RenderLine(startPosition, endPosition, glm::vec4{ 255.f, 0.f, 255.f, 255.f });
+
+	}
+
+	dae::Renderer::GetInstance().RenderCircle(m_CurrentTarget, 10.f, glm::vec4{ 255.f, 255.f, 0.f, 255.f });
+
+}
+
+void EnemyComponent::RenderGUI()
+{
+	float target[2] = { m_CurrentTarget.x, m_CurrentTarget.y };
+	ImGui::InputFloat2("CurrentDirection", target);
+	float position[2] = { m_pTransfomComponent->GetPosition().x, m_pTransfomComponent->GetPosition().y };
+	ImGui::InputFloat2("CurrentPosition", position);
+
+	ImGui::InputFloat("minimum distance", &m_MinDistance);
 }
 
 void EnemyComponent::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>& writer)
@@ -147,22 +165,39 @@ std::unique_ptr<Subject>& EnemyComponent::GetSubject()
 
 void EnemyComponent::UpdateWalk()
 {
-	// Raycast up to check if we can climb a ladder
-	bool spaceAbove = SpaceAbove();
-	//bool spaceBelow = SpaceBelow();
-
-	//std::cout << "My position ["
-	//	<< m_pTransfomComponent->GetPosition().x << " , " << m_pTransfomComponent->GetPosition().y << " ]" << std::endl << 
-	//	"The players Position[" << m_pPlayerTransform->GetPosition().x << " , " << m_pPlayerTransform->GetPosition().y << " ] " << std::endl << 
-	//	"Space above head: ?" << spaceAbove << " " << std::endl;
-
-	if (spaceAbove && fabsf((m_pTransfomComponent->GetPosition().y - m_pPlayerTransform->GetPosition().y)) > 1.0f)
+	auto difference = (glm::vec2{ m_pTransfomComponent->GetPosition() } - m_CurrentTarget);
+	float distance = powf(difference.x, 2) + powf(difference.y, 2);
+	if ( distance <= m_MinDistance)
 	{
-		//m_pRigidbodyComponent->GetBody()->SetLinearVelocity(b2Vec2{ 0.f, -m_Speed });
-		m_CurrentState = EnemyState::Climb;
-		return;
+		ChooseNextTarget();
 	}
-	m_pRigidbodyComponent->GetBody()->SetLinearVelocity(b2Vec2{ -m_Speed, 0.f });
+
+	if (m_pRigidbodyComponent->GetBody()->GetLinearVelocity().LengthSquared() < 0.0f)
+	{
+		ChooseNextTarget();
+	}
+
+	glm::vec2 currentDirection = m_CurrentTarget - glm::vec2{ m_pTransfomComponent->GetPosition() };
+	currentDirection = glm::normalize(currentDirection) * m_Speed;
+	
+	m_pRigidbodyComponent->GetBody()->SetLinearVelocity(b2Vec2{ currentDirection.x, currentDirection.y });
+
+	// Raycast up to check if we can climb a ladder
+	//bool spaceAbove = SpaceAbove();
+	////bool spaceBelow = SpaceBelow();
+	//
+	////std::cout << "My position ["
+	////	<< m_pTransfomComponent->GetPosition().x << " , " << m_pTransfomComponent->GetPosition().y << " ]" << std::endl << 
+	////	"The players Position[" << m_pPlayerTransform->GetPosition().x << " , " << m_pPlayerTransform->GetPosition().y << " ] " << std::endl << 
+	////	"Space above head: ?" << spaceAbove << " " << std::endl;
+	//
+	//if (spaceAbove && fabsf((m_pTransfomComponent->GetPosition().y - m_pPlayerTransform->GetPosition().y)) > 1.0f)
+	//{
+	//	//m_pRigidbodyComponent->GetBody()->SetLinearVelocity(b2Vec2{ 0.f, -m_Speed });
+	//	m_CurrentState = EnemyState::Climb;
+	//	return;
+	//}
+	
 }
 
 void EnemyComponent::UpdateClimb()
@@ -182,6 +217,38 @@ void EnemyComponent::UpdateClimb()
 
 void EnemyComponent::UpdatePlayerDeath()
 {
+}
+
+void EnemyComponent::ChooseNextTarget()
+{
+	glm::vec3 newDirection;
+	b2Vec2 startPosition{
+		m_pTransfomComponent->GetPosition().x + (m_pColliderComponent->GetSize().x / 2.0f),
+		m_pTransfomComponent->GetPosition().y + (m_pColliderComponent->GetSize().y / 2.0f),
+	};
+
+	glm::vec2 potentialPosition[4];
+	glm::vec2 directions[4] = { glm::vec2{0,-1}, glm::vec2{-1,0}, glm::vec2{0, 1}, glm::vec2{1, 0} };
+	int indexForShortestDistance{};
+
+	dae::RaycastCallback raycastCallback{};
+
+	for (int i = 0; i < 4; ++i)
+	{
+		potentialPosition[i] = glm::vec2{ m_pTransfomComponent->GetPosition() } + (directions[i] * 16.f);
+		potentialPosition[i] = glm::vec2{ roundf(potentialPosition[i].x), roundf(potentialPosition[i].y) };
+		if (glm::distance(potentialPosition[i], glm::vec2{ m_pPlayerTransform->GetPosition() }) < glm::distance(glm::vec2{ m_pPlayerTransform->GetPosition() }, potentialPosition[indexForShortestDistance]))
+		{
+			b2Vec2 endPosition{ potentialPosition[i].x, potentialPosition[i].y };
+			m_pGameObject->GetScene()->GetPhysicsWorld()->RayCast(&raycastCallback, startPosition, endPosition);
+			if (raycastCallback.GetLatestHit().pHitObject == nullptr)
+			{
+				indexForShortestDistance = i;
+			}
+		}
+	}
+
+	m_CurrentTarget = potentialPosition[indexForShortestDistance];
 }
 
 bool EnemyComponent::SpaceAbove()

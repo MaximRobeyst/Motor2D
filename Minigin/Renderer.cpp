@@ -159,7 +159,7 @@ void dae::Renderer::RenderPolygon(const b2Vec2* points, const int32 count, glm::
 	glLineWidth(0.1f);
 	glBegin(GL_LINE_LOOP);
 	{
-		for (size_t idx{ 0 }; idx < count; ++idx)
+		for (size_t idx{ 0 }; idx < static_cast<size_t>( count); ++idx)
 		{
 			glVertex2f(points[idx].x, points[idx].y);
 		}

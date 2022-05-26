@@ -53,7 +53,7 @@ void dae::Scene::RenderGameObjectGUI(GameObject* pGameobject)
 	if(nodeOpen)
 	{
 		baseFlags |= ImGuiTreeNodeFlags_Selected;
-		for (int i = 0; i < pGameobject->GetAmountOfChildren(); ++i)
+		for (int i = 0; i <  static_cast<int>(pGameobject->GetAmountOfChildren()); ++i)
 		{
 			RenderGameObjectGUI(pGameobject->GetChildFromIndex(i));
 		}
@@ -128,7 +128,7 @@ bool dae::Scene::GetDebugPhysics() const
 void dae::Scene::Start()
 {
 	m_Started = true;
-	for(int i =0 ; i < m_pObjects.size(); ++i)
+	for(size_t i =0 ; i < m_pObjects.size(); ++i)
 	{
 		m_pObjects[i]->Start();
 	}
@@ -142,7 +142,7 @@ void Scene::Update()
 	m_PhysicsWorld->Step(GameTime::GetInstance()->GetElapsed(), 6, 2);
 
 	// Update all objects
-	for(int i = 0; i < m_pObjects.size(); ++i)
+	for(size_t i = 0; i < m_pObjects.size(); ++i)
 	{
 		 m_pObjects[i]->Update();
 	}

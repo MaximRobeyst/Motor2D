@@ -540,13 +540,13 @@ void Level1State::MakeLevel(Scene& pScene)
 
 	GameObject* pEnemySpawner = new GameObject("EnemySpawner");
 	pEnemySpawner->AddComponent(new TransformComponent(pEnemySpawner));
-	//auto pEnemySpawnerComponent = new EnemySpawnerComponent(pEnemySpawner);
-	//pEnemySpawner->AddComponent(pEnemySpawnerComponent);
-	//
-	//pEnemySpawnerComponent->AddSpawnPosition(glm::vec3{ 384.f, 296.f, 0.f });
-	//pEnemySpawnerComponent->AddSpawnPosition(glm::vec3{ 0.f, 32.f, 0.f });
-	//pEnemySpawnerComponent->AddSpawnPosition(glm::vec3{ 0.f, 296.f, 0.f });
-	//pEnemySpawnerComponent->AddSpawnPosition(glm::vec3{ 416.f, 32.f, 0.f });
+	auto pEnemySpawnerComponent = new EnemySpawnerComponent(pEnemySpawner);
+	pEnemySpawner->AddComponent(pEnemySpawnerComponent);
+	
+	pEnemySpawnerComponent->AddSpawnPosition(glm::vec3{ 384.f, 296.f, 0.f });
+	pEnemySpawnerComponent->AddSpawnPosition(glm::vec3{ 0.f, 32.f, 0.f });
+	pEnemySpawnerComponent->AddSpawnPosition(glm::vec3{ 0.f, 296.f, 0.f });
+	pEnemySpawnerComponent->AddSpawnPosition(glm::vec3{ 416.f, 32.f, 0.f });
 
 	pEnemySpawner->SetParent(pLevelGameobject);
 	pScene.AddGameObject(pEnemySpawner);

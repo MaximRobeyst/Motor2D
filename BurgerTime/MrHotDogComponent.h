@@ -23,6 +23,8 @@ public:
 	void Update() override;
 	void Render() const override;
 
+	void RenderGUI() override;
+
 	void Serialize(rapidjson::PrettyWriter< rapidjson::StringBuffer>& writer) override;
 	void Deserialize(dae::GameObject* /*pGameobject*/, rapidjson::Value& /*value*/) override;
 
@@ -35,6 +37,7 @@ private:
 	void UpdateWalk();
 	void UpdateClimb();
 	void UpdatePlayerDeath();
+	void ChooseNextTarget();
 
 	bool SpaceAbove();
 	bool SpaceBelow();
@@ -45,6 +48,7 @@ private:
 	bool m_Dead{};
 
 	float m_Speed{ 32.f };
+	float m_MinDistance{ 0.25f };
 
 	dae::AnimatorComponent* m_pAnimatorComponent;
 	dae::RigidbodyComponent* m_pRigidbodyComponent;
@@ -55,13 +59,15 @@ private:
 	std::unique_ptr<Subject> m_pSubject;
 
 	glm::vec2 m_CurrentDirection{};
+	glm::vec2 m_CurrentTarget{};
 
 	// State machine
 	enum class EnemyState
 	{
 		Walk,
 		Climb,
-		Playerdead
+		Playerdead,
+		ChooseTarget
 	};
 
 	EnemyState m_CurrentState{ EnemyState::Walk };

@@ -29,7 +29,7 @@ dae::GameObject::~GameObject()
 
 	//for (auto iter = m_pComponents.begin(); iter != m_pComponents.end(); ++iter)
 	//	delete *iter;
-	for (int i = 0; i < m_pComponents.size(); ++i)
+	for (int i = 0; i < static_cast<int>(m_pComponents.size()); ++i)
 		delete m_pComponents[i];
 
 	m_pComponents.clear();
