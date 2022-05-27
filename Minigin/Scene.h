@@ -24,6 +24,7 @@ namespace dae
 		void Start();
 		void Update();
 		void Render() const;
+		void RenderDebug() const;
 #ifdef _DEBUG
 		void RenderGUI();
 #endif // _DEBUG
@@ -58,7 +59,7 @@ namespace dae
 
 		static unsigned int m_IdCounter; 
 		bool m_Started{ false };
-		bool m_DebugPhysics{ false };
+		bool m_DebugPhysics{ true };
 	};
 
 }

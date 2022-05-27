@@ -161,10 +161,12 @@ void Scene::Render() const
 	{
 		object->Render();
 	}
+}
 
+void dae::Scene::RenderDebug() const
+{
 	if (m_DebugPhysics)
 		m_PhysicsWorld->DebugDraw();
-
 }
 
 #ifdef _DEBUG

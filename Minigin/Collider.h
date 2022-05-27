@@ -35,9 +35,9 @@ namespace dae
 		float m_Height{};
 		glm::vec2 m_Center{};
 
-		TransformComponent* m_pTransform;
-		RigidbodyComponent* m_pRigidbody;
-		b2PolygonShape* m_DynamicBox;
+		TransformComponent* m_pTransform{};
+		RigidbodyComponent* m_pRigidbody{};
+		b2PolygonShape* m_DynamicBox{};
 	};
 }
 

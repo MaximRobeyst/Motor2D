@@ -35,6 +35,14 @@ void dae::SceneManager::Render()
 	}
 }
 
+void dae::SceneManager::RenderDebug()
+{
+	for (const auto& scene : m_Scenes)
+	{
+		scene->RenderDebug();
+	}
+}
+
 #ifdef _DEBUG
 void dae::SceneManager::RenderGUI(SDL_Window* /*window*/)
 {

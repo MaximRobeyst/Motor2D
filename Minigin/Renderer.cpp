@@ -42,6 +42,9 @@ void dae::Renderer::Render() const
 	const auto& color = GetBackgroundColor();
 	SDL_SetRenderDrawColor(m_Renderer, color.r, color.g, color.b, color.a);
 	SDL_RenderClear(m_Renderer);
+
+	SceneManager::GetInstance().RenderDebug();
+	SceneManager::GetInstance().Render();
 #ifdef _DEBUG
 
 	ImGui_ImplOpenGL2_NewFrame();
@@ -54,7 +57,6 @@ void dae::Renderer::Render() const
 	ImGui_ImplOpenGL2_RenderDrawData(ImGui::GetDrawData());
 #endif // _DEBUG
 
-	SceneManager::GetInstance().Render();
 	SDL_RenderPresent(m_Renderer);
 }
 
@@ -117,8 +119,9 @@ void dae::Renderer::RenderTexture(const Texture2D& texture, const SDL_FRect& src
 	SDL_RenderCopyEx(GetSDLRenderer(), texture.GetSDLTexture(), &src, &dst, 0.0, nullptr, flip);
 }
 
-void dae::Renderer::RenderBox(float x, float y, float width, float height) const
+void dae::Renderer::RenderBox(float x, float y, float width, float height, SDL_Color color) const
 {
+	SDL_SetRenderDrawColor(m_Renderer, color.r, color.g, color.b, color.a);
 	SDL_Rect dst{};
 	dst.x = static_cast<int>(x);
 	dst.y = static_cast<int>(y);
@@ -129,50 +132,50 @@ void dae::Renderer::RenderBox(float x, float y, float width, float height) const
 
 	SDL_SetRenderDrawColor(GetSDLRenderer(), 0, 255, 0, 255);
 	SDL_RenderDrawRect(GetSDLRenderer(), &dst);
-
-	SDL_SetRenderDrawColor(GetSDLRenderer(), r, g, b, a);
 }
 
 void dae::Renderer::RenderPolygon(glm::vec2* points, const int count, SDL_Color color)
 {
-	std::vector<SDL_FPoint> pointsSDL(count);
-	for (int i = 0; i < count; ++i)
-		pointsSDL[i] = SDL_FPoint{ points[i].x, points[i].y };
+	SDL_SetRenderDrawColor(m_Renderer, color.r, color.g, color.b, color.a);
 
-	SDL_SetRenderDrawColor(GetSDLRenderer(), color.r, color.g, color.b, color.a);
-	SDL_RenderDrawPointsF(GetSDLRenderer(), pointsSDL.data(), count);
+	const glm::vec2 firstPoint{ points[0] };
+	const glm::vec2 lastPoint{ points[count - 1] };
+	SDL_RenderDrawLineF(m_Renderer, firstPoint.x, firstPoint.y, lastPoint.x, lastPoint.y);
+
+	for (int i{ 0 }; i < count - 1; i += 1)
+	{
+		const glm::vec2 point1{ points[i] };
+		const glm::vec2 point2{ points[i + 1] };
+		SDL_RenderDrawLineF(m_Renderer, point1.x, point1.y, point2.x, point2.y);
+	}
 }
 
 void dae::Renderer::RenderPolygon(const b2Vec2* points, const int32 count, SDL_Color color)
 {
-	SDL_SetRenderDrawColor(GetSDLRenderer(), color.r, color.g, color.b, color.a);
-	
-	glLineWidth(1.f);
-	glBegin(GL_LINE_LOOP);
+	SDL_SetRenderDrawColor(m_Renderer, color.r, color.g, color.b, color.a);
+
+	const b2Vec2 firstPoint{ points[0] };
+	const b2Vec2 lastPoint{ points[count - 1] };
+	SDL_RenderDrawLineF(m_Renderer, firstPoint.x, firstPoint.y, lastPoint.x, lastPoint.y);
+
+	for (int i{ 0 }; i < count - 1; i += 1)
 	{
-		for (size_t idx{ 0 }; idx < static_cast<size_t>( count); ++idx)
-		{
-			glVertex2f(points[idx].x, points[idx].y);
-		}
+		const b2Vec2 point1{ points[i] };
+		const b2Vec2 point2{ points[i + 1] };
+		SDL_RenderDrawLineF(m_Renderer, point1.x, point1.y, point2.x, point2.y);
 	}
-	glEnd();
 }
 
 void dae::Renderer::RenderCircle(glm::vec2 position, float radius, SDL_Color color)
 {
-	SDL_SetRenderDrawColor(GetSDLRenderer(), color.r, color.g, color.b, color.a);
+	SDL_SetRenderDrawColor(m_Renderer, color.r, color.g, color.b, color.a);
 
 	float dAngle{ radius > radius ? float(M_PI / radius) : float(M_PI / radius) };
-
-	glLineWidth(1.0f);
-	glBegin(GL_LINE_LOOP);
+	for (float angle = 0.0; angle < float(2 * M_PI); angle += dAngle)
 	{
-		for (float angle = 0.0; angle < float(2 * M_PI); angle += dAngle)
-		{
-			glVertex2f(position.x + radius * float(cos(angle)), position.y + radius * float(sin(angle)));
-		}
+		//glVertex2f(position.x + radius * float(cos(angle)), position.y + radius * float(sin(angle)));
+		SDL_RenderDrawLineF(m_Renderer, position.x + radius * float(cos(angle)), position.y + radius * float(sin(angle)), position.x + radius * float(cos(angle + dAngle)), position.y + radius * float(sin(angle + dAngle)));
 	}
-	glEnd();
 }
 
 void dae::Renderer::RenderCircle(b2Vec2 position, float radius, SDL_Color color)
@@ -180,19 +183,13 @@ void dae::Renderer::RenderCircle(b2Vec2 position, float radius, SDL_Color color)
 	RenderCircle(glm::vec2{ position.x, position.y }, radius, color);
 }
 
-void dae::Renderer::RenderLine(glm::vec2 p1, glm::vec2 p2, SDL_Color color, float linewidth)
+void dae::Renderer::RenderLine(glm::vec2 p1, glm::vec2 p2, SDL_Color color, float )
 {
-	SDL_SetRenderDrawColor(GetSDLRenderer(), color.r, color.g, color.b, color.a);
-	glLineWidth(linewidth);
-	glBegin(GL_LINES);
-	{
-		glVertex2f(p1.x, p1.y);
-		glVertex2f(p2.x, p2.y);
-	}
-	glEnd();
+	SDL_SetRenderDrawColor(m_Renderer, color.r, color.g, color.b, color.a);
+	SDL_RenderDrawLineF(m_Renderer, p1.x, p1.y, p2.x, p2.y);
 }
 
-void dae::Renderer::RenderLine(const b2Vec2& p1, const b2Vec2& p2, SDL_Color color, float linewidth)
+void dae::Renderer::RenderLine(const b2Vec2& p1, const b2Vec2& p2, SDL_Color color, float )
 {
-	RenderLine(glm::vec2{ p1.x, p1.y }, glm::vec2{ p2.x, p2.y }, color, linewidth);
+	RenderLine(glm::vec2{ p1.x, p1.y }, glm::vec2{ p2.x, p2.y }, color);
 }

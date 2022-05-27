@@ -73,10 +73,6 @@ void dae::ColliderComponent::Update()
 
 void dae::ColliderComponent::Render() const
 {
-	if (!m_pGameObject->GetScene()->GetDebugPhysics()) return;
-
-	auto pos = m_pRigidbody->GetPosition();
-	Renderer::GetInstance().RenderBox((pos.x + m_Center.x) - (m_Width / 2), (pos.y + m_Center.y) - (m_Height / 2), m_Width, m_Height);
 }
 
 void dae::ColliderComponent::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>& writer)

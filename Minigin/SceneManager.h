@@ -23,6 +23,7 @@ namespace dae
 		void Start();
 		void Update();
 		void Render();
+		void RenderDebug();
 #ifdef _DEBUG
 		void RenderGUI(SDL_Window* window);
 #endif // _DEBUG

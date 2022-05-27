@@ -103,10 +103,10 @@ void Level1State::OnEnter()
 	
 	InputManager::GetInstance().AddAxis("keyboard_horizontal", new KeyboardAxis(SDLK_d, SDLK_a, InputManager::GetInstance().GetKeyboard()));
 	InputManager::GetInstance().AddAxis("keyboard_vertical", new KeyboardAxis(SDLK_s, SDLK_w, InputManager::GetInstance().GetKeyboard()));
-
+	
 	pPlayerComp->SetHorizontalAxis(InputManager::GetInstance().GetAxis("keyboard_horizontal"));
 	pPlayerComp->SetVerticalAxis(InputManager::GetInstance().GetAxis("keyboard_vertical"));
-
+	
 	m_pPlayerObject->SetTag("Player");
 	scene.AddGameObject(m_pPlayerObject);
 
