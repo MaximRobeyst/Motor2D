@@ -11,7 +11,7 @@
 
 dae::Creator<dae::Component, UIButtonComponent> s_TranformComponentCreate{};
 
-UIButtonComponent::UIButtonComponent(dae::GameObject* pGameobject, glm::vec4 color)
+UIButtonComponent::UIButtonComponent(dae::GameObject* pGameobject, glm::vec4 /*color*/)
 	: Component(pGameobject)
 {
 }

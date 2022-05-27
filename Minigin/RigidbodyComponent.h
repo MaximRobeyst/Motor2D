@@ -20,6 +20,8 @@ namespace dae
 		void Update() override;
 		void Render() const override;
 
+		void RenderGUI() override;
+
 		void Serialize(rapidjson::PrettyWriter< rapidjson::StringBuffer>& writer) override;
 		void Deserialize(GameObject* /*pGameobject*/, rapidjson::Value& /*value*/) override;
 
@@ -36,12 +38,12 @@ namespace dae
 		void ChangeBody(b2BodyType bodyType, float density = 1.0f, float friction = 1.0f, bool isSensor = false);
 
 	private:
-		b2Body* m_pBody;
+		b2Body* m_pBody{};
 
-		TransformComponent* m_pTransformComponent;
-		ColliderComponent* m_pColliderComponent;
+		TransformComponent* m_pTransformComponent{};
+		ColliderComponent* m_pColliderComponent{};
 
-		std::shared_ptr<b2World> m_pWorld;
+		std::shared_ptr<b2World> m_pWorld{};
 
 		std::function<void(RigidbodyComponent*,RigidbodyComponent*, b2Contact*)> m_OnEnterFunction{};
 		std::function<void(RigidbodyComponent*,RigidbodyComponent*, b2Contact*)> m_OnExitFunction{};

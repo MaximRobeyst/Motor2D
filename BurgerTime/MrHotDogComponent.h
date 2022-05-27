@@ -50,13 +50,13 @@ private:
 	float m_Speed{ 32.f };
 	float m_MinDistance{ 0.25f };
 
-	dae::AnimatorComponent* m_pAnimatorComponent;
-	dae::RigidbodyComponent* m_pRigidbodyComponent;
-	dae::TransformComponent* m_pTransfomComponent;
-	dae::ColliderComponent* m_pColliderComponent;
+	dae::AnimatorComponent* m_pAnimatorComponent{};
+	dae::RigidbodyComponent* m_pRigidbodyComponent{};
+	dae::TransformComponent* m_pTransfomComponent{};
+	dae::ColliderComponent* m_pColliderComponent{};
 
 	dae::TransformComponent* m_pPlayerTransform{nullptr};
-	std::unique_ptr<Subject> m_pSubject;
+	std::unique_ptr<Subject> m_pSubject{};
 
 	glm::vec2 m_CurrentDirection{};
 	glm::vec2 m_CurrentTarget{};

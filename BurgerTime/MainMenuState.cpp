@@ -7,7 +7,9 @@
 #include <SpriteRendererComponent.h>
 #include <TextObject.h>
 
-#include "glm/glm.hpp"
+#pragma warning(push, 0)
+#include <glm/glm.hpp>
+#pragma warning (pop)
 
 #include "MenuCommands.h"
 #include <Renderer.h>
@@ -169,7 +171,7 @@ void MainMenuState::OnEnter()
 		new SwitchMenuStateCommand()
 	);
 
-	//scene.Start();
+	scene.Start();
 }
 
 void MainMenuState::OnExit()

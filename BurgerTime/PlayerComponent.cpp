@@ -65,7 +65,7 @@ void PlayerComponent::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>
 	writer.EndObject();
 }
 
-void PlayerComponent::Deserialize(dae::GameObject* pGameobject, rapidjson::Value& value)
+void PlayerComponent::Deserialize(dae::GameObject* pGameobject, rapidjson::Value& /*value*/)
 {
 	m_pGameObject = pGameobject;
 }

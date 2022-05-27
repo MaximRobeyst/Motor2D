@@ -1,8 +1,8 @@
 #include "LevelComponent.h"
 #include "imgui.h"
 
-LevelComponent::LevelComponent(dae::GameObject* m_pGameobject, int width, int height, std::vector<std::vector<char>> level)
-	: dae::Component(m_pGameObject)
+LevelComponent::LevelComponent(dae::GameObject* pGameobject, int width, int height, std::vector<std::vector<char>> level)
+	: dae::Component(pGameobject)
 	, m_Width{width}
 	, m_Height{height}
 	, m_Level{level}

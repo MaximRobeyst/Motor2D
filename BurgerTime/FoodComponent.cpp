@@ -1,4 +1,7 @@
+
+#pragma warning(push, 0)
 #include <glm/glm.hpp>
+#pragma warning (pop)
 #include <string>
 #include <SDL.h>
 #include <memory>
@@ -163,7 +166,7 @@ bool FoodComponent::GetFalling() const
 void FoodComponent::SetState(int i, bool newState)
 {
 	assert(i < m_Parts);
-	m_PartStates[i] = true;
+	m_PartStates[i] = newState;
 }
 
 void FoodComponent::SetCollidingWithPlayer(bool newState, dae::GameObject* pGameobject)

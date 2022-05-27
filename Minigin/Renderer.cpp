@@ -42,8 +42,6 @@ void dae::Renderer::Render() const
 	const auto& color = GetBackgroundColor();
 	SDL_SetRenderDrawColor(m_Renderer, color.r, color.g, color.b, color.a);
 	SDL_RenderClear(m_Renderer);
-
-	SceneManager::GetInstance().Render();
 #ifdef _DEBUG
 
 	ImGui_ImplOpenGL2_NewFrame();
@@ -55,6 +53,8 @@ void dae::Renderer::Render() const
 	ImGui::Render();
 	ImGui_ImplOpenGL2_RenderDrawData(ImGui::GetDrawData());
 #endif // _DEBUG
+
+	SceneManager::GetInstance().Render();
 	SDL_RenderPresent(m_Renderer);
 }
 
@@ -133,30 +133,21 @@ void dae::Renderer::RenderBox(float x, float y, float width, float height) const
 	SDL_SetRenderDrawColor(GetSDLRenderer(), r, g, b, a);
 }
 
-void dae::Renderer::RenderPolygon(glm::vec2* points, const int count, glm::vec4 color)
+void dae::Renderer::RenderPolygon(glm::vec2* points, const int count, SDL_Color color)
 {
 	std::vector<SDL_FPoint> pointsSDL(count);
 	for (int i = 0; i < count; ++i)
 		pointsSDL[i] = SDL_FPoint{ points[i].x, points[i].y };
 
-	Uint8 r, g, b, a;
-	SDL_GetRenderDrawColor(GetSDLRenderer(), &r, &g, &b, &a);
-	SDL_SetRenderDrawColor(GetSDLRenderer(), (Uint8)color.r, (Uint8)color.g, (Uint8)color.b, (Uint8)color.a);
+	SDL_SetRenderDrawColor(GetSDLRenderer(), color.r, color.g, color.b, color.a);
 	SDL_RenderDrawPointsF(GetSDLRenderer(), pointsSDL.data(), count);
-	SDL_SetRenderDrawColor(GetSDLRenderer(), r, g, b, a);
 }
 
-void dae::Renderer::RenderPolygon(const b2Vec2* points, const int32 count, glm::vec4 color)
+void dae::Renderer::RenderPolygon(const b2Vec2* points, const int32 count, SDL_Color color)
 {
-	std::vector<SDL_FPoint> pointsSDL(count);
-	for (int i = 0; i < count; ++i)
-		pointsSDL[i] = SDL_FPoint{ points[i].x, points[i].y };
-
-	Uint8 r, g, b, a;
-	SDL_GetRenderDrawColor(GetSDLRenderer(), &r, &g, &b, &a);
-	SDL_SetRenderDrawColor(GetSDLRenderer(), (Uint8)color.r, (Uint8)color.g, (Uint8)color.b, (Uint8)color.a);
+	SDL_SetRenderDrawColor(GetSDLRenderer(), color.r, color.g, color.b, color.a);
 	
-	glLineWidth(0.1f);
+	glLineWidth(1.f);
 	glBegin(GL_LINE_LOOP);
 	{
 		for (size_t idx{ 0 }; idx < static_cast<size_t>( count); ++idx)
@@ -165,15 +156,11 @@ void dae::Renderer::RenderPolygon(const b2Vec2* points, const int32 count, glm::
 		}
 	}
 	glEnd();
-
-	SDL_SetRenderDrawColor(GetSDLRenderer(), r, g, b, a);
 }
 
-void dae::Renderer::RenderCircle(glm::vec2 position, float radius, glm::vec4 color)
+void dae::Renderer::RenderCircle(glm::vec2 position, float radius, SDL_Color color)
 {
-	Uint8 r, g, b, a;
-	SDL_GetRenderDrawColor(GetSDLRenderer(), &r, &g, &b, &a);
-	SDL_SetRenderDrawColor(GetSDLRenderer(), (Uint8)color.r, (Uint8)color.g, (Uint8)color.b, (Uint8)color.a);
+	SDL_SetRenderDrawColor(GetSDLRenderer(), color.r, color.g, color.b, color.a);
 
 	float dAngle{ radius > radius ? float(M_PI / radius) : float(M_PI / radius) };
 
@@ -186,19 +173,16 @@ void dae::Renderer::RenderCircle(glm::vec2 position, float radius, glm::vec4 col
 		}
 	}
 	glEnd();
-	SDL_SetRenderDrawColor(GetSDLRenderer(), r, g, b, a);
 }
 
-void dae::Renderer::RenderCircle(b2Vec2 position, float radius, glm::vec4 color)
+void dae::Renderer::RenderCircle(b2Vec2 position, float radius, SDL_Color color)
 {
-	SDL_SetRenderDrawColor(GetSDLRenderer(), (Uint8)color.r, (Uint8)color.g, (Uint8)color.b, (Uint8)color.a);
-
 	RenderCircle(glm::vec2{ position.x, position.y }, radius, color);
 }
 
-void dae::Renderer::RenderLine(glm::vec2 p1, glm::vec2 p2, glm::vec4 color, float linewidth)
+void dae::Renderer::RenderLine(glm::vec2 p1, glm::vec2 p2, SDL_Color color, float linewidth)
 {
-	SDL_SetRenderDrawColor(GetSDLRenderer(), (Uint8)color.r, (Uint8)color.g, (Uint8)color.b, (Uint8)color.a);
+	SDL_SetRenderDrawColor(GetSDLRenderer(), color.r, color.g, color.b, color.a);
 	glLineWidth(linewidth);
 	glBegin(GL_LINES);
 	{
@@ -208,7 +192,7 @@ void dae::Renderer::RenderLine(glm::vec2 p1, glm::vec2 p2, glm::vec4 color, floa
 	glEnd();
 }
 
-void dae::Renderer::RenderLine(const b2Vec2& p1, const b2Vec2& p2, glm::vec4 color, float linewidth)
+void dae::Renderer::RenderLine(const b2Vec2& p1, const b2Vec2& p2, SDL_Color color, float linewidth)
 {
 	RenderLine(glm::vec2{ p1.x, p1.y }, glm::vec2{ p2.x, p2.y }, color, linewidth);
 }

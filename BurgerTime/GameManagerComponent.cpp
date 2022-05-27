@@ -11,7 +11,7 @@ GameManagerComponent::GameManagerComponent(dae::GameObject* pGameobject, dae::Ga
 {
 }
 
-void GameManagerComponent::Notify(const dae::GameObject& gameObject, const Event& action)
+void GameManagerComponent::Notify(const dae::GameObject& /*gameObject*/, const Event& action)
 {
 	switch (action)
 	{

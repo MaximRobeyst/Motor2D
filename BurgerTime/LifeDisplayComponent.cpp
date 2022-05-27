@@ -7,7 +7,9 @@
 #include <SpriteRendererComponent.h>
 #include <Scene.h>
 
+#pragma warning(push, 0)
 #include <glm/glm.hpp>
+#pragma warning (pop)
 #include <sdl.h>
 
 LifeDisplayComponent::LifeDisplayComponent(dae::GameObject* pGameObject, int number, const std::string& extraDisplayText)

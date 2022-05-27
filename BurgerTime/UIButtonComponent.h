@@ -1,6 +1,8 @@
 #pragma once
 #include <Component.h>
+#pragma warning(push, 0)
 #include <glm/glm.hpp>
+#pragma warning (pop)
 
 #include <functional>
 
@@ -14,6 +16,7 @@ namespace dae
 
 struct ButtonFunction
 {
+	virtual ~ButtonFunction() = default;
 	virtual void operator()() = 0;
 };
 

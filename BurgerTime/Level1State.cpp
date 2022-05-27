@@ -552,9 +552,11 @@ void Level1State::MakeLevel(Scene& pScene)
 	pScene.AddGameObject(pEnemySpawner);
 
 	float scale{ 2.f };
-	for (int i = 0; i < level.size(); ++i)
+	int width = static_cast<int>(level.size());
+	for (int i = 0; i < width; ++i)
 	{
-		for (int j = 0; j < level[i].size(); ++j)
+		int height = static_cast<int>(level[i].size());
+		for (int j = 0; j < height; ++j)
 		{
 			if (level[i][j] == '.')
 				continue;
@@ -568,18 +570,18 @@ void Level1State::MakeLevel(Scene& pScene)
 			{
 				pGameobject->SetName("Ladder " + std::to_string(++ladder));
 				float y{};
-				if ((i + 1 < level.size() && level[i + 1][j] == 'L' && i - 1 > 0 && level[i - 1][j] == 'L') &&
-					((j + 1 < level.size() && level[i][j + 1] == 'P') || (j - 1 > 0 && level[i][j - 1] == 'P')))
+				if ((i + 1 <  width && level[i + 1][j] == 'L' && i - 1 > 0 && level[i - 1][j] == 'L') &&
+					((j + 1 < height && level[i][j + 1] == 'P') || (j - 1 > 0 && level[i][j - 1] == 'P')))
 					y = 16;
-				else if ((i + 1 < level.size() && level[i + 1][j] == 'L' && i - 1 > 0 && level[i - 1][j] == 'L') && (j - 1 > 0 && level[i][j - 1] == 'P'))
+				else if ((i + 1 < width&& level[i + 1][j] == 'L' && i - 1 > 0 && level[i - 1][j] == 'L') && (j - 1 > 0 && level[i][j - 1] == 'P'))
 					y = 16;
-				else if (i + 1 < level.size() && level[i + 1][j] == 'L' && i - 1 > 0 && level[i - 1][j] == 'L')
+				else if (i + 1 < width && level[i + 1][j] == 'L' && i - 1 > 0 && level[i - 1][j] == 'L')
 					y = 8;
-				else if (i + 1 < level.size() && level[i + 1][j] == '.' && i - 1 > 0 && level[i - 1][j] == 'L')
+				else if (i + 1 < width && level[i + 1][j] == '.' && i - 1 > 0 && level[i - 1][j] == 'L')
 					y = 16;
 
 
-				if (j + 1 < level[i].size() && level[i][j + 1] == 'L')
+				if (j + 1 < height && level[i][j + 1] == 'L')
 					pGameobject->AddComponent(new SpriteRendererComponent(pGameobject, "Level_SpriteSheet.png", SDL_FRect{ 0, y, 8, 8 }));
 				else
 					pGameobject->AddComponent(new SpriteRendererComponent(pGameobject, "Level_SpriteSheet.png", SDL_FRect{ 8, y, 8, 8 }));

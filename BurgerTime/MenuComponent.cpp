@@ -15,7 +15,7 @@ MenuComponent::MenuComponent(dae::GameObject* pGameobject, dae::GameObject* pPoi
 
 void MenuComponent::Start()
 {
-	for (int i = 0; i < m_pGameObject->GetAmountOfChildren(); ++i)
+	for (size_t i = 0; i < m_pGameObject->GetAmountOfChildren(); ++i)
 	{
 		m_pButtonObjects.push_back(m_pGameObject->GetChildFromIndex(i)->GetComponent<UIButtonComponent>());
 	}

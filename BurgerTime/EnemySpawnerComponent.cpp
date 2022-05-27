@@ -13,6 +13,7 @@
 #include <SpriteRendererComponent.h>
 #include <Subject.h>
 #include <AnimatorComponent.h>
+#include <GameObject.h>
 
 dae::Creator<dae::Component, EnemySpawnerComponent> g_EnemySpawnerComponentCreator;
 
@@ -25,7 +26,7 @@ EnemySpawnerComponent::~EnemySpawnerComponent()
 {
 }
 
-void EnemySpawnerComponent::Notify(const dae::GameObject& gameObject, const Event& action)
+void EnemySpawnerComponent::Notify(const dae::GameObject& /*gameObject*/, const Event& action)
 {
 	if (action == Event::Enemy_Died)
 		m_Count--;
@@ -53,9 +54,9 @@ void EnemySpawnerComponent::Update()
 
 void EnemySpawnerComponent::Render() const
 {
-	for (auto point : m_SpawnPoints)
+	for (auto& point : m_SpawnPoints)
 	{
-		dae::Renderer::GetInstance().RenderCircle(point, 2.f);
+		dae::Renderer::GetInstance().RenderCircle(point, 2.f, SDL_Color{255, 0, 0, 255});
 	}
 }
 
@@ -68,7 +69,7 @@ void EnemySpawnerComponent::Serialize(rapidjson::PrettyWriter<rapidjson::StringB
 	writer.Int(m_MaxCount);
 	writer.Key("SpawnPoints");
 	writer.StartArray();
-	for (auto spawnPoint : m_SpawnPoints)
+	for (const auto& spawnPoint : m_SpawnPoints)
 	{
 		writer.StartObject();
 
@@ -146,7 +147,7 @@ dae::GameObject* EnemySpawnerComponent::CreateMrHotDog(glm::vec3 position)
 dae::GameObject* EnemySpawnerComponent::CreateMrEgg(glm::vec3 position)
 {
 	auto pEggGameObject = new dae::GameObject("MrEgg");
-	pEggGameObject->AddComponent(new dae::TransformComponent(pEggGameObject, glm::vec3(288.f, 144.f, 0), glm::vec3{ 2.f }));
+	pEggGameObject->AddComponent(new dae::TransformComponent(pEggGameObject, position, glm::vec3{ 2.f }));
 	pEggGameObject->AddComponent(new dae::SpriteRendererComponent(pEggGameObject, "BurgerTime_SpriteSheet.png"));
 	pEggGameObject->AddComponent(new dae::AnimatorComponent(pEggGameObject, "../Data/Animations/EggAnimations.json"));
 	pEggGameObject->AddComponent(new dae::ColliderComponent(pEggGameObject, 15.f, 15.f, glm::vec2{ 8.f, 8.5f }));

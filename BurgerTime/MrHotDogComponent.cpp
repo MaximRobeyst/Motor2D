@@ -99,7 +99,7 @@ void EnemyComponent::Update()
 void EnemyComponent::Render() const
 {
 	dae::Renderer::GetInstance().RenderCircle(m_CurrentTarget, 1.f);
-	dae::Renderer::GetInstance().RenderLine(m_pTransfomComponent->GetPosition(), glm::vec2{ m_pTransfomComponent->GetPosition() } + m_CurrentDirection, glm::vec4{ 255.f, 255.f, 0.f, 255.f });
+	dae::Renderer::GetInstance().RenderLine(m_pTransfomComponent->GetPosition(), glm::vec2{ m_pTransfomComponent->GetPosition() } + m_CurrentDirection, SDL_Color{ 255, 255, 0, 255 });
 
 
 	b2Vec2 startPosition{
@@ -109,16 +109,16 @@ void EnemyComponent::Render() const
 	float rayDistance = m_pColliderComponent->GetSize().x;
 
 	b2Vec2 directions[4] = { b2Vec2{0,-1 * rayDistance}, b2Vec2{-1 * rayDistance,0}, b2Vec2{0, 1 * rayDistance}, b2Vec2{1 * rayDistance, 0} };
-	int indexForShortestDistance{};
 
 	for (int i = 0; i < 4; ++i)
 	{
 		b2Vec2 endPosition = startPosition + directions[i];
-		dae::Renderer::GetInstance().RenderLine(startPosition, endPosition, glm::vec4{ 255.f, 0.f, 255.f, 255.f });
+		dae::Renderer::GetInstance().RenderLine(startPosition, endPosition, SDL_Color{ 255, 0, 255, 255 });
 
 	}
 
-	dae::Renderer::GetInstance().RenderCircle(m_CurrentTarget, 10.f, glm::vec4{ 255.f, 255.f, 0.f, 255.f });
+	dae::Renderer::GetInstance().RenderCircle(m_CurrentTarget, 10.f, SDL_Color{ 255, 255, 0, 255 });
+	dae::Renderer::GetInstance().RenderCircle(m_pPlayerTransform->GetPosition(), 10.f, SDL_Color{255, 255, 0, 255});
 
 }
 
@@ -128,6 +128,8 @@ void EnemyComponent::RenderGUI()
 	ImGui::InputFloat2("CurrentDirection", target);
 	float position[2] = { m_pTransfomComponent->GetPosition().x, m_pTransfomComponent->GetPosition().y };
 	ImGui::InputFloat2("CurrentPosition", position);
+	float playerPosition[2] = { m_pPlayerTransform->GetPosition().x, m_pPlayerTransform->GetPosition().y };
+	ImGui::InputFloat2("CurrentPosition", playerPosition);
 
 	ImGui::InputFloat("minimum distance", &m_MinDistance);
 }
@@ -228,21 +230,29 @@ void EnemyComponent::ChooseNextTarget()
 	};
 
 	glm::vec2 potentialPosition[4];
-	glm::vec2 directions[4] = { glm::vec2{0,-1}, glm::vec2{-1,0}, glm::vec2{0, 1}, glm::vec2{1, 0} };
+	glm::vec2 directions[4] = { 
+		glm::vec2{0,-1 * (m_pColliderComponent->GetSize().y) }, glm::vec2{-1 * (m_pColliderComponent->GetSize().x) ,0},
+		glm::vec2{0, 1 * (m_pColliderComponent->GetSize().y) }, glm::vec2{1 * (m_pColliderComponent->GetSize().x) , 0}
+	};
 	int indexForShortestDistance{};
+	float shortestDistance{ FLT_MAX };
 
 	dae::RaycastCallback raycastCallback{};
 
 	for (int i = 0; i < 4; ++i)
 	{
-		potentialPosition[i] = glm::vec2{ m_pTransfomComponent->GetPosition() } + (directions[i] * 16.f);
+		potentialPosition[i] = glm::vec2{ m_pTransfomComponent->GetPosition() } + (directions[i]);
 		potentialPosition[i] = glm::vec2{ roundf(potentialPosition[i].x), roundf(potentialPosition[i].y) };
-		if (glm::distance(potentialPosition[i], glm::vec2{ m_pPlayerTransform->GetPosition() }) < glm::distance(glm::vec2{ m_pPlayerTransform->GetPosition() }, potentialPosition[indexForShortestDistance]))
+
+		float currentDistance = glm::distance(potentialPosition[i], glm::vec2{ m_pPlayerTransform->GetPosition() });
+
+		if (currentDistance <= shortestDistance)
 		{
-			b2Vec2 endPosition{ potentialPosition[i].x, potentialPosition[i].y };
+			b2Vec2 endPosition{ startPosition.x + directions[i].x , startPosition.y + directions[i].y };
 			m_pGameObject->GetScene()->GetPhysicsWorld()->RayCast(&raycastCallback, startPosition, endPosition);
 			if (raycastCallback.GetLatestHit().pHitObject == nullptr)
 			{
+				shortestDistance = glm::distance(glm::vec2{ m_pPlayerTransform->GetPosition() }, potentialPosition[indexForShortestDistance]);
 				indexForShortestDistance = i;
 			}
 		}

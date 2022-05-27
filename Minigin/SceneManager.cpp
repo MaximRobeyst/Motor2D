@@ -64,7 +64,6 @@ dae::Scene& dae::SceneManager::CreateScene(const std::string& name)
 {
 	const auto& scene = new Scene(name);
 	m_Scenes.push_back(scene);
-	//scene->Start();
 
 	return *scene;
 }

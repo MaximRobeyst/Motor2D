@@ -38,7 +38,7 @@ namespace dae
 		GameObject* GetGameObject() const;
 
 	protected:
-		GameObject* m_pGameObject;
+		GameObject* m_pGameObject{};
 	};
 }
 

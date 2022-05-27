@@ -29,16 +29,16 @@ Scene::Scene(const std::string& name, const b2Vec2& gravity)
 	m_PhysicsWorld->SetContactListener(m_pCollisionHandler);
 
 
-	//m_pPhysicsDebugDraw = new PhysicsDebugDraw();
-	//
-	//uint32 flags = 0;
-	//flags += b2Draw::e_shapeBit;
+	m_pPhysicsDebugDraw = new PhysicsDebugDraw();
+	
+	uint32 flags = 0;
+	flags += b2Draw::e_shapeBit;
 	//flags += b2Draw::e_jointBit;
-	//flags += b2Draw::e_aabbBit;
-	//flags += b2Draw::e_centerOfMassBit;
-	//m_pPhysicsDebugDraw->SetFlags(flags);
-	//
-	//m_PhysicsWorld->SetDebugDraw(m_pPhysicsDebugDraw);
+	flags += b2Draw::e_aabbBit;
+	flags += b2Draw::e_centerOfMassBit;
+	m_pPhysicsDebugDraw->SetFlags(flags);
+	
+	m_PhysicsWorld->SetDebugDraw(m_pPhysicsDebugDraw);
 }
 
 #ifdef _DEBUG
@@ -162,12 +162,15 @@ void Scene::Render() const
 		object->Render();
 	}
 
-	//m_PhysicsWorld->DebugDraw();
+	if (m_DebugPhysics)
+		m_PhysicsWorld->DebugDraw();
+
 }
 
 #ifdef _DEBUG
 void dae::Scene::RenderGUI()
 {
+
 	ImGuiWindowFlags windowFlags = 0;
 	windowFlags |= ImGuiWindowFlags_MenuBar;
 

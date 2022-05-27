@@ -26,14 +26,14 @@ namespace dae
 
 		void RenderBox(float x, float y, float width, float height) const;
 
-		void RenderPolygon(glm::vec2* points, const int count, glm::vec4 color = glm::vec4{0.f, 255.f, 0.f, 255.f});
-		void RenderPolygon(const b2Vec2* points, const int32 count, glm::vec4 color = glm::vec4{ 0.f, 255.f, 0.f, 255.f });
+		void RenderPolygon(glm::vec2* points, const int count, SDL_Color color);
+		void RenderPolygon(const b2Vec2* points, const int32 count, SDL_Color color);
 
-		void RenderCircle(glm::vec2 position, float radius, glm::vec4 color = glm::vec4{ 0.f,255.5, 0.5, 255.f });
-		void RenderCircle(b2Vec2 position, float radius, glm::vec4 color);
+		void RenderCircle(glm::vec2 position, float radius, SDL_Color color = SDL_Color{255, 0, 0, 255});
+		void RenderCircle(b2Vec2 position, float radius, SDL_Color color = SDL_Color{ 255, 0, 0, 255 });
 
-		void RenderLine(glm::vec2 p1, glm::vec2 p2, glm::vec4 color, float linewidth = 1.0f);
-		void RenderLine(const b2Vec2& p1, const b2Vec2& p2, glm::vec4 color, float linewidth = 1.0f);
+		void RenderLine(glm::vec2 p1, glm::vec2 p2, SDL_Color color, float linewidth = 1.0f);
+		void RenderLine(const b2Vec2& p1, const b2Vec2& p2, SDL_Color color, float linewidth = 1.0f);
 
 		SDL_Renderer* GetSDLRenderer() const { return m_Renderer; }
 

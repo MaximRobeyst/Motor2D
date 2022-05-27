@@ -9,9 +9,6 @@ class LifeComponent final : public dae::Component
 public:
 	LifeComponent(dae::GameObject* pGameObject, int lives = 3);
 
-	void Update() override {};
-	void Render() const override {};
-
 	void Serialize(rapidjson::PrettyWriter< rapidjson::StringBuffer>& writer) override;
 
 

@@ -33,8 +33,8 @@ namespace dae
 
 		friend class Singleton<SceneManager>;
 		SceneManager() = default;
-		std::vector<Scene*> m_Scenes;
-		std::set<int> m_ScenesToRemove;
-		char m_TargetSceneName[128];
+		std::vector<Scene*> m_Scenes{};
+		std::set<int> m_ScenesToRemove{};
+		char m_TargetSceneName[128]{};
 	};
 }

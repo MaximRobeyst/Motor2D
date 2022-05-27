@@ -10,32 +10,11 @@ dae::Creator<dae::Component, dae::RigidbodyComponent> s_TranformComponentCreate{
 
 dae::RigidbodyComponent::RigidbodyComponent(dae::GameObject* pGameobject, b2BodyType bodyType, float density, float friction, bool IsSensor)
 	: Component(pGameobject)
-	//, m_pTransformComponent{ pGameobject->GetComponent<TransformComponent>() }
-	//, m_pWorld { SceneManager::GetInstance().GetScene(1)->GetPhysicsWorld() }
 	, m_Density{density}
 	, m_Friction{friction}
 	, m_Bodydef{bodyType}
 	, m_IsSensor{IsSensor}
 {
-	//m_pColliderComponent = pGameobject->GetComponent<dae::ColliderComponent>();
-	//
-	//// Create body this is done with the collider
-	//b2BodyDef bodyDef;
-	//bodyDef.type = bodyType;
-	//bodyDef.fixedRotation = true;
-	//bodyDef.allowSleep = false;
-	//bodyDef.position.Set(m_pTransformComponent->GetPosition().x, m_pTransformComponent->GetPosition().y);
-	//bodyDef.userData.pointer = reinterpret_cast<uintptr_t>(this);
-	//m_pBody = m_pWorld->CreateBody(&bodyDef);
-	//
-	//// Create the fxiture
-	//b2FixtureDef fixtureDef;
-	//fixtureDef.shape = m_pColliderComponent->GetDynamicBox();
-	//fixtureDef.density = m_Density;
-	//fixtureDef.friction = m_Friction;
-	//fixtureDef.isSensor = IsSensor;
-	//
-	//m_pBody->CreateFixture(&fixtureDef);
 }
 
 dae::RigidbodyComponent::~RigidbodyComponent()
@@ -69,6 +48,15 @@ void dae::RigidbodyComponent::Render() const
 
 	//auto& pos = m_pTransformComponent->GetPosition();
 	//m_pBody->SetTransform(b2Vec2{ pos.x, pos.y }, 0.0f);
+}
+
+void dae::RigidbodyComponent::RenderGUI()
+{
+	m_pBody->GetTransform();
+
+
+	ImGui::Text(("Current Velocity: [" + std::to_string(m_pBody->GetLinearVelocity().x) + ", " + std::to_string(m_pBody->GetLinearVelocity().y) + "] ").c_str());
+
 }
 
 void dae::RigidbodyComponent::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>& writer)
