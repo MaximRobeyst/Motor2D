@@ -89,7 +89,7 @@ void Level1State::OnEnter()
 	scene.AddGameObject(go);
 
 	m_pPlayerObject = new GameObject("PeterPete_Player");
-	auto pPlayerTransform = new TransformComponent(m_pPlayerObject, glm::vec3{ 96.f, 296.f, 0 }, glm::vec3{ 2.f });
+	auto pPlayerTransform = new TransformComponent(m_pPlayerObject, glm::vec3{ 192.f, 296.f, 0 }, glm::vec3{ 2.f });
 	m_pPlayerObject->AddComponent(pPlayerTransform);
 	m_pPlayerObject->AddComponent(new SpriteRendererComponent(m_pPlayerObject, "BurgerTime_SpriteSheet.png"));
 	m_pPlayerObject->AddComponent(new AnimatorComponent(m_pPlayerObject, "../Data/Animations/PlayerAnimations.json"));

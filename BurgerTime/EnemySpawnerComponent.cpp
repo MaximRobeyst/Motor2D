@@ -141,7 +141,6 @@ dae::GameObject* EnemySpawnerComponent::CreateMrHotDog(glm::vec3 position)
 	pHotDogGameObject->SetParent(m_pGameObject);
 
 	return pHotDogGameObject;
-
 }
 
 dae::GameObject* EnemySpawnerComponent::CreateMrEgg(glm::vec3 position)

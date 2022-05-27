@@ -11,6 +11,9 @@
 #include <glm/glm.hpp>
 #pragma warning (pop)
 #include <sdl.h>
+#include <GameStateManager.h>
+
+#include "LeaderboardState.h"
 
 LifeDisplayComponent::LifeDisplayComponent(dae::GameObject* pGameObject, int number, const std::string& extraDisplayText)
 	: dae::Component{pGameObject}
@@ -56,9 +59,15 @@ void LifeDisplayComponent::Notify(const dae::GameObject& gameObject, const Event
 	{
 	case Event::Player_Died:
 		 ChangeText(gameObject.GetComponent<LifeComponent>()->GetLives());
-		 dae::SceneManager::GetInstance().GetScene(0)->RemoveGameObject(m_pLifeSprites[m_pLifeSprites.size() - 1]);
-		 m_pLifeSprites.pop_back();
 
+		 if (gameObject.GetComponent<LifeComponent>()->GetLives() <= 0)
+		 {
+			 GameStateManager::GetInstance().SwitchGameState(new LeaderboardState(100));
+			 return;
+		 }
+
+		 m_pGameObject->GetScene()->RemoveGameObject(m_pLifeSprites[m_pLifeSprites.size() - 1]);
+		 m_pLifeSprites.pop_back();
 	default:
 		break;
 	}

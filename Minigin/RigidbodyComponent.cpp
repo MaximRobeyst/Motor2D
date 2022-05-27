@@ -148,6 +148,11 @@ void dae::RigidbodyComponent::ChangeShape(b2Shape* pShape)
 
 void dae::RigidbodyComponent::ChangeBody(b2BodyType bodyType, float density, float friction, bool isSensor)
 {
+	if (m_pBody != nullptr)
+	{
+		m_pWorld->DestroyBody(m_pBody);
+	}
+
 	m_Bodydef = bodyType;
 	m_Density = density;
 	m_Friction = friction;

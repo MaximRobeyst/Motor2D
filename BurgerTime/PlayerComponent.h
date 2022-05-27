@@ -40,13 +40,13 @@ private:
 	void UpdatePeper();
 	void UpdateDying();
 
-	PlayerState m_CurrentState;
+	PlayerState m_CurrentState{};
 	glm::vec3 m_StartPosition{};
 
-	dae::RigidbodyComponent* m_pRigidbody;
-	dae::TransformComponent* m_pTranformComponent;
-	dae::AnimatorComponent* m_pAnimatorComponent;
-	LifeComponent* m_pLifeComponent;
+	dae::RigidbodyComponent* m_pRigidbody{};
+	dae::TransformComponent* m_pTranformComponent{};
+	dae::AnimatorComponent* m_pAnimatorComponent{};
+	LifeComponent* m_pLifeComponent{};
 
 	dae::AxisManager* m_pHorizontalAxis{};
 	dae::AxisManager* m_pVerticalAxis{};

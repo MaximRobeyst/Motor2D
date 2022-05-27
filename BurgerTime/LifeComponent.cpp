@@ -20,8 +20,7 @@ void LifeComponent::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>& 
 
 void LifeComponent::Hit()
 {
-	if (m_Lives == 0 || !m_Enabled)
-		return;
+	if (m_Lives == 0 || !m_Enabled) return;
 
 	--m_Lives;
 

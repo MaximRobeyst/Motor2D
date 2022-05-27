@@ -99,7 +99,7 @@ void EnemyComponent::Update()
 void EnemyComponent::Render() const
 {
 	dae::Renderer::GetInstance().RenderCircle(m_CurrentTarget, 1.f);
-	dae::Renderer::GetInstance().RenderLine(m_pTransfomComponent->GetPosition(), glm::vec2{ m_pTransfomComponent->GetPosition() } + m_CurrentDirection, SDL_Color{ 255, 255, 0, 255 });
+	//dae::Renderer::GetInstance().RenderLine(m_pTransfomComponent->GetPosition(), glm::vec2{ m_pTransfomComponent->GetPosition() }, SDL_Color{ 255, 255, 0, 255 });
 
 
 	b2Vec2 startPosition{
@@ -174,7 +174,10 @@ void EnemyComponent::UpdateWalk()
 		ChooseNextTarget();
 	}
 
-	if (m_pRigidbodyComponent->GetBody()->GetLinearVelocity().LengthSquared() < 0.0f)
+	difference = (m_PreviousPosition -m_pTransfomComponent->GetPosition());
+	distance = powf(difference.x, 2) + powf(difference.y, 2);
+
+	if (distance <= 0.0f)
 	{
 		ChooseNextTarget();
 	}
@@ -183,6 +186,7 @@ void EnemyComponent::UpdateWalk()
 	currentDirection = glm::normalize(currentDirection) * m_Speed;
 	
 	m_pRigidbodyComponent->GetBody()->SetLinearVelocity(b2Vec2{ currentDirection.x, currentDirection.y });
+	m_PreviousPosition = m_pTransfomComponent->GetPosition();
 
 	// Raycast up to check if we can climb a ladder
 	//bool spaceAbove = SpaceAbove();
@@ -200,21 +204,6 @@ void EnemyComponent::UpdateWalk()
 	//	return;
 	//}
 	
-}
-
-void EnemyComponent::UpdateClimb()
-{
-	// Raycast up to check if we can climb a ladder
-	if (!SpaceAbove())
-	{
-		if (m_pPlayerTransform->GetPosition().x < m_pTransfomComponent->GetPosition().x)
-			m_CurrentDirection.x = -1.f;
-		else
-			m_CurrentDirection.x = 1.f;
-	}
-
-	if(SpaceLeft() && m_CurrentDirection.x)
-		m_pRigidbodyComponent->GetBody()->SetLinearVelocity(b2Vec2{ 0.f, -m_Speed });
 }
 
 void EnemyComponent::UpdatePlayerDeath()
@@ -241,13 +230,14 @@ void EnemyComponent::ChooseNextTarget()
 
 	for (int i = 0; i < 4; ++i)
 	{
-		potentialPosition[i] = glm::vec2{ m_pTransfomComponent->GetPosition() } + (directions[i]);
+		potentialPosition[i] = m_CurrentTarget + (directions[i]);
 		potentialPosition[i] = glm::vec2{ roundf(potentialPosition[i].x), roundf(potentialPosition[i].y) };
 
 		float currentDistance = glm::distance(potentialPosition[i], glm::vec2{ m_pPlayerTransform->GetPosition() });
 
 		if (currentDistance <= shortestDistance)
 		{
+			dae::Renderer::GetInstance().RenderCircle(potentialPosition[i], 10.f, SDL_Color{ 255, 255, 0, 255 });
 			b2Vec2 endPosition{ startPosition.x + directions[i].x , startPosition.y + directions[i].y };
 			m_pGameObject->GetScene()->GetPhysicsWorld()->RayCast(&raycastCallback, startPosition, endPosition);
 			if (raycastCallback.GetLatestHit().pHitObject == nullptr)

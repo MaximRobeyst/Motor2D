@@ -35,7 +35,6 @@ public:
 	std::unique_ptr<Subject>& GetSubject();
 private:
 	void UpdateWalk();
-	void UpdateClimb();
 	void UpdatePlayerDeath();
 	void ChooseNextTarget();
 
@@ -58,7 +57,7 @@ private:
 	dae::TransformComponent* m_pPlayerTransform{nullptr};
 	std::unique_ptr<Subject> m_pSubject{};
 
-	glm::vec2 m_CurrentDirection{};
+	glm::vec3 m_PreviousPosition{};
 	glm::vec2 m_CurrentTarget{};
 
 	// State machine
