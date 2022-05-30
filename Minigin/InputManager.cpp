@@ -70,22 +70,54 @@ void dae::InputManager::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffe
 	writer.Key("Keyboard");
 	m_pKeyboard->Serialize(writer);
 
-	// Serialize controller
+	for (size_t i = 0; i < m_pXbox360Controllers.size(); ++i)
+	{
+		writer.Key(("Controller " + std::to_string(i)).c_str());
+		m_pXbox360Controllers[i]->Serialize(writer);
+	}
 
-	//for (auto& axis : m_Axeses)
-	//{
-	//	writer.Key("PositiveKey");
-	//	writer.Key("NegativeKey");
-	//	writer.Key("Device");
-	//}
+	writer.Key("Axises");
+	writer.StartArray();
+	for (auto& axis : m_Axeses)
+	{
+		writer.Key("Name");
+		writer.String(axis.first.c_str());
+
+		writer.Key("Axis");
+		axis.second->Serialize(writer);
+	}
+	writer.EndArray();
 
 	writer.EndObject();
 }
 
 void dae::InputManager::Deserialize(rapidjson::Value& value, dae::Scene* pScene)
 {
-	m_pXbox360Controllers.reserve( value["ControllerCount"].GetInt());
+	for (size_t i = 0; i < m_pXbox360Controllers.size(); ++i)
+	{
+		m_pXbox360Controllers[i]->ClearInputs();
+	}
+	m_pXbox360Controllers.clear();
+
+	const size_t controllerCount = value["ControllerCount"].GetInt();
+	m_pXbox360Controllers.reserve( controllerCount);
 	m_pKeyboard->Deserialize(value["Keyboard"], pScene);
+	for (size_t i = 0; i < controllerCount; ++i)
+	{
+		std::shared_ptr<Xbox360Controller> controller = std::make_shared<Xbox360Controller>(i);
+		AddController(controller);
+		controller->Deserialize(value[("Controller " + std::to_string(i)).c_str()], pScene);
+	}
+
+	for (auto axis : m_Axeses) delete axis.second;
+	m_Axeses.clear();
+
+	for (auto iter = value["Axises"].Begin(); iter != value["Axises"].End(); ++iter)
+	{
+		auto& key = *iter;
+		m_Axeses[key["Name"].GetString()] = dae::Factory<AxisManager>::GetInstance().Create(key["Axis"]["Name"].GetString());
+		m_Axeses[key["Name"].GetString()]->Deserialize(key["Axis"], this);
+	}
 }
 
 glm::vec2 dae::InputManager::GetMousePosition() const
@@ -106,6 +138,8 @@ dae::AxisManager* dae::InputManager::GetAxis(const std::string& name)
 	return m_Axeses[name];
 }
 
+dae::Creator<dae::AxisManager, dae::KeyboardAxis> g_KeyboardAxisCreator{};
+
 dae::KeyboardAxis::KeyboardAxis(int positive, int negative, std::shared_ptr<dae::Keyboard> keyboard)
 	: m_KeyboardKeyPositive{positive}
 	, m_KeyboardKeyNegative{negative}
@@ -118,14 +152,58 @@ int dae::KeyboardAxis::GetAxisValue()
 	return (int)(m_Keyboard->IsPressed(m_KeyboardKeyPositive) -m_Keyboard->IsPressed(m_KeyboardKeyNegative));
 }
 
+void dae::KeyboardAxis::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>& writer)
+{
+	writer.StartObject();
+	writer.Key("Name");
+	writer.String(typeid(*this).name());
+
+	writer.Key("PositiveKey");
+	writer.Int(m_KeyboardKeyPositive);
+	writer.Key("NegativeKey");
+	writer.Int(m_KeyboardKeyNegative);
+	writer.EndObject();
+}
+
+void dae::KeyboardAxis::Deserialize(rapidjson::Value& value, dae::InputManager* pInputManager)
+{
+	m_Keyboard = pInputManager->GetKeyboard();
+	m_KeyboardKeyPositive = value["PositiveKey"].GetInt();
+	m_KeyboardKeyNegative = value["NegativeKey"].GetInt();
+}
+
+dae::Creator<dae::AxisManager, dae::ControllerAxis> g_ControllerAxisCreator{};
+
 dae::ControllerAxis::ControllerAxis(ControllerButton positive, ControllerButton negative, std::shared_ptr<dae::Xbox360Controller> controller)
 	: m_ControllerButtonPositive{ positive }
 	, m_ControllerButtonNegative{ negative }
-	, m_Contrller{ controller }
+	, m_Controller{ controller }
 {
+}
+
+void dae::ControllerAxis::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>& writer)
+{
+	writer.StartObject();
+	writer.Key("Name");
+	writer.String(typeid(*this).name());
+
+	writer.Key("PositiveKey");
+	writer.Int(static_cast<int>(m_ControllerButtonPositive));
+	writer.Key("NegativeKey");
+	writer.Int(static_cast<int>(m_ControllerButtonNegative));
+	writer.Key("ControllerIndex");
+	writer.Int(m_Controller->GetIndex());
+	writer.EndObject();
+}
+
+void dae::ControllerAxis::Deserialize(rapidjson::Value& value, dae::InputManager* pScene)
+{
+	m_Controller = pScene->GetController(value["ControllerIndex"].GetInt());
+	m_ControllerButtonPositive = static_cast<ControllerButton>(value["PositiveKey"].GetInt());
+	m_ControllerButtonNegative = static_cast<ControllerButton>(value["NegativeKey"].GetInt());
 }
 
 int dae::ControllerAxis::GetAxisValue()
 {
-	return (int)(m_Contrller->IsPressed(m_ControllerButtonPositive) - m_Contrller->IsPressed(m_ControllerButtonNegative));
+	return (int)(m_Controller->IsPressed(m_ControllerButtonPositive) - m_Controller->IsPressed(m_ControllerButtonNegative));
 }

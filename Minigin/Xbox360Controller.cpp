@@ -18,6 +18,8 @@ public:
 	bool IsUpThisFrame(unsigned int button) const;
 	bool IsPressed(unsigned int button) const;
 
+	int GetIndex() const;
+
 private:
 	XINPUT_STATE m_PreviousState{};
 	XINPUT_STATE m_CurrentState{};
@@ -59,6 +61,11 @@ bool dae::Xbox360Controller::Xbox360ControllerImpl::IsUpThisFrame(unsigned int b
 bool dae::Xbox360Controller::Xbox360ControllerImpl::IsPressed(unsigned int button) const
 {
 	return m_CurrentState.Gamepad.wButtons & button;
+}
+
+int dae::Xbox360Controller::Xbox360ControllerImpl::GetIndex() const
+{
+	return m_ControllerIndex;
 }
 
 dae::Xbox360Controller::Xbox360Controller(int controllerIndex)
@@ -115,4 +122,40 @@ void dae::Xbox360Controller::AddControllerMapping(const ControllerButtonData& co
 		delete m_ControllerMap[controllerData];
 
 	m_ControllerMap[controllerData] = pCommand;
+}
+
+int dae::Xbox360Controller::GetIndex() const
+{
+	return m_pImpl->GetIndex();
+}
+
+void dae::Xbox360Controller::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>& writer)
+{
+	writer.StartArray();
+
+	for (auto& p : m_ControllerMap)
+	{
+		writer.StartObject();
+		writer.Key("Button");
+		writer.Int( static_cast<int>(p.first.controllerButton));
+		writer.Key("State");
+		writer.Int(static_cast<int>(p.first.buttonState));
+		writer.Key("Command");
+		p.second->Serialize(writer);
+		writer.EndObject();
+	}
+
+	writer.EndArray();
+}
+
+void dae::Xbox360Controller::Deserialize(rapidjson::Value& value, dae::Scene* pScene)
+{
+	ClearInputs();
+	for (auto iter = value.Begin(); iter != value.End(); ++iter)
+	{
+		auto& buttonData = *iter;
+		ControllerButtonData data{static_cast<dae::ControllerButton>(buttonData["Button"].GetInt()), static_cast<dae::ButtonState>(buttonData["State"].GetInt()) };
+		m_ControllerMap[data] = Factory<Command>::GetInstance().Create(buttonData["Command"]["Name"].GetString());
+		m_ControllerMap[data]->Deserialize(buttonData["Command"], pScene);
+	}
 }

@@ -109,14 +109,8 @@ void dae::Keyboard::Deserialize(rapidjson::Value& value, dae::Scene* pScene)
     for (auto iter = value.Begin(); iter != value.End(); ++iter)
     {
         auto& key = *iter;
-        std::cout << "Key: " << key["Key"].GetInt() << std::endl;
-        std::cout << "State: " << key["State"].GetInt() << std::endl;
-        std::cout << "Command: " << key["Command"]["Name"].GetString() << std::endl;
-
         KeyboardKeyData newCommand{ key["Key"].GetInt(), static_cast<KeyState>(key["State"].GetInt()) };
-
         m_KeyboardMap[newCommand] = Factory<Command>::GetInstance().Create(key["Command"]["Name"].GetString());
-
         m_KeyboardMap[newCommand]->Deserialize(key["Command"], pScene);
    }
 }

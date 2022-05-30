@@ -217,6 +217,7 @@ void EnemyComponent::ChooseNextTarget()
 		m_pTransfomComponent->GetPosition().x + (m_pColliderComponent->GetSize().x / 2.0f),
 		m_pTransfomComponent->GetPosition().y + (m_pColliderComponent->GetSize().y / 2.0f),
 	};
+	dae::Renderer::GetInstance().RenderCircle(startPosition, 1.0f);
 
 	glm::vec2 potentialPosition[4];
 	glm::vec2 directions[4] = { 
@@ -230,7 +231,7 @@ void EnemyComponent::ChooseNextTarget()
 
 	for (int i = 0; i < 4; ++i)
 	{
-		potentialPosition[i] = m_CurrentTarget + (directions[i]);
+		potentialPosition[i] = glm::vec2{ m_pTransfomComponent->GetPosition() } + (directions[i]);
 		potentialPosition[i] = glm::vec2{ roundf(potentialPosition[i].x), roundf(potentialPosition[i].y) };
 
 		float currentDistance = glm::distance(potentialPosition[i], glm::vec2{ m_pPlayerTransform->GetPosition() });

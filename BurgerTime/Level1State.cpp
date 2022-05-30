@@ -63,20 +63,7 @@ void Level1State::OnEnter()
 	std::cout << "Press 'Left' to Resume the sounds" << std::endl;
 	std::cout << "===================" << std::endl;
 
-	//auto pAchievmentObject = new GameObject();
-	//auto pAchievmentComponent = new AchievementComponent(pAchievmentObject);
-	//pAchievmentObject->AddComponent(pAchievmentComponent);
-	//scene.Add(pAchievmentObject);
-
 	auto font = ResourceManager::GetInstance().LoadFont("Early GameBoy.ttf", 17);
-
-	//SDLAudioSystem* pSoundSystem = new SDLAudioSystem();
-	//LoggedAudio* pLoggedAudioSystem = new LoggedAudio(pSoundSystem);
-
-	//ServiceLocator::ProvideAudio(pSoundSystem);
-	//pSoundSystem->AddAudioClip("../Data/Audio/death_1.wav");
-
-	//ServiceLocator::GetAudio()->PlaySound("../Data/Audio/burgertime_theme.wav", -1, true);
 
 	auto go = new GameObject("Logo");
 	go->AddComponent(new TransformComponent(go, glm::vec3(10.f, 5.f, 0.f)));

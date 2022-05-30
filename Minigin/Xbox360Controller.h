@@ -63,7 +63,11 @@ namespace dae
 		bool IsPressed(ControllerButton button) const;
 
 		void AddControllerMapping(const ControllerButtonData& controllerData, Command* pCommand);
+		int GetIndex() const;
 		// RemoveControllerMapping
+
+		void Serialize(rapidjson::PrettyWriter< rapidjson::StringBuffer>& writer);
+		void Deserialize(rapidjson::Value& value, dae::Scene* pScene);
 
 	private:
 		using ControllerCommandMap = std::map<ControllerButtonData, Command*>;

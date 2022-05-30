@@ -5,6 +5,7 @@
 
 namespace dae
 {
+	class InputManager;
 
 	class Xbox360Controller;
 	class AxisManager
@@ -14,15 +15,22 @@ namespace dae
 		virtual ~AxisManager() = default;
 
 		virtual int GetAxisValue() = 0;
+
+		virtual void Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>& writer) = 0;
+		virtual void Deserialize(rapidjson::Value& value, InputManager* pInputManager) = 0;
 	};
 
 
 	class KeyboardAxis final : public AxisManager
 	{
 	public:
-		KeyboardAxis(int positive, int negative, std::shared_ptr<dae::Keyboard> keyboard);
+		KeyboardAxis() = default;
+		KeyboardAxis(int positive, int negative, std::shared_ptr<dae::Keyboard> pInputManager);
 
 		virtual int GetAxisValue() override;
+
+		virtual void Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>& writer) override;
+		virtual void Deserialize(rapidjson::Value& value, InputManager* pInputManager) override;
 	private:
 		int m_KeyboardKeyPositive;
 		int m_KeyboardKeyNegative;
@@ -34,13 +42,17 @@ namespace dae
 	class ControllerAxis final : public AxisManager
 	{
 	public:
+		ControllerAxis() = default;
 		ControllerAxis(ControllerButton positive, ControllerButton negative, std::shared_ptr<dae::Xbox360Controller> controller);
+
+		virtual void Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>& writer) override;
+		virtual void Deserialize(rapidjson::Value& value, InputManager* pScene) override;
 
 		virtual int GetAxisValue() override;
 	private:
 		ControllerButton m_ControllerButtonPositive;
 		ControllerButton m_ControllerButtonNegative;
-		std::shared_ptr<dae::Xbox360Controller> m_Contrller;
+		std::shared_ptr<dae::Xbox360Controller> m_Controller;
 
 	};
 

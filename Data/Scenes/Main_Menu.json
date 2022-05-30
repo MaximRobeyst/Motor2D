@@ -252,6 +252,35 @@
                     "Menucomponent": 2
                 }
             }
-        ]
+        ],
+        "Controller 0": [
+            {
+                "Button": 1,
+                "State": 2,
+                "Command": {
+                    "Name": "class ChangePointerCommand",
+                    "Change": -1,
+                    "Menucomponent": 2
+                }
+            },
+            {
+                "Button": 2,
+                "State": 2,
+                "Command": {
+                    "Name": "class ChangePointerCommand",
+                    "Change": 1,
+                    "Menucomponent": 2
+                }
+            },
+            {
+                "Button": 4096,
+                "State": 2,
+                "Command": {
+                    "Name": "class PressButtonCommand",
+                    "Menucomponent": 2
+                }
+            }
+        ],
+        "Axises": []
     }
 }
