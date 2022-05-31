@@ -86,7 +86,7 @@ void dae::GameObject::RenderGUI()
 }
 #endif // _DEBUG
 
-void dae::GameObject::Sertialize(rapidjson::PrettyWriter< rapidjson::StringBuffer>& writer)
+void dae::GameObject::Serialize(rapidjson::PrettyWriter< rapidjson::StringBuffer>& writer)
 {
 	writer.StartObject();
 	writer.Key("Id");
@@ -102,7 +102,7 @@ void dae::GameObject::Sertialize(rapidjson::PrettyWriter< rapidjson::StringBuffe
 		writer.StartArray();
 		for (auto& gameobject : m_pChildren)
 		{
-			gameobject->Sertialize(writer);
+			gameobject->Serialize(writer);
 		}
 		writer.EndArray();
 	//}
@@ -258,6 +258,16 @@ void dae::GameObject::SetEnabled(bool newValue, bool AffectChildren)
 	{
 		(*iter)->SetEnabled(newValue, AffectChildren);
 	}
+}
+
+bool dae::GameObject::IsSerializable() const
+{
+	return m_Serialize;
+}
+
+void dae::GameObject::SetSerializable(bool b)
+{
+	m_Serialize = b;
 }
 
 void dae::GameObject::SetId(int id)

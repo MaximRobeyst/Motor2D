@@ -38,8 +38,8 @@ void MultiplayerState::OnEnter()
 	dae::InputManager::GetInstance().AddAxis("controller_horizontal", new dae::ControllerAxis(dae::ControllerButton::DPadRight, dae::ControllerButton::DPadLeft, dae::InputManager::GetInstance().GetController(0)));
 	dae::InputManager::GetInstance().AddAxis("controller_vertical", new dae::ControllerAxis(dae::ControllerButton::DPadDown, dae::ControllerButton::DPadUp,dae::InputManager::GetInstance().GetController(0)));
 
-	pPlayercomp->SetHorizontalAxis(dae::InputManager::GetInstance().GetAxis("controller_horizontal"));
-	pPlayercomp->SetVerticalAxis(dae::InputManager::GetInstance().GetAxis("controller_vertical"));
+	pPlayercomp->SetHorizontalAxis("controller_horizontal");
+	pPlayercomp->SetVerticalAxis("controller_vertical");
 
 	pPeperGameObject->SetTag("Player");
 	scene->AddGameObject(pPeperGameObject);

@@ -32,8 +32,8 @@ public:
 	void PlayerDeath();
 	bool IsDead() const;
 
-	void SetVerticalAxis(dae::AxisManager* verticalAxis);
-	void SetHorizontalAxis(dae::AxisManager* horizontalAxis);
+	void SetVerticalAxis(const std::string& verticalAxis);
+	void SetHorizontalAxis(const std::string& horizontalAxis);
 
 private:
 	void UpdateDefault();
@@ -48,7 +48,7 @@ private:
 	dae::AnimatorComponent* m_pAnimatorComponent{};
 	LifeComponent* m_pLifeComponent{};
 
-	dae::AxisManager* m_pHorizontalAxis{};
-	dae::AxisManager* m_pVerticalAxis{};
+	std::string m_pHorizontalAxis{};
+	std::string m_pVerticalAxis{};
 };
 

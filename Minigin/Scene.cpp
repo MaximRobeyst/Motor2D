@@ -264,9 +264,11 @@ void dae::Scene::Serialize(const std::string& name)
 	writer.StartArray();
 	for (auto& gameobject : m_pObjects)
 	{
+		if (!gameobject->IsSerializable()) continue;
+
 		if (gameobject->GetParent() != nullptr)
 			continue;
-		gameobject->Sertialize(writer);
+		gameobject->Serialize(writer);
 	}
 	writer.EndArray();
 	writer.Key("InputManager");

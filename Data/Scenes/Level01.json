@@ -1,6 +1,6 @@
 {
     "sceneName": "Level01",
-    "gameobjectCount": 366,
+    "gameobjectCount": 367,
     "Gravity": {
         "X": 0.0,
         "Y": 0.0
@@ -999,7 +999,64 @@
                     "Id": 3,
                     "Name": "EnemySpawner",
                     "Tag": "",
-                    "Children": [],
+                    "Children": [
+                        {
+                            "Id": 364,
+                            "Name": "MrHotDog",
+                            "Tag": "Enemy",
+                            "Children": [],
+                            "Components": [
+                                {
+                                    "name": "class dae::TransformComponent",
+                                    "Position": {
+                                        "x": 356.41754150390625,
+                                        "y": 294.01495361328125,
+                                        "z": 0.0
+                                    },
+                                    "Rotation": 0.0,
+                                    "Scale": {
+                                        "x": 2.0,
+                                        "y": 2.0
+                                    }
+                                },
+                                {
+                                    "name": "class dae::SpriteRendererComponent",
+                                    "Path": "BurgerTime_SpriteSheet.png",
+                                    "SampleRect": {
+                                        "x": 32.0,
+                                        "y": 32.0,
+                                        "w": 16.0,
+                                        "h": 16.0
+                                    }
+                                },
+                                {
+                                    "name": "class dae::AnimatorComponent",
+                                    "Path": "../Data/Animations/HotdogAnimations.json",
+                                    "CurrentAnimation": "WalkLeft",
+                                    "Playing": true
+                                },
+                                {
+                                    "name": "class dae::ColliderComponent",
+                                    "Box": {
+                                        "x": 14.0,
+                                        "y": 17.0,
+                                        "w": 28.0,
+                                        "h": 30.0
+                                    }
+                                },
+                                {
+                                    "name": "class dae::RigidbodyComponent",
+                                    "Density": 1.0,
+                                    "Friction": 1.0,
+                                    "IsSensor": false,
+                                    "BodyDef": 2
+                                },
+                                {
+                                    "name": "class EnemyComponent"
+                                }
+                            ]
+                        }
+                    ],
                     "Components": [
                         {
                             "name": "class dae::TransformComponent",
@@ -1013,6 +1070,33 @@
                                 "x": 1.0,
                                 "y": 1.0
                             }
+                        },
+                        {
+                            "name": "class EnemySpawnerComponent",
+                            "MaxCount": 1,
+                            "SpawnPoints": [
+                                {
+                                    "X": 384.0,
+                                    "Y": 296.0,
+                                    "Z": 0.0
+                                },
+                                {
+                                    "X": 0.0,
+                                    "Y": 32.0,
+                                    "Z": 0.0
+                                },
+                                {
+                                    "X": 0.0,
+                                    "Y": 296.0,
+                                    "Z": 0.0
+                                },
+                                {
+                                    "X": 416.0,
+                                    "Y": 32.0,
+                                    "Z": 0.0
+                                }
+                            ],
+                            "TimeBetweenSpawns": 1.5
                         }
                     ]
                 },
@@ -10624,7 +10708,7 @@
                     }
                 },
                 {
-                    "name": "class ScoreDisplayComponent * __ptr64"
+                    "name": "class ScoreDisplayComponent *"
                 }
             ]
         },
@@ -10637,7 +10721,7 @@
                 {
                     "name": "class dae::TransformComponent",
                     "Position": {
-                        "x": 96.0,
+                        "x": 192.0,
                         "y": 296.0,
                         "z": 0.0
                     },
@@ -10683,7 +10767,9 @@
                     "BodyDef": 2
                 },
                 {
-                    "name": "class PlayerComponent"
+                    "name": "class PlayerComponent",
+                    "horizontalAxis": "keyboard_horizontal",
+                    "VerticalAxis": "keyboard_vertical"
                 }
             ]
         },
@@ -11733,7 +11819,7 @@
             "Tag": "",
             "Children": [
                 {
-                    "Id": 364,
+                    "Id": 365,
                     "Name": "Live",
                     "Tag": "",
                     "Children": [],
@@ -11764,7 +11850,7 @@
                     ]
                 },
                 {
-                    "Id": 365,
+                    "Id": 366,
                     "Name": "Live",
                     "Tag": "",
                     "Children": [],
@@ -11795,7 +11881,7 @@
                     ]
                 },
                 {
-                    "Id": 366,
+                    "Id": 367,
                     "Name": "Live",
                     "Tag": "",
                     "Children": [],
@@ -11885,7 +11971,7 @@
                     }
                 },
                 {
-                    "name": "class ScoreDisplayComponent * __ptr64"
+                    "name": "class ScoreDisplayComponent *"
                 }
             ]
         },
@@ -11977,6 +12063,25 @@
                 "State": 0,
                 "Command": {
                     "Name": "class VolumeChangeCommand"
+                }
+            }
+        ],
+        "Controller 0": [],
+        "Axises": [
+            {
+                "Name": "keyboard_horizontal",
+                "Axis": {
+                    "Name": "class dae::KeyboardAxis",
+                    "PositiveKey": 100,
+                    "NegativeKey": 97
+                }
+            },
+            {
+                "Name": "keyboard_vertical",
+                "Axis": {
+                    "Name": "class dae::KeyboardAxis",
+                    "PositiveKey": 115,
+                    "NegativeKey": 119
                 }
             }
         ]

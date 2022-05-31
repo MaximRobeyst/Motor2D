@@ -33,7 +33,7 @@ namespace dae
 		void RenderGUI();
 #endif // _DEBUG
 
-		void Sertialize(rapidjson::PrettyWriter< rapidjson::StringBuffer>& writer);
+		void Serialize(rapidjson::PrettyWriter< rapidjson::StringBuffer>& writer);
 		static GameObject* Deserialize(Scene* pScene, rapidjson::Value& value);
 
 
@@ -82,6 +82,9 @@ namespace dae
 		bool IsEnabled() const;
 		void SetEnabled(bool newValue, bool AffectChildren = true);
 
+		bool IsSerializable() const;
+		void SetSerializable(bool b);
+
 		void SetId(int id);
 		int GetId() const;
 
@@ -96,6 +99,7 @@ namespace dae
 		std::string m_Tag{};
 
 		bool m_Enabled{ true };
+		bool m_Serialize{ true };
 
 		Scene* m_pCurrentScene{};
 

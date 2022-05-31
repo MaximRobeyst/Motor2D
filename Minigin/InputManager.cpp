@@ -76,15 +76,23 @@ void dae::InputManager::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffe
 		m_pXbox360Controllers[i]->Serialize(writer);
 	}
 
+	if (m_Axeses.size() <= 0)
+	{
+		writer.EndObject();
+		return;
+	}
+
 	writer.Key("Axises");
 	writer.StartArray();
 	for (auto& axis : m_Axeses)
 	{
+		writer.StartObject();
 		writer.Key("Name");
 		writer.String(axis.first.c_str());
 
 		writer.Key("Axis");
 		axis.second->Serialize(writer);
+		writer.EndObject();
 	}
 	writer.EndArray();
 
@@ -112,6 +120,7 @@ void dae::InputManager::Deserialize(rapidjson::Value& value, dae::Scene* pScene)
 	for (auto axis : m_Axeses) delete axis.second;
 	m_Axeses.clear();
 
+	if (!value.HasMember("Axises")) return;
 	for (auto iter = value["Axises"].Begin(); iter != value["Axises"].End(); ++iter)
 	{
 		auto& key = *iter;

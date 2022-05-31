@@ -40,8 +40,6 @@ void EnemyComponent::Start()
 	m_pAnimatorComponent->SetAnimation("WalkLeft");
 	m_CurrentTarget = glm::vec2{ m_pTransfomComponent->GetPosition() };
 
-	auto rigidBodyComponent = m_pGameObject->GetComponent<dae::RigidbodyComponent>();
-
 	std::function<void(dae::RigidbodyComponent*, dae::RigidbodyComponent*, b2Contact*)> newFunction = [](dae::RigidbodyComponent* pTriggeredbody, dae::RigidbodyComponent* otherBody, b2Contact*)
 	{
 		auto pOtherGO = otherBody->GetGameObject();
@@ -61,7 +59,7 @@ void EnemyComponent::Start()
 		}
 	};
 
-	rigidBodyComponent->SetOnEnterFunction(newFunction);
+	m_pRigidbodyComponent->SetOnEnterFunction(newFunction);
 
 	if (m_pPlayerTransform == nullptr)
 	{
@@ -72,6 +70,8 @@ void EnemyComponent::Start()
 		}
 	}
 
+	//auto pColliderTop = new dae::GameObject();
+	//m_pRigidbodyComponent = new dae::RigidbodyComponent();
 }
 
 void EnemyComponent::Update()

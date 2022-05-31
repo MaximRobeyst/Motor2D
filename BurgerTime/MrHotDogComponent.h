@@ -57,6 +57,8 @@ private:
 	dae::TransformComponent* m_pPlayerTransform{nullptr};
 	std::unique_ptr<Subject> m_pSubject{};
 
+	dae::RigidbodyComponent* m_pTopCollider{};
+
 	glm::vec3 m_PreviousPosition{};
 	glm::vec2 m_CurrentTarget{};
 
