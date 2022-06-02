@@ -10,6 +10,7 @@ namespace dae
 		GameObject* pHitObject{nullptr};
 		glm::vec2 point;
 		glm::vec2 normal;
+		float fraction;
 		bool hit{false};
 	};
 

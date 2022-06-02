@@ -6,6 +6,7 @@
 
 #include <GameObject.h>
 #include <string>
+#include "FoodComponent.h"
 
 ScoreDisplayComponent::ScoreDisplayComponent(dae::GameObject* pGameObject, int number, const std::string& extraDisplayText)
 	: Component{ pGameObject }
@@ -39,10 +40,11 @@ void ScoreDisplayComponent::Notify(const dae::GameObject& gameObject, const Even
 	}
 	case Event::Burger_Drop:
 	{
-		m_Score += 50;
+		if (auto foodComp = gameObject.GetComponent<FoodComponent>(); foodComp->GetAmountOfEnemies() > 0)
+			m_Score += foodComp->GetAmountOfEnemies() * 500;
+		else
+			m_Score += 50;
 		ChangeText(m_Score);
-		if (m_Score == 500)
-			m_pSubject->Notify(m_pGameObject, Event::Game_Won);
 		break;
 	}
 	default:

@@ -59,12 +59,17 @@ void EnemyComponent::Start()
 		else if (pOtherGO->GetTag() == "Food")
 		{
 			auto enemyComp = pTriggeredbody->GetGameObject()->GetComponent<EnemyComponent>();
+			if (m_Dead)
+				return;
+
 			auto foodcomp = pOtherGO->GetComponent<FoodComponent>();
 
 			if (foodcomp->GetFalling())
 				enemyComp->EnemyDeath();
 			else
+			{
 				foodcomp->AddEnemy(m_pGameObject);
+			}
 		}
 	};
 
@@ -164,7 +169,12 @@ void EnemyComponent::Start()
 
 void EnemyComponent::Update()
 {
-	if (m_Dead) return;
+	if (m_Dead)
+	{
+		if (m_pAnimatorComponent->IsAnimationDone())
+			m_pGameObject->GetScene()->RemoveGameObject(m_pGameObject);
+		return;
+	}
 
 	m_Timer += GameTime::GetInstance()->GetElapsed();
 	if (m_Timer >= m_TimeBetweenTransitionChecks)
@@ -290,7 +300,7 @@ bool EnemyComponent::SpaceLeft() const
 	b2Vec2 startPosition
 	{
 		m_pTransformComponent->GetPosition().x + (m_pColliderComponent->GetSize().x / 2.f),
-		m_pTransformComponent->GetPosition().y + 1.5f
+		m_pTransformComponent->GetPosition().y
 	};
 	b2Vec2 endPosition{};
 	const int segments = 2;
@@ -316,7 +326,7 @@ bool EnemyComponent::SpaceRight() const
 	b2Vec2 startPosition
 	{
 		m_pTransformComponent->GetPosition().x + (m_pColliderComponent->GetSize().x / 2.f),
-		m_pTransformComponent->GetPosition().y + 1.5f
+		m_pTransformComponent->GetPosition().y
 	};
 	b2Vec2 endPosition{};
 	const int segments = 2;
@@ -498,6 +508,7 @@ RightState::RightState(EnemyComponent* pEnemyComponent, dae::TransformComponent*
 {
 	m_pRigidbodyComponent = m_pEnemyComponent->GetGameObject()->GetComponent<dae::RigidbodyComponent>();
 	m_pTransformComponent = m_pEnemyComponent->GetGameObject()->GetComponent<dae::TransformComponent>();
+	m_pColliderComponent = m_pEnemyComponent->GetGameObject()->GetComponent<dae::ColliderComponent>();
 }
 
 void RightState::OnEnter()
@@ -506,6 +517,11 @@ void RightState::OnEnter()
 
 void RightState::Update()
 {
+	if (m_pRigidbodyComponent->GetBody()->GetLinearVelocity() == b2Vec2{ 0.f, 0.f })
+	{
+		m_pRigidbodyComponent->GetBody()->SetLinearVelocity(b2Vec2{ 0.f, m_Speed });
+	}
+
 	m_pRigidbodyComponent->GetBody()->SetLinearVelocity(b2Vec2{ m_Speed, 0.f });
 }
 

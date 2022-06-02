@@ -30,6 +30,8 @@ public:
 
 	void AddEnemy(dae::GameObject* pEnemyObject);
 	void RemoveEnemy(dae::GameObject* pEnemyObject);
+	int GetAmountOfEnemies() const;
+
 
 	std::unique_ptr<Subject>& GetSubject();
 private:

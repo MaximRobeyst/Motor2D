@@ -220,6 +220,11 @@ void FoodComponent::RemoveEnemy(dae::GameObject* pEnemyObject)
 		m_pEnemies.erase(iter);
 }
 
+int FoodComponent::GetAmountOfEnemies() const
+{
+	return m_pEnemies.size();
+}
+
 std::unique_ptr<Subject>& FoodComponent::GetSubject()
 {
 	return m_pSubject;

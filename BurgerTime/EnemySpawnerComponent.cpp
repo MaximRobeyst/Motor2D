@@ -29,7 +29,7 @@ EnemySpawnerComponent::~EnemySpawnerComponent()
 void EnemySpawnerComponent::Notify(const dae::GameObject& /*gameObject*/, const Event& action)
 {
 	if (action == Event::Enemy_Died)
-		m_Count--;
+		--m_Count;
 }
 
 void EnemySpawnerComponent::Start()
