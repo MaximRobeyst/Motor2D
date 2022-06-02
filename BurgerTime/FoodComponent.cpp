@@ -18,6 +18,7 @@
 #include "PlateComponent.h"
 #include <ServiceLocator.h>
 #include <Collider.h>
+#include <Scene.h>
 
 dae::Creator<dae::Component, FoodComponent> s_TranformComponentCreate{};
 
@@ -68,12 +69,22 @@ void FoodComponent::Start()
 				plateComp = pOtherGO->GetComponent<PlateComponent>();
 
 			plateComp->AddIngredient(pTriggeredBody->GetGameObject()->GetComponent<FoodComponent>());
+			for (size_t i = 0; i < m_pEnemies.size(); ++i)
+			{
+				m_pGameObject->GetScene()->RemoveGameObject(m_pEnemies[i]);
+			}
 
 			foodComp->GetSubject()->Notify(*pTriggeredBody->GetGameObject(), Event::Burger_Drop);
 			ServiceLocator::GetAudio()->PlaySound("../Data/Audio/eat_ghost.wav");
 		}
 		else if (foodComp->GetFalling() && pOtherGO->GetTag().empty())
 		{
+			if (m_pEnemies.size() > 0)
+			{
+				m_pGameObject->GetScene()->RemoveGameObject(m_pEnemies.back());
+				m_pEnemies.pop_back();
+				return;
+			}
 			foodComp->SetFalling(false);
 
 			foodComp->GetSubject()->Notify(*pTriggeredBody->GetGameObject(), Event::Burger_Drop);
@@ -171,6 +182,7 @@ void FoodComponent::SetFalling(bool newValue)
 		for (size_t i = 0; i < m_pEnemies.size(); ++i)
 		{
 			m_pEnemies[i]->GetComponent<EnemyComponent>()->EnemyDrop();
+			m_pEnemies[i]->GetComponent<dae::AnimatorComponent>()->Pause();
 		}
 	}
 }

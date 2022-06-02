@@ -188,14 +188,6 @@ void EnemyComponent::Render() const
 
 void EnemyComponent::RenderGUI()
 {
-	float target[2] = { m_CurrentTarget.x, m_CurrentTarget.y };
-	ImGui::InputFloat2("CurrentDirection", target);
-	float position[2] = { m_pTransformComponent->GetPosition().x, m_pTransformComponent->GetPosition().y };
-	ImGui::InputFloat2("CurrentPosition", position);
-	float playerPosition[2] = { m_pPlayerTransform->GetPosition().x, m_pPlayerTransform->GetPosition().y };
-	ImGui::InputFloat2("CurrentPosition", playerPosition);
-
-	ImGui::InputFloat("minimum distance", &m_MinDistance);
 }
 
 void EnemyComponent::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>& writer)
@@ -236,7 +228,7 @@ std::unique_ptr<Subject>& EnemyComponent::GetSubject()
 
 bool EnemyComponent::SpaceUp() const
 {
-	dae::RaycastCallback callback;
+	dae::RaycastCallback callback{ static_cast<uint16>(dae::PhysicsLayers::layer1) };
 	const auto world = GetGameObject()->GetScene()->GetPhysicsWorld();
 
 	b2Vec2 startPosition
@@ -264,7 +256,7 @@ bool EnemyComponent::SpaceUp() const
 
 bool EnemyComponent::SpaceDown() const
 {
-	dae::RaycastCallback callback;
+	dae::RaycastCallback callback{static_cast<uint16>(dae::PhysicsLayers::layer1)};
 	const auto world = GetGameObject()->GetScene()->GetPhysicsWorld();
 
 	b2Vec2 startPosition
@@ -292,7 +284,7 @@ bool EnemyComponent::SpaceDown() const
 
 bool EnemyComponent::SpaceLeft() const
 {
-	dae::RaycastCallback callback;
+	dae::RaycastCallback callback{ static_cast<uint16>(dae::PhysicsLayers::layer1) };
 	const auto world = GetGameObject()->GetScene()->GetPhysicsWorld();
 
 	b2Vec2 startPosition
@@ -318,7 +310,7 @@ bool EnemyComponent::SpaceLeft() const
 
 bool EnemyComponent::SpaceRight() const
 {
-	dae::RaycastCallback callback;
+	dae::RaycastCallback callback{ static_cast<uint16>(dae::PhysicsLayers::layer1) };
 	const auto world = GetGameObject()->GetScene()->GetPhysicsWorld();
 
 	b2Vec2 startPosition

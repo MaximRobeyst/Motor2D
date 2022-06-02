@@ -93,6 +93,12 @@ void dae::AnimatorComponent::SetAnimation(const std::string& name)
 	m_CurrentAnimation = m_pAnimations[name];
 }
 
+
+void dae::AnimatorComponent::Pause()
+{
+	m_IsPlaying = false;
+}
+
 void dae::AnimatorComponent::LoadAnimFile(const std::string& filename)
 {
 	if (std::ifstream anim{ filename })

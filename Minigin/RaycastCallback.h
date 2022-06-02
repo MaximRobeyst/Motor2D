@@ -16,12 +16,15 @@ namespace dae
 	class RaycastCallback : public b2RayCastCallback
 	{
 	public:
+		RaycastCallback(uint16 layermask);
+
 		virtual float ReportFixture(b2Fixture* fixture, const b2Vec2& point,
 			const b2Vec2& normal, float fraction);
 
 		RaycastHit GetLatestHit() const;
 	private:
 		RaycastHit m_Hit;
+		uint16 m_Layermask{};
 
 	};
 }

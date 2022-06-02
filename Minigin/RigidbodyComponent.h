@@ -7,13 +7,22 @@
 // https://box2d.org/documentation/index.html
 namespace dae
 {
+	enum class PhysicsLayers
+	{
+		DefaultLayer = 0x0001,
+		layer1 = 0x0002,
+		layer2 = 0x0004,
+		layer3 = 0x0008,
+
+	};
+
 	class TransformComponent;
 	class ColliderComponent;
 	class RigidbodyComponent : public Component
 	{
 	public:
 		RigidbodyComponent() = default;
-		RigidbodyComponent(dae::GameObject* pGameobject, b2BodyType bodyType = b2_dynamicBody, float density = 1.0f, float friction = 1.0f, bool IsSensor = false);
+		RigidbodyComponent(dae::GameObject* pGameobject, b2BodyType bodyType = b2_dynamicBody, float density = 1.0f, float friction = 1.0f, bool IsSensor = false, PhysicsLayers layer = PhysicsLayers::DefaultLayer);
 		~RigidbodyComponent();
 
 		void Start() override;
@@ -44,6 +53,8 @@ namespace dae
 		ColliderComponent* m_pColliderComponent{};
 
 		std::shared_ptr<b2World> m_pWorld{};
+
+		PhysicsLayers m_PhysicsLayer;
 
 		std::function<void(RigidbodyComponent*,RigidbodyComponent*, b2Contact*)> m_OnEnterFunction{};
 		std::function<void(RigidbodyComponent*,RigidbodyComponent*, b2Contact*)> m_OnExitFunction{};

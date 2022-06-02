@@ -37,7 +37,7 @@ private:
 
 	std::vector<glm::vec3> m_SpawnPoints{};
 	int m_Count{};
-	int m_MaxCount{ 1 };
+	int m_MaxCount{ 4 };
 	int m_CurrentIndex{};
 
 	float m_TimebetweenSpawns{ 1.5f };

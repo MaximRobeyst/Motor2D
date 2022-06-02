@@ -8,12 +8,13 @@
 
 dae::Creator<dae::Component, dae::RigidbodyComponent> s_TranformComponentCreate{};
 
-dae::RigidbodyComponent::RigidbodyComponent(dae::GameObject* pGameobject, b2BodyType bodyType, float density, float friction, bool IsSensor)
+dae::RigidbodyComponent::RigidbodyComponent(dae::GameObject* pGameobject, b2BodyType bodyType, float density, float friction, bool IsSensor, PhysicsLayers layer)
 	: Component(pGameobject)
 	, m_Density{density}
 	, m_Friction{friction}
 	, m_Bodydef{bodyType}
 	, m_IsSensor{IsSensor}
+	, m_PhysicsLayer{layer}
 {
 }
 
@@ -72,6 +73,8 @@ void dae::RigidbodyComponent::Serialize(rapidjson::PrettyWriter<rapidjson::Strin
 	writer.Bool(m_IsSensor);
 	writer.Key("BodyDef");
 	writer.Int(static_cast<int>(m_Bodydef));
+	writer.Key("Layer");
+	writer.Int(static_cast<int>(m_PhysicsLayer));
 	writer.EndObject();
 }
 
@@ -83,7 +86,7 @@ void dae::RigidbodyComponent::Deserialize(GameObject* pGameObject, rapidjson::Va
 	m_Friction = static_cast<float>(value["Friction"].GetDouble());
 	m_IsSensor = value["IsSensor"].GetBool();
 	m_Bodydef = static_cast<b2BodyType>(value["BodyDef"].GetInt());
-
+	m_PhysicsLayer = static_cast<PhysicsLayers>(m_PhysicsLayer);
 
 }
 
@@ -173,6 +176,7 @@ void dae::RigidbodyComponent::ChangeBody(b2BodyType bodyType, float density, flo
 	fixtureDef.density = density;
 	fixtureDef.friction = friction;
 	fixtureDef.isSensor = isSensor;
+	fixtureDef.filter.categoryBits = static_cast<uint16>(m_PhysicsLayer);
 
 	m_pBody->CreateFixture(&fixtureDef);
 }

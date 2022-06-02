@@ -18,6 +18,7 @@ namespace dae
 		Scene* GetScene(int index);
 
 		void RemoveScene(int index);
+		void RemoveScene(const std::string& sceneName);
 		void Cleanup();
 
 		void Start();

@@ -37,6 +37,8 @@ namespace dae
 
 		void SetAnimation(int i);
 		void SetAnimation(const std::string& name);
+
+		void Pause();
 	private:
 		void LoadAnimFile(const std::string& path);
 

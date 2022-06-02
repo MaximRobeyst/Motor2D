@@ -125,6 +125,11 @@ bool dae::Scene::GetDebugPhysics() const
 	return m_DebugPhysics;
 }
 
+std::string dae::Scene::GetName() const
+{
+	return m_Name;
+}
+
 void dae::Scene::Start()
 {
 	m_Started = true;
