@@ -33,6 +33,7 @@ public:
 	void Deserialize(dae::GameObject* /*pGameobject*/, rapidjson::Value& /*value*/) override;
 
 	void EnemyDeath();
+	void EnemyDrop();
 	
 	int GetScore() const;
 
@@ -44,6 +45,9 @@ private:
 	bool SpaceRight() const;
 	friend class EnemyStateMachine;
 	friend class IEnemyState;
+
+	float m_Timer{ 0.0f };
+	float m_TimeBetweenTransitionChecks{ 0.05f };
 
 	int m_Score{100};
 	bool m_Dead{};
@@ -182,6 +186,7 @@ public:
 
 	void AddTransition(IEnemyState* pFromState, IEnemyState* pToState, std::function<bool()> condition);
 
+	void UpdateTransitions();
 	void Update();
 	void Render();
 	

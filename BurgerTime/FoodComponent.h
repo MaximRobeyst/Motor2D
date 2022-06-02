@@ -25,7 +25,11 @@ public:
 	bool GetFalling() const;
 	void SetState(int i, bool newState);
 	void SetCollidingWithPlayer(bool newState, dae::GameObject* pGameobject);
+
 	bool IsTop() const;
+
+	void AddEnemy(dae::GameObject* pEnemyObject);
+	void RemoveEnemy(dae::GameObject* pEnemyObject);
 
 	std::unique_ptr<Subject>& GetSubject();
 private:
@@ -47,5 +51,6 @@ private:
 	bool m_TopPart{ false };
 	bool m_ChangeBody{};
 
+	std::vector<dae::GameObject*> m_pEnemies{};
 };
 

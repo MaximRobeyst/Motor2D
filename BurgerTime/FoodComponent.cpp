@@ -40,7 +40,7 @@ void FoodComponent::Start()
 	m_pTransform = m_pGameObject->GetComponent<dae::TransformComponent>();
 	m_pRigidbody = m_pGameObject->GetComponent<dae::RigidbodyComponent>();
 
-	std::function<void(dae::RigidbodyComponent*, dae::RigidbodyComponent*, b2Contact*)> enterFunction = [](dae::RigidbodyComponent* pTriggeredBody, dae::RigidbodyComponent* otherBody, b2Contact*)
+	std::function<void(dae::RigidbodyComponent*, dae::RigidbodyComponent*, b2Contact*)> enterFunction = [this](dae::RigidbodyComponent* pTriggeredBody, dae::RigidbodyComponent* otherBody, b2Contact*)
 	{
 		auto pOtherGO = otherBody->GetGameObject();
 		auto foodComp = pTriggeredBody->GetGameObject()->GetComponent<FoodComponent>();
@@ -68,8 +68,10 @@ void FoodComponent::Start()
 				plateComp = pOtherGO->GetComponent<PlateComponent>();
 
 			plateComp->AddIngredient(pTriggeredBody->GetGameObject()->GetComponent<FoodComponent>());
-		}
 
+			foodComp->GetSubject()->Notify(*pTriggeredBody->GetGameObject(), Event::Burger_Drop);
+			ServiceLocator::GetAudio()->PlaySound("../Data/Audio/eat_ghost.wav");
+		}
 		else if (foodComp->GetFalling() && pOtherGO->GetTag().empty())
 		{
 			foodComp->SetFalling(false);
@@ -79,7 +81,7 @@ void FoodComponent::Start()
 		}
 	};
 
-	std::function<void(dae::RigidbodyComponent*, dae::RigidbodyComponent*, b2Contact*)> exitFunction = [](dae::RigidbodyComponent* pTriggeredBody, dae::RigidbodyComponent* otherBody, b2Contact*)
+	std::function<void(dae::RigidbodyComponent*, dae::RigidbodyComponent*, b2Contact*)> exitFunction = [this](dae::RigidbodyComponent* pTriggeredBody, dae::RigidbodyComponent* otherBody, b2Contact*)
 	{
 		auto pOtherGO = otherBody->GetGameObject();
 		auto foodComp = pTriggeredBody->GetGameObject()->GetComponent<FoodComponent>();
@@ -87,6 +89,10 @@ void FoodComponent::Start()
 		if (pOtherGO->GetTag() == "Player")
 		{
 			foodComp->SetCollidingWithPlayer(false, nullptr);
+		}
+		else if (pOtherGO->GetTag() == "Enemy")
+		{
+			foodComp->RemoveEnemy(pOtherGO);
 		}
 	};
 
@@ -102,6 +108,13 @@ void FoodComponent::Update()
 	if (m_Falling)
 	{
 		m_pTransform->SetPosition(m_pTransform->GetPosition() + glm::vec3{ m_FallingSpeed, 0.f } *GameTime::GetInstance()->GetElapsed());
+		for (size_t i = 0; i < m_pEnemies.size(); ++i)
+		{
+			auto pTransform = m_pEnemies[i]->GetComponent<dae::TransformComponent>();
+			auto pRigidbody = m_pEnemies[i]->GetComponent<dae::RigidbodyComponent>();
+			pTransform->SetPosition(pTransform->GetPosition() + glm::vec3{ m_FallingSpeed, 0.f } *GameTime::GetInstance()->GetElapsed());
+			pRigidbody->GetBody()->SetLinearVelocity(b2Vec2{});
+		}
 		m_pRigidbody->GetBody()->SetLinearVelocity(b2Vec2{});
 	}
 	else
@@ -153,9 +166,13 @@ void FoodComponent::SetFalling(bool newValue)
 	}
 
 	m_Falling = newValue;
-
-	//if (m_Falling)
-	//	m_pSubject->Notify(*m_pGameObject, Event::Burger_Drop);
+	if (m_Falling)
+	{
+		for (size_t i = 0; i < m_pEnemies.size(); ++i)
+		{
+			m_pEnemies[i]->GetComponent<EnemyComponent>()->EnemyDrop();
+		}
+	}
 }
 
 bool FoodComponent::GetFalling() const
@@ -178,6 +195,17 @@ void FoodComponent::SetCollidingWithPlayer(bool newState, dae::GameObject* pGame
 bool FoodComponent::IsTop() const
 {
 	return m_TopPart;
+}
+
+void FoodComponent::AddEnemy(dae::GameObject* pEnemyObject)
+{
+	m_pEnemies.push_back(pEnemyObject);
+}
+
+void FoodComponent::RemoveEnemy(dae::GameObject* pEnemyObject)
+{
+	if (auto iter = std::find(m_pEnemies.begin(), m_pEnemies.end(), pEnemyObject); iter != m_pEnemies.end())
+		m_pEnemies.erase(iter);
 }
 
 std::unique_ptr<Subject>& FoodComponent::GetSubject()
