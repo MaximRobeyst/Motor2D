@@ -133,7 +133,7 @@ dae::GameObject* EnemySpawnerComponent::CreateMrHotDog(glm::vec3 position)
 	pHotDogGameObject->AddComponent(new dae::TransformComponent(pHotDogGameObject, position, glm::vec3{ 2.f }));
 	pHotDogGameObject->AddComponent(new dae::SpriteRendererComponent(pHotDogGameObject, "BurgerTime_SpriteSheet.png"));
 	pHotDogGameObject->AddComponent(new dae::AnimatorComponent(pHotDogGameObject, "../Data/Animations/HotdogAnimations.json"));
-	pHotDogGameObject->AddComponent(new dae::ColliderComponent(pHotDogGameObject, 14.f, 15.f, glm::vec2{ 7.f, 8.5f }));
+	pHotDogGameObject->AddComponent(new dae::ColliderComponent(pHotDogGameObject, 14.f, 14.f, glm::vec2{ 7.f, 7.f }));
 	pHotDogGameObject->AddComponent(new dae::RigidbodyComponent(pHotDogGameObject));
 	auto pEnemyComponent = new EnemyComponent(pHotDogGameObject, nullptr);
 	pHotDogGameObject->AddComponent(pEnemyComponent);

@@ -8,6 +8,8 @@ float dae::RaycastCallback::ReportFixture(b2Fixture* fixture, const b2Vec2& poin
     m_Hit.pHitObject = reinterpret_cast<dae::RigidbodyComponent*>(fixture->GetBody()->GetUserData().pointer)->GetGameObject();
     m_Hit.point = glm::vec2{ point.x, point.y };
     m_Hit.normal = glm::vec2{ normal.x, normal.y };
+    m_Hit.hit = true;
+
     return fraction;
 }
 

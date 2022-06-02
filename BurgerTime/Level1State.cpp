@@ -110,8 +110,9 @@ void Level1State::OnEnter()
 	scene.AddGameObject(pBurgerTop);
 
 
-	auto pCheese = new GameObject("Lettuce");
-	pCheese->AddComponent(new TransformComponent(pCheese, glm::vec3(224.f, 112.f, 0.f), glm::vec2{ 2.f }));
+
+	auto pCheese = new GameObject("Lettuce 4");
+	pCheese->AddComponent(new TransformComponent(pCheese, glm::vec3(32.f, 176.f, 0.f), glm::vec2{ 2.f }));
 	pCheese->AddComponent(new SpriteRendererComponent(pCheese, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 88.f, 32.f, 8.f }));
 	pCheese->AddComponent(new ColliderComponent(pCheese, 32.f, 4.f));
 	pCheese->AddComponent(new RigidbodyComponent(pCheese, b2_dynamicBody, 1.0f, 1.0f, true));
@@ -121,8 +122,9 @@ void Level1State::OnEnter()
 	pFoodComponent->GetSubject()->AddObserver(pScoreDisplay);
 	scene.AddGameObject(pCheese);
 
-	pCheese = new GameObject("Meat_Patty");
-	pCheese->AddComponent(new TransformComponent(pCheese, glm::vec3(224.f, 192.f, 0.f), glm::vec2{ 2.f }));
+
+	pCheese = new GameObject("Meat_Patty 4");
+	pCheese->AddComponent(new TransformComponent(pCheese, glm::vec3(32.f, 256.f, 0.f), glm::vec2{ 2.f }));
 	pCheese->AddComponent(new SpriteRendererComponent(pCheese, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 72.f, 32.f, 8.f }));
 	pCheese->AddComponent(new ColliderComponent(pCheese, 32.f, 4.f));
 	pCheese->AddComponent(new RigidbodyComponent(pCheese, b2_dynamicBody, 1.0f, 1.0f, true));
@@ -132,8 +134,9 @@ void Level1State::OnEnter()
 	pFoodComponent->GetSubject()->AddObserver(pScoreDisplay);
 	scene.AddGameObject(pCheese);
 
-	auto pBurgerBottom = new GameObject("Burger Bottom");
-	pBurgerBottom->AddComponent(new TransformComponent(pBurgerBottom, glm::vec3{ 224.f, 320.f, 0.f }, glm::vec2{ 2.f }));
+
+	auto pBurgerBottom = new GameObject("Burger Bottom 4");
+	pBurgerBottom->AddComponent(new TransformComponent(pBurgerBottom, glm::vec3{ 32.f, 320.f, 0.f }, glm::vec2{ 2.f }));
 	pBurgerBottom->AddComponent(new SpriteRendererComponent(pBurgerBottom, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 56.f, 32.f, 8.f }));
 	pBurgerBottom->AddComponent(new ColliderComponent(pBurgerBottom, 32.f, 4.f));
 	pBurgerBottom->AddComponent(new RigidbodyComponent(pBurgerBottom, b2_dynamicBody, 1.0f, 1.0, true));
@@ -145,50 +148,6 @@ void Level1State::OnEnter()
 
 	pBurgerTop = new GameObject("BurgerTop 2");
 	pBurgerTop->AddComponent(new TransformComponent(pBurgerTop, glm::vec3(128.f, 32.f, 0.f), glm::vec2{ 2.f }));
-	pBurgerTop->AddComponent(new SpriteRendererComponent(pBurgerTop, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 48.f, 32.f, 8.f }));
-	pBurgerTop->AddComponent(new ColliderComponent(pBurgerTop, 32.f, 4.f));
-	pBurgerTop->AddComponent(new RigidbodyComponent(pBurgerTop, b2_dynamicBody, 1.0f, 1.0f, true));
-	pFoodComponent = new FoodComponent(pBurgerTop, true);
-	pBurgerTop->AddComponent(pFoodComponent);
-	pBurgerTop->SetTag("Food");
-	pFoodComponent->GetSubject()->AddObserver(pScoreDisplay);
-	scene.AddGameObject(pBurgerTop);
-
-	pCheese = new GameObject("Lettuce 2");
-	pCheese->AddComponent(new TransformComponent(pCheese, glm::vec3(320.f, 112.f, 0.f), glm::vec2{ 2.f }));
-	pCheese->AddComponent(new SpriteRendererComponent(pCheese, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 88.f, 32.f, 8.f }));
-	pCheese->AddComponent(new ColliderComponent(pCheese, 32.f, 4.f));
-	pCheese->AddComponent(new RigidbodyComponent(pCheese, b2_dynamicBody, 1.0f, 1.0f, true));
-	pFoodComponent = new FoodComponent(pCheese);
-	pCheese->AddComponent(pFoodComponent);
-	pCheese->SetTag("Food");
-	pFoodComponent->GetSubject()->AddObserver(pScoreDisplay);
-	scene.AddGameObject(pCheese);
-
-	pCheese = new GameObject("Meat_Patty 2");
-	pCheese->AddComponent(new TransformComponent(pCheese, glm::vec3(320.f, 160.f, 0.f), glm::vec2{ 2.f }));
-	pCheese->AddComponent(new SpriteRendererComponent(pCheese, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 72.f, 32.f, 8.f }));
-	pCheese->AddComponent(new ColliderComponent(pCheese, 32.f, 4.f));
-	pCheese->AddComponent(new RigidbodyComponent(pCheese, b2_dynamicBody, 1.0f, 1.0f, true));
-	pFoodComponent = new FoodComponent(pCheese);
-	pCheese->AddComponent(pFoodComponent);
-	pCheese->SetTag("Food");
-	pFoodComponent->GetSubject()->AddObserver(pScoreDisplay);
-	scene.AddGameObject(pCheese);
-
-	pBurgerBottom = new GameObject("Burger Bottom 2");
-	pBurgerBottom->AddComponent(new TransformComponent(pBurgerBottom, glm::vec3{ 320.f, 224.f, 0.f }, glm::vec2{ 2.f }));
-	pBurgerBottom->AddComponent(new SpriteRendererComponent(pBurgerBottom, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 56.f, 32.f, 8.f }));
-	pBurgerBottom->AddComponent(new ColliderComponent(pBurgerBottom, 32.f, 4.f));
-	pBurgerBottom->AddComponent(new RigidbodyComponent(pBurgerBottom, b2_dynamicBody, 1.0f, 1.0, true));
-	pFoodComponent = new FoodComponent(pBurgerBottom);
-	pBurgerBottom->AddComponent(pFoodComponent);
-	pBurgerBottom->SetTag("Food");
-	pFoodComponent->GetSubject()->AddObserver(pScoreDisplay);
-	scene.AddGameObject(pBurgerBottom);
-
-	pBurgerTop = new GameObject("BurgerTop 3");
-	pBurgerTop->AddComponent(new TransformComponent(pBurgerTop, glm::vec3(224.f, 32.f, 0.f), glm::vec2{ 2.f }));
 	pBurgerTop->AddComponent(new SpriteRendererComponent(pBurgerTop, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 48.f, 32.f, 8.f }));
 	pBurgerTop->AddComponent(new ColliderComponent(pBurgerTop, 32.f, 4.f));
 	pBurgerTop->AddComponent(new RigidbodyComponent(pBurgerTop, b2_dynamicBody, 1.0f, 1.0f, true));
@@ -231,6 +190,53 @@ void Level1State::OnEnter()
 	pFoodComponent->GetSubject()->AddObserver(pScoreDisplay);
 	scene.AddGameObject(pBurgerBottom);
 
+	pBurgerTop = new GameObject("BurgerTop 3");
+	pBurgerTop->AddComponent(new TransformComponent(pBurgerTop, glm::vec3(224.f, 32.f, 0.f), glm::vec2{ 2.f }));
+	pBurgerTop->AddComponent(new SpriteRendererComponent(pBurgerTop, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 48.f, 32.f, 8.f }));
+	pBurgerTop->AddComponent(new ColliderComponent(pBurgerTop, 32.f, 4.f));
+	pBurgerTop->AddComponent(new RigidbodyComponent(pBurgerTop, b2_dynamicBody, 1.0f, 1.0f, true));
+	pFoodComponent = new FoodComponent(pBurgerTop, true);
+	pBurgerTop->AddComponent(pFoodComponent);
+	pBurgerTop->SetTag("Food");
+	pFoodComponent->GetSubject()->AddObserver(pScoreDisplay);
+	scene.AddGameObject(pBurgerTop);
+
+
+	pCheese = new GameObject("Lettuce");
+	pCheese->AddComponent(new TransformComponent(pCheese, glm::vec3(224.f, 112.f, 0.f), glm::vec2{ 2.f }));
+	pCheese->AddComponent(new SpriteRendererComponent(pCheese, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 88.f, 32.f, 8.f }));
+	pCheese->AddComponent(new ColliderComponent(pCheese, 32.f, 4.f));
+	pCheese->AddComponent(new RigidbodyComponent(pCheese, b2_dynamicBody, 1.0f, 1.0f, true));
+	pFoodComponent = new FoodComponent(pCheese);
+	pCheese->AddComponent(pFoodComponent);
+	pCheese->SetTag("Food");
+	pFoodComponent->GetSubject()->AddObserver(pScoreDisplay);
+	scene.AddGameObject(pCheese);
+
+	pCheese = new GameObject("Meat_Patty");
+	pCheese->AddComponent(new TransformComponent(pCheese, glm::vec3(224.f, 192.f, 0.f), glm::vec2{ 2.f }));
+	pCheese->AddComponent(new SpriteRendererComponent(pCheese, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 72.f, 32.f, 8.f }));
+	pCheese->AddComponent(new ColliderComponent(pCheese, 32.f, 4.f));
+	pCheese->AddComponent(new RigidbodyComponent(pCheese, b2_dynamicBody, 1.0f, 1.0f, true));
+	pFoodComponent = new FoodComponent(pCheese);
+	pCheese->AddComponent(pFoodComponent);
+	pCheese->SetTag("Food");
+	pFoodComponent->GetSubject()->AddObserver(pScoreDisplay);
+	scene.AddGameObject(pCheese);
+
+
+	pBurgerBottom = new GameObject("Burger Bottom");
+	pBurgerBottom->AddComponent(new TransformComponent(pBurgerBottom, glm::vec3{ 224.f, 320.f, 0.f }, glm::vec2{ 2.f }));
+	pBurgerBottom->AddComponent(new SpriteRendererComponent(pBurgerBottom, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 56.f, 32.f, 8.f }));
+	pBurgerBottom->AddComponent(new ColliderComponent(pBurgerBottom, 32.f, 4.f));
+	pBurgerBottom->AddComponent(new RigidbodyComponent(pBurgerBottom, b2_dynamicBody, 1.0f, 1.0, true));
+	pFoodComponent = new FoodComponent(pBurgerBottom);
+	pBurgerBottom->AddComponent(pFoodComponent);
+	pBurgerBottom->SetTag("Food");
+	pFoodComponent->GetSubject()->AddObserver(pScoreDisplay);
+	scene.AddGameObject(pBurgerBottom);
+
+
 	pBurgerTop = new GameObject("BurgerTop 4");
 	pBurgerTop->AddComponent(new TransformComponent(pBurgerTop, glm::vec3(320.f, 32.f, 0.f), glm::vec2{ 2.f }));
 	pBurgerTop->AddComponent(new SpriteRendererComponent(pBurgerTop, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 48.f, 32.f, 8.f }));
@@ -242,8 +248,8 @@ void Level1State::OnEnter()
 	pFoodComponent->GetSubject()->AddObserver(pScoreDisplay);
 	scene.AddGameObject(pBurgerTop);
 
-	pCheese = new GameObject("Lettuce 4");
-	pCheese->AddComponent(new TransformComponent(pCheese, glm::vec3(32.f, 176.f, 0.f), glm::vec2{ 2.f }));
+	pCheese = new GameObject("Lettuce 2");
+	pCheese->AddComponent(new TransformComponent(pCheese, glm::vec3(320.f, 112.f, 0.f), glm::vec2{ 2.f }));
 	pCheese->AddComponent(new SpriteRendererComponent(pCheese, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 88.f, 32.f, 8.f }));
 	pCheese->AddComponent(new ColliderComponent(pCheese, 32.f, 4.f));
 	pCheese->AddComponent(new RigidbodyComponent(pCheese, b2_dynamicBody, 1.0f, 1.0f, true));
@@ -253,8 +259,8 @@ void Level1State::OnEnter()
 	pFoodComponent->GetSubject()->AddObserver(pScoreDisplay);
 	scene.AddGameObject(pCheese);
 
-	pCheese = new GameObject("Meat_Patty 4");
-	pCheese->AddComponent(new TransformComponent(pCheese, glm::vec3(32.f, 256.f, 0.f), glm::vec2{ 2.f }));
+	pCheese = new GameObject("Meat_Patty 2");
+	pCheese->AddComponent(new TransformComponent(pCheese, glm::vec3(320.f, 160.f, 0.f), glm::vec2{ 2.f }));
 	pCheese->AddComponent(new SpriteRendererComponent(pCheese, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 72.f, 32.f, 8.f }));
 	pCheese->AddComponent(new ColliderComponent(pCheese, 32.f, 4.f));
 	pCheese->AddComponent(new RigidbodyComponent(pCheese, b2_dynamicBody, 1.0f, 1.0f, true));
@@ -264,8 +270,8 @@ void Level1State::OnEnter()
 	pFoodComponent->GetSubject()->AddObserver(pScoreDisplay);
 	scene.AddGameObject(pCheese);
 
-	pBurgerBottom = new GameObject("Burger Bottom 4");
-	pBurgerBottom->AddComponent(new TransformComponent(pBurgerBottom, glm::vec3{ 32.f, 320.f, 0.f }, glm::vec2{ 2.f }));
+	pBurgerBottom = new GameObject("Burger Bottom 2");
+	pBurgerBottom->AddComponent(new TransformComponent(pBurgerBottom, glm::vec3{ 320.f, 224.f, 0.f }, glm::vec2{ 2.f }));
 	pBurgerBottom->AddComponent(new SpriteRendererComponent(pBurgerBottom, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 56.f, 32.f, 8.f }));
 	pBurgerBottom->AddComponent(new ColliderComponent(pBurgerBottom, 32.f, 4.f));
 	pBurgerBottom->AddComponent(new RigidbodyComponent(pBurgerBottom, b2_dynamicBody, 1.0f, 1.0, true));
@@ -274,7 +280,6 @@ void Level1State::OnEnter()
 	pBurgerBottom->SetTag("Food");
 	pFoodComponent->GetSubject()->AddObserver(pScoreDisplay);
 	scene.AddGameObject(pBurgerBottom);
-
 
 	//pBurgerBottom = new GameObject();
 	//pBurgerBottom->AddComponent(new TransformComponent(pBurgerBottom, glm::vec3{ 224.f, 256.f, 0.f }, glm::vec2{ 2.f }));

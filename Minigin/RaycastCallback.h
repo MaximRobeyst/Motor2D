@@ -10,6 +10,7 @@ namespace dae
 		GameObject* pHitObject{nullptr};
 		glm::vec2 point;
 		glm::vec2 normal;
+		bool hit{false};
 	};
 
 	class RaycastCallback : public b2RayCastCallback

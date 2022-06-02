@@ -11,11 +11,12 @@
 #include <Renderer.h>
 #include <AnimatorComponent.h>
 #include <Collider.h>
+#include <string>
 
 #include <Subject.h>
 #include "FoodComponent.h"
 
-dae::Creator<dae::Component, EnemyComponent> s_TranformComponentCreate{};
+const dae::Creator<dae::Component, EnemyComponent> g_EnemyComponentCreator{};
 
 EnemyComponent::EnemyComponent()
 	: dae::Component()
@@ -30,15 +31,20 @@ EnemyComponent::EnemyComponent(dae::GameObject* pGameobject, dae::TransformCompo
 {
 }
 
+EnemyComponent::~EnemyComponent()
+{
+	delete m_pEnemyStateMachine;
+}
+
 void EnemyComponent::Start()
 {
-	m_pTransfomComponent = m_pGameObject->GetComponent<dae::TransformComponent>();
+	m_pTransformComponent = m_pGameObject->GetComponent<dae::TransformComponent>();
 	m_pRigidbodyComponent = m_pGameObject->GetComponent<dae::RigidbodyComponent>();
 	m_pAnimatorComponent = m_pGameObject->GetComponent<dae::AnimatorComponent>();
 	m_pColliderComponent = m_pGameObject->GetComponent < dae::ColliderComponent>();
 
 	m_pAnimatorComponent->SetAnimation("WalkLeft");
-	m_CurrentTarget = glm::vec2{ m_pTransfomComponent->GetPosition() };
+	m_CurrentTarget = glm::vec2{ m_pTransformComponent->GetPosition() };
 
 	std::function<void(dae::RigidbodyComponent*, dae::RigidbodyComponent*, b2Contact*)> newFunction = [](dae::RigidbodyComponent* pTriggeredbody, dae::RigidbodyComponent* otherBody, b2Contact*)
 	{
@@ -70,63 +76,99 @@ void EnemyComponent::Start()
 		}
 	}
 
-	//auto pColliderTop = new dae::GameObject();
-	//m_pRigidbodyComponent = new dae::RigidbodyComponent();
+	if (m_pEnemyStateMachine != nullptr) return;
+
+	const auto pLeftState = new LeftState(this, m_pPlayerTransform);
+	const auto pUpState = new UpState(this, m_pPlayerTransform);
+	const auto pRightState = new RightState(this, m_pPlayerTransform);
+	const auto pDownState = new DownState(this, m_pPlayerTransform);
+
+	m_pEnemyStateMachine = new EnemyStateMachine(this, pLeftState);
+
+	m_pEnemyStateMachine->AddState(pUpState);
+	m_pEnemyStateMachine->AddState(pDownState);
+	m_pEnemyStateMachine->AddState(pRightState);
+
+	// From left state to up or down
+	m_pEnemyStateMachine->AddTransition(pLeftState, pUpState, [&]()
+		{
+			float playerY = m_pPlayerTransform->GetPosition().y;
+			float enemyY = m_pTransformComponent->GetPosition().y;
+
+			return SpaceUp() && (abs(playerY - enemyY) > 1.f && playerY < enemyY);
+		});
+
+	m_pEnemyStateMachine->AddTransition(pLeftState, pDownState, [&]()
+		{
+			float playerY = m_pPlayerTransform->GetPosition().y;
+			float enemyY = m_pTransformComponent->GetPosition().y;
+
+			return SpaceDown() && (abs(playerY - enemyY) > 1.f && playerY > enemyY);
+		});
+
+	// From up to left or right
+	m_pEnemyStateMachine->AddTransition(pUpState, pLeftState, [&]()
+		{
+			float playerY = m_pPlayerTransform->GetPosition().y;
+			float enemyY = m_pTransformComponent->GetPosition().y;
+			float playerX = m_pPlayerTransform->GetPosition().x;
+			float enemyX = m_pTransformComponent->GetPosition().x;
+
+			return SpaceLeft() && (abs(playerY - enemyY) > 1.f && playerX < enemyX);
+		});
+
+	m_pEnemyStateMachine->AddTransition(pUpState, pRightState, [&]()
+		{
+			float playerY = m_pPlayerTransform->GetPosition().y;
+			float enemyY = m_pTransformComponent->GetPosition().y;
+			float playerX = m_pPlayerTransform->GetPosition().x;
+			float enemyX = m_pTransformComponent->GetPosition().x;
+
+			return SpaceRight() && (abs(playerY - enemyY) > 1.f && playerX > enemyX);
+		});
+
+	// From down to left or right
+	m_pEnemyStateMachine->AddTransition(pDownState, pLeftState, [&]()
+		{
+			float playerY = m_pPlayerTransform->GetPosition().y;
+			float enemyY = m_pTransformComponent->GetPosition().y;
+			float playerX = m_pPlayerTransform->GetPosition().x;
+			float enemyX = m_pTransformComponent->GetPosition().x;
+
+			return SpaceLeft() && (abs(playerY - enemyY) > 1.f && playerX < enemyX);
+		});
+
+	m_pEnemyStateMachine->AddTransition(pDownState, pRightState, [&]()
+		{
+			float playerY = m_pPlayerTransform->GetPosition().y;
+			float enemyY = m_pTransformComponent->GetPosition().y;
+			float playerX = m_pPlayerTransform->GetPosition().x;
+			float enemyX = m_pTransformComponent->GetPosition().x;
+
+			return SpaceRight() && (abs(playerY - enemyY) > 1.f && playerX > enemyX);
+		});
 }
 
 void EnemyComponent::Update()
 {
-	UpdateWalk();
-
-	if (m_Dead)
-	{
-		if (m_pAnimatorComponent->IsAnimationDone())
-			dae::SceneManager::GetInstance().GetScene(0)->RemoveGameObject(m_pGameObject);
-
-		return;
-	}
-
-	//if(m_pPlayerTransform->GetPosition().y > 0)
-
-	//if (m_pPlayerTransform == nullptr) return;
-	//if (m_pPlayerTransform->GetPosition().x <= m_pTransfomComponent->GetPosition().x)
-	//	m_pRigidbodyComponent->GetBody()->SetLinearVelocity(b2Vec2{ -m_Speed, 0.f });
-	//else if(m_pPlayerTransform->GetPosition().x >= m_pTransfomComponent->GetPosition().x)
-	//	m_pRigidbodyComponent->GetBody()->SetLinearVelocity(b2Vec2{ m_Speed, 0.f });
-
+	m_pEnemyStateMachine->Update();
 }
 
 void EnemyComponent::Render() const
 {
-	dae::Renderer::GetInstance().RenderCircle(m_CurrentTarget, 1.f);
-	//dae::Renderer::GetInstance().RenderLine(m_pTransfomComponent->GetPosition(), glm::vec2{ m_pTransfomComponent->GetPosition() }, SDL_Color{ 255, 255, 0, 255 });
+	m_pEnemyStateMachine->Render();
 
-
-	b2Vec2 startPosition{
-		m_pTransfomComponent->GetPosition().x + (m_pColliderComponent->GetSize().x / 2.0f),
-		m_pTransfomComponent->GetPosition().y + (m_pColliderComponent->GetSize().y / 2.0f),
-	};
-	float rayDistance = m_pColliderComponent->GetSize().x;
-
-	b2Vec2 directions[4] = { b2Vec2{0,-1 * rayDistance}, b2Vec2{-1 * rayDistance,0}, b2Vec2{0, 1 * rayDistance}, b2Vec2{1 * rayDistance, 0} };
-
-	for (int i = 0; i < 4; ++i)
-	{
-		b2Vec2 endPosition = startPosition + directions[i];
-		dae::Renderer::GetInstance().RenderLine(startPosition, endPosition, SDL_Color{ 255, 0, 255, 255 });
-
-	}
-
-	dae::Renderer::GetInstance().RenderCircle(m_CurrentTarget, 10.f, SDL_Color{ 255, 255, 0, 255 });
-	dae::Renderer::GetInstance().RenderCircle(m_pPlayerTransform->GetPosition(), 10.f, SDL_Color{255, 255, 0, 255});
-
+	SpaceDown();
+	SpaceUp();
+	SpaceLeft();
+	SpaceRight();
 }
 
 void EnemyComponent::RenderGUI()
 {
 	float target[2] = { m_CurrentTarget.x, m_CurrentTarget.y };
 	ImGui::InputFloat2("CurrentDirection", target);
-	float position[2] = { m_pTransfomComponent->GetPosition().x, m_pTransfomComponent->GetPosition().y };
+	float position[2] = { m_pTransformComponent->GetPosition().x, m_pTransformComponent->GetPosition().y };
 	ImGui::InputFloat2("CurrentPosition", position);
 	float playerPosition[2] = { m_pPlayerTransform->GetPosition().x, m_pPlayerTransform->GetPosition().y };
 	ImGui::InputFloat2("CurrentPosition", playerPosition);
@@ -165,177 +207,289 @@ std::unique_ptr<Subject>& EnemyComponent::GetSubject()
 	return m_pSubject;
 }
 
-void EnemyComponent::UpdateWalk()
+bool EnemyComponent::SpaceUp() const
 {
-	auto difference = (glm::vec2{ m_pTransfomComponent->GetPosition() } - m_CurrentTarget);
-	float distance = powf(difference.x, 2) + powf(difference.y, 2);
-	if ( distance <= m_MinDistance)
+	dae::RaycastCallback callback;
+	const auto world = GetGameObject()->GetScene()->GetPhysicsWorld();
+
+	b2Vec2 startPosition
 	{
-		ChooseNextTarget();
+		m_pTransformComponent->GetPosition().x,
+		m_pTransformComponent->GetPosition().y + (m_pColliderComponent->GetSize().y / 2.f)
+	};
+	b2Vec2 endPosition{};
+	const int segments = 2;
+
+	for (int i = 0; i <= segments; ++i)
+	{
+		endPosition = startPosition + b2Vec2{ 0.f, -m_pColliderComponent->GetSize().y };
+
+		world->RayCast(&callback, startPosition, endPosition);	// Save world in member variable
+		if (callback.GetLatestHit().hit)
+			return false;
+
+		dae::Renderer::GetInstance().RenderLine(startPosition, endPosition, callback.GetLatestHit().hit ? SDL_Color{ 255, 0, 255, 255 } : SDL_Color{ 255, 255, 0, 255 });
+		startPosition.x += (m_pColliderComponent->GetSize().x / segments);
 	}
 
-	difference = (m_PreviousPosition -m_pTransfomComponent->GetPosition());
-	distance = powf(difference.x, 2) + powf(difference.y, 2);
+	return true;
+}
 
-	if (distance <= 0.0f)
+bool EnemyComponent::SpaceDown() const
+{
+	dae::RaycastCallback callback;
+	const auto world = GetGameObject()->GetScene()->GetPhysicsWorld();
+
+	b2Vec2 startPosition
 	{
-		ChooseNextTarget();
+		m_pTransformComponent->GetPosition().x,
+		m_pTransformComponent->GetPosition().y + (m_pColliderComponent->GetSize().y / 2.f)
+	};
+	b2Vec2 endPosition{};
+	const int segments = 2;
+
+	for (int i = 0; i <= segments; ++i)
+	{
+		endPosition = startPosition + b2Vec2{ 0.f, m_pColliderComponent->GetSize().y };
+
+		world->RayCast(&callback, startPosition, endPosition);	// Save world in member variable
+		if (callback.GetLatestHit().hit)
+			return false;
+
+		dae::Renderer::GetInstance().RenderLine(startPosition, endPosition, callback.GetLatestHit().hit ? SDL_Color{ 255, 0, 255, 255 } : SDL_Color{ 255, 255, 0, 255 });
+		startPosition.x += (m_pColliderComponent->GetSize().x / segments);
 	}
 
-	glm::vec2 currentDirection = m_CurrentTarget - glm::vec2{ m_pTransfomComponent->GetPosition() };
-	currentDirection = glm::normalize(currentDirection) * m_Speed;
-	
-	m_pRigidbodyComponent->GetBody()->SetLinearVelocity(b2Vec2{ currentDirection.x, currentDirection.y });
-	m_PreviousPosition = m_pTransfomComponent->GetPosition();
-
-	// Raycast up to check if we can climb a ladder
-	//bool spaceAbove = SpaceAbove();
-	////bool spaceBelow = SpaceBelow();
-	//
-	////std::cout << "My position ["
-	////	<< m_pTransfomComponent->GetPosition().x << " , " << m_pTransfomComponent->GetPosition().y << " ]" << std::endl << 
-	////	"The players Position[" << m_pPlayerTransform->GetPosition().x << " , " << m_pPlayerTransform->GetPosition().y << " ] " << std::endl << 
-	////	"Space above head: ?" << spaceAbove << " " << std::endl;
-	//
-	//if (spaceAbove && fabsf((m_pTransfomComponent->GetPosition().y - m_pPlayerTransform->GetPosition().y)) > 1.0f)
-	//{
-	//	//m_pRigidbodyComponent->GetBody()->SetLinearVelocity(b2Vec2{ 0.f, -m_Speed });
-	//	m_CurrentState = EnemyState::Climb;
-	//	return;
-	//}
-	
+	return true;
 }
 
-void EnemyComponent::UpdatePlayerDeath()
+bool EnemyComponent::SpaceLeft() const
 {
-}
+	dae::RaycastCallback callback;
+	const auto world = GetGameObject()->GetScene()->GetPhysicsWorld();
 
-void EnemyComponent::ChooseNextTarget()
-{
-	glm::vec3 newDirection;
-	b2Vec2 startPosition{
-		m_pTransfomComponent->GetPosition().x + (m_pColliderComponent->GetSize().x / 2.0f),
-		m_pTransfomComponent->GetPosition().y + (m_pColliderComponent->GetSize().y / 2.0f),
-	};
-	dae::Renderer::GetInstance().RenderCircle(startPosition, 1.0f);
-
-	glm::vec2 potentialPosition[4];
-	glm::vec2 directions[4] = { 
-		glm::vec2{0,-1 * (m_pColliderComponent->GetSize().y) }, glm::vec2{-1 * (m_pColliderComponent->GetSize().x) ,0},
-		glm::vec2{0, 1 * (m_pColliderComponent->GetSize().y) }, glm::vec2{1 * (m_pColliderComponent->GetSize().x) , 0}
-	};
-	int indexForShortestDistance{};
-	float shortestDistance{ FLT_MAX };
-
-	dae::RaycastCallback raycastCallback{};
-
-	for (int i = 0; i < 4; ++i)
+	b2Vec2 startPosition
 	{
-		potentialPosition[i] = glm::vec2{ m_pTransfomComponent->GetPosition() } + (directions[i]);
-		potentialPosition[i] = glm::vec2{ roundf(potentialPosition[i].x), roundf(potentialPosition[i].y) };
+		m_pTransformComponent->GetPosition().x + (m_pColliderComponent->GetSize().x / 2.f),
+		m_pTransformComponent->GetPosition().y + 1.5f
+	};
+	b2Vec2 endPosition{};
+	const int segments = 2;
+	for (int i = 0; i <= segments; ++i)
+	{
+		endPosition = startPosition + b2Vec2{ -m_pColliderComponent->GetSize().x ,0.f };
 
-		float currentDistance = glm::distance(potentialPosition[i], glm::vec2{ m_pPlayerTransform->GetPosition() });
+		world->RayCast(&callback, startPosition, endPosition);	// Save world in member variable
+		if (callback.GetLatestHit().hit)
+			return false;
 
-		if (currentDistance <= shortestDistance)
+		dae::Renderer::GetInstance().RenderLine(startPosition, endPosition, callback.GetLatestHit().hit ? SDL_Color{ 255, 0, 255, 255 } : SDL_Color{ 255, 255, 0, 255 });
+		startPosition.y += (m_pColliderComponent->GetSize().y / segments);
+	}
+	return true;
+}
+
+bool EnemyComponent::SpaceRight() const
+{
+	dae::RaycastCallback callback;
+	const auto world = GetGameObject()->GetScene()->GetPhysicsWorld();
+
+	b2Vec2 startPosition
+	{
+		m_pTransformComponent->GetPosition().x + (m_pColliderComponent->GetSize().x / 2.f),
+		m_pTransformComponent->GetPosition().y + 1.5f
+	};
+	b2Vec2 endPosition{};
+	const int segments = 2;
+	for (int i = 0; i <= segments; ++i)
+	{
+		endPosition = startPosition + b2Vec2{ m_pColliderComponent->GetSize().x ,0.f };
+
+		world->RayCast(&callback, startPosition, endPosition);	// Save world in member variable
+		if (callback.GetLatestHit().hit)
+			return false;
+
+		dae::Renderer::GetInstance().RenderLine(startPosition, endPosition, callback.GetLatestHit().hit ? SDL_Color{ 255, 0, 255, 255 } : SDL_Color{255, 255, 0, 255});
+		startPosition.y += (m_pColliderComponent->GetSize().y / segments);
+	}
+	return true;
+}
+
+EnemyStateMachine::EnemyStateMachine(EnemyComponent* pEnemyComponent, IEnemyState* pEnemyState)
+	: m_pEnemyComponent{pEnemyComponent}
+	, m_pCurrentState{pEnemyState}
+{
+	m_pStates.push_back(pEnemyState);
+
+	if (m_pCurrentState == nullptr) return;
+	m_pCurrentState->OnEnter();
+}
+
+EnemyStateMachine::~EnemyStateMachine()
+{
+	for (auto state : m_pStates)
+	{
+		delete state;
+	}
+
+	m_pStates.clear();
+}
+
+void EnemyStateMachine::SwitchGameState(IEnemyState* pGameState)
+{
+	if (m_pCurrentState)
+		m_pCurrentState->OnExit();
+
+	m_pCurrentState = pGameState;
+
+	if (m_pCurrentState)
+		m_pCurrentState->OnEnter();
+}
+
+void EnemyStateMachine::AddState(IEnemyState* pState)
+{
+	m_pStates.push_back(pState);
+}
+
+void EnemyStateMachine::AddTransition(IEnemyState* pFromState, IEnemyState* pToState, std::function<bool()> condition)
+{
+	auto it = m_pTransitions.find(pFromState);
+	if (it == m_pTransitions.end())
+	{
+		std::cout << "New from list: " << pFromState << std::endl;
+		m_pTransitions[pFromState] = std::vector<TransitionPair>();
+	}
+
+	m_pTransitions[pFromState].push_back(std::make_pair(pToState, condition));
+}
+
+void EnemyStateMachine::Update()
+{
+	if (m_pCurrentState == nullptr) return;
+
+	if (m_pTransitions[m_pCurrentState].size() != 0)
+	{
+		for (size_t i = 0; i < m_pTransitions[m_pCurrentState].size(); ++i)
 		{
-			dae::Renderer::GetInstance().RenderCircle(potentialPosition[i], 10.f, SDL_Color{ 255, 255, 0, 255 });
-			b2Vec2 endPosition{ startPosition.x + directions[i].x , startPosition.y + directions[i].y };
-			m_pGameObject->GetScene()->GetPhysicsWorld()->RayCast(&raycastCallback, startPosition, endPosition);
-			if (raycastCallback.GetLatestHit().pHitObject == nullptr)
-			{
-				shortestDistance = glm::distance(glm::vec2{ m_pPlayerTransform->GetPosition() }, potentialPosition[indexForShortestDistance]);
-				indexForShortestDistance = i;
-			}
+			if (m_pTransitions[m_pCurrentState][i].second())
+				SwitchGameState(m_pTransitions[m_pCurrentState][i].first);
 		}
 	}
 
-	m_CurrentTarget = potentialPosition[indexForShortestDistance];
+	m_pCurrentState->Update();
 }
 
-bool EnemyComponent::SpaceAbove()
+void EnemyStateMachine::Render()
 {
-	dae::RaycastCallback raycastCallback;
-	const auto pos = m_pTransfomComponent->GetPosition();
-	b2Vec2 startPosition{ pos.x, pos.y + 1.0f };
-	b2Vec2 endPosition{ startPosition + b2Vec2{0,-3.f} };
-
-	int sections = 3;
-	float sizeDevidedBySections = m_pColliderComponent->GetSize().x / (sections- 1.f);
-
-	for (int i = 0; i < sections; ++i)
-	{
-		m_pGameObject->GetScene()->GetPhysicsWorld()->RayCast(&raycastCallback, startPosition + b2Vec2{ sizeDevidedBySections * i, 0.f }, endPosition + b2Vec2{ sizeDevidedBySections * i, 0.f });
-		auto hit = raycastCallback.GetLatestHit();
-
-		std::cout << "hit " << std::to_string(i) << ": " << (hit.pHitObject ? hit.pHitObject->GetName() : "NULL") << std::endl;
-		if (hit.pHitObject != nullptr)
-			return false;
-	}
-	return true;
+	if (m_pCurrentState == nullptr) return;
+	m_pCurrentState->Render();
 }
 
-bool EnemyComponent::SpaceBelow()
+LeftState::LeftState(EnemyComponent* pEnemyComponent, dae::TransformComponent* pPlayerTransform)
+	: IEnemyState{ pEnemyComponent }
+	, m_pPlayertransform{pPlayerTransform}
 {
-	dae::RaycastCallback raycastCallback;
-	const auto pos = m_pTransfomComponent->GetPosition();
-	b2Vec2 startPosition{ pos.x, pos.y + 1.0f };
-	b2Vec2 endPosition{ startPosition + b2Vec2{0,-2.f} };
-
-	int sections = 3;
-	float sizeDevidedBySections = m_pColliderComponent->GetSize().x / sections;
-
-	for (int i = 0; i < sections; ++i)
-	{
-		m_pGameObject->GetScene()->GetPhysicsWorld()->RayCast(&raycastCallback, startPosition +b2Vec2{sizeDevidedBySections * i, 0.f}, endPosition + b2Vec2{sizeDevidedBySections * i, 0.f});
-		auto hit = raycastCallback.GetLatestHit();
-
-		std::cout << "hit " << std::to_string(i) << ": " << (hit.pHitObject ? hit.pHitObject->GetName() : "NULL") << std::endl;
-		if (hit.pHitObject != nullptr)
-			return false;
-	}
-	return true;
+	m_pRigidbodyComponent = m_pEnemyComponent->GetGameObject()->GetComponent<dae::RigidbodyComponent>();
+	m_pTransformComponent = m_pEnemyComponent->GetGameObject()->GetComponent<dae::TransformComponent>();
+	m_pColliderComponent = m_pEnemyComponent->GetGameObject()->GetComponent<dae::ColliderComponent>();
 }
 
-bool EnemyComponent::SpaceLeft()
+void LeftState::OnEnter()
 {
-	dae::RaycastCallback raycastCallback;
-	const auto pos = m_pTransfomComponent->GetPosition();
-	b2Vec2 startPosition{ pos.x, pos.y - 1.0f };
-	b2Vec2 endPosition{ startPosition + b2Vec2{0,2.f} };
-
-	int sections = 3;
-	float sizeDevidedBySections = m_pColliderComponent->GetSize().x / sections;
-
-	for (int i = 0; i < sections; ++i)
-	{
-		m_pGameObject->GetScene()->GetPhysicsWorld()->RayCast(&raycastCallback, startPosition + b2Vec2{ sizeDevidedBySections * i, 0.f }, endPosition + b2Vec2{ sizeDevidedBySections * i, 0.f });
-		auto hit = raycastCallback.GetLatestHit();
-
-		std::cout << "hit " << std::to_string(i) << ": " << (hit.pHitObject ? hit.pHitObject->GetName() : "NULL") << std::endl;
-		if (hit.pHitObject != nullptr)
-			return false;
-	}
-	return true;
 }
 
-bool EnemyComponent::SpaceRight()
+void LeftState::Update()
 {
-	dae::RaycastCallback raycastCallback;
-	const auto pos = m_pTransfomComponent->GetPosition();
-	b2Vec2 startPosition{ pos.x + 1.0f, pos.y };
-	b2Vec2 endPosition{ startPosition + b2Vec2{-2.f, 0.f} };
 
-	int sections = 3;
-	float sizeDevidedBySections = m_pColliderComponent->GetSize().x / sections;
+	m_pRigidbodyComponent->GetBody()->SetLinearVelocity(b2Vec2{ -m_Speed, 0.f });
+}
 
-	for (int i = 0; i < sections; ++i)
-	{
-		m_pGameObject->GetScene()->GetPhysicsWorld()->RayCast(&raycastCallback, startPosition + b2Vec2{ 0.f, sizeDevidedBySections * i}, endPosition + b2Vec2{ 0.f,  sizeDevidedBySections * i });
-		auto hit = raycastCallback.GetLatestHit();
+void LeftState::Render()
+{
+}
 
-		std::cout << "hit " << std::to_string(i) << ": " << (hit.pHitObject ? hit.pHitObject->GetName() : "NULL") << std::endl;
-		if (hit.pHitObject != nullptr)
-			return false;
-	}
-	return true;
+void LeftState::OnExit()
+{
+}
+
+IEnemyState::IEnemyState(EnemyComponent* pEnemyComponent)
+	: m_pEnemyComponent{pEnemyComponent}
+{
+}
+
+UpState::UpState(EnemyComponent* pEnemyComponent, dae::TransformComponent* pPlayerTransform)
+	: IEnemyState{ pEnemyComponent }
+	, m_pPlayertransform{ pPlayerTransform }
+	, m_pWorld{ pEnemyComponent->GetGameObject()->GetScene()->GetPhysicsWorld() }
+{
+	m_pRigidbodyComponent = m_pEnemyComponent->GetGameObject()->GetComponent<dae::RigidbodyComponent>();
+	m_pTransformComponent = m_pEnemyComponent->GetGameObject()->GetComponent<dae::TransformComponent>();
+	m_pColliderComponent = m_pEnemyComponent->GetGameObject()->GetComponent<dae::ColliderComponent>();
+}
+
+void UpState::OnEnter()
+{
+}
+
+void UpState::Update()
+{
+	m_pRigidbodyComponent->GetBody()->SetLinearVelocity(b2Vec2{ 0.f, -m_Speed });
+}
+
+void UpState::Render()
+{
+}
+
+void UpState::OnExit()
+{
+}
+
+DownState::DownState(EnemyComponent* pEnemyComponent, dae::TransformComponent* pPlayerTransform)
+	: IEnemyState{ pEnemyComponent }
+	, m_pPlayertransform{ pPlayerTransform }
+{
+	m_pRigidbodyComponent = m_pEnemyComponent->GetGameObject()->GetComponent<dae::RigidbodyComponent>();
+	m_pTransformComponent = m_pEnemyComponent->GetGameObject()->GetComponent<dae::TransformComponent>();
+}
+
+void DownState::OnEnter()
+{
+}
+
+void DownState::Update()
+{
+	m_pRigidbodyComponent->GetBody()->SetLinearVelocity(b2Vec2{ 0.f, m_Speed });
+}
+
+void DownState::Render()
+{
+}
+
+void DownState::OnExit()
+{
+}
+
+RightState::RightState(EnemyComponent* pEnemyComponent, dae::TransformComponent* pPlayerTransform)
+	: IEnemyState{ pEnemyComponent }
+	, m_pPlayertransform{ pPlayerTransform }
+{
+	m_pRigidbodyComponent = m_pEnemyComponent->GetGameObject()->GetComponent<dae::RigidbodyComponent>();
+	m_pTransformComponent = m_pEnemyComponent->GetGameObject()->GetComponent<dae::TransformComponent>();
+}
+
+void RightState::OnEnter()
+{
+}
+
+void RightState::Update()
+{
+	m_pRigidbodyComponent->GetBody()->SetLinearVelocity(b2Vec2{ m_Speed, 0.f });
+}
+
+void RightState::Render()
+{
+}
+
+void RightState::OnExit()
+{
 }
