@@ -5,6 +5,11 @@
 
 const dae::Creator<dae::Component, LifeComponent> g_LifeComponentCreator{};
 
+LifeComponent::LifeComponent()
+	: m_pSubject{std::make_unique<Subject>()}
+{
+}
+
 LifeComponent::LifeComponent(dae::GameObject* pGameObject, int lives)
 	: dae::Component(pGameObject)
 	, m_Lives{lives}

@@ -57,6 +57,11 @@ void ScoreDisplayComponent::ChangeText(int number)
 	m_pTextComponent->SetText(m_ExtraDisplayText + std::to_string(number));
 }
 
+int ScoreDisplayComponent::GetScore() const
+{
+	return m_Score;
+}
+
 std::unique_ptr<Subject>& ScoreDisplayComponent::GetSubject()
 {
 	return m_pSubject;

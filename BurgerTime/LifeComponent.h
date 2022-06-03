@@ -7,7 +7,7 @@ class Subject;
 class LifeComponent final : public dae::Component
 {
 public:
-	LifeComponent() = default;
+	LifeComponent();
 	LifeComponent(dae::GameObject* pGameObject, int lives = 3);
 
 	void Serialize(rapidjson::PrettyWriter< rapidjson::StringBuffer>& writer) override;

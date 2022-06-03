@@ -11997,7 +11997,7 @@
                 },
                 {
                     "name": "class dae::TextComponent",
-                    "Text": "60 FPS",
+                    "Text": "61 FPS",
                     "Color": {
                         "r": 255,
                         "g": 255,
@@ -12012,7 +12012,7 @@
         }
     ],
     "InputManager": {
-        "ControllerCount": 1,
+        "ControllerCount": 4,
         "Keyboard": [
             {
                 "Key": 27,
@@ -12058,6 +12058,9 @@
             }
         ],
         "Controller 0": [],
+        "Controller 1": [],
+        "Controller 2": [],
+        "Controller 3": [],
         "Axises": [
             {
                 "Name": "keyboard_horizontal",

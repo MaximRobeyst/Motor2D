@@ -98,6 +98,9 @@ void EnemyComponent::Start()
 	m_pEnemyStateMachine->AddState(pDownState);
 	m_pEnemyStateMachine->AddState(pRightState);
 
+	if (!SpaceLeft())
+		m_pEnemyStateMachine->SwitchGameState(pRightState);
+
 	// From left state to up or down
 	m_pEnemyStateMachine->AddTransition(pLeftState, pUpState, [&]()
 		{

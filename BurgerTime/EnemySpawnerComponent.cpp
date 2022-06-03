@@ -47,8 +47,17 @@ void EnemySpawnerComponent::Update()
 	{
 		m_Timer = 0;
 		++m_Count;
-		//SpawnEnemyAtLocation(m_SpawnPoints[++m_CurrentIndex % m_MaxCount]);
-		m_SpawnedObjects[m_Count-1]->SetEnabled(true);
+
+		// find disabled object 
+		auto iter = std::find_if(m_SpawnedObjects.begin(), m_SpawnedObjects.end(), [](dae::GameObject* pGameobject) {
+				return !pGameobject->IsEnabled();
+			});
+		if (iter == m_SpawnedObjects.end())
+			return;
+
+		(*iter)->GetComponent<dae::TransformComponent>()->SetPosition(m_SpawnPoints[m_Count - 1]);
+		(*iter)->SetEnabled(true);
+
 	}
 
 	m_Timer += GameTime::GetInstance()->GetElapsed();
@@ -134,7 +143,13 @@ dae::GameObject* EnemySpawnerComponent::CreateMrHotDog(glm::vec3 position)
 	pHotDogGameObject->AddComponent(new dae::SpriteRendererComponent(pHotDogGameObject, "BurgerTime_SpriteSheet.png"));
 	pHotDogGameObject->AddComponent(new dae::AnimatorComponent(pHotDogGameObject, "../Data/Animations/HotdogAnimations.json"));
 	pHotDogGameObject->AddComponent(new dae::ColliderComponent(pHotDogGameObject, 14.f, 14.f, glm::vec2{ 7.f, 7.f }));
-	pHotDogGameObject->AddComponent(new dae::RigidbodyComponent(pHotDogGameObject));
+
+	uint16 mask = 0;
+	mask |= static_cast<uint16>(dae::PhysicsLayers::DefaultLayer);
+	mask |= static_cast<uint16>(dae::PhysicsLayers::layer1);
+	mask |= static_cast<uint16>(dae::PhysicsLayers::layer3);
+
+	pHotDogGameObject->AddComponent(new dae::RigidbodyComponent(pHotDogGameObject, b2_dynamicBody, 1.0f, 1.0f, false, dae::PhysicsLayers::layer2, mask));
 	auto pEnemyComponent = new EnemyComponent(pHotDogGameObject, nullptr);
 	pHotDogGameObject->AddComponent(pEnemyComponent);
 	pEnemyComponent->GetSubject()->AddObserver(m_pScoreDisplay);
@@ -155,7 +170,13 @@ dae::GameObject* EnemySpawnerComponent::CreateMrEgg(glm::vec3 position)
 	pEggGameObject->AddComponent(new dae::SpriteRendererComponent(pEggGameObject, "BurgerTime_SpriteSheet.png"));
 	pEggGameObject->AddComponent(new dae::AnimatorComponent(pEggGameObject, "../Data/Animations/EggAnimations.json"));
 	pEggGameObject->AddComponent(new dae::ColliderComponent(pEggGameObject, 15.f, 15.f, glm::vec2{ 8.f, 8.5f }));
-	pEggGameObject->AddComponent(new dae::RigidbodyComponent(pEggGameObject));
+
+	uint16 mask = 0;
+	mask |= static_cast<uint16>(dae::PhysicsLayers::DefaultLayer);
+	mask |= static_cast<uint16>(dae::PhysicsLayers::layer1);
+	mask |= static_cast<uint16>(dae::PhysicsLayers::layer3);
+
+	pEggGameObject->AddComponent(new dae::RigidbodyComponent(pEggGameObject, b2_dynamicBody, 1.0f, 1.0f, false, dae::PhysicsLayers::layer2, mask));
 	auto pEnemyComponent = new EnemyComponent(pEggGameObject, nullptr, 100);
 	pEggGameObject->AddComponent(pEnemyComponent);
 	pEnemyComponent->GetSubject()->AddObserver(m_pScoreDisplay);
@@ -176,7 +197,13 @@ dae::GameObject* EnemySpawnerComponent::CreateMrPickle(glm::vec3 position)
 	pPickleObject->AddComponent(new dae::SpriteRendererComponent(pPickleObject, "BurgerTime_SpriteSheet.png"));
 	pPickleObject->AddComponent(new dae::AnimatorComponent(pPickleObject, "../Data/Animations/PickleAnimations.json"));
 	pPickleObject->AddComponent(new dae::ColliderComponent(pPickleObject, 15.f, 15.f, glm::vec2{ 8.f, 8.5f }));
-	pPickleObject->AddComponent(new dae::RigidbodyComponent(pPickleObject));
+
+	uint16 mask = 0;
+	mask |= static_cast<uint16>(dae::PhysicsLayers::DefaultLayer);
+	mask |= static_cast<uint16>(dae::PhysicsLayers::layer1);
+	mask |= static_cast<uint16>(dae::PhysicsLayers::layer3);
+
+	pPickleObject->AddComponent(new dae::RigidbodyComponent(pPickleObject, b2_dynamicBody, 1.0f, 1.0f, false, dae::PhysicsLayers::layer2, mask));
 	auto pEnemyComponent = new EnemyComponent(pPickleObject, nullptr, 200);
 	pPickleObject->AddComponent(pEnemyComponent);
 	pEnemyComponent->GetSubject()->AddObserver(m_pScoreDisplay);

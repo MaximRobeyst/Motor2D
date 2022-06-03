@@ -8,13 +8,15 @@
 
 const dae::Creator<dae::Component, dae::RigidbodyComponent> g_RigidbodyCreator{};
 
-dae::RigidbodyComponent::RigidbodyComponent(dae::GameObject* pGameobject, b2BodyType bodyType, float density, float friction, bool IsSensor, PhysicsLayers layer)
+dae::RigidbodyComponent::RigidbodyComponent(dae::GameObject* pGameobject, b2BodyType bodyType, 
+	float density, float friction, bool IsSensor, PhysicsLayers layer, uint16 layermask)
 	: Component(pGameobject)
 	, m_Density{density}
 	, m_Friction{friction}
 	, m_Bodydef{bodyType}
 	, m_IsSensor{IsSensor}
 	, m_PhysicsLayer{layer}
+	, m_Mask{layermask}
 {
 }
 
@@ -180,6 +182,15 @@ void dae::RigidbodyComponent::ChangeBody(b2BodyType bodyType, float density, flo
 	fixtureDef.friction = friction;
 	fixtureDef.isSensor = isSensor;
 	fixtureDef.filter.categoryBits = static_cast<uint16>(m_PhysicsLayer);
+	fixtureDef.filter.maskBits = m_Mask;
 
 	m_pBody->CreateFixture(&fixtureDef);
+}
+
+void dae::RigidbodyComponent::SetSensor(bool newValue)
+{
+	if (m_pBody == nullptr) return;
+
+	m_IsSensor = newValue;
+	m_pBody->GetFixtureList()->SetSensor(newValue);
 }

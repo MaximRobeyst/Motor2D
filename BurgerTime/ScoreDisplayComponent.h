@@ -14,6 +14,8 @@ public:
 	void Notify(const dae::GameObject& gameObject, const Event& action);
 	void ChangeText(int number);
 
+	int GetScore() const;
+
 	std::unique_ptr<Subject>& GetSubject();
 private:
 	dae::TextComponent* m_pTextComponent;

@@ -4,6 +4,7 @@
 #include "Renderer.h"
 
 #include "Scene.h"
+#include "RigidbodyComponent.h"
 
 #include <misc/cpp/imgui_stdlib.h>
 
@@ -26,9 +27,6 @@ dae::GameObject::~GameObject()
 
 	m_pChildren.clear();
 	
-
-	//for (auto iter = m_pComponents.begin(); iter != m_pComponents.end(); ++iter)
-	//	delete *iter;
 	for (int i = 0; i < static_cast<int>(m_pComponents.size()); ++i)
 		delete m_pComponents[i];
 
@@ -259,6 +257,11 @@ void dae::GameObject::SetEnabled(bool newValue, bool AffectChildren)
 	for (auto iter = m_pChildren.begin(); iter != m_pChildren.end(); ++iter)
 	{
 		(*iter)->SetEnabled(newValue, AffectChildren);
+	}
+
+	if (dae::RigidbodyComponent* pRigidbody = GetComponent<dae::RigidbodyComponent>(); pRigidbody != nullptr)
+	{
+		pRigidbody->SetSensor(!newValue);
 	}
 }
 

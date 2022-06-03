@@ -14,6 +14,7 @@
 #include <GameStateManager.h>
 
 #include "LeaderboardState.h"
+#include "ScoreDisplayComponent.h"
 
 LifeDisplayComponent::LifeDisplayComponent(dae::GameObject* pGameObject, int number, const std::string& extraDisplayText)
 	: dae::Component{pGameObject}
@@ -62,7 +63,8 @@ void LifeDisplayComponent::Notify(const dae::GameObject& gameObject, const Event
 
 		 if (gameObject.GetComponent<LifeComponent>()->GetLives() <= 0)
 		 {
-			 GameStateManager::GetInstance().SwitchGameState(new LeaderboardState(100));
+			 auto pScore = m_pGameObject->GetScene()->FindGameobjectWithTag("Score")->GetComponent<ScoreDisplayComponent>();
+			 GameStateManager::GetInstance().SwitchGameState(new LeaderboardState(pScore->GetScore()));
 			 return;
 		 }
 
