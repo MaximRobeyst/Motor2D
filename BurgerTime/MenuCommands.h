@@ -39,3 +39,31 @@ private:
 	MenuComponent* m_pMenuComponent{};
 	int m_Change{};
 };
+
+class LeaderboardComponent;
+class AddLetterCommand : public Command
+{
+public:
+	AddLetterCommand() = default;
+	AddLetterCommand(LeaderboardComponent* pLeaderboardComponent, char letter = 'a');
+	void Execute() override;
+
+	virtual void Serialize(rapidjson::PrettyWriter< rapidjson::StringBuffer>&) override;
+	virtual void Deserialize(rapidjson::Value&, dae::Scene* pScene) override;
+private:
+	LeaderboardComponent* m_pLeaderboardComponent;
+	char m_Letter;
+};
+
+class RemoveLetterCommand : public Command
+{
+public:
+	RemoveLetterCommand() = default;
+	RemoveLetterCommand(LeaderboardComponent* pLeaderboardComponent);
+	void Execute() override;
+
+	virtual void Serialize(rapidjson::PrettyWriter< rapidjson::StringBuffer>&) override;
+	virtual void Deserialize(rapidjson::Value&, dae::Scene* pScene) override;
+private:
+	LeaderboardComponent* m_pLeaderboardComponent;
+};

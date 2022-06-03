@@ -88,6 +88,8 @@ void dae::GameObject::RenderGUI()
 
 void dae::GameObject::Serialize(rapidjson::PrettyWriter< rapidjson::StringBuffer>& writer)
 {
+	if (!m_Serialize) return;
+
 	writer.StartObject();
 	writer.Key("Id");
 	writer.Int(m_InstanceId);

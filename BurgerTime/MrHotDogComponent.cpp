@@ -25,10 +25,11 @@ EnemyComponent::EnemyComponent()
 {
 }
 
-EnemyComponent::EnemyComponent(dae::GameObject* pGameobject, dae::TransformComponent* pPlayerTransform)
+EnemyComponent::EnemyComponent(dae::GameObject* pGameobject, dae::TransformComponent* pPlayerTransform, int score)
 	: dae::Component(pGameobject)
 	, m_pSubject{ std::make_unique<Subject>()}
 	, m_pPlayerTransform{pPlayerTransform}
+	, m_Score{score}
 {
 }
 
@@ -172,7 +173,7 @@ void EnemyComponent::Update()
 	if (m_Dead)
 	{
 		if (m_pAnimatorComponent->IsAnimationDone())
-			m_pGameObject->GetScene()->RemoveGameObject(m_pGameObject);
+			m_pGameObject->SetEnabled(false);
 		return;
 	}
 
@@ -385,7 +386,6 @@ void EnemyStateMachine::AddTransition(IEnemyState* pFromState, IEnemyState* pToS
 	auto it = m_pTransitions.find(pFromState);
 	if (it == m_pTransitions.end())
 	{
-		std::cout << "New from list: " << pFromState << std::endl;
 		m_pTransitions[pFromState] = std::vector<TransitionPair>();
 	}
 

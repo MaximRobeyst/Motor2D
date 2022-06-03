@@ -79,6 +79,7 @@ void LoadGame()
 #endif // _DEBUG
 
 	Factory<Component>::GetInstance().PrintRegisteredClasses();
+	Factory<Command>::GetInstance().PrintRegisteredClasses();
 	GameStateManager::GetInstance().SwitchGameState(new MainMenuState());
 	GameStateManager::GetInstance().Update();
 }

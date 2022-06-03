@@ -32,6 +32,7 @@ namespace dae
 		void Deserialize(GameObject* /*pGameobject*/, rapidjson::Value& /*value*/) override;
 
 		void SetText(const std::string& text);
+		std::string GetText() const;
 		void SetPosition(float x, float y);
 		void SetColor(const SDL_Color& color);
 

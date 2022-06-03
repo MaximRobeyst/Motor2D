@@ -16,9 +16,10 @@ namespace dae
 		Scene& CreateScene(const std::string& name);
 		void AddScene(Scene* pScene);
 		Scene* GetScene(int index);
+		Scene* GetScene(const std::string& name);
 
 		void RemoveScene(int index);
-		void RemoveScene(const std::string& sceneName);
+		void RemoveScene(const std::string& sceneName, bool deleteInstant = false);
 		void Cleanup();
 
 		void Start();

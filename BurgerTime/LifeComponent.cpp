@@ -3,6 +3,8 @@
 #include "Subject.h"
 #include "Event.h"
 
+const dae::Creator<dae::Component, LifeComponent> g_LifeComponentCreator{};
+
 LifeComponent::LifeComponent(dae::GameObject* pGameObject, int lives)
 	: dae::Component(pGameObject)
 	, m_Lives{lives}
@@ -15,7 +17,15 @@ void LifeComponent::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>& 
 	writer.StartObject();
 	writer.Key("name");
 	writer.String(typeid(*this).name());
+	writer.Key("Lives");
+	writer.Int(m_Lives);
 	writer.EndObject();
+}
+
+void LifeComponent::Deserialize(dae::GameObject* pGameobject, rapidjson::Value& value)
+{
+	m_pGameObject = pGameobject;
+	m_Lives = value["Lives"].GetInt();
 }
 
 void LifeComponent::Hit()

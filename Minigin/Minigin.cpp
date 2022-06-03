@@ -114,6 +114,7 @@ void dae::Minigin::Run()
 			//SteamAPI_RunCallbacks();
 		}
 
+		GameStateManager::GetInstance().SwitchGameState(nullptr);
 		InputManager::GetInstance().ClearInputs();
 		SceneManager::GetInstance().Cleanup();
 		delete GameTime::GetInstance();

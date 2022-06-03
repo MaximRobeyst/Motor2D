@@ -34,6 +34,7 @@ private:
 
 	dae::GameObject* CreateMrHotDog(glm::vec3 position);
 	dae::GameObject* CreateMrEgg(glm::vec3 position);
+	dae::GameObject* CreateMrPickle(glm::vec3 position);
 
 	std::vector<glm::vec3> m_SpawnPoints{};
 	int m_Count{};
@@ -43,6 +44,7 @@ private:
 	float m_TimebetweenSpawns{ 1.5f };
 	float m_Timer{ 0.0f };
 
+	std::vector<dae::GameObject*> m_SpawnedObjects;
 	Observer* m_pScoreDisplay{};
 
 };

@@ -47,6 +47,6 @@ void MultiplayerState::OnEnter()
 
 void MultiplayerState::OnExit()
 {
-	dae::SceneManager::GetInstance().RemoveScene(0);
+	dae::SceneManager::GetInstance().RemoveScene("Level01", true);
 	dae::InputManager::GetInstance().ClearInputs();
 }

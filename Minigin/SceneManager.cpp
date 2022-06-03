@@ -86,11 +86,17 @@ void dae::SceneManager::RemoveScene(int index)
 	m_ScenesToRemove.emplace(index);
 }
 
-void dae::SceneManager::RemoveScene(const std::string& sceneName)
+void dae::SceneManager::RemoveScene(const std::string& sceneName, bool deleteInstant)
 {
 	auto iter = std::find_if(m_Scenes.begin(), m_Scenes.end(), [sceneName](Scene* pScene) {
 		return pScene->GetName() == sceneName;
 		});
+
+	if (deleteInstant)
+	{
+		FinalRemoveScene(std::distance(m_Scenes.begin(), iter));
+		return;
+	}
 
 	m_ScenesToRemove.emplace(std::distance(m_Scenes.begin(), iter));
 }
@@ -106,4 +112,15 @@ void dae::SceneManager::Cleanup()
 dae::Scene* dae::SceneManager::GetScene(int index)
 {
 	return m_Scenes[index];
+}
+
+dae::Scene* dae::SceneManager::GetScene(const std::string& name)
+{
+	auto iter = std::find_if(m_Scenes.begin(), m_Scenes.end(), [name](Scene* pScene) {
+		return pScene->GetName() == name;
+		});
+
+	assert(iter != m_Scenes.end());
+
+	return *iter;
 }

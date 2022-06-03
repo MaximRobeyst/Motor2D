@@ -7,8 +7,10 @@
 #include "SceneManager.h"
 #include "Scene.h"
 
+#include "LeaderboardComponent.h"
 
-dae::Creator<Command, SwitchMenuStateCommand> g_SwitchMenuCommandCreator;
+
+const dae::Creator<Command, SwitchMenuStateCommand> g_SwitchMenuCommandCreator;
 
 void SwitchMenuStateCommand::Execute()
 {
@@ -16,7 +18,7 @@ void SwitchMenuStateCommand::Execute()
 }
 
 
-dae::Creator<Command, PressButtonCommand> g_PressButtonCommandCreator;
+const dae::Creator<Command, PressButtonCommand> g_PressButtonCommandCreator;
 
 PressButtonCommand::PressButtonCommand(MenuComponent* pMenuComp)
 	: m_pMenuComponent{pMenuComp}
@@ -45,7 +47,7 @@ void PressButtonCommand::Deserialize(rapidjson::Value& value, dae::Scene* pScene
 	m_pMenuComponent = pScene->GetGameobjectFromId(value["Menucomponent"].GetInt())->GetComponent<MenuComponent>();
 }
 
-dae::Creator<Command, ChangePointerCommand> g_ChangePointerCommandCreator;
+const dae::Creator<Command, ChangePointerCommand> g_ChangePointerCommandCreator;
 
 ChangePointerCommand::ChangePointerCommand(MenuComponent* pMenuComp, int change)
 	: m_pMenuComponent{pMenuComp}
@@ -77,4 +79,65 @@ void ChangePointerCommand::Deserialize(rapidjson::Value& value, dae::Scene* pSce
 	m_Change = value["Change"].GetInt();
 	m_pMenuComponent = pScene->GetGameobjectFromId(value["Menucomponent"].GetInt())->GetComponent<MenuComponent>();
 
+}
+
+const dae::Creator<Command, AddLetterCommand> g_AddLetterCommand;
+
+AddLetterCommand::AddLetterCommand(LeaderboardComponent* pLeaderboardComponent, char letter)
+	: m_pLeaderboardComponent{ pLeaderboardComponent }
+	, m_Letter{letter}
+{
+}
+
+void AddLetterCommand::Execute()
+{
+	m_pLeaderboardComponent->AddLetter(m_Letter);
+}
+
+void AddLetterCommand::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>& writer)
+{
+	writer.StartObject();
+	writer.Key("Name");
+	writer.String(typeid(*this).name());
+
+	writer.Key("Letter");
+	writer.Int(m_Letter);
+
+	writer.Key("LeaderboardComponent");
+	writer.Int(m_pLeaderboardComponent->GetGameObject()->GetId());
+	writer.EndObject();
+}
+
+void AddLetterCommand::Deserialize(rapidjson::Value& value, dae::Scene* pScene)
+{
+	m_Letter = static_cast<char>( value["Letter"].GetInt());
+	m_pLeaderboardComponent = pScene->GetGameobjectFromId(value["LeaderboardComponent"].GetInt())->GetComponent<LeaderboardComponent>();
+}
+
+const dae::Creator<Command, RemoveLetterCommand> g_RemoveLetterCommand;
+
+RemoveLetterCommand::RemoveLetterCommand(LeaderboardComponent* pLeaderboardComponent)
+	: m_pLeaderboardComponent{pLeaderboardComponent}
+{
+}
+
+void RemoveLetterCommand::Execute()
+{
+	m_pLeaderboardComponent->RemoveLetter();
+}
+
+void RemoveLetterCommand::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>& writer)
+{
+	writer.StartObject();
+	writer.Key("Name");
+	writer.String(typeid(*this).name());
+
+	writer.Key("LeaderboardComponent");
+	writer.Int(m_pLeaderboardComponent->GetGameObject()->GetId());
+	writer.EndObject();
+}
+
+void RemoveLetterCommand::Deserialize(rapidjson::Value& value, dae::Scene* pScene)
+{
+	m_pLeaderboardComponent = pScene->GetGameobjectFromId(value["LeaderboardComponent"].GetInt())->GetComponent<LeaderboardComponent>();
 }

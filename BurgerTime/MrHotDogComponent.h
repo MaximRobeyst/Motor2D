@@ -20,7 +20,7 @@ class EnemyComponent : public dae::Component
 {
 public:
 	EnemyComponent();
-	EnemyComponent(dae::GameObject* pGameobject, dae::TransformComponent* pPlayerTransform);
+	EnemyComponent(dae::GameObject* pGameobject, dae::TransformComponent* pPlayerTransform, int score = 100);
 	~EnemyComponent() override;
 
 	void Start() override;
@@ -61,8 +61,6 @@ private:
 
 	dae::TransformComponent* m_pPlayerTransform{nullptr};
 	std::unique_ptr<Subject> m_pSubject{};
-
-	dae::RigidbodyComponent* m_pTopCollider{};
 
 	glm::vec3 m_PreviousPosition{};
 	glm::vec2 m_CurrentTarget{};
@@ -195,8 +193,6 @@ private:
 
 	std::map < IEnemyState*, std::vector < TransitionPair>> m_pTransitions;
 	std::vector<IEnemyState*> m_pStates;
-
-
 
 	EnemyComponent* m_pEnemyComponent;
 	IEnemyState* m_pCurrentState;

@@ -6,7 +6,7 @@
 #include "Renderer.h"
 #include "RigidbodyComponent.h"
 
-dae::Creator<dae::Component, dae::RigidbodyComponent> s_TranformComponentCreate{};
+const dae::Creator<dae::Component, dae::RigidbodyComponent> g_RigidbodyCreator{};
 
 dae::RigidbodyComponent::RigidbodyComponent(dae::GameObject* pGameobject, b2BodyType bodyType, float density, float friction, bool IsSensor, PhysicsLayers layer)
 	: Component(pGameobject)
@@ -74,7 +74,7 @@ void dae::RigidbodyComponent::Serialize(rapidjson::PrettyWriter<rapidjson::Strin
 	writer.Key("BodyDef");
 	writer.Int(static_cast<int>(m_Bodydef));
 	writer.Key("Layer");
-	writer.Int(static_cast<int>(m_PhysicsLayer));
+	writer.Uint(static_cast<uint16>(m_PhysicsLayer));
 	writer.EndObject();
 }
 
@@ -86,12 +86,14 @@ void dae::RigidbodyComponent::Deserialize(GameObject* pGameObject, rapidjson::Va
 	m_Friction = static_cast<float>(value["Friction"].GetDouble());
 	m_IsSensor = value["IsSensor"].GetBool();
 	m_Bodydef = static_cast<b2BodyType>(value["BodyDef"].GetInt());
-	m_PhysicsLayer = static_cast<PhysicsLayers>(m_PhysicsLayer);
+	m_PhysicsLayer = static_cast<PhysicsLayers>(value["Layer"].GetUint());
 
 }
 
 void dae::RigidbodyComponent::OnBeginContact(dae::RigidbodyComponent* pTriggeredBody, RigidbodyComponent* pOtherBody, b2Contact* pContact)
 {
+	if (!m_pGameObject->IsEnabled()) return;
+
 	//if (!pTriggeredBody->GetGameObject()->IsEnabled() || !pOtherBody->GetGameObject()->IsEnabled())
 	//	return;
 
@@ -106,6 +108,7 @@ void dae::RigidbodyComponent::OnBeginContact(dae::RigidbodyComponent* pTriggered
 
 void dae::RigidbodyComponent::OnEndContact(dae::RigidbodyComponent* pTriggeredBody, RigidbodyComponent* pOtherBody, b2Contact* pContact)
 {
+	if (!m_pGameObject->IsEnabled()) return;
 	//if (!pTriggeredBody->GetGameObject()->IsEnabled() || !pOtherBody->GetGameObject()->IsEnabled())
 	//	return;
 
