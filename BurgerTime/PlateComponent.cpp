@@ -5,20 +5,15 @@
 
 dae::Creator<dae::Component, PlateComponent> s_TranformComponentCreate{};
 
+PlateComponent::PlateComponent()
+	: m_pSubject{std::make_unique<Subject>() }
+{
+}
+
 PlateComponent::PlateComponent(dae::GameObject* pGameobject)
 	: dae::Component(pGameobject)
 	, m_pSubject{ std::make_unique<Subject>() }
 {
-	//std::function<void(dae::RigidbodyComponent*, dae::RigidbodyComponent*, b2Contact*)> newFunction = [](dae::RigidbodyComponent* pTriggeredBody, dae::RigidbodyComponent* otherBody, b2Contact*)
-	//{
-	//	auto pOtherGO = otherBody->GetGameobject();
-	//
-	//	if (pOtherGO->GetTag() == "Food")
-	//	{
-	//		pTriggeredBody->GetGameobject()->GetComponent<PlateComponent>()->AddIngredient(pOtherGO);
-	//	}
-	//};
-	//m_pRigidbody->SetOnEnterFunction(newFunction);
 }
 
 void PlateComponent::Start()

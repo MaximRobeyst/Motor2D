@@ -7,7 +7,7 @@ class FoodComponent;
 class PlateComponent : public dae::Component
 {
 public:
-	PlateComponent() = default;
+	PlateComponent();
 	PlateComponent(dae::GameObject* pGameobject);
 
 	void Start() override;

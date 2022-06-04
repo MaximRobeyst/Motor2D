@@ -20,6 +20,8 @@
 #include <Collider.h>
 #include <Scene.h>
 
+#include <Observer.h>
+
 dae::Creator<dae::Component, FoodComponent> s_TranformComponentCreate{};
 
 FoodComponent::FoodComponent()
@@ -150,12 +152,31 @@ void FoodComponent::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>& 
 	writer.String(typeid(*this).name());
 	writer.Key("TopPart");
 	writer.Bool(m_TopPart);
+
+	writer.Key("Observers");
+	writer.StartArray();
+
+	for (int i = 0; i < m_pSubject->GetNrOfObservers(); ++i)
+	{
+		writer.Int(m_pSubject->GetObserverFromId(i)->GetId());
+	}
+
+	writer.EndArray();
+
 	writer.EndObject();
 }
 void FoodComponent::Deserialize(dae::GameObject* pGameobject, rapidjson::Value& value)
 {
 	m_pGameObject = pGameobject;
 	m_TopPart = value["TopPart"].GetBool();
+
+	for (auto iter = value["Observers"].Begin(); iter != value["Observers"].End(); ++iter)
+	{
+		auto pObserver = pGameobject->GetScene()->GetGameobjectFromId(iter->GetInt());
+
+		m_pSubject->AddObserver(pObserver->GetComponent<Observer>());
+		
+	}
 
 }
 #ifdef _DEBUG

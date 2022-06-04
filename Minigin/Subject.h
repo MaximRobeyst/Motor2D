@@ -15,6 +15,9 @@ public:
 	void AddObserver(Observer* observer);
 	void RemoveObserver(Observer* observer);
 
+	int GetNrOfObservers() const;
+	Observer* GetObserverFromId(int i) const;
+
 	void Notify(const dae::GameObject& actor, Event event);
 
 private:

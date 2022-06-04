@@ -17,6 +17,7 @@ public:
 	LevelComponent() = default;
 	LevelComponent(dae::GameObject* m_pGameobject, int width, int height, std::vector<std::vector<char>> level, std::string nextLevel);
 
+	void Start() override;
 	void RenderGUI() override;
 
 	void RemoveLevel();

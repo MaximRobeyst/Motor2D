@@ -25,6 +25,7 @@ LifeDisplayComponent::LifeDisplayComponent(dae::GameObject* pGameObject, int num
 
 void LifeDisplayComponent::Start()
 {
+	SetId(m_pGameObject->GetId());
 	auto scene = m_pGameObject->GetScene();
 
 	m_pLifeSprites.reserve(m_NumberOfLives);

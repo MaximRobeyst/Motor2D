@@ -43,3 +43,15 @@ void Subject::Notify(const dae::GameObject& actor, Event event)
 		m_Observers[i]->Notify(actor, event);
 	}
 }
+
+int Subject::GetNrOfObservers() const
+{
+	return m_NrOfObservers;
+}
+
+Observer* Subject::GetObserverFromId(int i) const
+{
+	assert(i < m_NrOfObservers);
+
+	return m_Observers[i];
+}

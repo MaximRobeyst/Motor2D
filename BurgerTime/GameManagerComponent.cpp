@@ -16,6 +16,19 @@ GameManagerComponent::GameManagerComponent(dae::GameObject* pGameobject, dae::Ga
 {
 }
 
+void GameManagerComponent::Start()
+{
+	SetId(m_pGameObject->GetId());
+}
+
+void GameManagerComponent::Update()
+{
+	if (!m_LoadNext) return;
+
+	m_pGameObject->GetScene()->AddGameObject(dae::GameObject::Deserialize(m_pGameObject->GetScene(), m_NextLevel));
+	m_LoadNext = false;
+}
+
 void GameManagerComponent::Notify(const dae::GameObject& /*gameObject*/, const Event& action)
 {
 	switch (action)
@@ -24,12 +37,13 @@ void GameManagerComponent::Notify(const dae::GameObject& /*gameObject*/, const E
 			++m_CurrentBurgers;
 			if (m_CurrentBurgers == m_AmountOfBurgers)
 			{
-				std::string nextLevel = m_pLevelComponent->GetNextLevel();
+				m_NextLevel = m_pLevelComponent->GetNextLevel();
 				m_pLevelComponent->RemoveLevel();
 
-				if (nextLevel != "Level-1")
+
+				if (m_NextLevel != "Level-1")
 				{
-					m_pGameObject->GetScene()->AddGameObject(dae::GameObject::Deserialize(m_pGameObject->GetScene(), nextLevel));
+					m_LoadNext = true;
 				}
 				else
 				{

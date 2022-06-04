@@ -9,6 +9,9 @@ public:
 	GameManagerComponent() = default;
 	GameManagerComponent(dae::GameObject * pGameobject, dae::GameObject* pPlayer, int burgerAmount = 4);
 
+	void Start() override;
+	void Update() override;
+
 	virtual void Notify(const dae::GameObject& gameObject, const Event& action) override;
 
 	void SetLevelComponent(LevelComponent* pLevelComponent);
@@ -20,6 +23,9 @@ private:
 
 	int m_CurrentLevel{};
 	std::vector < std::string> m_Levels{};
+
+	std::string m_NextLevel{};
+	bool m_LoadNext{false};
 
 	dae::GameObject* m_pPlayerObject{};
 	LevelComponent* m_pLevelComponent{};

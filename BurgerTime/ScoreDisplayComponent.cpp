@@ -7,23 +7,46 @@
 #include <GameObject.h>
 #include <string>
 #include "FoodComponent.h"
+#include <Factory.h>
+
+const dae::Creator<dae::Component, ScoreDisplayComponent> g_ScoredisplayCreator{};
+
+ScoreDisplayComponent::ScoreDisplayComponent()
+	: m_pSubject{std::make_unique<Subject>()}
+{
+}
 
 ScoreDisplayComponent::ScoreDisplayComponent(dae::GameObject* pGameObject, int number, const std::string& extraDisplayText)
 	: Component{ pGameObject }
 	, m_Score{number}
 	, m_ExtraDisplayText{extraDisplayText}
-	, m_pTextComponent{ pGameObject->GetComponent<dae::TextComponent>() }
 	, m_pSubject{std::make_unique<Subject>()}
 {
-	m_pTextComponent->SetText(extraDisplayText + std::to_string(number));
+}
+
+void ScoreDisplayComponent::Start()
+{
+	SetId(m_pGameObject->GetId());
+	m_pTextComponent = m_pGameObject->GetComponent<dae::TextComponent>();
+	m_pTextComponent->SetText(m_ExtraDisplayText + std::to_string(0));
 }
 
 void ScoreDisplayComponent::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>& writer)
 {
 	writer.StartObject();
 	writer.Key("name");
-	writer.String(typeid(this).name());
+	writer.String(typeid(*this).name());
+	writer.Key("extraDisplayText");
+	writer.String(m_ExtraDisplayText.c_str());
 	writer.EndObject();
+}
+
+void ScoreDisplayComponent::Deserialize(dae::GameObject* pGameobject, rapidjson::Value& value)
+{
+	m_pGameObject = pGameobject;
+	
+	m_ExtraDisplayText = value["extraDisplayText"].GetString();
+
 }
 
 void ScoreDisplayComponent::Notify(const dae::GameObject& gameObject, const Event& action)

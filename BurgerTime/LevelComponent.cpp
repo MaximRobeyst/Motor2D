@@ -21,6 +21,11 @@ LevelComponent::LevelComponent(dae::GameObject* pGameobject, int width, int heig
 {
 }
 
+void LevelComponent::Start()
+{
+	SetId(m_pGameObject->GetId());
+}
+
 void LevelComponent::RenderGUI()
 {
 	ImVec2 size{ 20.f, 20.f };

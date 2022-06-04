@@ -34,6 +34,7 @@ void EnemySpawnerComponent::Notify(const dae::GameObject& /*gameObject*/, const 
 
 void EnemySpawnerComponent::Start()
 {
+	SetId(m_pGameObject->GetId());
 	m_pScoreDisplay = m_pGameObject->GetScene()->FindGameobjectWithTag("Score")->GetComponent<ScoreDisplayComponent>();
 	for (int i = 0; i < m_MaxCount; ++i)
 	{
