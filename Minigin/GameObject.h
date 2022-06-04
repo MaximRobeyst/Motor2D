@@ -19,6 +19,7 @@ namespace dae
 	public:
 		GameObject(const std::string& name = "Gameobject");
 		GameObject(GameObject* pParent, std::vector<GameObject*> pChildren = std::vector<GameObject*>{});
+		GameObject(Scene* pScene, const std::string& filename);
 		virtual ~GameObject();
 		GameObject(const GameObject& other) = delete;
 		GameObject(GameObject&& other) = delete;
@@ -35,6 +36,7 @@ namespace dae
 
 		void Serialize(rapidjson::PrettyWriter< rapidjson::StringBuffer>& writer);
 		static GameObject* Deserialize(Scene* pScene, rapidjson::Value& value);
+		static GameObject* Deserialize(Scene* pScene,const std::string& filename);
 
 
 		void AddComponent(Component* component);
@@ -68,7 +70,7 @@ namespace dae
 		GameObject* GetParent() const;
 
 		GameObject* GetChildFromIndex(int i) const;
-		size_t GetAmountOfChildren() const;
+		int GetAmountOfChildren() const;
 
 		void SetScene(Scene* pScene);
 		Scene* GetScene() const;
@@ -90,6 +92,8 @@ namespace dae
 
 
 	private:
+		void SaveAsPrefab();
+
 		void AddChild(GameObject* pChild);
 		void RemoveChild(GameObject* pChild);
 

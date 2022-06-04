@@ -16,7 +16,7 @@ LeaderboardComponent::LeaderboardComponent(dae::GameObject* pGameobject, int tar
 void LeaderboardComponent::Start()
 {
 	int closestScore{INT_MAX};
-	for (size_t i = 0; i < m_pGameObject->GetAmountOfChildren(); ++i)
+	for (int i = 0; i < m_pGameObject->GetAmountOfChildren(); ++i)
 	{
 		auto textComponent = m_pGameObject->GetChildFromIndex(i)->GetComponent<dae::TextComponent>();
 		auto text = textComponent->GetText();

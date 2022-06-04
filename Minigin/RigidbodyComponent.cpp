@@ -77,6 +77,8 @@ void dae::RigidbodyComponent::Serialize(rapidjson::PrettyWriter<rapidjson::Strin
 	writer.Int(static_cast<int>(m_Bodydef));
 	writer.Key("Layer");
 	writer.Uint(static_cast<uint16>(m_PhysicsLayer));
+	writer.Key("Mask");
+	writer.Uint(m_Mask);
 	writer.EndObject();
 }
 
@@ -89,6 +91,7 @@ void dae::RigidbodyComponent::Deserialize(GameObject* pGameObject, rapidjson::Va
 	m_IsSensor = value["IsSensor"].GetBool();
 	m_Bodydef = static_cast<b2BodyType>(value["BodyDef"].GetInt());
 	m_PhysicsLayer = static_cast<PhysicsLayers>(value["Layer"].GetUint());
+	m_Mask = static_cast<uint16>( value["Mask"].GetUint());
 
 }
 

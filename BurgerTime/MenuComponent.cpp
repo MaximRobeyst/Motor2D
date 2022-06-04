@@ -15,7 +15,7 @@ MenuComponent::MenuComponent(dae::GameObject* pGameobject, dae::GameObject* pPoi
 
 void MenuComponent::Start()
 {
-	for (size_t i = 0; i < m_pGameObject->GetAmountOfChildren(); ++i)
+	for (int i = 0; i < m_pGameObject->GetAmountOfChildren(); ++i)
 	{
 		m_pButtonObjects.push_back(m_pGameObject->GetChildFromIndex(i)->GetComponent<UIButtonComponent>());
 	}
@@ -41,7 +41,7 @@ void MenuComponent::SwitchSelection(int i)
 {
 	m_CurrentSelection += i;
 	if (m_CurrentSelection == -1)
-		m_CurrentSelection = m_pButtonObjects.size() - 1;
+		m_CurrentSelection = static_cast<int>(m_pButtonObjects.size()) - 1;
 	m_CurrentSelection %= m_pButtonObjects.size();
 
 	auto pTransformComponent = m_pMenuPointer->GetComponent<dae::TransformComponent>();

@@ -1,6 +1,17 @@
 #include "LevelComponent.h"
 #include "imgui.h"
 
+#include <Factory.h>
+#include <GameObject.h>
+#include <Scene.h>
+
+#include "PlateComponent.h"
+#include "FoodComponent.h"
+
+#include "Event.h"
+
+const dae::Creator<dae::Component, LevelComponent> g_LevelComponentCreator{};
+
 LevelComponent::LevelComponent(dae::GameObject* pGameobject, int width, int height, std::vector<std::vector<char>> level)
 	: dae::Component(pGameobject)
 	, m_Width{width}
@@ -27,4 +38,38 @@ void LevelComponent::RenderGUI()
 		}
 		ImGui::EndGroup();
 	}
+}
+
+void LevelComponent::RemoveLevel()
+{
+	auto scene = m_pGameObject->GetScene();
+	scene->RemoveGameObject(m_pGameObject);
+	for (size_t i = 0; i < m_pPlates.size(); ++i)
+	{
+		scene->RemoveGameObject(m_pPlates[i]);
+	}
+	m_pPlates.clear();
+
+	for (size_t i = 0; i < m_pIngredients.size(); ++i)
+	{
+		scene->RemoveGameObject(m_pIngredients[i]);
+	}
+	m_pIngredients.clear();
+
+}
+
+void LevelComponent::AddPlates(PlateComponent* pPlateComponent)
+{
+	pPlateComponent->GetSubject()->AddObserver(this);
+	m_pPlates.emplace_back(pPlateComponent->GetGameObject());
+}
+
+void LevelComponent::AddIngredient(FoodComponent* pFoodcomponent)
+{
+	pFoodcomponent->GetSubject()->AddObserver(this);
+	m_pPlates.emplace_back(pFoodcomponent->GetGameObject());
+}
+
+void LevelComponent::Notify(const dae::GameObject& /*gameObject*/, const Event& /*action*/)
+{
 }

@@ -63,7 +63,7 @@ void FoodComponent::Start()
 			foodComp->SetFalling(false);
 
 			PlateComponent* plateComp{ nullptr };
-			if (pOtherGO->GetParent() != nullptr)
+			if (pOtherGO->GetComponent<FoodComponent>() != nullptr)
 				plateComp = pOtherGO->GetParent()->GetComponent<PlateComponent>();
 			else
 				plateComp = pOtherGO->GetComponent<PlateComponent>();
@@ -222,7 +222,7 @@ void FoodComponent::RemoveEnemy(dae::GameObject* pEnemyObject)
 
 int FoodComponent::GetAmountOfEnemies() const
 {
-	return m_pEnemies.size();
+	return static_cast<int>(m_pEnemies.size());
 }
 
 std::unique_ptr<Subject>& FoodComponent::GetSubject()

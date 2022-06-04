@@ -8,6 +8,9 @@
 
 #include <misc/cpp/imgui_stdlib.h>
 
+#include <fstream>
+#include <istreamwrapper.h>
+
 dae::GameObject::GameObject(const std::string& name)
 	: m_Name{name}
 {
@@ -74,6 +77,11 @@ void dae::GameObject::RenderGUI()
 	ImGui::Text(m_Name.c_str());
 	if (ImGui::Checkbox("Enabled", &m_Enabled))
 		SetEnabled(m_Enabled);
+
+	if (ImGui::Button("Save as prefab..."))
+	{
+		SaveAsPrefab();
+	}
 
 	for (auto iter = m_pComponents.begin(); iter != m_pComponents.end(); ++iter)
 	{
@@ -149,6 +157,21 @@ dae::GameObject* dae::GameObject::Deserialize(Scene* pScene, rapidjson::Value& v
 	return pGameobject;
 }
 
+dae::GameObject* dae::GameObject::Deserialize(Scene* pScene, const std::string& filename)
+{
+	std::ifstream prefabFile{ {"../Data/Prefabs/" + filename + ".json"} };
+	if (!prefabFile.is_open())
+	{
+		std::cerr << "Could not open file" << std::endl;
+		return nullptr;
+	}
+	rapidjson::IStreamWrapper isw{ prefabFile };
+	rapidjson::Document prefabDocument{};
+	prefabDocument.ParseStream(isw);
+
+	return Deserialize(pScene, prefabDocument);
+}
+
 
 
 void dae::GameObject::AddComponent(Component* component)
@@ -177,6 +200,23 @@ void dae::GameObject::SetParent(GameObject* pParent, bool /*worldPositionStays*/
 dae::GameObject* dae::GameObject::GetParent() const
 {
 	return m_pParent;
+}
+
+void dae::GameObject::SaveAsPrefab()
+{
+	std::ofstream prefabFile{ "../Data/Prefabs/" + m_Name + ".json" };
+	if (!prefabFile.is_open())
+	{
+		std::cout << "Could not open file" << std::endl;
+	}
+
+	rapidjson::StringBuffer outputFile{};
+	rapidjson::PrettyWriter <rapidjson::StringBuffer> writer(outputFile);
+
+	Serialize(writer);
+
+	prefabFile << outputFile.GetString();
+	prefabFile.close();
 }
 
 void dae::GameObject::AddChild(GameObject* pChild)
@@ -209,9 +249,9 @@ dae::GameObject* dae::GameObject::GetChildFromIndex(int i) const
 	return m_pChildren[i];
 }
 
-size_t dae::GameObject::GetAmountOfChildren() const
+int dae::GameObject::GetAmountOfChildren() const
 {
-	return m_pChildren.size();
+	return static_cast<int>(m_pChildren.size());
 }
 
 void dae::GameObject::SetScene(Scene* pScene)

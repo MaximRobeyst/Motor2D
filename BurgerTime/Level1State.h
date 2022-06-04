@@ -7,6 +7,7 @@ namespace dae
 	class GameObject;
 }
 class GameManagerComponent;
+class ScoreDisplayComponent;
 
 class Level1State : public IGameState
 {
@@ -19,7 +20,11 @@ public:
 
 private:
 	void MakeLevel(dae::Scene& pScene);
+	void MakeLevel2(dae::Scene& pScene);
+	void MakeLevel3(dae::Scene& pScene);
+
 	dae::GameObject* m_pPlayerObject;
+	ScoreDisplayComponent* m_pScoreDisplay;
 	GameManagerComponent* m_pManagerComponent;
 };
 

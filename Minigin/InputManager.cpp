@@ -107,10 +107,10 @@ void dae::InputManager::Deserialize(rapidjson::Value& value, dae::Scene* pScene)
 	}
 	m_pXbox360Controllers.clear();
 
-	const size_t controllerCount = value["ControllerCount"].GetInt();
+	const int controllerCount = value["ControllerCount"].GetInt();
 	m_pXbox360Controllers.reserve( controllerCount);
 	m_pKeyboard->Deserialize(value["Keyboard"], pScene);
-	for (size_t i = 0; i < controllerCount; ++i)
+	for (int i = 0; i < controllerCount; ++i)
 	{
 		std::shared_ptr<Xbox360Controller> controller = std::make_shared<Xbox360Controller>(i);
 		AddController(controller);

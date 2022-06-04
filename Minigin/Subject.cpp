@@ -14,6 +14,8 @@ Subject::~Subject()
 
 void Subject::AddObserver(Observer* observer)
 {
+	assert(observer != nullptr);
+
 	m_Observers[m_NrOfObservers] = observer;
 	++m_NrOfObservers;
 }

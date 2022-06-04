@@ -94,11 +94,11 @@ void dae::SceneManager::RemoveScene(const std::string& sceneName, bool deleteIns
 
 	if (deleteInstant)
 	{
-		FinalRemoveScene(std::distance(m_Scenes.begin(), iter));
+		FinalRemoveScene(static_cast<int>(std::distance(m_Scenes.begin(), iter)));
 		return;
 	}
 
-	m_ScenesToRemove.emplace(std::distance(m_Scenes.begin(), iter));
+	m_ScenesToRemove.emplace(static_cast<int>(std::distance(m_Scenes.begin(), iter)));
 }
 
 void dae::SceneManager::Cleanup()

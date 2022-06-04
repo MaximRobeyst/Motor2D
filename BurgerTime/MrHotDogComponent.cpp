@@ -20,8 +20,7 @@
 const dae::Creator<dae::Component, EnemyComponent> g_EnemyComponentCreator{};
 
 EnemyComponent::EnemyComponent()
-	: dae::Component()
-	, m_pSubject{ std::make_unique<Subject>() }
+	: m_pSubject{std::make_unique<Subject>()}
 {
 }
 

@@ -198,7 +198,7 @@ void dae::Scene::RenderGUI()
 		ImGui::EndMenuBar();
 	}
 
-	static char filename[128] = "scene.json";
+	static char filename[128] = "scene_name";
 	ImGui::InputText("Scene filename: ", filename, 128);
 	if (ImGui::Button("Save"))
 	{
@@ -207,6 +207,13 @@ void dae::Scene::RenderGUI()
 	if (ImGui::Button("Load"))
 	{
 		Deserialize(filename);
+	}
+
+	static char prefabName[128] = "prefab_name";
+	ImGui::InputText("Prefab filename: ", prefabName, 128);
+	if (ImGui::Button("Add Prfab"))
+	{
+		AddGameObject(GameObject::Deserialize(this, prefabName));
 	}
 
 	// Scene Settings
