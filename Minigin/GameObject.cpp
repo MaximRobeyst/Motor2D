@@ -82,6 +82,10 @@ void dae::GameObject::RenderGUI()
 	{
 		SaveAsPrefab();
 	}
+	if (ImGui::Button("Delete"))
+	{
+		m_pCurrentScene->RemoveGameObject(this);
+	}
 
 	for (auto iter = m_pComponents.begin(); iter != m_pComponents.end(); ++iter)
 	{

@@ -54,6 +54,19 @@ void Level1State::OnEnter()
 
 	auto font = ResourceManager::GetInstance().LoadFont("Early GameBoy.ttf", 17);
 
+	m_pPlayerObject = new GameObject("PeterPete_Player");
+	auto pPlayerTransform = new TransformComponent(m_pPlayerObject, glm::vec3{ 192.f, 296.f, 0 }, glm::vec3{ 2.f });
+	m_pPlayerObject->AddComponent(pPlayerTransform);
+	m_pPlayerObject->AddComponent(new SpriteRendererComponent(m_pPlayerObject, "BurgerTime_SpriteSheet.png"));
+	m_pPlayerObject->AddComponent(new AnimatorComponent(m_pPlayerObject, "../Data/Animations/PlayerAnimations.json"));
+	//pPeperGameObject->AddComponent(new MovementComponent(pPeperGameObject, 100.f));
+	auto pLifeComponent = new LifeComponent{ m_pPlayerObject, 3 };
+	m_pPlayerObject->AddComponent(pLifeComponent);
+	m_pPlayerObject->AddComponent(new ColliderComponent(m_pPlayerObject, 15.f, 15.f, glm::vec2{ 8.0f, 8.0f }));
+	m_pPlayerObject->AddComponent(new RigidbodyComponent(m_pPlayerObject, b2_dynamicBody, 1.f, 0.3f));
+	auto pPlayerComp = new PlayerComponent(m_pPlayerObject);
+	m_pPlayerObject->AddComponent(pPlayerComp);
+
 	auto go = new GameObject("Score_Display");
 	go->AddComponent(new TransformComponent(go, glm::vec3(1100.f, 550.f, 0.f)));
 	go->AddComponent(new SpriteRendererComponent(go, "logo.png"));
@@ -70,6 +83,7 @@ void Level1State::OnEnter()
 
 	MakeLevel(scene);
 	//MakeLevel2(scene);
+
 
 	std::cout << std::endl << std::endl;
 	std::cout << "=== How To Play ====" << std::endl;
@@ -89,19 +103,6 @@ void Level1State::OnEnter()
 	go->AddComponent(m_pScoreDisplay);
 	go->SetTag("Score");
 	scene.AddGameObject(go);
-
-	m_pPlayerObject = new GameObject("PeterPete_Player");
-	auto pPlayerTransform = new TransformComponent(m_pPlayerObject, glm::vec3{ 192.f, 296.f, 0 }, glm::vec3{ 2.f });
-	m_pPlayerObject->AddComponent(pPlayerTransform);
-	m_pPlayerObject->AddComponent(new SpriteRendererComponent(m_pPlayerObject, "BurgerTime_SpriteSheet.png"));
-	m_pPlayerObject->AddComponent(new AnimatorComponent(m_pPlayerObject, "../Data/Animations/PlayerAnimations.json"));
-	//pPeperGameObject->AddComponent(new MovementComponent(pPeperGameObject, 100.f));
-	auto pLifeComponent = new LifeComponent{ m_pPlayerObject, 3 };
-	m_pPlayerObject->AddComponent(pLifeComponent);
-	m_pPlayerObject->AddComponent(new ColliderComponent(m_pPlayerObject, 15.f, 15.f, glm::vec2{ 8.0f, 8.0f }));
-	m_pPlayerObject->AddComponent(new RigidbodyComponent(m_pPlayerObject, b2_dynamicBody, 1.f, 0.3f));
-	auto pPlayerComp = new PlayerComponent(m_pPlayerObject);
-	m_pPlayerObject->AddComponent(pPlayerComp);
 	
 	InputManager::GetInstance().AddAxis("keyboard_horizontal", new KeyboardAxis(SDLK_d, SDLK_a, InputManager::GetInstance().GetKeyboard()));
 	InputManager::GetInstance().AddAxis("keyboard_vertical", new KeyboardAxis(SDLK_s, SDLK_w, InputManager::GetInstance().GetKeyboard()));
@@ -283,9 +284,11 @@ void Level1State::MakeLevel(Scene& pScene)
 	GameObject* pLevelGameobject = new GameObject("Level");
 	pLevelGameobject->AddComponent(new TransformComponent(pLevelGameobject));
 	pLevelGameobject->AddComponent(
-		new LevelComponent(pLevelGameobject, static_cast<int>(level[0].size()), static_cast<int>(level.size()), level)
+		new LevelComponent(pLevelGameobject, static_cast<int>(level[0].size()), static_cast<int>(level.size()), level, "Level2")
 	);
 	pScene.AddGameObject(pLevelGameobject);
+
+	m_pManagerComponent->SetLevelComponent(pLevelGameobject->GetComponent<LevelComponent>());
 
 	GameObject* pColliderObject = new GameObject("Colliders");
 	pColliderObject->AddComponent(new TransformComponent(pColliderObject));
@@ -872,10 +875,10 @@ void Level1State::MakeLevel2(dae::Scene& pScene)
 	int ladder{};
 	int platform{};
 
-	GameObject* pLevelGameobject = new GameObject("Level");
+	GameObject* pLevelGameobject = new GameObject("Level2");
 	pLevelGameobject->AddComponent(new TransformComponent(pLevelGameobject));
 	pLevelGameobject->AddComponent(
-		new LevelComponent(pLevelGameobject, static_cast<int>(level[0].size()), static_cast<int>(level.size()), level)
+		new LevelComponent(pLevelGameobject, static_cast<int>(level[0].size()), static_cast<int>(level.size()), level, "Level-1")
 	);
 	pScene.AddGameObject(pLevelGameobject);
 

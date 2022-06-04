@@ -12,11 +12,12 @@
 
 const dae::Creator<dae::Component, LevelComponent> g_LevelComponentCreator{};
 
-LevelComponent::LevelComponent(dae::GameObject* pGameobject, int width, int height, std::vector<std::vector<char>> level)
+LevelComponent::LevelComponent(dae::GameObject* pGameobject, int width, int height, std::vector<std::vector<char>> level, std::string nextLevel)
 	: dae::Component(pGameobject)
 	, m_Width{width}
 	, m_Height{height}
 	, m_Level{level}
+	, m_NextLevel{nextLevel}
 {
 }
 
@@ -42,20 +43,7 @@ void LevelComponent::RenderGUI()
 
 void LevelComponent::RemoveLevel()
 {
-	auto scene = m_pGameObject->GetScene();
-	scene->RemoveGameObject(m_pGameObject);
-	for (size_t i = 0; i < m_pPlates.size(); ++i)
-	{
-		scene->RemoveGameObject(m_pPlates[i]);
-	}
-	m_pPlates.clear();
-
-	for (size_t i = 0; i < m_pIngredients.size(); ++i)
-	{
-		scene->RemoveGameObject(m_pIngredients[i]);
-	}
-	m_pIngredients.clear();
-
+	m_pGameObject->GetScene()->RemoveGameObject(m_pGameObject);
 }
 
 void LevelComponent::AddPlates(PlateComponent* pPlateComponent)
@@ -72,4 +60,9 @@ void LevelComponent::AddIngredient(FoodComponent* pFoodcomponent)
 
 void LevelComponent::Notify(const dae::GameObject& /*gameObject*/, const Event& /*action*/)
 {
+}
+
+std::string LevelComponent::GetNextLevel() const
+{
+	return m_NextLevel;
 }
