@@ -20,6 +20,9 @@ public:
 	void Start() override;
 	void RenderGUI() override;
 
+	void Serialize(rapidjson::PrettyWriter< rapidjson::StringBuffer>& writer);
+	void Deserialize(dae::GameObject* pGameobject, rapidjson::Value& /*value*/);
+
 	void RemoveLevel();
 
 	void AddPlates(PlateComponent* pPlateComponent);

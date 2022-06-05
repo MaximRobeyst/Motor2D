@@ -46,6 +46,22 @@ void LevelComponent::RenderGUI()
 	}
 }
 
+void LevelComponent::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>& writer)
+{
+	writer.StartObject();
+	writer.Key("name");
+	writer.String(typeid(*this).name());
+	writer.Key("NextLevel");
+	writer.String(m_NextLevel.c_str());
+	writer.EndObject();
+}
+
+void LevelComponent::Deserialize(dae::GameObject* pGameobject, rapidjson::Value& value)
+{
+	m_pGameObject = pGameobject;
+	m_NextLevel = value["NextLevel"].GetString();
+}
+
 void LevelComponent::RemoveLevel()
 {
 	m_pGameObject->GetScene()->RemoveGameObject(m_pGameObject);
