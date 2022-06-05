@@ -57,7 +57,9 @@ void EnemySpawnerComponent::Update()
 		if (iter == m_SpawnedObjects.end())
 			return;
 
-		(*iter)->GetComponent<dae::TransformComponent>()->SetPosition(m_SpawnPoints[m_Count - 1]);
+		(*iter)->GetComponent<dae::TransformComponent>()->SetPosition(m_SpawnPoints[m_CurrentIndex]);
+		++m_CurrentIndex %= m_MaxCount;
+
 		(*iter)->SetEnabled(true);
 
 	}

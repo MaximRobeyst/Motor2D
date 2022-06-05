@@ -30,11 +30,21 @@ void LeaderboardComponent::Start()
 		std::stringstream numberExtraction;
 		numberExtraction << text;
 
-		int score;
-		numberExtraction >> score;
+		int score{};
+		std::string temp{};
+		while (!numberExtraction.eof())
+		{
+			numberExtraction >> temp;
+
+			if(std::stringstream(temp) >> score)
+				break;
+		}
 
 		if (score == m_PlayerScore || abs(score - m_PlayerScore) < abs(closestScore - m_PlayerScore))
+		{
+			closestScore = score;
 			m_pTargetText = textComponent;
+		}
 	}
 }
 
