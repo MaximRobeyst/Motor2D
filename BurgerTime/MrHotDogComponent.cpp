@@ -17,6 +17,8 @@
 #include "FoodComponent.h"
 #include <GameTime.h>
 
+#include <Observer.h>
+
 const dae::Creator<dae::Component, EnemyComponent> g_EnemyComponentCreator{};
 
 EnemyComponent::EnemyComponent()
@@ -208,12 +210,27 @@ void EnemyComponent::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>&
 	writer.StartObject();
 	writer.Key("name");
 	writer.String(typeid(*this).name());
+	writer.Key("Observers");
+	writer.StartArray();
+	for (int i = 0; i < m_pSubject->GetNrOfObservers(); ++i)
+	{
+		writer.Int(m_pSubject->GetObserverFromId(i)->GetId());
+	}
+	writer.EndArray();
 	writer.EndObject();
 }
 
-void EnemyComponent::Deserialize(dae::GameObject* pGameObject, rapidjson::Value&)
+void EnemyComponent::Deserialize(dae::GameObject* pGameObject, rapidjson::Value& value)
 {
 	m_pGameObject = pGameObject;
+
+	for (auto iter = value["Observers"].Begin(); iter != value["Observers"].End(); ++iter)
+	{
+		auto pObserver = pGameObject->GetScene()->GetGameobjectFromId(iter->GetInt());
+
+		m_pSubject->AddObserver(pObserver->GetComponent<Observer>());
+
+	}
 }
 
 void EnemyComponent::EnemyDeath()

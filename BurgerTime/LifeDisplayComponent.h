@@ -8,6 +8,7 @@ enum class Event;
 class LifeDisplayComponent : public dae::Component, public Observer
 {
 public:
+	LifeDisplayComponent() = default;
 	LifeDisplayComponent(dae::GameObject* pGameObject, int number, const std::string& extraDisplayText = "");
 
 	void Start() override;

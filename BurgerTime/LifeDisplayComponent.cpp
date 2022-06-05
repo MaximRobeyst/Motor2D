@@ -16,6 +16,8 @@
 #include "LeaderboardState.h"
 #include "ScoreDisplayComponent.h"
 
+const dae::Creator<dae::Component, LifeDisplayComponent> g_LifeDisplayComponent{};
+
 LifeDisplayComponent::LifeDisplayComponent(dae::GameObject* pGameObject, int number, const std::string& extraDisplayText)
 	: dae::Component{pGameObject}
 	, m_ExtraDisplayText{extraDisplayText}

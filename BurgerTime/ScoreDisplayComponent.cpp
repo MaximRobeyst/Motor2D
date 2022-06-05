@@ -8,6 +8,7 @@
 #include <string>
 #include "FoodComponent.h"
 #include <Factory.h>
+#include <Scene.h>
 
 const dae::Creator<dae::Component, ScoreDisplayComponent> g_ScoredisplayCreator{};
 
@@ -38,6 +39,13 @@ void ScoreDisplayComponent::Serialize(rapidjson::PrettyWriter<rapidjson::StringB
 	writer.String(typeid(*this).name());
 	writer.Key("extraDisplayText");
 	writer.String(m_ExtraDisplayText.c_str());
+	writer.Key("Observers");
+	writer.StartArray();
+	for (int i = 0; i < m_pSubject->GetNrOfObservers(); ++i)
+	{
+		writer.Int(m_pSubject->GetObserverFromId(i)->GetId());
+	}
+	writer.EndArray();
 	writer.EndObject();
 }
 
@@ -46,6 +54,14 @@ void ScoreDisplayComponent::Deserialize(dae::GameObject* pGameobject, rapidjson:
 	m_pGameObject = pGameobject;
 	
 	m_ExtraDisplayText = value["extraDisplayText"].GetString();
+
+	for (auto iter = value["Observers"].Begin(); iter != value["Observers"].End(); ++iter)
+	{
+		auto pObserver = pGameobject->GetScene()->GetGameobjectFromId(iter->GetInt());
+
+		m_pSubject->AddObserver(pObserver->GetComponent<Observer>());
+
+	}
 
 }
 

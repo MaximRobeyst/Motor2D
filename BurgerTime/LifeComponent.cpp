@@ -3,6 +3,9 @@
 #include "Subject.h"
 #include "Event.h"
 
+#include <Observer.h>
+#include <Scene.h>
+
 const dae::Creator<dae::Component, LifeComponent> g_LifeComponentCreator{};
 
 LifeComponent::LifeComponent()
@@ -23,7 +26,14 @@ void LifeComponent::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>& 
 	writer.Key("name");
 	writer.String(typeid(*this).name());
 	writer.Key("Lives");
-	writer.Int(m_Lives);
+	writer.Int(m_Lives);/*
+	writer.Key("Observers");
+	writer.StartArray();
+	for (int i = 0; i < m_pSubject->GetNrOfObservers(); ++i)
+	{
+		writer.Int(m_pSubject->GetObserverFromId(i)->GetId());
+	}
+	writer.EndArray();*/
 	writer.EndObject();
 }
 
@@ -31,6 +41,14 @@ void LifeComponent::Deserialize(dae::GameObject* pGameobject, rapidjson::Value& 
 {
 	m_pGameObject = pGameobject;
 	m_Lives = value["Lives"].GetInt();
+
+	//for (auto iter = value["Observers"].Begin(); iter != value["Observers"].End(); ++iter)
+	//{
+	//	auto pObserver = pGameobject->GetScene()->GetGameobjectFromId(iter->GetInt());
+
+	//	m_pSubject->AddObserver(pObserver->GetComponent<Observer>());
+
+	//}
 }
 
 void LifeComponent::Hit()

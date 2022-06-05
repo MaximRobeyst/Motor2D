@@ -2,6 +2,8 @@
 #include "PlateComponent.h"
 #include "FoodComponent.h"
 #include "Event.h"
+#include <Observer.h>
+#include <Scene.h>
 
 dae::Creator<dae::Component, PlateComponent> s_TranformComponentCreate{};
 
@@ -30,12 +32,27 @@ void PlateComponent::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>&
 	writer.StartObject();
 	writer.Key("name");
 	writer.String(typeid(*this).name());
+	writer.Key("Observers");
+	writer.StartArray();
+	for (int i = 0; i < m_pSubject->GetNrOfObservers(); ++i)
+	{
+		writer.Int(m_pSubject->GetObserverFromId(i)->GetId());
+	}
+	writer.EndArray();
 	writer.EndObject();
 }
 
-void PlateComponent::Deserialize(dae::GameObject* pGameobject, rapidjson::Value&)
+void PlateComponent::Deserialize(dae::GameObject* pGameobject, rapidjson::Value& value)
 {
 	m_pGameObject = pGameobject;
+
+	for (auto iter = value["Observers"].Begin(); iter != value["Observers"].End(); ++iter)
+	{
+		auto pObserver = pGameobject->GetScene()->GetGameobjectFromId(iter->GetInt());
+
+		m_pSubject->AddObserver(pObserver->GetComponent<Observer>());
+
+	}
 }
 
 void PlateComponent::AddIngredient(FoodComponent* pFoodComponent)

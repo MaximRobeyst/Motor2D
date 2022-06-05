@@ -8,6 +8,9 @@
 #include <GameStateManager.h>
 #include "LeaderboardState.h"
 #include <string>
+#include <Factory.h>
+
+const dae::Creator<dae::Component, GameManagerComponent> g_GamemanagerCoponentFactor{};
 
 GameManagerComponent::GameManagerComponent(dae::GameObject* pGameobject, dae::GameObject* pPlayer, int burgerAmount)
 	: dae::Component(pGameobject)

@@ -47,7 +47,8 @@
                 },
                 {
                     "name": "class ScoreDisplayComponent",
-                    "extraDisplayText": "Score: "
+                    "extraDisplayText": "Score: ",
+                    "Observers": []
                 }
             ]
         },
@@ -11657,7 +11658,10 @@
                                     "Mask": 65535
                                 },
                                 {
-                                    "name": "class PlateComponent"
+                                    "name": "class PlateComponent",
+                                    "Observers": [
+                                        2
+                                    ]
                                 }
                             ]
                         },
@@ -11709,7 +11713,10 @@
                                     "Mask": 65535
                                 },
                                 {
-                                    "name": "class PlateComponent"
+                                    "name": "class PlateComponent",
+                                    "Observers": [
+                                        2
+                                    ]
                                 }
                             ]
                         },
@@ -11761,7 +11768,10 @@
                                     "Mask": 65535
                                 },
                                 {
-                                    "name": "class PlateComponent"
+                                    "name": "class PlateComponent",
+                                    "Observers": [
+                                        2
+                                    ]
                                 }
                             ]
                         },
@@ -11813,7 +11823,10 @@
                                     "Mask": 65535
                                 },
                                 {
-                                    "name": "class PlateComponent"
+                                    "name": "class PlateComponent",
+                                    "Observers": [
+                                        2
+                                    ]
                                 }
                             ]
                         }
@@ -11895,7 +11908,8 @@
                 },
                 {
                     "name": "class ScoreDisplayComponent",
-                    "extraDisplayText": ""
+                    "extraDisplayText": "",
+                    "Observers": []
                 }
             ]
         },
@@ -12112,7 +12126,7 @@
                 },
                 {
                     "name": "class dae::TextComponent",
-                    "Text": "145 FPS",
+                    "Text": "85 FPS",
                     "Color": {
                         "r": 255,
                         "g": 255,
@@ -12127,7 +12141,7 @@
         }
     ],
     "InputManager": {
-        "ControllerCount": 2,
+        "ControllerCount": 1,
         "Keyboard": [
             {
                 "Key": 27,
@@ -12173,7 +12187,6 @@
             }
         ],
         "Controller 0": [],
-        "Controller 1": [],
         "Axises": [
             {
                 "Name": "keyboard_horizontal",
