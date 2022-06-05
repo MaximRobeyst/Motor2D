@@ -12,14 +12,16 @@
 
 const dae::Creator<dae::Component, ScoreDisplayComponent> g_ScoredisplayCreator{};
 
+int ScoreDisplayComponent::m_Score{};
+
+
 ScoreDisplayComponent::ScoreDisplayComponent()
 	: m_pSubject{std::make_unique<Subject>()}
 {
 }
 
-ScoreDisplayComponent::ScoreDisplayComponent(dae::GameObject* pGameObject, int number, const std::string& extraDisplayText)
+ScoreDisplayComponent::ScoreDisplayComponent(dae::GameObject* pGameObject, int /*number*/, const std::string& extraDisplayText)
 	: Component{ pGameObject }
-	, m_Score{number}
 	, m_ExtraDisplayText{extraDisplayText}
 	, m_pSubject{std::make_unique<Subject>()}
 {
@@ -29,7 +31,7 @@ void ScoreDisplayComponent::Start()
 {
 	SetId(m_pGameObject->GetId());
 	m_pTextComponent = m_pGameObject->GetComponent<dae::TextComponent>();
-	m_pTextComponent->SetText(m_ExtraDisplayText + std::to_string(0));
+	m_pTextComponent->SetText(m_ExtraDisplayText + std::to_string(m_Score));
 }
 
 void ScoreDisplayComponent::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>& writer)
@@ -96,7 +98,7 @@ void ScoreDisplayComponent::ChangeText(int number)
 	m_pTextComponent->SetText(m_ExtraDisplayText + std::to_string(number));
 }
 
-int ScoreDisplayComponent::GetScore() const
+int ScoreDisplayComponent::GetScore()
 {
 	return m_Score;
 }

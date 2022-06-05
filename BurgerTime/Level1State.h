@@ -9,11 +9,11 @@ namespace dae
 class GameManagerComponent;
 class ScoreDisplayComponent;
 
-class Level1State : public IGameState
+class SingleplayerState : public IGameState
 {
 public:
-	Level1State() = default;
-	~Level1State() = default;
+	SingleplayerState() = default;
+	~SingleplayerState() = default;
 
 	virtual void OnEnter() override;
 	virtual void OnExit() override;

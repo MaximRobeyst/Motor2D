@@ -48,8 +48,9 @@ void PlateComponent::Deserialize(dae::GameObject* pGameobject, rapidjson::Value&
 
 	for (auto iter = value["Observers"].Begin(); iter != value["Observers"].End(); ++iter)
 	{
-		auto pObserver = pGameobject->GetScene()->GetGameobjectFromId(iter->GetInt());
-
+		auto id = iter->GetInt();
+		auto pObserver = pGameobject->GetScene()->GetGameobjectFromId(id);
+		if (pObserver == nullptr) return;
 		m_pSubject->AddObserver(pObserver->GetComponent<Observer>());
 
 	}

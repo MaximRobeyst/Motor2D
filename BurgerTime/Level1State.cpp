@@ -44,7 +44,7 @@
 
 using namespace dae;
 
-void Level1State::OnEnter()
+void SingleplayerState::OnEnter()
 {
 	//dae::InputManager::GetInstance().ClearInputs();
 
@@ -68,9 +68,9 @@ void Level1State::OnEnter()
 	m_pPlayerObject->AddComponent(pPlayerComp);
 
 	auto go = new GameObject("Score_Display");
-	go->AddComponent(new TransformComponent(go, glm::vec3(1100.f, 550.f, 0.f)));
+	go->AddComponent(new TransformComponent(go, glm::vec3(0.f, 680.f, 0.f)));
 	go->AddComponent(new SpriteRendererComponent(go, "logo.png"));
-	go->AddComponent(new TextComponent(go, "Score:", font, SDL_Color{ 0, 255, 0 }));
+	go->AddComponent(new TextComponent(go, "Score:", font, SDL_Color{ 255, 255, 255 }));
 	m_pScoreDisplay = new ScoreDisplayComponent(go, 3, "Score: ");
 	go->AddComponent(m_pScoreDisplay);
 	scene.AddGameObject(go);
@@ -81,9 +81,9 @@ void Level1State::OnEnter()
 	pGameManager->AddComponent(m_pManagerComponent);
 	scene.AddGameObject(pGameManager);
 
-	//MakeLevel(scene);
+	MakeLevel(scene);
 	//MakeLevel2(scene);
-	MakeLevel3(scene);
+	//MakeLevel3(scene);
 
 
 	std::cout << std::endl << std::endl;
@@ -116,9 +116,9 @@ void Level1State::OnEnter()
 
 	
 	go = new GameObject("Live display");
-	go->AddComponent(new TransformComponent(go, glm::vec3{ 10.f, 750.f, 0.f }));
-	//go->AddComponent(new SpriteRendererComponent(go, "logo.png"));
-	//go->AddComponent(new TextComponent(go, "Lives: ", font, SDL_Color{ 255, 255, 0 }));
+	go->AddComponent(new TransformComponent(go, glm::vec3{ 0.f, 700.f, 0.f }));
+	go->AddComponent(new SpriteRendererComponent(go, "logo.png"));
+	go->AddComponent(new TextComponent(go, "Lives: ", font, SDL_Color{ 255, 255, 0 }));
 	auto pLifeDisplay = new LifeDisplayComponent(go, 3, "Lives: ");
 	pLifeComponent->GetSubject()->AddObserver(pLifeDisplay);
 	go->AddComponent(pLifeDisplay);
@@ -165,43 +165,6 @@ void Level1State::OnEnter()
 		KeyboardKeyData{ SDLK_ESCAPE, KeyState::JustUp },
 		new SwitchMenuStateCommand()
 	);
-
-	//keyboard->AddKeyboardMapping(
-	//	KeyboardKeyData{ SDLK_w, KeyState::Hold },
-	//	std::make_unique<MoveCommand>(pPeperGameObject->GetComponent<RigidbodyComponent>(), glm::vec2{ 0,-1}, 10.f)
-	//);
-	//keyboard->AddKeyboardMapping(
-	//	KeyboardKeyData{ SDLK_d, KeyState::Hold },
-	//	std::make_unique<MoveCommand>(pPeperGameObject->GetComponent<RigidbodyComponent>(), glm::vec2{ 1,0}, 10.f)
-	//);
-	//keyboard->AddKeyboardMapping(
-	//	KeyboardKeyData{ SDLK_a, KeyState::Hold },
-	//	std::make_unique<MoveCommand>(pPeperGameObject->GetComponent<RigidbodyComponent>(), glm::vec2{ -1,0}, 10.f)
-	//);
-
-	//std::shared_ptr<Xbox360Controller> controller = std::make_shared<Xbox360Controller>(0);
-	//controller->AddControllerMapping(ControllerButtonData{ ControllerButton::ButtonA, ButtonState::Up }, std::make_unique<KillCommand>(pLifeComponent));
-	//controller->AddControllerMapping(ControllerButtonData{ ControllerButton::ButtonB, ButtonState::Up }, std::make_unique<FallCommand>(pFoodComponent));
-	//controller->AddControllerMapping(
-	//	ControllerButtonData{ ControllerButton::DPadDown, ButtonState::Hold },
-	//	std::make_unique<MoveCommand>(pPeperGameObject2->GetComponent<RigidbodyComponent>(), glm::vec2{ 0,1}, 100.f)
-	//);
-	//controller->AddControllerMapping(
-	//	ControllerButtonData{ ControllerButton::DPadUp, ButtonState::Hold },
-	//	std::make_unique<MoveCommand>(pPeperGameObject2->GetComponent<RigidbodyComponent>(), glm::vec2{ 0,-1}, 100.f)
-	//);
-	//controller->AddControllerMapping(
-	//	ControllerButtonData{ ControllerButton::DPadRight, ButtonState::Hold },
-	//	std::make_unique<MoveCommand>(pPeperGameObject2->GetComponent<RigidbodyComponent>(), glm::vec2{ 1,0}, 100.f)
-	//);
-	//controller->AddControllerMapping(
-	//	ControllerButtonData{ ControllerButton::DPadLeft, ButtonState::Hold },
-	//	std::make_unique<MoveCommand>(pPeperGameObject->GetComponent<RigidbodyComponent>(), glm::vec2{ -1,0}, 100.f)
-	//);
-	//input.AddController(controller);
-
-	//font = ResourceManager::GetInstance().LoadFont("Lingua.otf", 16);
-	//
 	go = new GameObject("FPS_Counter");
 	go->AddComponent(new TransformComponent(go, glm::vec3{ 800, 750, 0 }));
 	go->AddComponent(new SpriteRendererComponent(go, "logo.png"));
@@ -212,12 +175,12 @@ void Level1State::OnEnter()
 	scene.Start();
 }
 
-void Level1State::OnExit()
+void SingleplayerState::OnExit()
 {
 	SceneManager::GetInstance().RemoveScene(0);
 }
 
-void Level1State::MakeLevel(Scene& pScene)
+void SingleplayerState::MakeLevel(Scene& pScene)
 {
 	auto pGameobject = dae::GameObject::Deserialize(&pScene, "Level");
 	pScene.AddGameObject(pGameobject);
@@ -838,62 +801,77 @@ void Level1State::MakeLevel(Scene& pScene)
 	//pScene.AddGameObject(pPlate);
 	//pPlate->SetParent(pPlates);
 	//pPlateComponent->GetSubject()->AddObserver(m_pManagerComponent);
+
 }
 
-void Level1State::MakeLevel2(dae::Scene& pScene)
+void SingleplayerState::MakeLevel2(dae::Scene& pScene)
 {
-	pScene.AddGameObject(dae::GameObject::Deserialize(&pScene, "Level2"));
+	//pScene.AddGameObject(dae::GameObject::Deserialize(&pScene, "Level2"));
 
-	//std::vector<std::vector<char>> level =
-	//{
-	//	{'.','.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.'},
-	//	{'.','.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.'},
-	//	{'L','L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L'},
-	//	{'L','L', '.', '.', '.', '.', 'L', 'L', '.', '.', '.', '.', 'L', 'L', '.', '.', '.', '.', 'L', 'L', '.', '.', '.', '.', 'L', 'L'},
-	//	{'L','L', '.', '.', '.', '.', 'L', 'L', '.', '.', '.', '.', 'L', 'L', '.', '.', '.', '.', 'L', 'L', '.', '.', '.', '.', 'L', 'L'},
-	//	{'L','L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L'},
-	//	{'.','.', '.', 'L', 'L', '.', '.', '.', '.', 'L', 'L', '.', '.', '.', '.', 'L', 'L', '.', '.', '.', '.', 'L', 'L', '.', '.', '.'},
-	//	{'.','.', '.', 'L', 'L', '.', '.', '.', '.', 'L', 'L', '.', '.', '.', '.', 'L', 'L', '.', '.', '.', '.', 'L', 'L', '.', '.', '.'},
-	//	{'L','L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L'},
-	//	{'L','L', '.', '.', '.', '.', 'L', 'L', '.', '.', '.', '.', 'L', 'L', '.', '.', '.', '.', 'L', 'L', '.', '.', '.', '.', 'L', 'L'},
-	//	{'L','L', '.', '.', '.', '.', 'L', 'L', '.', '.', '.', '.', 'L', 'L', '.', '.', '.', '.', 'L', 'L', '.', '.', '.', '.', 'L', 'L'},
-	//	{'L','L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L'},
-	//	{'.','.', '.', 'L', 'L', '.', '.', '.', '.', 'L', 'L', '.', '.', '.', '.', 'L', 'L', '.', '.', '.', '.', 'L', 'L', '.', '.', '.'},
-	//	{'.','.', '.', 'L', 'L', '.', '.', '.', '.', 'L', 'L', '.', '.', '.', '.', 'L', 'L', '.', '.', '.', '.', 'L', 'L', '.', '.', '.'},
-	//	{'L','L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L'},
-	//	{'L','L', '.', '.', '.', '.', 'L', 'L', '.', '.', '.', '.', 'L', 'L', '.', '.', '.', '.', 'L', 'L', '.', '.', '.', '.', 'L', 'L'},
-	//	{'L','L', '.', '.', '.', '.', 'L', 'L', '.', '.', '.', '.', 'L', 'L', '.', '.', '.', '.', 'L', 'L', '.', '.', '.', '.', 'L', 'L'},
-	//	{'L','L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L'},
-	//	{'.','.', '.', 'L', 'L', '.', '.', '.', '.', 'L', 'L', '.', '.', '.', '.', 'L', 'L', '.', '.', '.', '.', 'L', 'L', '.', '.', '.'},
-	//	{'.','.', '.', 'L', 'L', '.', '.', '.', '.', 'L', 'L', '.', '.', '.', '.', 'L', 'L', '.', '.', '.', '.', 'L', 'L', '.', '.', '.'},
-	//	{'L','L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L'},
-	//	{'.','.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.'},
-	//	{'.','.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.'},
-	//	{'.','.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.'},
-	//	{'.','.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.'},
-	//	{'.','B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', '.'}
-	//};
-	//
-	//int ladder{};
-	//int platform{};
-	//
-	//GameObject* pLevelGameobject = new GameObject("Level2");
-	//pLevelGameobject->AddComponent(new TransformComponent(pLevelGameobject));
-	//pLevelGameobject->AddComponent(
-	//	new LevelComponent(pLevelGameobject, static_cast<int>(level[0].size()), static_cast<int>(level.size()), level, "Level-1")
-	//);
-	//pScene.AddGameObject(pLevelGameobject);
-	//
-	//GameObject* pSprites = new GameObject("Sprites");
-	//pSprites->SetParent(pLevelGameobject);
-	//pSprites->AddComponent(new TransformComponent(pSprites));
-	//pScene.AddGameObject(pSprites);
-	//
-	//GameObject* pColliderObject = new GameObject("Colliders");
-	//pColliderObject->AddComponent(new TransformComponent(pColliderObject));
-	//pColliderObject->SetParent(pLevelGameobject);
-	//pScene.AddGameObject(pColliderObject);
-	//
+	std::vector<std::vector<char>> level =
+	{
+		{'.','.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.'},
+		{'.','.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.'},
+		{'L','L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L'},
+		{'L','L', '.', '.', '.', '.', 'L', 'L', '.', '.', '.', '.', 'L', 'L', '.', '.', '.', '.', 'L', 'L', '.', '.', '.', '.', 'L', 'L'},
+		{'L','L', '.', '.', '.', '.', 'L', 'L', '.', '.', '.', '.', 'L', 'L', '.', '.', '.', '.', 'L', 'L', '.', '.', '.', '.', 'L', 'L'},
+		{'L','L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L'},
+		{'.','.', '.', 'L', 'L', '.', '.', '.', '.', 'L', 'L', '.', '.', '.', '.', 'L', 'L', '.', '.', '.', '.', 'L', 'L', '.', '.', '.'},
+		{'.','.', '.', 'L', 'L', '.', '.', '.', '.', 'L', 'L', '.', '.', '.', '.', 'L', 'L', '.', '.', '.', '.', 'L', 'L', '.', '.', '.'},
+		{'L','L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L'},
+		{'L','L', '.', '.', '.', '.', 'L', 'L', '.', '.', '.', '.', 'L', 'L', '.', '.', '.', '.', 'L', 'L', '.', '.', '.', '.', 'L', 'L'},
+		{'L','L', '.', '.', '.', '.', 'L', 'L', '.', '.', '.', '.', 'L', 'L', '.', '.', '.', '.', 'L', 'L', '.', '.', '.', '.', 'L', 'L'},
+		{'L','L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L'},
+		{'.','.', '.', 'L', 'L', '.', '.', '.', '.', 'L', 'L', '.', '.', '.', '.', 'L', 'L', '.', '.', '.', '.', 'L', 'L', '.', '.', '.'},
+		{'.','.', '.', 'L', 'L', '.', '.', '.', '.', 'L', 'L', '.', '.', '.', '.', 'L', 'L', '.', '.', '.', '.', 'L', 'L', '.', '.', '.'},
+		{'L','L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L'},
+		{'L','L', '.', '.', '.', '.', 'L', 'L', '.', '.', '.', '.', 'L', 'L', '.', '.', '.', '.', 'L', 'L', '.', '.', '.', '.', 'L', 'L'},
+		{'L','L', '.', '.', '.', '.', 'L', 'L', '.', '.', '.', '.', 'L', 'L', '.', '.', '.', '.', 'L', 'L', '.', '.', '.', '.', 'L', 'L'},
+		{'L','L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L'},
+		{'.','.', '.', 'L', 'L', '.', '.', '.', '.', 'L', 'L', '.', '.', '.', '.', 'L', 'L', '.', '.', '.', '.', 'L', 'L', '.', '.', '.'},
+		{'.','.', '.', 'L', 'L', '.', '.', '.', '.', 'L', 'L', '.', '.', '.', '.', 'L', 'L', '.', '.', '.', '.', 'L', 'L', '.', '.', '.'},
+		{'L','L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L'},
+		{'.','.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.'},
+		{'.','.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.'},
+		{'.','.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.'},
+		{'.','.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.'},
+		{'.','B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', '.'}
+	};
+	
+	int ladder{};
+	int platform{};
+	
+	GameObject* pLevelGameobject = new GameObject("Level2");
+	pLevelGameobject->AddComponent(new TransformComponent(pLevelGameobject));
+	pLevelGameobject->AddComponent(
+		new LevelComponent(pLevelGameobject, static_cast<int>(level[0].size()), static_cast<int>(level.size()), level, "Level3")
+	);
+	pScene.AddGameObject(pLevelGameobject);
+	m_pManagerComponent->SetLevelComponent(pLevelGameobject->GetComponent<LevelComponent>());
+	
+	GameObject* pSprites = new GameObject("Sprites");
+	pSprites->SetParent(pLevelGameobject);
+	pSprites->AddComponent(new TransformComponent(pSprites));
+	pScene.AddGameObject(pSprites);
+	
+	GameObject* pColliderObject = new GameObject("Colliders");
+	pColliderObject->AddComponent(new TransformComponent(pColliderObject));
+	pColliderObject->SetParent(pLevelGameobject);
+	pScene.AddGameObject(pColliderObject);
+	
+	GameObject* pEnemySpawner = new GameObject("EnemySpawner");
+	pEnemySpawner->AddComponent(new TransformComponent(pEnemySpawner));
+	auto pEnemySpawnerComponent = new EnemySpawnerComponent(pEnemySpawner);
+	pEnemySpawner->AddComponent(pEnemySpawnerComponent);
+	
+	pEnemySpawnerComponent->AddSpawnPosition(glm::vec3{ 384.f, 296.f, 0.f });
+	pEnemySpawnerComponent->AddSpawnPosition(glm::vec3{ 0.f, 8.f, 0.f });
+	pEnemySpawnerComponent->AddSpawnPosition(glm::vec3{ 0.f, 296.f, 0.f });
+	pEnemySpawnerComponent->AddSpawnPosition(glm::vec3{ 384.f, 8.f, 0.f });
+	
+	pEnemySpawner->SetParent(pLevelGameobject);
+	pScene.AddGameObject(pEnemySpawner);
+	
 	//GameObject* pEnemySpawner = new GameObject("EnemySpawner");
 	//pEnemySpawner->AddComponent(new TransformComponent(pEnemySpawner));
 	//auto pEnemySpawnerComponent = new EnemySpawnerComponent(pEnemySpawner);
@@ -906,840 +884,724 @@ void Level1State::MakeLevel2(dae::Scene& pScene)
 	//
 	//pEnemySpawner->SetParent(pLevelGameobject);
 	//pScene.AddGameObject(pEnemySpawner);
-	//
-	////GameObject* pEnemySpawner = new GameObject("EnemySpawner");
-	////pEnemySpawner->AddComponent(new TransformComponent(pEnemySpawner));
-	////auto pEnemySpawnerComponent = new EnemySpawnerComponent(pEnemySpawner);
-	////pEnemySpawner->AddComponent(pEnemySpawnerComponent);
-	////
-	////pEnemySpawnerComponent->AddSpawnPosition(glm::vec3{ 384.f, 296.f, 0.f });
-	////pEnemySpawnerComponent->AddSpawnPosition(glm::vec3{ 0.f, 8.f, 0.f });
-	////pEnemySpawnerComponent->AddSpawnPosition(glm::vec3{ 0.f, 296.f, 0.f });
-	////pEnemySpawnerComponent->AddSpawnPosition(glm::vec3{ 384.f, 8.f, 0.f });
-	////
-	////pEnemySpawner->SetParent(pLevelGameobject);
-	////pScene.AddGameObject(pEnemySpawner);
-	//
-	//float scale{ 2.f };
-	//int width = static_cast<int>(level.size());
-	//for (int i = 0; i < width; ++i)
-	//{
-	//	int height = static_cast<int>(level[i].size());
-	//	for (int j = 0; j < height; ++j)
-	//	{
-	//		if (level[i][j] == '.')
-	//			continue;
-	//
-	//		GameObject* pGameobject = new GameObject();
-	//		pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ j * (8.f * scale), i * (8.f * scale), 0.0f }, glm::vec3{ scale }));
-	//
-	//		switch (level[i][j])
-	//		{
-	//		case 'L':
-	//		{
-	//			pGameobject->SetName("Ladder " + std::to_string(++ladder));
-	//			float y{};
-	//			if ((i + 1 < width && level[i + 1][j] == 'L' && i - 1 > 0 && level[i - 1][j] == 'L') &&
-	//				((j + 1 < height && level[i][j + 1] == 'P') || (j - 1 > 0 && level[i][j - 1] == 'P')))
-	//				y = 16;
-	//			else if ((i + 1 < width && level[i + 1][j] == 'L' && i - 1 > 0 && level[i - 1][j] == 'L') && (j - 1 > 0 && level[i][j - 1] == 'P'))
-	//				y = 16;
-	//			else if (i + 1 < width && level[i + 1][j] == 'L' && i - 1 > 0 && level[i - 1][j] == 'L')
-	//				y = 8;
-	//			else if (i + 1 < width && level[i + 1][j] == '.' && i - 1 > 0 && level[i - 1][j] == 'L')
-	//				y = 16;
-	//
-	//
-	//			if (j + 1 < height && level[i][j + 1] == 'L')
-	//				pGameobject->AddComponent(new SpriteRendererComponent(pGameobject, "Level_SpriteSheet.png", SDL_FRect{ 0, y, 8, 8 }));
-	//			else
-	//				pGameobject->AddComponent(new SpriteRendererComponent(pGameobject, "Level_SpriteSheet.png", SDL_FRect{ 8, y, 8, 8 }));
-	//			break;
-	//		}
-	//		case 'P':
-	//			pGameobject->SetName("Platform " + std::to_string(++platform));
-	//			pGameobject->AddComponent(new SpriteRendererComponent(pGameobject, "Level_SpriteSheet.png", SDL_FRect{ 16, 8, 8, 8 }));
-	//			//pGameobject->AddComponent(new ColliderComponent(pGameobject, 8.f, 4.f, glm::vec2{ 4.0f, 6.0f }));
-	//			break;
-	//		default:
-	//			delete pGameobject;
-	//			continue;
-	//			break;
-	//		}
-	//		pScene.AddGameObject(pGameobject);
-	//		pGameobject->SetParent(pSprites);
-	//
-	//		//pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 13 * 16.f * scale, 0.f * 8.f * scale, 0.0f }, glm::vec3{ scale }));
-	//		//pGameobject->AddComponent(new SpriteRendererComponent(pGameobject, "Platform.png"));
-	//		//pGameobject->AddComponent(new ColliderComponent(pGameobject));
-	//		//pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
-	//	}
-	//}
-	//
-	//
-	//GameObject* pGameobject = new GameObject("Collider 0");
-	//pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 0.f, 330.f, 0.f }));
-	//pGameobject->AddComponent(new ColliderComponent(pGameobject, 416, 40, glm::vec2{ 208.f, 20.f }));
-	//pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
-	//pGameobject->SetParent(pColliderObject);
-	//
-	//pScene.AddGameObject(pGameobject);
-	//
-	//pGameobject = new GameObject("Collider 1");
-	//pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 0.f, 282.f, 0.f }));
-	//pGameobject->AddComponent(new ColliderComponent(pGameobject, 48.f, 16.f, glm::vec2{ 24.f, 8.f }));
-	//pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
-	//pGameobject->SetParent(pColliderObject);
-	//
-	//pScene.AddGameObject(pGameobject);
-	//
-	//pGameobject = new GameObject("Collider 2");
-	//pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 80.f, 282.f, 0.f }));
-	//pGameobject->AddComponent(new ColliderComponent(pGameobject, 64.f, 16.f, glm::vec2{ 32.f, 8.f }));
-	//pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
-	//pGameobject->SetParent(pColliderObject);
-	//
-	//pScene.AddGameObject(pGameobject);
-	//
-	//pGameobject = new GameObject("Collider 3");
-	//pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 176.f, 282.f, 0.f }));
-	//pGameobject->AddComponent(new ColliderComponent(pGameobject, 64.f, 16.f, glm::vec2{ 32.f, 8.f }));
-	//pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
-	//pGameobject->SetParent(pColliderObject);
-	//
-	//pScene.AddGameObject(pGameobject);
-	//
-	//pGameobject = new GameObject("Collider 4");
-	//pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 272.f, 282.f, 0.f }));
-	//pGameobject->AddComponent(new ColliderComponent(pGameobject, 64.f, 16.f, glm::vec2{ 32.f, 8.f }));
-	//pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
-	//pGameobject->SetParent(pColliderObject);
-	//
-	//pScene.AddGameObject(pGameobject);
-	//
-	//pGameobject = new GameObject("Collider 5");
-	//pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 368.f, 282.f, 0.f }));
-	//pGameobject->AddComponent(new ColliderComponent(pGameobject, 48.f, 16.f, glm::vec2{ 24.f, 8.f }));
-	//pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
-	//pGameobject->SetParent(pColliderObject);
-	//
-	//pScene.AddGameObject(pGameobject);
-	//
-	//pGameobject = new GameObject("Collider 6");
-	//pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 32.f, 234.f, 0.f }));
-	//pGameobject->AddComponent(new ColliderComponent(pGameobject, 64.f, 16.f, glm::vec2{ 32.f, 8.f }));
-	//pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
-	//pGameobject->SetParent(pColliderObject);
-	//
-	//pScene.AddGameObject(pGameobject);
-	//
-	//pGameobject = new GameObject("Collider 7");
-	//pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 128.f, 234.f, 0.f }));
-	//pGameobject->AddComponent(new ColliderComponent(pGameobject, 64.f, 16.f, glm::vec2{ 32.f, 8.f }));
-	//pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
-	//pGameobject->SetParent(pColliderObject);
-	//
-	//pScene.AddGameObject(pGameobject);
-	//
-	//pGameobject = new GameObject("Collider 8");
-	//pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 224.f, 234.f, 0.f }));
-	//pGameobject->AddComponent(new ColliderComponent(pGameobject, 64.f, 16.f, glm::vec2{ 32.f, 8.f }));
-	//pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
-	//pGameobject->SetParent(pColliderObject);
-	//
-	//pScene.AddGameObject(pGameobject);
-	//
-	//
-	//pGameobject = new GameObject("Collider 9");
-	//pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 320.f, 234.f, 0.f }));
-	//pGameobject->AddComponent(new ColliderComponent(pGameobject, 64.f, 16.f, glm::vec2{ 32.f, 8.f }));
-	//pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
-	//pGameobject->SetParent(pColliderObject);
-	//
-	//pScene.AddGameObject(pGameobject);
-	//
-	//
-	//pGameobject = new GameObject("Collider 1");
-	//pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 0.f, 186.f, 0.f }));
-	//pGameobject->AddComponent(new ColliderComponent(pGameobject, 48.f, 16.f, glm::vec2{ 24.f, 8.f }));
-	//pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
-	//pGameobject->SetParent(pColliderObject);
-	//
-	//pScene.AddGameObject(pGameobject);
-	//
-	//pGameobject = new GameObject("Collider 2");
-	//pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 80.f, 186.f, 0.f }));
-	//pGameobject->AddComponent(new ColliderComponent(pGameobject, 64.f, 16.f, glm::vec2{ 32.f, 8.f }));
-	//pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
-	//pGameobject->SetParent(pColliderObject);
-	//
-	//pScene.AddGameObject(pGameobject);
-	//
-	//pGameobject = new GameObject("Collider 3");
-	//pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 176.f, 186.f, 0.f }));
-	//pGameobject->AddComponent(new ColliderComponent(pGameobject, 64.f, 16.f, glm::vec2{ 32.f, 8.f }));
-	//pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
-	//pGameobject->SetParent(pColliderObject);
-	//
-	//pScene.AddGameObject(pGameobject);
-	//
-	//pGameobject = new GameObject("Collider 4");
-	//pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 272.f, 186.f, 0.f }));
-	//pGameobject->AddComponent(new ColliderComponent(pGameobject, 64.f, 16.f, glm::vec2{ 32.f, 8.f }));
-	//pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
-	//pGameobject->SetParent(pColliderObject);
-	//
-	//pScene.AddGameObject(pGameobject);
-	//
-	//pGameobject = new GameObject("Collider 5");
-	//pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 368.f, 186.f, 0.f }));
-	//pGameobject->AddComponent(new ColliderComponent(pGameobject, 48.f, 16.f, glm::vec2{ 24.f, 8.f }));
-	//pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
-	//pGameobject->SetParent(pColliderObject);
-	//
-	//pScene.AddGameObject(pGameobject);
-	//
-	//
-	//pGameobject = new GameObject("Collider 6");
-	//pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 32.f, 138.f, 0.f }));
-	//pGameobject->AddComponent(new ColliderComponent(pGameobject, 64.f, 16.f, glm::vec2{ 32.f, 8.f }));
-	//pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
-	//pGameobject->SetParent(pColliderObject);
-	//
-	//pScene.AddGameObject(pGameobject);
-	//
-	//pGameobject = new GameObject("Collider 7");
-	//pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 128.f, 138.f, 0.f }));
-	//pGameobject->AddComponent(new ColliderComponent(pGameobject, 64.f, 16.f, glm::vec2{ 32.f, 8.f }));
-	//pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
-	//pGameobject->SetParent(pColliderObject);
-	//
-	//pScene.AddGameObject(pGameobject);
-	//
-	//pGameobject = new GameObject("Collider 8");
-	//pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 224.f, 138.f, 0.f }));
-	//pGameobject->AddComponent(new ColliderComponent(pGameobject, 64.f, 16.f, glm::vec2{ 32.f, 8.f }));
-	//pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
-	//pGameobject->SetParent(pColliderObject);
-	//
-	//pScene.AddGameObject(pGameobject);
-	//
-	//
-	//pGameobject = new GameObject("Collider 9");
-	//pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 320.f, 138.f, 0.f }));
-	//pGameobject->AddComponent(new ColliderComponent(pGameobject, 64.f, 16.f, glm::vec2{ 32.f, 8.f }));
-	//pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
-	//pGameobject->SetParent(pColliderObject);
-	//
-	//pScene.AddGameObject(pGameobject);
-	//
-	//
-	//pGameobject = new GameObject("Collider 1");
-	//pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 0.f, 90.f, 0.f }));
-	//pGameobject->AddComponent(new ColliderComponent(pGameobject, 48.f, 16.f, glm::vec2{ 24.f, 8.f }));
-	//pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
-	//pGameobject->SetParent(pColliderObject);
-	//
-	//pScene.AddGameObject(pGameobject);
-	//
-	//pGameobject = new GameObject("Collider 2");
-	//pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 80.f, 90.f, 0.f }));
-	//pGameobject->AddComponent(new ColliderComponent(pGameobject, 64.f, 16.f, glm::vec2{ 32.f, 8.f }));
-	//pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
-	//pGameobject->SetParent(pColliderObject);
-	//
-	//pScene.AddGameObject(pGameobject);
-	//
-	//pGameobject = new GameObject("Collider 3");
-	//pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 176.f, 90.f, 0.f }));
-	//pGameobject->AddComponent(new ColliderComponent(pGameobject, 64.f, 16.f, glm::vec2{ 32.f, 8.f }));
-	//pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
-	//pGameobject->SetParent(pColliderObject);
-	//
-	//pScene.AddGameObject(pGameobject);
-	//
-	//pGameobject = new GameObject("Collider 4");
-	//pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 272.f, 90.f, 0.f }));
-	//pGameobject->AddComponent(new ColliderComponent(pGameobject, 64.f, 16.f, glm::vec2{ 32.f, 8.f }));
-	//pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
-	//pGameobject->SetParent(pColliderObject);
-	//
-	//pScene.AddGameObject(pGameobject);
-	//
-	//pGameobject = new GameObject("Collider 5");
-	//pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 368.f, 90.f, 0.f }));
-	//pGameobject->AddComponent(new ColliderComponent(pGameobject, 48.f, 16.f, glm::vec2{ 24.f, 8.f }));
-	//pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
-	//pGameobject->SetParent(pColliderObject);
-	//
-	//pScene.AddGameObject(pGameobject);
-	//
-	//
-	//pGameobject = new GameObject("Collider 6");
-	//pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 32.f, 42.f, 0.f }));
-	//pGameobject->AddComponent(new ColliderComponent(pGameobject, 64.f, 16.f, glm::vec2{ 32.f, 8.f }));
-	//pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
-	//pGameobject->SetParent(pColliderObject);
-	//
-	//pScene.AddGameObject(pGameobject);
-	//
-	//pGameobject = new GameObject("Collider 7");
-	//pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 128.f, 42.f, 0.f }));
-	//pGameobject->AddComponent(new ColliderComponent(pGameobject, 64.f, 16.f, glm::vec2{ 32.f, 8.f }));
-	//pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
-	//pGameobject->SetParent(pColliderObject);
-	//
-	//pScene.AddGameObject(pGameobject);
-	//
-	//pGameobject = new GameObject("Collider 8");
-	//pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 224.f, 42.f, 0.f }));
-	//pGameobject->AddComponent(new ColliderComponent(pGameobject, 64.f, 16.f, glm::vec2{ 32.f, 8.f }));
-	//pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
-	//pGameobject->SetParent(pColliderObject);
-	//
-	//pScene.AddGameObject(pGameobject);
-	//
-	//
-	//pGameobject = new GameObject("Collider 9");
-	//pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 320.f, 42.f, 0.f }));
-	//pGameobject->AddComponent(new ColliderComponent(pGameobject, 64.f, 16.f, glm::vec2{ 32.f, 8.f }));
-	//pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
-	//pGameobject->SetParent(pColliderObject);
-	//
-	//pScene.AddGameObject(pGameobject);
-	//
-	////
-	////pGameobject = new GameObject("Collider 10");
-	////pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 320.f, 152.f, 0.f }));
-	////pGameobject->AddComponent(new ColliderComponent(pGameobject, 16.f, 32.f, glm::vec2{ 8.f, 32.f }));
-	////pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
-	////pGameobject->SetParent(pColliderObject);
-	////
-	////pScene.AddGameObject(pGameobject);
-	////
-	////pGameobject = new GameObject("Collider 11");
-	////pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 368.f, 152.f, 0.f }));
-	////pGameobject->AddComponent(new ColliderComponent(pGameobject, 48.f, 32.f, glm::vec2{ 24.f, 32.f }));
-	////pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
-	////pGameobject->SetParent(pColliderObject);
-	////
-	////pScene.AddGameObject(pGameobject);
-	////
-	////pGameobject = new GameObject("Collider 12");
-	////pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 344.f, 112.f, 0.f }));
-	////pGameobject->AddComponent(new ColliderComponent(pGameobject, 64.f, 16.f, glm::vec2{ 8.f, 16.f }));
-	////pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
-	////pGameobject->SetParent(pColliderObject);
-	////
-	////pScene.AddGameObject(pGameobject);
-	////
-	////pGameobject = new GameObject("Collider 13");
-	////pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 344.f, 16.f, 0.f }));
-	////pGameobject->AddComponent(new ColliderComponent(pGameobject, 64.f, 48.f, glm::vec2{ 8.f, 48.f }));
-	////pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
-	////pGameobject->SetParent(pColliderObject);
-	////
-	////pScene.AddGameObject(pGameobject);
-	////
-	////pGameobject = new GameObject("Collider 14");
-	////pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 248.f, 16.f, 0.f }));
-	////pGameobject->AddComponent(new ColliderComponent(pGameobject, 64.f, 48.f, glm::vec2{ 8.f, 48.f }));
-	////pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
-	////pGameobject->SetParent(pColliderObject);
-	////
-	////pScene.AddGameObject(pGameobject);
-	////
-	////pGameobject = new GameObject("Collider 15");
-	////pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 224.f, 96.f, 0.f }));
-	////pGameobject->AddComponent(new ColliderComponent(pGameobject, 16.f, 48.f, glm::vec2{ 8.f, 48.f }));
-	////pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
-	////pGameobject->SetParent(pColliderObject);
-	////
-	////pScene.AddGameObject(pGameobject);
-	////
-	////pGameobject = new GameObject("Collider 16");
-	////pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 272.f, 96.f, 0.f }));
-	////pGameobject->AddComponent(new ColliderComponent(pGameobject, 16.f, 48.f, glm::vec2{ 8.f, 48.f }));
-	////pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
-	////pGameobject->SetParent(pColliderObject);
-	////
-	////pScene.AddGameObject(pGameobject);
-	////
-	////
-	////pGameobject = new GameObject("Collider 17");
-	////pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 32.f, 104.f, 0.f }));
-	////pGameobject->AddComponent(new ColliderComponent(pGameobject, 16.f, 32.f, glm::vec2{ 8.f, 32.f }));
-	////pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
-	////pGameobject->SetParent(pColliderObject);
-	////
-	////pScene.AddGameObject(pGameobject);
-	////
-	////pGameobject = new GameObject("Collider 18");
-	////pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 80.f, 104.f, 0.f }));
-	////pGameobject->AddComponent(new ColliderComponent(pGameobject, 16.f, 32.f, glm::vec2{ 8.f, 32.f }));
-	////pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
-	////pGameobject->SetParent(pColliderObject);
-	////
-	////pScene.AddGameObject(pGameobject);
-	////
-	////pGameobject = new GameObject("Collider 19");
-	////pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 0.f, 16.f, 0.f }));
-	////pGameobject->AddComponent(new ColliderComponent(pGameobject, 64.f, 48.f, glm::vec2{ 64.f, 48.f }));
-	////pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
-	////pGameobject->SetParent(pColliderObject);
-	////
-	////pScene.AddGameObject(pGameobject);
-	////
-	////pGameobject = new GameObject("Collider 20");
-	////pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 96.f, 144.f, 0.f }));
-	////pGameobject->AddComponent(new ColliderComponent(pGameobject, 64.f, 16.f, glm::vec2{ 64.f, 16.f }));
-	////pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
-	////pGameobject->SetParent(pColliderObject);
-	////
-	////pScene.AddGameObject(pGameobject);
-	////
-	////pGameobject = new GameObject("Collider 21");
-	////pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 128.f, 16.f, 0.f }));
-	////pGameobject->AddComponent(new ColliderComponent(pGameobject, 16.f, 80.f, glm::vec2{ 8.f, 64.f }));
-	////pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
-	////pGameobject->SetParent(pColliderObject);
-	////
-	////pScene.AddGameObject(pGameobject);
-	////
-	////pGameobject = new GameObject("Collider 22");
-	////pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 176.f, 16.f, 0.f }));
-	////pGameobject->AddComponent(new ColliderComponent(pGameobject, 16.f, 80.f, glm::vec2{ 8.f, 64.f }));
-	////pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
-	////pGameobject->SetParent(pColliderObject);
-	////
-	////pScene.AddGameObject(pGameobject);
-	////
-	//pGameobject = new GameObject("Collider 23");
-	//pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 0.f, 0.f, 0.f }));
-	//pGameobject->AddComponent(new ColliderComponent(pGameobject, 416.f, 8.f, glm::vec2{ 0.f, 0.f }));
-	//pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
-	//pGameobject->SetParent(pColliderObject);
-	//
-	//pScene.AddGameObject(pGameobject);
-	//
-	//pGameobject = new GameObject("Collider 23");
-	//pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 416.f, 0.f, 0.f }));
-	//pGameobject->AddComponent(new ColliderComponent(pGameobject, 64.f, 416.f, glm::vec2{ 0.f, 0.f }));
-	//pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
-	//pGameobject->SetParent(pColliderObject);
-	//pScene.AddGameObject(pGameobject);
-	//
-	//pGameobject = new GameObject("Collider 24");
-	//pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ -64.f, 0.f, 0.f }));
-	//pGameobject->AddComponent(new ColliderComponent(pGameobject, 64.f, 416.f, glm::vec2{ 0.f, 0.f }));
-	//pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
-	//pGameobject->SetParent(pColliderObject);
-	//
-	//pScene.AddGameObject(pGameobject);
-	//
-	//// Ingredients
-	//
-	//auto pIngridientParent = new GameObject("Ingredient_Parent");
-	//pIngridientParent->SetParent(pLevelGameobject);
-	//pIngridientParent->AddComponent(new TransformComponent(pIngridientParent));
-	//
-	//pScene.AddGameObject(pIngridientParent);
-	//
-	//auto pBurgerTop = new GameObject("BurgerTop 1");
-	//pBurgerTop->AddComponent(new TransformComponent(pBurgerTop, glm::vec3(32.f, 34.f, 0.f), glm::vec2{ 2.f }));
-	//pBurgerTop->AddComponent(new SpriteRendererComponent(pBurgerTop, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 48.f, 32.f, 8.f }));
-	//pBurgerTop->AddComponent(new ColliderComponent(pBurgerTop, 32.f, 4.f));
-	//pBurgerTop->AddComponent(new RigidbodyComponent(pBurgerTop, b2_dynamicBody, 1.0f, 1.0f, true, dae::PhysicsLayers::layer1));
-	//auto pFoodComponent = new FoodComponent(pBurgerTop, true);
-	//pBurgerTop->AddComponent(pFoodComponent);
-	//pBurgerTop->SetTag("Food");
-	//pFoodComponent->GetSubject()->AddObserver(m_pScoreDisplay);
-	//pBurgerTop->SetParent(pIngridientParent);
-	//pScene.AddGameObject(pBurgerTop);
-	//
-	//pBurgerTop = new GameObject("Cheddar 1");
-	//pBurgerTop->AddComponent(new TransformComponent(pBurgerTop, glm::vec3(32.f, 82.f, 0.f), glm::vec2{ 2.f }));
-	//pBurgerTop->AddComponent(new SpriteRendererComponent(pBurgerTop, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 64.f, 32.f, 8.f }));
-	//pBurgerTop->AddComponent(new ColliderComponent(pBurgerTop, 32.f, 4.f));
-	//pBurgerTop->AddComponent(new RigidbodyComponent(pBurgerTop, b2_dynamicBody, 1.0f, 1.0f, true, dae::PhysicsLayers::layer1));
-	//pFoodComponent = new FoodComponent(pBurgerTop);
-	//pBurgerTop->AddComponent(pFoodComponent);
-	//pBurgerTop->SetTag("Food");
-	//pFoodComponent->GetSubject()->AddObserver(m_pScoreDisplay);
-	//pBurgerTop->SetParent(pIngridientParent);
-	//pScene.AddGameObject(pBurgerTop);
-	//
-	//pBurgerTop = new GameObject("Tomato 1");
-	//pBurgerTop->AddComponent(new TransformComponent(pBurgerTop, glm::vec3(32.f, 130.f, 0.f), glm::vec2{ 2.f }));
-	//pBurgerTop->AddComponent(new SpriteRendererComponent(pBurgerTop, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 80.f, 32.f, 8.f }));
-	//pBurgerTop->AddComponent(new ColliderComponent(pBurgerTop, 32.f, 4.f));
-	//pBurgerTop->AddComponent(new RigidbodyComponent(pBurgerTop, b2_dynamicBody, 1.0f, 1.0f, true, dae::PhysicsLayers::layer1));
-	//pFoodComponent = new FoodComponent(pBurgerTop);
-	//pBurgerTop->AddComponent(pFoodComponent);
-	//pBurgerTop->SetTag("Food");
-	//pFoodComponent->GetSubject()->AddObserver(m_pScoreDisplay);
-	//pBurgerTop->SetParent(pIngridientParent);
-	//pScene.AddGameObject(pBurgerTop);
-	//
-	//pBurgerTop = new GameObject("Letuce 1");
-	//pBurgerTop->AddComponent(new TransformComponent(pBurgerTop, glm::vec3(32.f, 178.f, 0.f), glm::vec2{ 2.f }));
-	//pBurgerTop->AddComponent(new SpriteRendererComponent(pBurgerTop, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 88.f, 32.f, 8.f }));
-	//pBurgerTop->AddComponent(new ColliderComponent(pBurgerTop, 32.f, 4.f));
-	//pBurgerTop->AddComponent(new RigidbodyComponent(pBurgerTop, b2_dynamicBody, 1.0f, 1.0f, true, dae::PhysicsLayers::layer1));
-	//pFoodComponent = new FoodComponent(pBurgerTop);
-	//pBurgerTop->AddComponent(pFoodComponent);
-	//pBurgerTop->SetTag("Food");
-	//pFoodComponent->GetSubject()->AddObserver(m_pScoreDisplay);
-	//pBurgerTop->SetParent(pIngridientParent);
-	//pScene.AddGameObject(pBurgerTop);
-	//
-	//pBurgerTop = new GameObject("Patty 1");
-	//pBurgerTop->AddComponent(new TransformComponent(pBurgerTop, glm::vec3(32.f, 226.f, 0.f), glm::vec2{ 2.f }));
-	//pBurgerTop->AddComponent(new SpriteRendererComponent(pBurgerTop, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 72.f, 32.f, 8.f }));
-	//pBurgerTop->AddComponent(new ColliderComponent(pBurgerTop, 32.f, 4.f));
-	//pBurgerTop->AddComponent(new RigidbodyComponent(pBurgerTop, b2_dynamicBody, 1.0f, 1.0f, true, dae::PhysicsLayers::layer1));
-	//pFoodComponent = new FoodComponent(pBurgerTop);
-	//pBurgerTop->AddComponent(pFoodComponent);
-	//pBurgerTop->SetTag("Food");
-	//pFoodComponent->GetSubject()->AddObserver(m_pScoreDisplay);
-	//pBurgerTop->SetParent(pIngridientParent);
-	//pScene.AddGameObject(pBurgerTop);
-	//
-	//pBurgerTop = new GameObject("Letuce 2");
-	//pBurgerTop->AddComponent(new TransformComponent(pBurgerTop, glm::vec3(32.f, 274.f, 0.f), glm::vec2{ 2.f }));
-	//pBurgerTop->AddComponent(new SpriteRendererComponent(pBurgerTop, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 88.f, 32.f, 8.f }));
-	//pBurgerTop->AddComponent(new ColliderComponent(pBurgerTop, 32.f, 4.f));
-	//pBurgerTop->AddComponent(new RigidbodyComponent(pBurgerTop, b2_dynamicBody, 1.0f, 1.0f, true, dae::PhysicsLayers::layer1));
-	//pFoodComponent = new FoodComponent(pBurgerTop);
-	//pBurgerTop->AddComponent(pFoodComponent);
-	//pBurgerTop->SetTag("Food");
-	//pFoodComponent->GetSubject()->AddObserver(m_pScoreDisplay);
-	//pBurgerTop->SetParent(pIngridientParent);
-	//pScene.AddGameObject(pBurgerTop);
-	//
-	//pBurgerTop = new GameObject("Burger-Bottom 1");
-	//pBurgerTop->AddComponent(new TransformComponent(pBurgerTop, glm::vec3(32.f, 322.f, 0.f), glm::vec2{ 2.f }));
-	//pBurgerTop->AddComponent(new SpriteRendererComponent(pBurgerTop, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 56.f, 32.f, 8.f }));
-	//pBurgerTop->AddComponent(new ColliderComponent(pBurgerTop, 32.f, 4.f));
-	//pBurgerTop->AddComponent(new RigidbodyComponent(pBurgerTop, b2_dynamicBody, 1.0f, 1.0f, true, dae::PhysicsLayers::layer1));
-	//pFoodComponent = new FoodComponent(pBurgerTop);
-	//pBurgerTop->AddComponent(pFoodComponent);
-	//pBurgerTop->SetTag("Food");
-	//pFoodComponent->GetSubject()->AddObserver(m_pScoreDisplay);
-	//pBurgerTop->SetParent(pIngridientParent);
-	//pScene.AddGameObject(pBurgerTop);
-	//
-	//
-	//pBurgerTop = new GameObject("BurgerTop 2");
-	//pBurgerTop->AddComponent(new TransformComponent(pBurgerTop, glm::vec3(128.f, 34.f, 0.f), glm::vec2{ 2.f }));
-	//pBurgerTop->AddComponent(new SpriteRendererComponent(pBurgerTop, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 48.f, 32.f, 8.f }));
-	//pBurgerTop->AddComponent(new ColliderComponent(pBurgerTop, 32.f, 4.f));
-	//pBurgerTop->AddComponent(new RigidbodyComponent(pBurgerTop, b2_dynamicBody, 1.0f, 1.0f, true, dae::PhysicsLayers::layer1));
-	//pFoodComponent = new FoodComponent(pBurgerTop, true);
-	//pBurgerTop->AddComponent(pFoodComponent);
-	//pBurgerTop->SetTag("Food");
-	//pFoodComponent->GetSubject()->AddObserver(m_pScoreDisplay);
-	//pBurgerTop->SetParent(pIngridientParent);
-	//pScene.AddGameObject(pBurgerTop);
-	//
-	//pBurgerTop = new GameObject("Cheddar 2");
-	//pBurgerTop->AddComponent(new TransformComponent(pBurgerTop, glm::vec3(128.f, 82.f, 0.f), glm::vec2{ 2.f }));
-	//pBurgerTop->AddComponent(new SpriteRendererComponent(pBurgerTop, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 64.f, 32.f, 8.f }));
-	//pBurgerTop->AddComponent(new ColliderComponent(pBurgerTop, 32.f, 4.f));
-	//pBurgerTop->AddComponent(new RigidbodyComponent(pBurgerTop, b2_dynamicBody, 1.0f, 1.0f, true, dae::PhysicsLayers::layer1));
-	//pFoodComponent = new FoodComponent(pBurgerTop);
-	//pBurgerTop->AddComponent(pFoodComponent);
-	//pBurgerTop->SetTag("Food");
-	//pFoodComponent->GetSubject()->AddObserver(m_pScoreDisplay);
-	//pBurgerTop->SetParent(pIngridientParent);
-	//pScene.AddGameObject(pBurgerTop);
-	//
-	//pBurgerTop = new GameObject("Tomato 2");
-	//pBurgerTop->AddComponent(new TransformComponent(pBurgerTop, glm::vec3(128.f, 130.f, 0.f), glm::vec2{ 2.f }));
-	//pBurgerTop->AddComponent(new SpriteRendererComponent(pBurgerTop, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 80.f, 32.f, 8.f }));
-	//pBurgerTop->AddComponent(new ColliderComponent(pBurgerTop, 32.f, 4.f));
-	//pBurgerTop->AddComponent(new RigidbodyComponent(pBurgerTop, b2_dynamicBody, 1.0f, 1.0f, true, dae::PhysicsLayers::layer1));
-	//pFoodComponent = new FoodComponent(pBurgerTop);
-	//pBurgerTop->AddComponent(pFoodComponent);
-	//pBurgerTop->SetTag("Food");
-	//pFoodComponent->GetSubject()->AddObserver(m_pScoreDisplay);
-	//pBurgerTop->SetParent(pIngridientParent);
-	//pScene.AddGameObject(pBurgerTop);
-	//
-	//pBurgerTop = new GameObject("Letuce 3");
-	//pBurgerTop->AddComponent(new TransformComponent(pBurgerTop, glm::vec3(128.f, 178.f, 0.f), glm::vec2{ 2.f }));
-	//pBurgerTop->AddComponent(new SpriteRendererComponent(pBurgerTop, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 88.f, 32.f, 8.f }));
-	//pBurgerTop->AddComponent(new ColliderComponent(pBurgerTop, 32.f, 4.f));
-	//pBurgerTop->AddComponent(new RigidbodyComponent(pBurgerTop, b2_dynamicBody, 1.0f, 1.0f, true, dae::PhysicsLayers::layer1));
-	//pFoodComponent = new FoodComponent(pBurgerTop);
-	//pBurgerTop->AddComponent(pFoodComponent);
-	//pBurgerTop->SetTag("Food");
-	//pFoodComponent->GetSubject()->AddObserver(m_pScoreDisplay);
-	//pBurgerTop->SetParent(pIngridientParent);
-	//pScene.AddGameObject(pBurgerTop);
-	//
-	//pBurgerTop = new GameObject("Patty 2");
-	//pBurgerTop->AddComponent(new TransformComponent(pBurgerTop, glm::vec3(128.f, 226.f, 0.f), glm::vec2{ 2.f }));
-	//pBurgerTop->AddComponent(new SpriteRendererComponent(pBurgerTop, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 72.f, 32.f, 8.f }));
-	//pBurgerTop->AddComponent(new ColliderComponent(pBurgerTop, 32.f, 4.f));
-	//pBurgerTop->AddComponent(new RigidbodyComponent(pBurgerTop, b2_dynamicBody, 1.0f, 1.0f, true, dae::PhysicsLayers::layer1));
-	//pFoodComponent = new FoodComponent(pBurgerTop);
-	//pBurgerTop->AddComponent(pFoodComponent);
-	//pBurgerTop->SetTag("Food");
-	//pFoodComponent->GetSubject()->AddObserver(m_pScoreDisplay);
-	//pBurgerTop->SetParent(pIngridientParent);
-	//pScene.AddGameObject(pBurgerTop);
-	//
-	//pBurgerTop = new GameObject("Letuce 4");
-	//pBurgerTop->AddComponent(new TransformComponent(pBurgerTop, glm::vec3(128.f, 274.f, 0.f), glm::vec2{ 2.f }));
-	//pBurgerTop->AddComponent(new SpriteRendererComponent(pBurgerTop, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 88.f, 32.f, 8.f }));
-	//pBurgerTop->AddComponent(new ColliderComponent(pBurgerTop, 32.f, 4.f));
-	//pBurgerTop->AddComponent(new RigidbodyComponent(pBurgerTop, b2_dynamicBody, 1.0f, 1.0f, true, dae::PhysicsLayers::layer1));
-	//pFoodComponent = new FoodComponent(pBurgerTop);
-	//pBurgerTop->AddComponent(pFoodComponent);
-	//pBurgerTop->SetTag("Food");
-	//pFoodComponent->GetSubject()->AddObserver(m_pScoreDisplay);
-	//pBurgerTop->SetParent(pIngridientParent);
-	//pScene.AddGameObject(pBurgerTop);
-	//
-	//pBurgerTop = new GameObject("Burger-Bottom 2");
-	//pBurgerTop->AddComponent(new TransformComponent(pBurgerTop, glm::vec3(128.f, 322.f, 0.f), glm::vec2{ 2.f }));
-	//pBurgerTop->AddComponent(new SpriteRendererComponent(pBurgerTop, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 56.f, 32.f, 8.f }));
-	//pBurgerTop->AddComponent(new ColliderComponent(pBurgerTop, 32.f, 4.f));
-	//pBurgerTop->AddComponent(new RigidbodyComponent(pBurgerTop, b2_dynamicBody, 1.0f, 1.0f, true, dae::PhysicsLayers::layer1));
-	//pFoodComponent = new FoodComponent(pBurgerTop);
-	//pBurgerTop->AddComponent(pFoodComponent);
-	//pBurgerTop->SetTag("Food");
-	//pFoodComponent->GetSubject()->AddObserver(m_pScoreDisplay);
-	//pBurgerTop->SetParent(pIngridientParent);
-	//pScene.AddGameObject(pBurgerTop);
-	//
-	//pBurgerTop = new GameObject("BurgerTop 2");
-	//pBurgerTop->AddComponent(new TransformComponent(pBurgerTop, glm::vec3(224.f, 34.f, 0.f), glm::vec2{ 2.f }));
-	//pBurgerTop->AddComponent(new SpriteRendererComponent(pBurgerTop, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 48.f, 32.f, 8.f }));
-	//pBurgerTop->AddComponent(new ColliderComponent(pBurgerTop, 32.f, 4.f));
-	//pBurgerTop->AddComponent(new RigidbodyComponent(pBurgerTop, b2_dynamicBody, 1.0f, 1.0f, true, dae::PhysicsLayers::layer1));
-	//pFoodComponent = new FoodComponent(pBurgerTop, true);
-	//pBurgerTop->AddComponent(pFoodComponent);
-	//pBurgerTop->SetTag("Food");
-	//pFoodComponent->GetSubject()->AddObserver(m_pScoreDisplay);
-	//pBurgerTop->SetParent(pIngridientParent);
-	//pScene.AddGameObject(pBurgerTop);
-	//
-	//pBurgerTop = new GameObject("Cheddar 2");
-	//pBurgerTop->AddComponent(new TransformComponent(pBurgerTop, glm::vec3(224.f, 82.f, 0.f), glm::vec2{ 2.f }));
-	//pBurgerTop->AddComponent(new SpriteRendererComponent(pBurgerTop, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 64.f, 32.f, 8.f }));
-	//pBurgerTop->AddComponent(new ColliderComponent(pBurgerTop, 32.f, 4.f));
-	//pBurgerTop->AddComponent(new RigidbodyComponent(pBurgerTop, b2_dynamicBody, 1.0f, 1.0f, true, dae::PhysicsLayers::layer1));
-	//pFoodComponent = new FoodComponent(pBurgerTop);
-	//pBurgerTop->AddComponent(pFoodComponent);
-	//pBurgerTop->SetTag("Food");
-	//pFoodComponent->GetSubject()->AddObserver(m_pScoreDisplay);
-	//pBurgerTop->SetParent(pIngridientParent);
-	//pScene.AddGameObject(pBurgerTop);
-	//
-	//pBurgerTop = new GameObject("Tomato 2");
-	//pBurgerTop->AddComponent(new TransformComponent(pBurgerTop, glm::vec3(224.f, 130.f, 0.f), glm::vec2{ 2.f }));
-	//pBurgerTop->AddComponent(new SpriteRendererComponent(pBurgerTop, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 80.f, 32.f, 8.f }));
-	//pBurgerTop->AddComponent(new ColliderComponent(pBurgerTop, 32.f, 4.f));
-	//pBurgerTop->AddComponent(new RigidbodyComponent(pBurgerTop, b2_dynamicBody, 1.0f, 1.0f, true, dae::PhysicsLayers::layer1));
-	//pFoodComponent = new FoodComponent(pBurgerTop);
-	//pBurgerTop->AddComponent(pFoodComponent);
-	//pBurgerTop->SetTag("Food");
-	//pFoodComponent->GetSubject()->AddObserver(m_pScoreDisplay);
-	//pBurgerTop->SetParent(pIngridientParent);
-	//pScene.AddGameObject(pBurgerTop);
-	//
-	//pBurgerTop = new GameObject("Letuce 3");
-	//pBurgerTop->AddComponent(new TransformComponent(pBurgerTop, glm::vec3(224.f, 178.f, 0.f), glm::vec2{ 2.f }));
-	//pBurgerTop->AddComponent(new SpriteRendererComponent(pBurgerTop, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 88.f, 32.f, 8.f }));
-	//pBurgerTop->AddComponent(new ColliderComponent(pBurgerTop, 32.f, 4.f));
-	//pBurgerTop->AddComponent(new RigidbodyComponent(pBurgerTop, b2_dynamicBody, 1.0f, 1.0f, true, dae::PhysicsLayers::layer1));
-	//pFoodComponent = new FoodComponent(pBurgerTop);
-	//pBurgerTop->AddComponent(pFoodComponent);
-	//pBurgerTop->SetTag("Food");
-	//pFoodComponent->GetSubject()->AddObserver(m_pScoreDisplay);
-	//pBurgerTop->SetParent(pIngridientParent);
-	//pScene.AddGameObject(pBurgerTop);
-	//
-	//pBurgerTop = new GameObject("Patty 2");
-	//pBurgerTop->AddComponent(new TransformComponent(pBurgerTop, glm::vec3(224.f, 226.f, 0.f), glm::vec2{ 2.f }));
-	//pBurgerTop->AddComponent(new SpriteRendererComponent(pBurgerTop, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 72.f, 32.f, 8.f }));
-	//pBurgerTop->AddComponent(new ColliderComponent(pBurgerTop, 32.f, 4.f));
-	//pBurgerTop->AddComponent(new RigidbodyComponent(pBurgerTop, b2_dynamicBody, 1.0f, 1.0f, true, dae::PhysicsLayers::layer1));
-	//pFoodComponent = new FoodComponent(pBurgerTop);
-	//pBurgerTop->AddComponent(pFoodComponent);
-	//pBurgerTop->SetTag("Food");
-	//pFoodComponent->GetSubject()->AddObserver(m_pScoreDisplay);
-	//pBurgerTop->SetParent(pIngridientParent);
-	//pScene.AddGameObject(pBurgerTop);
-	//
-	//pBurgerTop = new GameObject("Letuce 4");
-	//pBurgerTop->AddComponent(new TransformComponent(pBurgerTop, glm::vec3(224.f, 274.f, 0.f), glm::vec2{ 2.f }));
-	//pBurgerTop->AddComponent(new SpriteRendererComponent(pBurgerTop, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 88.f, 32.f, 8.f }));
-	//pBurgerTop->AddComponent(new ColliderComponent(pBurgerTop, 32.f, 4.f));
-	//pBurgerTop->AddComponent(new RigidbodyComponent(pBurgerTop, b2_dynamicBody, 1.0f, 1.0f, true, dae::PhysicsLayers::layer1));
-	//pFoodComponent = new FoodComponent(pBurgerTop);
-	//pBurgerTop->AddComponent(pFoodComponent);
-	//pBurgerTop->SetTag("Food");
-	//pFoodComponent->GetSubject()->AddObserver(m_pScoreDisplay);
-	//pBurgerTop->SetParent(pIngridientParent);
-	//pScene.AddGameObject(pBurgerTop);
-	//
-	//pBurgerTop = new GameObject("Burger-Bottom 2");
-	//pBurgerTop->AddComponent(new TransformComponent(pBurgerTop, glm::vec3(224.f, 322.f, 0.f), glm::vec2{ 2.f }));
-	//pBurgerTop->AddComponent(new SpriteRendererComponent(pBurgerTop, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 56.f, 32.f, 8.f }));
-	//pBurgerTop->AddComponent(new ColliderComponent(pBurgerTop, 32.f, 4.f));
-	//pBurgerTop->AddComponent(new RigidbodyComponent(pBurgerTop, b2_dynamicBody, 1.0f, 1.0f, true, dae::PhysicsLayers::layer1));
-	//pFoodComponent = new FoodComponent(pBurgerTop);
-	//pBurgerTop->AddComponent(pFoodComponent);
-	//pBurgerTop->SetTag("Food");
-	//pFoodComponent->GetSubject()->AddObserver(m_pScoreDisplay);
-	//pBurgerTop->SetParent(pIngridientParent);
-	//pScene.AddGameObject(pBurgerTop);
-	//
-	//pBurgerTop = new GameObject("BurgerTop 2");
-	//pBurgerTop->AddComponent(new TransformComponent(pBurgerTop, glm::vec3(320.f, 34.f, 0.f), glm::vec2{ 2.f }));
-	//pBurgerTop->AddComponent(new SpriteRendererComponent(pBurgerTop, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 48.f, 32.f, 8.f }));
-	//pBurgerTop->AddComponent(new ColliderComponent(pBurgerTop, 32.f, 4.f));
-	//pBurgerTop->AddComponent(new RigidbodyComponent(pBurgerTop, b2_dynamicBody, 1.0f, 1.0f, true, dae::PhysicsLayers::layer1));
-	//pFoodComponent = new FoodComponent(pBurgerTop, true);
-	//pBurgerTop->AddComponent(pFoodComponent);
-	//pBurgerTop->SetTag("Food");
-	//pFoodComponent->GetSubject()->AddObserver(m_pScoreDisplay);
-	//pBurgerTop->SetParent(pIngridientParent);
-	//pScene.AddGameObject(pBurgerTop);
-	//
-	//pBurgerTop = new GameObject("Cheddar 2");
-	//pBurgerTop->AddComponent(new TransformComponent(pBurgerTop, glm::vec3(320.f, 82.f, 0.f), glm::vec2{ 2.f }));
-	//pBurgerTop->AddComponent(new SpriteRendererComponent(pBurgerTop, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 64.f, 32.f, 8.f }));
-	//pBurgerTop->AddComponent(new ColliderComponent(pBurgerTop, 32.f, 4.f));
-	//pBurgerTop->AddComponent(new RigidbodyComponent(pBurgerTop, b2_dynamicBody, 1.0f, 1.0f, true, dae::PhysicsLayers::layer1));
-	//pFoodComponent = new FoodComponent(pBurgerTop);
-	//pBurgerTop->AddComponent(pFoodComponent);
-	//pBurgerTop->SetTag("Food");
-	//pFoodComponent->GetSubject()->AddObserver(m_pScoreDisplay);
-	//pBurgerTop->SetParent(pIngridientParent);
-	//pScene.AddGameObject(pBurgerTop);
-	//
-	//pBurgerTop = new GameObject("Tomato 2");
-	//pBurgerTop->AddComponent(new TransformComponent(pBurgerTop, glm::vec3(320.f, 130.f, 0.f), glm::vec2{ 2.f }));
-	//pBurgerTop->AddComponent(new SpriteRendererComponent(pBurgerTop, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 80.f, 32.f, 8.f }));
-	//pBurgerTop->AddComponent(new ColliderComponent(pBurgerTop, 32.f, 4.f));
-	//pBurgerTop->AddComponent(new RigidbodyComponent(pBurgerTop, b2_dynamicBody, 1.0f, 1.0f, true, dae::PhysicsLayers::layer1));
-	//pFoodComponent = new FoodComponent(pBurgerTop);
-	//pBurgerTop->AddComponent(pFoodComponent);
-	//pBurgerTop->SetTag("Food");
-	//pFoodComponent->GetSubject()->AddObserver(m_pScoreDisplay);
-	//pBurgerTop->SetParent(pIngridientParent);
-	//pScene.AddGameObject(pBurgerTop);
-	//
-	//pBurgerTop = new GameObject("Letuce 3");
-	//pBurgerTop->AddComponent(new TransformComponent(pBurgerTop, glm::vec3(320.f, 178.f, 0.f), glm::vec2{ 2.f }));
-	//pBurgerTop->AddComponent(new SpriteRendererComponent(pBurgerTop, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 88.f, 32.f, 8.f }));
-	//pBurgerTop->AddComponent(new ColliderComponent(pBurgerTop, 32.f, 4.f));
-	//pBurgerTop->AddComponent(new RigidbodyComponent(pBurgerTop, b2_dynamicBody, 1.0f, 1.0f, true, dae::PhysicsLayers::layer1));
-	//pFoodComponent = new FoodComponent(pBurgerTop);
-	//pBurgerTop->AddComponent(pFoodComponent);
-	//pBurgerTop->SetTag("Food");
-	//pFoodComponent->GetSubject()->AddObserver(m_pScoreDisplay);
-	//pBurgerTop->SetParent(pIngridientParent);
-	//pScene.AddGameObject(pBurgerTop);
-	//
-	//pBurgerTop = new GameObject("Patty 2");
-	//pBurgerTop->AddComponent(new TransformComponent(pBurgerTop, glm::vec3(320.f, 226.f, 0.f), glm::vec2{ 2.f }));
-	//pBurgerTop->AddComponent(new SpriteRendererComponent(pBurgerTop, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 72.f, 32.f, 8.f }));
-	//pBurgerTop->AddComponent(new ColliderComponent(pBurgerTop, 32.f, 4.f));
-	//pBurgerTop->AddComponent(new RigidbodyComponent(pBurgerTop, b2_dynamicBody, 1.0f, 1.0f, true, dae::PhysicsLayers::layer1));
-	//pFoodComponent = new FoodComponent(pBurgerTop);
-	//pBurgerTop->AddComponent(pFoodComponent);
-	//pBurgerTop->SetTag("Food");
-	//pFoodComponent->GetSubject()->AddObserver(m_pScoreDisplay);
-	//pBurgerTop->SetParent(pIngridientParent);
-	//pScene.AddGameObject(pBurgerTop);
-	//
-	//pBurgerTop = new GameObject("Letuce 4");
-	//pBurgerTop->AddComponent(new TransformComponent(pBurgerTop, glm::vec3(320.f, 274.f, 0.f), glm::vec2{ 2.f }));
-	//pBurgerTop->AddComponent(new SpriteRendererComponent(pBurgerTop, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 88.f, 32.f, 8.f }));
-	//pBurgerTop->AddComponent(new ColliderComponent(pBurgerTop, 32.f, 4.f));
-	//pBurgerTop->AddComponent(new RigidbodyComponent(pBurgerTop, b2_dynamicBody, 1.0f, 1.0f, true, dae::PhysicsLayers::layer1));
-	//pFoodComponent = new FoodComponent(pBurgerTop);
-	//pBurgerTop->AddComponent(pFoodComponent);
-	//pBurgerTop->SetTag("Food");
-	//pFoodComponent->GetSubject()->AddObserver(m_pScoreDisplay);
-	//pBurgerTop->SetParent(pIngridientParent);
-	//pScene.AddGameObject(pBurgerTop);
-	//
-	//pBurgerTop = new GameObject("Burger-Bottom 2");
-	//pBurgerTop->AddComponent(new TransformComponent(pBurgerTop, glm::vec3(320.f, 322.f, 0.f), glm::vec2{ 2.f }));
-	//pBurgerTop->AddComponent(new SpriteRendererComponent(pBurgerTop, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 56.f, 32.f, 8.f }));
-	//pBurgerTop->AddComponent(new ColliderComponent(pBurgerTop, 32.f, 4.f));
-	//pBurgerTop->AddComponent(new RigidbodyComponent(pBurgerTop, b2_dynamicBody, 1.0f, 1.0f, true, dae::PhysicsLayers::layer1));
-	//pFoodComponent = new FoodComponent(pBurgerTop);
-	//pBurgerTop->AddComponent(pFoodComponent);
-	//pBurgerTop->SetTag("Food");
-	//pFoodComponent->GetSubject()->AddObserver(m_pScoreDisplay);
-	//pBurgerTop->SetParent(pIngridientParent);
-	//pScene.AddGameObject(pBurgerTop);
-	//
-	//
-	//// Plates
-	//GameObject* pPlates = new GameObject("Plates_Parent");
-	//pPlates->AddComponent(new TransformComponent(pPlates, glm::vec3{ 0.f, 0.f, 0.f }, glm::vec2{ 1.f }));
-	//pPlates->SetParent(pLevelGameobject);
-	//
-	//pScene.AddGameObject(pPlates);
-	//
-	//auto pPlate = new GameObject("Plate 1");
-	//pPlate->AddComponent(new TransformComponent(pPlate, glm::vec3{ 32.f, 448.f, 0.f }, glm::vec2{ 2.f }));
-	//pPlate->AddComponent(new SpriteRendererComponent(pPlate, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 96.f, 32.f, 8.f }));
-	//pPlate->AddComponent(new ColliderComponent(pPlate, 32.f, 8.f, glm::vec2{ 16.f, 8.f }));
-	//pPlate->AddComponent(new RigidbodyComponent(pPlate, b2_staticBody, 1.0f, 1.0f, true));
-	//auto pPlateComponent = new PlateComponent(pPlate);
-	//pPlate->AddComponent(pPlateComponent);
-	//pPlate->SetTag("Plate");
-	//pScene.AddGameObject(pPlate);
-	//pPlate->SetParent(pPlates);
-	//pPlateComponent->GetSubject()->AddObserver(m_pManagerComponent);
-	//
-	//pPlate = new GameObject("Plate 2");
-	//pPlate->AddComponent(new TransformComponent(pPlate, glm::vec3{ 128.f, 448.f, 0.f }, glm::vec2{ 2.f }));
-	//pPlate->AddComponent(new SpriteRendererComponent(pPlate, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 96.f, 32.f, 8.f }));
-	//pPlate->AddComponent(new ColliderComponent(pPlate, 32.f, 8.f, glm::vec2{ 16.f, 8.f }));
-	//pPlate->AddComponent(new RigidbodyComponent(pPlate, b2_staticBody, 1.0f, 1.0f, true));
-	//pPlateComponent = new PlateComponent(pPlate);
-	//pPlate->AddComponent(pPlateComponent);
-	//pPlate->SetTag("Plate");
-	//pScene.AddGameObject(pPlate);
-	//pPlate->SetParent(pPlates);
-	//pPlateComponent->GetSubject()->AddObserver(m_pManagerComponent);
-	//
-	//pPlate = new GameObject("Plate 3");
-	//pPlate->AddComponent(new TransformComponent(pPlate, glm::vec3{ 224.f, 448.f, 0.f }, glm::vec2{ 2.f }));
-	//pPlate->AddComponent(new SpriteRendererComponent(pPlate, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 96.f, 32.f, 8.f }));
-	//pPlate->AddComponent(new ColliderComponent(pPlate, 32.f, 8.f, glm::vec2{ 16.f, 8.f }));
-	//pPlate->AddComponent(new RigidbodyComponent(pPlate, b2_staticBody, 1.0f, 1.0f, true));
-	//pPlateComponent = new PlateComponent(pPlate);
-	//pPlate->AddComponent(pPlateComponent);
-	//pPlate->SetTag("Plate");
-	//pScene.AddGameObject(pPlate);
-	//pPlate->SetParent(pPlates);
-	//pPlateComponent->GetSubject()->AddObserver(m_pManagerComponent);
-	//
-	//pPlate = new GameObject("Plate 4");
-	//pPlate->AddComponent(new TransformComponent(pPlate, glm::vec3{ 320.f, 448.f, 0.f }, glm::vec2{ 2.f }));
-	//pPlate->AddComponent(new SpriteRendererComponent(pPlate, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 96.f, 32.f, 8.f }));
-	//pPlate->AddComponent(new ColliderComponent(pPlate, 32.f, 8.f, glm::vec2{ 16.f, 8.f }));
-	//pPlate->AddComponent(new RigidbodyComponent(pPlate, b2_staticBody, 1.0f, 1.0f, true));
-	//pPlateComponent = new PlateComponent(pPlate);
-	//pPlate->AddComponent(pPlateComponent);
-	//pPlate->SetTag("Plate");
-	//pScene.AddGameObject(pPlate);
-	//pPlate->SetParent(pPlates);
-	//pPlateComponent->GetSubject()->AddObserver(m_pManagerComponent);
+	
+	float scale{ 2.f };
+	int width = static_cast<int>(level.size());
+	for (int i = 0; i < width; ++i)
+	{
+		int height = static_cast<int>(level[i].size());
+		for (int j = 0; j < height; ++j)
+		{
+			if (level[i][j] == '.')
+				continue;
+	
+			GameObject* pGameobject = new GameObject();
+			pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ j * (8.f * scale), i * (8.f * scale), 0.0f }, glm::vec3{ scale }));
+	
+			switch (level[i][j])
+			{
+			case 'L':
+			{
+				pGameobject->SetName("Ladder " + std::to_string(++ladder));
+				float y{};
+				if ((i + 1 < width && level[i + 1][j] == 'L' && i - 1 > 0 && level[i - 1][j] == 'L') &&
+					((j + 1 < height && level[i][j + 1] == 'P') || (j - 1 > 0 && level[i][j - 1] == 'P')))
+					y = 16;
+				else if ((i + 1 < width && level[i + 1][j] == 'L' && i - 1 > 0 && level[i - 1][j] == 'L') && (j - 1 > 0 && level[i][j - 1] == 'P'))
+					y = 16;
+				else if (i + 1 < width && level[i + 1][j] == 'L' && i - 1 > 0 && level[i - 1][j] == 'L')
+					y = 8;
+				else if (i + 1 < width && level[i + 1][j] == '.' && i - 1 > 0 && level[i - 1][j] == 'L')
+					y = 16;
+	
+	
+				if (j + 1 < height && level[i][j + 1] == 'L')
+					pGameobject->AddComponent(new SpriteRendererComponent(pGameobject, "Level_SpriteSheet.png", SDL_FRect{ 0, y, 8, 8 }));
+				else
+					pGameobject->AddComponent(new SpriteRendererComponent(pGameobject, "Level_SpriteSheet.png", SDL_FRect{ 8, y, 8, 8 }));
+				break;
+			}
+			case 'P':
+				pGameobject->SetName("Platform " + std::to_string(++platform));
+				pGameobject->AddComponent(new SpriteRendererComponent(pGameobject, "Level_SpriteSheet.png", SDL_FRect{ 16, 8, 8, 8 }));
+				//pGameobject->AddComponent(new ColliderComponent(pGameobject, 8.f, 4.f, glm::vec2{ 4.0f, 6.0f }));
+				break;
+			default:
+				delete pGameobject;
+				continue;
+				break;
+			}
+			pScene.AddGameObject(pGameobject);
+			pGameobject->SetParent(pSprites);
+	
+			//pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 13 * 16.f * scale, 0.f * 8.f * scale, 0.0f }, glm::vec3{ scale }));
+			//pGameobject->AddComponent(new SpriteRendererComponent(pGameobject, "Platform.png"));
+			//pGameobject->AddComponent(new ColliderComponent(pGameobject));
+			//pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
+		}
+	}
+	
+	
+	GameObject* pGameobject = new GameObject("Collider 0");
+	pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 0.f, 330.f, 0.f }));
+	pGameobject->AddComponent(new ColliderComponent(pGameobject, 416, 40, glm::vec2{ 208.f, 20.f }));
+	pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
+	pGameobject->SetParent(pColliderObject);
+	
+	pScene.AddGameObject(pGameobject);
+	
+	pGameobject = new GameObject("Collider 1");
+	pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 0.f, 282.f, 0.f }));
+	pGameobject->AddComponent(new ColliderComponent(pGameobject, 48.f, 16.f, glm::vec2{ 24.f, 8.f }));
+	pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
+	pGameobject->SetParent(pColliderObject);
+	
+	pScene.AddGameObject(pGameobject);
+	
+	pGameobject = new GameObject("Collider 2");
+	pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 80.f, 282.f, 0.f }));
+	pGameobject->AddComponent(new ColliderComponent(pGameobject, 64.f, 16.f, glm::vec2{ 32.f, 8.f }));
+	pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
+	pGameobject->SetParent(pColliderObject);
+	
+	pScene.AddGameObject(pGameobject);
+	
+	pGameobject = new GameObject("Collider 3");
+	pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 176.f, 282.f, 0.f }));
+	pGameobject->AddComponent(new ColliderComponent(pGameobject, 64.f, 16.f, glm::vec2{ 32.f, 8.f }));
+	pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
+	pGameobject->SetParent(pColliderObject);
+	
+	pScene.AddGameObject(pGameobject);
+	
+	pGameobject = new GameObject("Collider 4");
+	pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 272.f, 282.f, 0.f }));
+	pGameobject->AddComponent(new ColliderComponent(pGameobject, 64.f, 16.f, glm::vec2{ 32.f, 8.f }));
+	pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
+	pGameobject->SetParent(pColliderObject);
+	
+	pScene.AddGameObject(pGameobject);
+	
+	pGameobject = new GameObject("Collider 5");
+	pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 368.f, 282.f, 0.f }));
+	pGameobject->AddComponent(new ColliderComponent(pGameobject, 48.f, 16.f, glm::vec2{ 24.f, 8.f }));
+	pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
+	pGameobject->SetParent(pColliderObject);
+	
+	pScene.AddGameObject(pGameobject);
+	
+	pGameobject = new GameObject("Collider 6");
+	pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 32.f, 234.f, 0.f }));
+	pGameobject->AddComponent(new ColliderComponent(pGameobject, 64.f, 16.f, glm::vec2{ 32.f, 8.f }));
+	pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
+	pGameobject->SetParent(pColliderObject);
+	
+	pScene.AddGameObject(pGameobject);
+	
+	pGameobject = new GameObject("Collider 7");
+	pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 128.f, 234.f, 0.f }));
+	pGameobject->AddComponent(new ColliderComponent(pGameobject, 64.f, 16.f, glm::vec2{ 32.f, 8.f }));
+	pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
+	pGameobject->SetParent(pColliderObject);
+	
+	pScene.AddGameObject(pGameobject);
+	
+	pGameobject = new GameObject("Collider 8");
+	pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 224.f, 234.f, 0.f }));
+	pGameobject->AddComponent(new ColliderComponent(pGameobject, 64.f, 16.f, glm::vec2{ 32.f, 8.f }));
+	pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
+	pGameobject->SetParent(pColliderObject);
+	
+	pScene.AddGameObject(pGameobject);
+	
+	
+	pGameobject = new GameObject("Collider 9");
+	pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 320.f, 234.f, 0.f }));
+	pGameobject->AddComponent(new ColliderComponent(pGameobject, 64.f, 16.f, glm::vec2{ 32.f, 8.f }));
+	pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
+	pGameobject->SetParent(pColliderObject);
+	
+	pScene.AddGameObject(pGameobject);
+	
+	
+	pGameobject = new GameObject("Collider 1");
+	pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 0.f, 186.f, 0.f }));
+	pGameobject->AddComponent(new ColliderComponent(pGameobject, 48.f, 16.f, glm::vec2{ 24.f, 8.f }));
+	pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
+	pGameobject->SetParent(pColliderObject);
+	
+	pScene.AddGameObject(pGameobject);
+	
+	pGameobject = new GameObject("Collider 2");
+	pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 80.f, 186.f, 0.f }));
+	pGameobject->AddComponent(new ColliderComponent(pGameobject, 64.f, 16.f, glm::vec2{ 32.f, 8.f }));
+	pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
+	pGameobject->SetParent(pColliderObject);
+	
+	pScene.AddGameObject(pGameobject);
+	
+	pGameobject = new GameObject("Collider 3");
+	pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 176.f, 186.f, 0.f }));
+	pGameobject->AddComponent(new ColliderComponent(pGameobject, 64.f, 16.f, glm::vec2{ 32.f, 8.f }));
+	pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
+	pGameobject->SetParent(pColliderObject);
+	
+	pScene.AddGameObject(pGameobject);
+	
+	pGameobject = new GameObject("Collider 4");
+	pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 272.f, 186.f, 0.f }));
+	pGameobject->AddComponent(new ColliderComponent(pGameobject, 64.f, 16.f, glm::vec2{ 32.f, 8.f }));
+	pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
+	pGameobject->SetParent(pColliderObject);
+	
+	pScene.AddGameObject(pGameobject);
+	
+	pGameobject = new GameObject("Collider 5");
+	pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 368.f, 186.f, 0.f }));
+	pGameobject->AddComponent(new ColliderComponent(pGameobject, 48.f, 16.f, glm::vec2{ 24.f, 8.f }));
+	pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
+	pGameobject->SetParent(pColliderObject);
+	
+	pScene.AddGameObject(pGameobject);
+	
+	
+	pGameobject = new GameObject("Collider 6");
+	pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 32.f, 138.f, 0.f }));
+	pGameobject->AddComponent(new ColliderComponent(pGameobject, 64.f, 16.f, glm::vec2{ 32.f, 8.f }));
+	pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
+	pGameobject->SetParent(pColliderObject);
+	
+	pScene.AddGameObject(pGameobject);
+	
+	pGameobject = new GameObject("Collider 7");
+	pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 128.f, 138.f, 0.f }));
+	pGameobject->AddComponent(new ColliderComponent(pGameobject, 64.f, 16.f, glm::vec2{ 32.f, 8.f }));
+	pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
+	pGameobject->SetParent(pColliderObject);
+	
+	pScene.AddGameObject(pGameobject);
+	
+	pGameobject = new GameObject("Collider 8");
+	pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 224.f, 138.f, 0.f }));
+	pGameobject->AddComponent(new ColliderComponent(pGameobject, 64.f, 16.f, glm::vec2{ 32.f, 8.f }));
+	pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
+	pGameobject->SetParent(pColliderObject);
+	
+	pScene.AddGameObject(pGameobject);
+	
+	
+	pGameobject = new GameObject("Collider 9");
+	pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 320.f, 138.f, 0.f }));
+	pGameobject->AddComponent(new ColliderComponent(pGameobject, 64.f, 16.f, glm::vec2{ 32.f, 8.f }));
+	pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
+	pGameobject->SetParent(pColliderObject);
+	
+	pScene.AddGameObject(pGameobject);
+	
+	
+	pGameobject = new GameObject("Collider 1");
+	pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 0.f, 90.f, 0.f }));
+	pGameobject->AddComponent(new ColliderComponent(pGameobject, 48.f, 16.f, glm::vec2{ 24.f, 8.f }));
+	pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
+	pGameobject->SetParent(pColliderObject);
+	
+	pScene.AddGameObject(pGameobject);
+	
+	pGameobject = new GameObject("Collider 2");
+	pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 80.f, 90.f, 0.f }));
+	pGameobject->AddComponent(new ColliderComponent(pGameobject, 64.f, 16.f, glm::vec2{ 32.f, 8.f }));
+	pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
+	pGameobject->SetParent(pColliderObject);
+	
+	pScene.AddGameObject(pGameobject);
+	
+	pGameobject = new GameObject("Collider 3");
+	pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 176.f, 90.f, 0.f }));
+	pGameobject->AddComponent(new ColliderComponent(pGameobject, 64.f, 16.f, glm::vec2{ 32.f, 8.f }));
+	pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
+	pGameobject->SetParent(pColliderObject);
+	
+	pScene.AddGameObject(pGameobject);
+	
+	pGameobject = new GameObject("Collider 4");
+	pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 272.f, 90.f, 0.f }));
+	pGameobject->AddComponent(new ColliderComponent(pGameobject, 64.f, 16.f, glm::vec2{ 32.f, 8.f }));
+	pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
+	pGameobject->SetParent(pColliderObject);
+	
+	pScene.AddGameObject(pGameobject);
+	
+	pGameobject = new GameObject("Collider 5");
+	pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 368.f, 90.f, 0.f }));
+	pGameobject->AddComponent(new ColliderComponent(pGameobject, 48.f, 16.f, glm::vec2{ 24.f, 8.f }));
+	pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
+	pGameobject->SetParent(pColliderObject);
+	
+	pScene.AddGameObject(pGameobject);
+	
+	
+	pGameobject = new GameObject("Collider 6");
+	pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 32.f, 42.f, 0.f }));
+	pGameobject->AddComponent(new ColliderComponent(pGameobject, 64.f, 16.f, glm::vec2{ 32.f, 8.f }));
+	pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
+	pGameobject->SetParent(pColliderObject);
+	
+	pScene.AddGameObject(pGameobject);
+	
+	pGameobject = new GameObject("Collider 7");
+	pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 128.f, 42.f, 0.f }));
+	pGameobject->AddComponent(new ColliderComponent(pGameobject, 64.f, 16.f, glm::vec2{ 32.f, 8.f }));
+	pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
+	pGameobject->SetParent(pColliderObject);
+	
+	pScene.AddGameObject(pGameobject);
+	
+	pGameobject = new GameObject("Collider 8");
+	pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 224.f, 42.f, 0.f }));
+	pGameobject->AddComponent(new ColliderComponent(pGameobject, 64.f, 16.f, glm::vec2{ 32.f, 8.f }));
+	pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
+	pGameobject->SetParent(pColliderObject);
+	
+	pScene.AddGameObject(pGameobject);
+	
+	
+	pGameobject = new GameObject("Collider 9");
+	pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 320.f, 42.f, 0.f }));
+	pGameobject->AddComponent(new ColliderComponent(pGameobject, 64.f, 16.f, glm::vec2{ 32.f, 8.f }));
+	pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
+	pGameobject->SetParent(pColliderObject);
+	
+	pScene.AddGameObject(pGameobject);
+
+	pGameobject = new GameObject("Collider 23");
+	pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 0.f, 0.f, 0.f }));
+	pGameobject->AddComponent(new ColliderComponent(pGameobject, 416.f, 8.f, glm::vec2{ 0.f, 0.f }));
+	pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
+	pGameobject->SetParent(pColliderObject);
+	
+	pScene.AddGameObject(pGameobject);
+	
+	pGameobject = new GameObject("Collider 23");
+	pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 416.f, 0.f, 0.f }));
+	pGameobject->AddComponent(new ColliderComponent(pGameobject, 64.f, 416.f, glm::vec2{ 0.f, 0.f }));
+	pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
+	pGameobject->SetParent(pColliderObject);
+	pScene.AddGameObject(pGameobject);
+	
+	pGameobject = new GameObject("Collider 24");
+	pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ -64.f, 0.f, 0.f }));
+	pGameobject->AddComponent(new ColliderComponent(pGameobject, 64.f, 416.f, glm::vec2{ 0.f, 0.f }));
+	pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
+	pGameobject->SetParent(pColliderObject);
+	
+	pScene.AddGameObject(pGameobject);
+	
+	// Ingredients
+	
+	auto pIngridientParent = new GameObject("Ingredient_Parent");
+	pIngridientParent->SetParent(pLevelGameobject);
+	pIngridientParent->AddComponent(new TransformComponent(pIngridientParent));
+	
+	pScene.AddGameObject(pIngridientParent);
+	
+	auto pBurgerTop = new GameObject("BurgerTop 1");
+	pBurgerTop->AddComponent(new TransformComponent(pBurgerTop, glm::vec3(32.f, 34.f, 0.f), glm::vec2{ 2.f }));
+	pBurgerTop->AddComponent(new SpriteRendererComponent(pBurgerTop, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 48.f, 32.f, 8.f }));
+	pBurgerTop->AddComponent(new ColliderComponent(pBurgerTop, 32.f, 4.f));
+	pBurgerTop->AddComponent(new RigidbodyComponent(pBurgerTop, b2_dynamicBody, 1.0f, 1.0f, true, dae::PhysicsLayers::layer1));
+	auto pFoodComponent = new FoodComponent(pBurgerTop, true);
+	pBurgerTop->AddComponent(pFoodComponent);
+	pBurgerTop->SetTag("Food");
+	pFoodComponent->GetSubject()->AddObserver(m_pScoreDisplay);
+	pBurgerTop->SetParent(pIngridientParent);
+	pScene.AddGameObject(pBurgerTop);
+	
+	pBurgerTop = new GameObject("Cheddar 1");
+	pBurgerTop->AddComponent(new TransformComponent(pBurgerTop, glm::vec3(32.f, 82.f, 0.f), glm::vec2{ 2.f }));
+	pBurgerTop->AddComponent(new SpriteRendererComponent(pBurgerTop, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 64.f, 32.f, 8.f }));
+	pBurgerTop->AddComponent(new ColliderComponent(pBurgerTop, 32.f, 4.f));
+	pBurgerTop->AddComponent(new RigidbodyComponent(pBurgerTop, b2_dynamicBody, 1.0f, 1.0f, true, dae::PhysicsLayers::layer1));
+	pFoodComponent = new FoodComponent(pBurgerTop);
+	pBurgerTop->AddComponent(pFoodComponent);
+	pBurgerTop->SetTag("Food");
+	pFoodComponent->GetSubject()->AddObserver(m_pScoreDisplay);
+	pBurgerTop->SetParent(pIngridientParent);
+	pScene.AddGameObject(pBurgerTop);
+	
+	pBurgerTop = new GameObject("Tomato 1");
+	pBurgerTop->AddComponent(new TransformComponent(pBurgerTop, glm::vec3(32.f, 130.f, 0.f), glm::vec2{ 2.f }));
+	pBurgerTop->AddComponent(new SpriteRendererComponent(pBurgerTop, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 80.f, 32.f, 8.f }));
+	pBurgerTop->AddComponent(new ColliderComponent(pBurgerTop, 32.f, 4.f));
+	pBurgerTop->AddComponent(new RigidbodyComponent(pBurgerTop, b2_dynamicBody, 1.0f, 1.0f, true, dae::PhysicsLayers::layer1));
+	pFoodComponent = new FoodComponent(pBurgerTop);
+	pBurgerTop->AddComponent(pFoodComponent);
+	pBurgerTop->SetTag("Food");
+	pFoodComponent->GetSubject()->AddObserver(m_pScoreDisplay);
+	pBurgerTop->SetParent(pIngridientParent);
+	pScene.AddGameObject(pBurgerTop);
+	
+	pBurgerTop = new GameObject("Letuce 1");
+	pBurgerTop->AddComponent(new TransformComponent(pBurgerTop, glm::vec3(32.f, 178.f, 0.f), glm::vec2{ 2.f }));
+	pBurgerTop->AddComponent(new SpriteRendererComponent(pBurgerTop, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 88.f, 32.f, 8.f }));
+	pBurgerTop->AddComponent(new ColliderComponent(pBurgerTop, 32.f, 4.f));
+	pBurgerTop->AddComponent(new RigidbodyComponent(pBurgerTop, b2_dynamicBody, 1.0f, 1.0f, true, dae::PhysicsLayers::layer1));
+	pFoodComponent = new FoodComponent(pBurgerTop);
+	pBurgerTop->AddComponent(pFoodComponent);
+	pBurgerTop->SetTag("Food");
+	pFoodComponent->GetSubject()->AddObserver(m_pScoreDisplay);
+	pBurgerTop->SetParent(pIngridientParent);
+	pScene.AddGameObject(pBurgerTop);
+	
+	pBurgerTop = new GameObject("Patty 1");
+	pBurgerTop->AddComponent(new TransformComponent(pBurgerTop, glm::vec3(32.f, 226.f, 0.f), glm::vec2{ 2.f }));
+	pBurgerTop->AddComponent(new SpriteRendererComponent(pBurgerTop, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 72.f, 32.f, 8.f }));
+	pBurgerTop->AddComponent(new ColliderComponent(pBurgerTop, 32.f, 4.f));
+	pBurgerTop->AddComponent(new RigidbodyComponent(pBurgerTop, b2_dynamicBody, 1.0f, 1.0f, true, dae::PhysicsLayers::layer1));
+	pFoodComponent = new FoodComponent(pBurgerTop);
+	pBurgerTop->AddComponent(pFoodComponent);
+	pBurgerTop->SetTag("Food");
+	pFoodComponent->GetSubject()->AddObserver(m_pScoreDisplay);
+	pBurgerTop->SetParent(pIngridientParent);
+	pScene.AddGameObject(pBurgerTop);
+	
+	pBurgerTop = new GameObject("Letuce 2");
+	pBurgerTop->AddComponent(new TransformComponent(pBurgerTop, glm::vec3(32.f, 274.f, 0.f), glm::vec2{ 2.f }));
+	pBurgerTop->AddComponent(new SpriteRendererComponent(pBurgerTop, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 88.f, 32.f, 8.f }));
+	pBurgerTop->AddComponent(new ColliderComponent(pBurgerTop, 32.f, 4.f));
+	pBurgerTop->AddComponent(new RigidbodyComponent(pBurgerTop, b2_dynamicBody, 1.0f, 1.0f, true, dae::PhysicsLayers::layer1));
+	pFoodComponent = new FoodComponent(pBurgerTop);
+	pBurgerTop->AddComponent(pFoodComponent);
+	pBurgerTop->SetTag("Food");
+	pFoodComponent->GetSubject()->AddObserver(m_pScoreDisplay);
+	pBurgerTop->SetParent(pIngridientParent);
+	pScene.AddGameObject(pBurgerTop);
+	
+	pBurgerTop = new GameObject("Burger-Bottom 1");
+	pBurgerTop->AddComponent(new TransformComponent(pBurgerTop, glm::vec3(32.f, 322.f, 0.f), glm::vec2{ 2.f }));
+	pBurgerTop->AddComponent(new SpriteRendererComponent(pBurgerTop, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 56.f, 32.f, 8.f }));
+	pBurgerTop->AddComponent(new ColliderComponent(pBurgerTop, 32.f, 4.f));
+	pBurgerTop->AddComponent(new RigidbodyComponent(pBurgerTop, b2_dynamicBody, 1.0f, 1.0f, true, dae::PhysicsLayers::layer1));
+	pFoodComponent = new FoodComponent(pBurgerTop);
+	pBurgerTop->AddComponent(pFoodComponent);
+	pBurgerTop->SetTag("Food");
+	pFoodComponent->GetSubject()->AddObserver(m_pScoreDisplay);
+	pBurgerTop->SetParent(pIngridientParent);
+	pScene.AddGameObject(pBurgerTop);
+	
+	
+	pBurgerTop = new GameObject("BurgerTop 2");
+	pBurgerTop->AddComponent(new TransformComponent(pBurgerTop, glm::vec3(128.f, 34.f, 0.f), glm::vec2{ 2.f }));
+	pBurgerTop->AddComponent(new SpriteRendererComponent(pBurgerTop, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 48.f, 32.f, 8.f }));
+	pBurgerTop->AddComponent(new ColliderComponent(pBurgerTop, 32.f, 4.f));
+	pBurgerTop->AddComponent(new RigidbodyComponent(pBurgerTop, b2_dynamicBody, 1.0f, 1.0f, true, dae::PhysicsLayers::layer1));
+	pFoodComponent = new FoodComponent(pBurgerTop, true);
+	pBurgerTop->AddComponent(pFoodComponent);
+	pBurgerTop->SetTag("Food");
+	pFoodComponent->GetSubject()->AddObserver(m_pScoreDisplay);
+	pBurgerTop->SetParent(pIngridientParent);
+	pScene.AddGameObject(pBurgerTop);
+	
+	pBurgerTop = new GameObject("Cheddar 2");
+	pBurgerTop->AddComponent(new TransformComponent(pBurgerTop, glm::vec3(128.f, 82.f, 0.f), glm::vec2{ 2.f }));
+	pBurgerTop->AddComponent(new SpriteRendererComponent(pBurgerTop, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 64.f, 32.f, 8.f }));
+	pBurgerTop->AddComponent(new ColliderComponent(pBurgerTop, 32.f, 4.f));
+	pBurgerTop->AddComponent(new RigidbodyComponent(pBurgerTop, b2_dynamicBody, 1.0f, 1.0f, true, dae::PhysicsLayers::layer1));
+	pFoodComponent = new FoodComponent(pBurgerTop);
+	pBurgerTop->AddComponent(pFoodComponent);
+	pBurgerTop->SetTag("Food");
+	pFoodComponent->GetSubject()->AddObserver(m_pScoreDisplay);
+	pBurgerTop->SetParent(pIngridientParent);
+	pScene.AddGameObject(pBurgerTop);
+	
+	pBurgerTop = new GameObject("Tomato 2");
+	pBurgerTop->AddComponent(new TransformComponent(pBurgerTop, glm::vec3(128.f, 130.f, 0.f), glm::vec2{ 2.f }));
+	pBurgerTop->AddComponent(new SpriteRendererComponent(pBurgerTop, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 80.f, 32.f, 8.f }));
+	pBurgerTop->AddComponent(new ColliderComponent(pBurgerTop, 32.f, 4.f));
+	pBurgerTop->AddComponent(new RigidbodyComponent(pBurgerTop, b2_dynamicBody, 1.0f, 1.0f, true, dae::PhysicsLayers::layer1));
+	pFoodComponent = new FoodComponent(pBurgerTop);
+	pBurgerTop->AddComponent(pFoodComponent);
+	pBurgerTop->SetTag("Food");
+	pFoodComponent->GetSubject()->AddObserver(m_pScoreDisplay);
+	pBurgerTop->SetParent(pIngridientParent);
+	pScene.AddGameObject(pBurgerTop);
+	
+	pBurgerTop = new GameObject("Letuce 3");
+	pBurgerTop->AddComponent(new TransformComponent(pBurgerTop, glm::vec3(128.f, 178.f, 0.f), glm::vec2{ 2.f }));
+	pBurgerTop->AddComponent(new SpriteRendererComponent(pBurgerTop, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 88.f, 32.f, 8.f }));
+	pBurgerTop->AddComponent(new ColliderComponent(pBurgerTop, 32.f, 4.f));
+	pBurgerTop->AddComponent(new RigidbodyComponent(pBurgerTop, b2_dynamicBody, 1.0f, 1.0f, true, dae::PhysicsLayers::layer1));
+	pFoodComponent = new FoodComponent(pBurgerTop);
+	pBurgerTop->AddComponent(pFoodComponent);
+	pBurgerTop->SetTag("Food");
+	pFoodComponent->GetSubject()->AddObserver(m_pScoreDisplay);
+	pBurgerTop->SetParent(pIngridientParent);
+	pScene.AddGameObject(pBurgerTop);
+	
+	pBurgerTop = new GameObject("Patty 2");
+	pBurgerTop->AddComponent(new TransformComponent(pBurgerTop, glm::vec3(128.f, 226.f, 0.f), glm::vec2{ 2.f }));
+	pBurgerTop->AddComponent(new SpriteRendererComponent(pBurgerTop, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 72.f, 32.f, 8.f }));
+	pBurgerTop->AddComponent(new ColliderComponent(pBurgerTop, 32.f, 4.f));
+	pBurgerTop->AddComponent(new RigidbodyComponent(pBurgerTop, b2_dynamicBody, 1.0f, 1.0f, true, dae::PhysicsLayers::layer1));
+	pFoodComponent = new FoodComponent(pBurgerTop);
+	pBurgerTop->AddComponent(pFoodComponent);
+	pBurgerTop->SetTag("Food");
+	pFoodComponent->GetSubject()->AddObserver(m_pScoreDisplay);
+	pBurgerTop->SetParent(pIngridientParent);
+	pScene.AddGameObject(pBurgerTop);
+	
+	pBurgerTop = new GameObject("Letuce 4");
+	pBurgerTop->AddComponent(new TransformComponent(pBurgerTop, glm::vec3(128.f, 274.f, 0.f), glm::vec2{ 2.f }));
+	pBurgerTop->AddComponent(new SpriteRendererComponent(pBurgerTop, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 88.f, 32.f, 8.f }));
+	pBurgerTop->AddComponent(new ColliderComponent(pBurgerTop, 32.f, 4.f));
+	pBurgerTop->AddComponent(new RigidbodyComponent(pBurgerTop, b2_dynamicBody, 1.0f, 1.0f, true, dae::PhysicsLayers::layer1));
+	pFoodComponent = new FoodComponent(pBurgerTop);
+	pBurgerTop->AddComponent(pFoodComponent);
+	pBurgerTop->SetTag("Food");
+	pFoodComponent->GetSubject()->AddObserver(m_pScoreDisplay);
+	pBurgerTop->SetParent(pIngridientParent);
+	pScene.AddGameObject(pBurgerTop);
+	
+	pBurgerTop = new GameObject("Burger-Bottom 2");
+	pBurgerTop->AddComponent(new TransformComponent(pBurgerTop, glm::vec3(128.f, 322.f, 0.f), glm::vec2{ 2.f }));
+	pBurgerTop->AddComponent(new SpriteRendererComponent(pBurgerTop, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 56.f, 32.f, 8.f }));
+	pBurgerTop->AddComponent(new ColliderComponent(pBurgerTop, 32.f, 4.f));
+	pBurgerTop->AddComponent(new RigidbodyComponent(pBurgerTop, b2_dynamicBody, 1.0f, 1.0f, true, dae::PhysicsLayers::layer1));
+	pFoodComponent = new FoodComponent(pBurgerTop);
+	pBurgerTop->AddComponent(pFoodComponent);
+	pBurgerTop->SetTag("Food");
+	pFoodComponent->GetSubject()->AddObserver(m_pScoreDisplay);
+	pBurgerTop->SetParent(pIngridientParent);
+	pScene.AddGameObject(pBurgerTop);
+	
+	pBurgerTop = new GameObject("BurgerTop 2");
+	pBurgerTop->AddComponent(new TransformComponent(pBurgerTop, glm::vec3(224.f, 34.f, 0.f), glm::vec2{ 2.f }));
+	pBurgerTop->AddComponent(new SpriteRendererComponent(pBurgerTop, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 48.f, 32.f, 8.f }));
+	pBurgerTop->AddComponent(new ColliderComponent(pBurgerTop, 32.f, 4.f));
+	pBurgerTop->AddComponent(new RigidbodyComponent(pBurgerTop, b2_dynamicBody, 1.0f, 1.0f, true, dae::PhysicsLayers::layer1));
+	pFoodComponent = new FoodComponent(pBurgerTop, true);
+	pBurgerTop->AddComponent(pFoodComponent);
+	pBurgerTop->SetTag("Food");
+	pFoodComponent->GetSubject()->AddObserver(m_pScoreDisplay);
+	pBurgerTop->SetParent(pIngridientParent);
+	pScene.AddGameObject(pBurgerTop);
+	
+	pBurgerTop = new GameObject("Cheddar 2");
+	pBurgerTop->AddComponent(new TransformComponent(pBurgerTop, glm::vec3(224.f, 82.f, 0.f), glm::vec2{ 2.f }));
+	pBurgerTop->AddComponent(new SpriteRendererComponent(pBurgerTop, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 64.f, 32.f, 8.f }));
+	pBurgerTop->AddComponent(new ColliderComponent(pBurgerTop, 32.f, 4.f));
+	pBurgerTop->AddComponent(new RigidbodyComponent(pBurgerTop, b2_dynamicBody, 1.0f, 1.0f, true, dae::PhysicsLayers::layer1));
+	pFoodComponent = new FoodComponent(pBurgerTop);
+	pBurgerTop->AddComponent(pFoodComponent);
+	pBurgerTop->SetTag("Food");
+	pFoodComponent->GetSubject()->AddObserver(m_pScoreDisplay);
+	pBurgerTop->SetParent(pIngridientParent);
+	pScene.AddGameObject(pBurgerTop);
+	
+	pBurgerTop = new GameObject("Tomato 2");
+	pBurgerTop->AddComponent(new TransformComponent(pBurgerTop, glm::vec3(224.f, 130.f, 0.f), glm::vec2{ 2.f }));
+	pBurgerTop->AddComponent(new SpriteRendererComponent(pBurgerTop, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 80.f, 32.f, 8.f }));
+	pBurgerTop->AddComponent(new ColliderComponent(pBurgerTop, 32.f, 4.f));
+	pBurgerTop->AddComponent(new RigidbodyComponent(pBurgerTop, b2_dynamicBody, 1.0f, 1.0f, true, dae::PhysicsLayers::layer1));
+	pFoodComponent = new FoodComponent(pBurgerTop);
+	pBurgerTop->AddComponent(pFoodComponent);
+	pBurgerTop->SetTag("Food");
+	pFoodComponent->GetSubject()->AddObserver(m_pScoreDisplay);
+	pBurgerTop->SetParent(pIngridientParent);
+	pScene.AddGameObject(pBurgerTop);
+	
+	pBurgerTop = new GameObject("Letuce 3");
+	pBurgerTop->AddComponent(new TransformComponent(pBurgerTop, glm::vec3(224.f, 178.f, 0.f), glm::vec2{ 2.f }));
+	pBurgerTop->AddComponent(new SpriteRendererComponent(pBurgerTop, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 88.f, 32.f, 8.f }));
+	pBurgerTop->AddComponent(new ColliderComponent(pBurgerTop, 32.f, 4.f));
+	pBurgerTop->AddComponent(new RigidbodyComponent(pBurgerTop, b2_dynamicBody, 1.0f, 1.0f, true, dae::PhysicsLayers::layer1));
+	pFoodComponent = new FoodComponent(pBurgerTop);
+	pBurgerTop->AddComponent(pFoodComponent);
+	pBurgerTop->SetTag("Food");
+	pFoodComponent->GetSubject()->AddObserver(m_pScoreDisplay);
+	pBurgerTop->SetParent(pIngridientParent);
+	pScene.AddGameObject(pBurgerTop);
+	
+	pBurgerTop = new GameObject("Patty 2");
+	pBurgerTop->AddComponent(new TransformComponent(pBurgerTop, glm::vec3(224.f, 226.f, 0.f), glm::vec2{ 2.f }));
+	pBurgerTop->AddComponent(new SpriteRendererComponent(pBurgerTop, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 72.f, 32.f, 8.f }));
+	pBurgerTop->AddComponent(new ColliderComponent(pBurgerTop, 32.f, 4.f));
+	pBurgerTop->AddComponent(new RigidbodyComponent(pBurgerTop, b2_dynamicBody, 1.0f, 1.0f, true, dae::PhysicsLayers::layer1));
+	pFoodComponent = new FoodComponent(pBurgerTop);
+	pBurgerTop->AddComponent(pFoodComponent);
+	pBurgerTop->SetTag("Food");
+	pFoodComponent->GetSubject()->AddObserver(m_pScoreDisplay);
+	pBurgerTop->SetParent(pIngridientParent);
+	pScene.AddGameObject(pBurgerTop);
+	
+	pBurgerTop = new GameObject("Letuce 4");
+	pBurgerTop->AddComponent(new TransformComponent(pBurgerTop, glm::vec3(224.f, 274.f, 0.f), glm::vec2{ 2.f }));
+	pBurgerTop->AddComponent(new SpriteRendererComponent(pBurgerTop, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 88.f, 32.f, 8.f }));
+	pBurgerTop->AddComponent(new ColliderComponent(pBurgerTop, 32.f, 4.f));
+	pBurgerTop->AddComponent(new RigidbodyComponent(pBurgerTop, b2_dynamicBody, 1.0f, 1.0f, true, dae::PhysicsLayers::layer1));
+	pFoodComponent = new FoodComponent(pBurgerTop);
+	pBurgerTop->AddComponent(pFoodComponent);
+	pBurgerTop->SetTag("Food");
+	pFoodComponent->GetSubject()->AddObserver(m_pScoreDisplay);
+	pBurgerTop->SetParent(pIngridientParent);
+	pScene.AddGameObject(pBurgerTop);
+	
+	pBurgerTop = new GameObject("Burger-Bottom 2");
+	pBurgerTop->AddComponent(new TransformComponent(pBurgerTop, glm::vec3(224.f, 322.f, 0.f), glm::vec2{ 2.f }));
+	pBurgerTop->AddComponent(new SpriteRendererComponent(pBurgerTop, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 56.f, 32.f, 8.f }));
+	pBurgerTop->AddComponent(new ColliderComponent(pBurgerTop, 32.f, 4.f));
+	pBurgerTop->AddComponent(new RigidbodyComponent(pBurgerTop, b2_dynamicBody, 1.0f, 1.0f, true, dae::PhysicsLayers::layer1));
+	pFoodComponent = new FoodComponent(pBurgerTop);
+	pBurgerTop->AddComponent(pFoodComponent);
+	pBurgerTop->SetTag("Food");
+	pFoodComponent->GetSubject()->AddObserver(m_pScoreDisplay);
+	pBurgerTop->SetParent(pIngridientParent);
+	pScene.AddGameObject(pBurgerTop);
+	
+	pBurgerTop = new GameObject("BurgerTop 2");
+	pBurgerTop->AddComponent(new TransformComponent(pBurgerTop, glm::vec3(320.f, 34.f, 0.f), glm::vec2{ 2.f }));
+	pBurgerTop->AddComponent(new SpriteRendererComponent(pBurgerTop, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 48.f, 32.f, 8.f }));
+	pBurgerTop->AddComponent(new ColliderComponent(pBurgerTop, 32.f, 4.f));
+	pBurgerTop->AddComponent(new RigidbodyComponent(pBurgerTop, b2_dynamicBody, 1.0f, 1.0f, true, dae::PhysicsLayers::layer1));
+	pFoodComponent = new FoodComponent(pBurgerTop, true);
+	pBurgerTop->AddComponent(pFoodComponent);
+	pBurgerTop->SetTag("Food");
+	pFoodComponent->GetSubject()->AddObserver(m_pScoreDisplay);
+	pBurgerTop->SetParent(pIngridientParent);
+	pScene.AddGameObject(pBurgerTop);
+	
+	pBurgerTop = new GameObject("Cheddar 2");
+	pBurgerTop->AddComponent(new TransformComponent(pBurgerTop, glm::vec3(320.f, 82.f, 0.f), glm::vec2{ 2.f }));
+	pBurgerTop->AddComponent(new SpriteRendererComponent(pBurgerTop, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 64.f, 32.f, 8.f }));
+	pBurgerTop->AddComponent(new ColliderComponent(pBurgerTop, 32.f, 4.f));
+	pBurgerTop->AddComponent(new RigidbodyComponent(pBurgerTop, b2_dynamicBody, 1.0f, 1.0f, true, dae::PhysicsLayers::layer1));
+	pFoodComponent = new FoodComponent(pBurgerTop);
+	pBurgerTop->AddComponent(pFoodComponent);
+	pBurgerTop->SetTag("Food");
+	pFoodComponent->GetSubject()->AddObserver(m_pScoreDisplay);
+	pBurgerTop->SetParent(pIngridientParent);
+	pScene.AddGameObject(pBurgerTop);
+	
+	pBurgerTop = new GameObject("Tomato 2");
+	pBurgerTop->AddComponent(new TransformComponent(pBurgerTop, glm::vec3(320.f, 130.f, 0.f), glm::vec2{ 2.f }));
+	pBurgerTop->AddComponent(new SpriteRendererComponent(pBurgerTop, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 80.f, 32.f, 8.f }));
+	pBurgerTop->AddComponent(new ColliderComponent(pBurgerTop, 32.f, 4.f));
+	pBurgerTop->AddComponent(new RigidbodyComponent(pBurgerTop, b2_dynamicBody, 1.0f, 1.0f, true, dae::PhysicsLayers::layer1));
+	pFoodComponent = new FoodComponent(pBurgerTop);
+	pBurgerTop->AddComponent(pFoodComponent);
+	pBurgerTop->SetTag("Food");
+	pFoodComponent->GetSubject()->AddObserver(m_pScoreDisplay);
+	pBurgerTop->SetParent(pIngridientParent);
+	pScene.AddGameObject(pBurgerTop);
+	
+	pBurgerTop = new GameObject("Letuce 3");
+	pBurgerTop->AddComponent(new TransformComponent(pBurgerTop, glm::vec3(320.f, 178.f, 0.f), glm::vec2{ 2.f }));
+	pBurgerTop->AddComponent(new SpriteRendererComponent(pBurgerTop, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 88.f, 32.f, 8.f }));
+	pBurgerTop->AddComponent(new ColliderComponent(pBurgerTop, 32.f, 4.f));
+	pBurgerTop->AddComponent(new RigidbodyComponent(pBurgerTop, b2_dynamicBody, 1.0f, 1.0f, true, dae::PhysicsLayers::layer1));
+	pFoodComponent = new FoodComponent(pBurgerTop);
+	pBurgerTop->AddComponent(pFoodComponent);
+	pBurgerTop->SetTag("Food");
+	pFoodComponent->GetSubject()->AddObserver(m_pScoreDisplay);
+	pBurgerTop->SetParent(pIngridientParent);
+	pScene.AddGameObject(pBurgerTop);
+	
+	pBurgerTop = new GameObject("Patty 2");
+	pBurgerTop->AddComponent(new TransformComponent(pBurgerTop, glm::vec3(320.f, 226.f, 0.f), glm::vec2{ 2.f }));
+	pBurgerTop->AddComponent(new SpriteRendererComponent(pBurgerTop, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 72.f, 32.f, 8.f }));
+	pBurgerTop->AddComponent(new ColliderComponent(pBurgerTop, 32.f, 4.f));
+	pBurgerTop->AddComponent(new RigidbodyComponent(pBurgerTop, b2_dynamicBody, 1.0f, 1.0f, true, dae::PhysicsLayers::layer1));
+	pFoodComponent = new FoodComponent(pBurgerTop);
+	pBurgerTop->AddComponent(pFoodComponent);
+	pBurgerTop->SetTag("Food");
+	pFoodComponent->GetSubject()->AddObserver(m_pScoreDisplay);
+	pBurgerTop->SetParent(pIngridientParent);
+	pScene.AddGameObject(pBurgerTop);
+	
+	pBurgerTop = new GameObject("Letuce 4");
+	pBurgerTop->AddComponent(new TransformComponent(pBurgerTop, glm::vec3(320.f, 274.f, 0.f), glm::vec2{ 2.f }));
+	pBurgerTop->AddComponent(new SpriteRendererComponent(pBurgerTop, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 88.f, 32.f, 8.f }));
+	pBurgerTop->AddComponent(new ColliderComponent(pBurgerTop, 32.f, 4.f));
+	pBurgerTop->AddComponent(new RigidbodyComponent(pBurgerTop, b2_dynamicBody, 1.0f, 1.0f, true, dae::PhysicsLayers::layer1));
+	pFoodComponent = new FoodComponent(pBurgerTop);
+	pBurgerTop->AddComponent(pFoodComponent);
+	pBurgerTop->SetTag("Food");
+	pFoodComponent->GetSubject()->AddObserver(m_pScoreDisplay);
+	pBurgerTop->SetParent(pIngridientParent);
+	pScene.AddGameObject(pBurgerTop);
+	
+	pBurgerTop = new GameObject("Burger-Bottom 2");
+	pBurgerTop->AddComponent(new TransformComponent(pBurgerTop, glm::vec3(320.f, 322.f, 0.f), glm::vec2{ 2.f }));
+	pBurgerTop->AddComponent(new SpriteRendererComponent(pBurgerTop, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 56.f, 32.f, 8.f }));
+	pBurgerTop->AddComponent(new ColliderComponent(pBurgerTop, 32.f, 4.f));
+	pBurgerTop->AddComponent(new RigidbodyComponent(pBurgerTop, b2_dynamicBody, 1.0f, 1.0f, true, dae::PhysicsLayers::layer1));
+	pFoodComponent = new FoodComponent(pBurgerTop);
+	pBurgerTop->AddComponent(pFoodComponent);
+	pBurgerTop->SetTag("Food");
+	pFoodComponent->GetSubject()->AddObserver(m_pScoreDisplay);
+	pBurgerTop->SetParent(pIngridientParent);
+	pScene.AddGameObject(pBurgerTop);
+	
+	
+	// Plates
+	GameObject* pPlates = new GameObject("Plates_Parent");
+	pPlates->AddComponent(new TransformComponent(pPlates, glm::vec3{ 0.f, 0.f, 0.f }, glm::vec2{ 1.f }));
+	pPlates->SetParent(pLevelGameobject);
+	
+	pScene.AddGameObject(pPlates);
+	
+	auto pPlate = new GameObject("Plate 1");
+	pPlate->AddComponent(new TransformComponent(pPlate, glm::vec3{ 32.f, 448.f, 0.f }, glm::vec2{ 2.f }));
+	pPlate->AddComponent(new SpriteRendererComponent(pPlate, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 96.f, 32.f, 8.f }));
+	pPlate->AddComponent(new ColliderComponent(pPlate, 32.f, 8.f, glm::vec2{ 16.f, 8.f }));
+	pPlate->AddComponent(new RigidbodyComponent(pPlate, b2_staticBody, 1.0f, 1.0f, true));
+	auto pPlateComponent = new PlateComponent(pPlate);
+	pPlate->AddComponent(pPlateComponent);
+	pPlate->SetTag("Plate");
+	pScene.AddGameObject(pPlate);
+	pPlate->SetParent(pPlates);
+	pPlateComponent->GetSubject()->AddObserver(m_pManagerComponent);
+	
+	pPlate = new GameObject("Plate 2");
+	pPlate->AddComponent(new TransformComponent(pPlate, glm::vec3{ 128.f, 448.f, 0.f }, glm::vec2{ 2.f }));
+	pPlate->AddComponent(new SpriteRendererComponent(pPlate, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 96.f, 32.f, 8.f }));
+	pPlate->AddComponent(new ColliderComponent(pPlate, 32.f, 8.f, glm::vec2{ 16.f, 8.f }));
+	pPlate->AddComponent(new RigidbodyComponent(pPlate, b2_staticBody, 1.0f, 1.0f, true));
+	pPlateComponent = new PlateComponent(pPlate);
+	pPlate->AddComponent(pPlateComponent);
+	pPlate->SetTag("Plate");
+	pScene.AddGameObject(pPlate);
+	pPlate->SetParent(pPlates);
+	pPlateComponent->GetSubject()->AddObserver(m_pManagerComponent);
+	
+	pPlate = new GameObject("Plate 3");
+	pPlate->AddComponent(new TransformComponent(pPlate, glm::vec3{ 224.f, 448.f, 0.f }, glm::vec2{ 2.f }));
+	pPlate->AddComponent(new SpriteRendererComponent(pPlate, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 96.f, 32.f, 8.f }));
+	pPlate->AddComponent(new ColliderComponent(pPlate, 32.f, 8.f, glm::vec2{ 16.f, 8.f }));
+	pPlate->AddComponent(new RigidbodyComponent(pPlate, b2_staticBody, 1.0f, 1.0f, true));
+	pPlateComponent = new PlateComponent(pPlate);
+	pPlate->AddComponent(pPlateComponent);
+	pPlate->SetTag("Plate");
+	pScene.AddGameObject(pPlate);
+	pPlate->SetParent(pPlates);
+	pPlateComponent->GetSubject()->AddObserver(m_pManagerComponent);
+	
+	pPlate = new GameObject("Plate 4");
+	pPlate->AddComponent(new TransformComponent(pPlate, glm::vec3{ 320.f, 448.f, 0.f }, glm::vec2{ 2.f }));
+	pPlate->AddComponent(new SpriteRendererComponent(pPlate, "BurgerTime_SpriteSheet.png", SDL_FRect{ 112.f, 96.f, 32.f, 8.f }));
+	pPlate->AddComponent(new ColliderComponent(pPlate, 32.f, 8.f, glm::vec2{ 16.f, 8.f }));
+	pPlate->AddComponent(new RigidbodyComponent(pPlate, b2_staticBody, 1.0f, 1.0f, true));
+	pPlateComponent = new PlateComponent(pPlate);
+	pPlate->AddComponent(pPlateComponent);
+	pPlate->SetTag("Plate");
+	pScene.AddGameObject(pPlate);
+	pPlate->SetParent(pPlates);
+	pPlateComponent->GetSubject()->AddObserver(m_pManagerComponent);
+
+
+	pLevelGameobject->SaveAsPrefab();
 }
 
-void Level1State::MakeLevel3(dae::Scene& pScene)
+void SingleplayerState::MakeLevel3(dae::Scene& pScene)
 {
 	std::vector<std::vector<char>> level =
 	{
@@ -1748,7 +1610,7 @@ void Level1State::MakeLevel3(dae::Scene& pScene)
 		{'L','L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L'},
 		{'L','L', '.', 'L', 'L', '.', 'L', 'L', '.', 'L', 'L', '.', 'L', 'L', '.', 'L', 'L', '.', 'L', 'L', '.', 'L', 'L', '.', 'L', 'L'},
 		{'L','L', '.', 'L', 'L', '.', 'L', 'L', '.', 'L', 'L', '.', 'L', 'L', '.', 'L', 'L', '.', 'L', 'L', '.', 'L', 'L', '.', 'L', 'L'},
-		{'L','L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', '.', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L'},
+		{'L','L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L'},
 		{'L','L', '.', 'L', 'L', '.', 'L', 'L', '.', 'L', 'L', '.', 'L', 'L', '.', 'L', 'L', '.', 'L', 'L', '.', 'L', 'L', '.', 'L', 'L'},
 		{'L','L', '.', 'L', 'L', '.', 'L', 'L', '.', 'L', 'L', '.', 'L', 'L', '.', 'L', 'L', '.', 'L', 'L', '.', 'L', 'L', '.', 'L', 'L'},
 		{'L','L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L', 'P', 'L', 'L'},
@@ -1774,7 +1636,8 @@ void Level1State::MakeLevel3(dae::Scene& pScene)
 	int ladder{};
 	int platform{};
 	
-	GameObject* pLevelGameobject = new GameObject("Level2");
+	GameObject* pLevelGameobject = new GameObject("Level3");
+	pLevelGameobject->SetTag("Level");
 	pLevelGameobject->AddComponent(new TransformComponent(pLevelGameobject));
 	pLevelGameobject->AddComponent(
 		new LevelComponent(pLevelGameobject, static_cast<int>(level[0].size()), static_cast<int>(level.size()), level, "Level-1")
@@ -1791,18 +1654,18 @@ void Level1State::MakeLevel3(dae::Scene& pScene)
 	pColliderObject->SetParent(pLevelGameobject);
 	pScene.AddGameObject(pColliderObject);
 	
-	//GameObject* pEnemySpawner = new GameObject("EnemySpawner");
-	//pEnemySpawner->AddComponent(new TransformComponent(pEnemySpawner));
-	//auto pEnemySpawnerComponent = new EnemySpawnerComponent(pEnemySpawner);
-	//pEnemySpawner->AddComponent(pEnemySpawnerComponent);
-	//
-	//pEnemySpawnerComponent->AddSpawnPosition(glm::vec3{ 384.f, 296.f, 0.f });
-	//pEnemySpawnerComponent->AddSpawnPosition(glm::vec3{ 0.f, 8.f, 0.f });
-	//pEnemySpawnerComponent->AddSpawnPosition(glm::vec3{ 0.f, 296.f, 0.f });
-	//pEnemySpawnerComponent->AddSpawnPosition(glm::vec3{ 384.f, 8.f, 0.f });
-	//
-	//pEnemySpawner->SetParent(pLevelGameobject);
-	//pScene.AddGameObject(pEnemySpawner);
+	GameObject* pEnemySpawner = new GameObject("EnemySpawner");
+	pEnemySpawner->AddComponent(new TransformComponent(pEnemySpawner));
+	auto pEnemySpawnerComponent = new EnemySpawnerComponent(pEnemySpawner);
+	pEnemySpawner->AddComponent(pEnemySpawnerComponent);
+	
+	pEnemySpawnerComponent->AddSpawnPosition(glm::vec3{ 384.f, 156.f, 0.f });
+	pEnemySpawnerComponent->AddSpawnPosition(glm::vec3{ 0.f, 8.f, 0.f });
+	pEnemySpawnerComponent->AddSpawnPosition(glm::vec3{ 0.f, 156.f, 0.f });
+	pEnemySpawnerComponent->AddSpawnPosition(glm::vec3{ 384.f, 8.f, 0.f });
+	
+	pEnemySpawner->SetParent(pLevelGameobject);
+	pScene.AddGameObject(pEnemySpawner);
 	
 	float scale{ 2.f };
 	int width = static_cast<int>(level.size());
@@ -1926,8 +1789,24 @@ void Level1State::MakeLevel3(dae::Scene& pScene)
 	pScene.AddGameObject(pGameobject);
 
 	pGameobject = new GameObject("Collider 6");
-	pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 208.f, 186.f, 0.f }));
-	pGameobject->AddComponent(new ColliderComponent(pGameobject, 16.f, 32.f, glm::vec2{ 8.f, 16.f }));
+	pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 224.f, 186.f, 0.f }));
+	pGameobject->AddComponent(new ColliderComponent(pGameobject, 16.f, 64.f, glm::vec2{ 8.f, 32.f }));
+	pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
+	pGameobject->SetParent(pColliderObject);
+
+	pScene.AddGameObject(pGameobject);
+
+	pGameobject = new GameObject("Collider 6");
+	pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 272.f, 186.f, 0.f }));
+	pGameobject->AddComponent(new ColliderComponent(pGameobject, 48.f, 64.f, glm::vec2{ 24.f, 32.f }));
+	pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
+	pGameobject->SetParent(pColliderObject);
+
+	pScene.AddGameObject(pGameobject);
+
+	pGameobject = new GameObject("Collider 6");
+	pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 272.f, 282.f, 0.f }));
+	pGameobject->AddComponent(new ColliderComponent(pGameobject, 46.f, 16.f, glm::vec2{ 24.f, 8.f }));
 	pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
 	pGameobject->SetParent(pColliderObject);
 
@@ -1957,286 +1836,66 @@ void Level1State::MakeLevel3(dae::Scene& pScene)
 	pGameobject->SetParent(pColliderObject);
 	
 	pScene.AddGameObject(pGameobject);
+
+	for (int i = 0; i < 8; ++i)
+	{
+		pGameobject = new GameObject("Collider " + std::to_string(i+9));
+		pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 32.f + (i * 48.f), 138.f, 0.f}));
+		pGameobject->AddComponent(new ColliderComponent(pGameobject, 16.f, 16.f, glm::vec2{ 8.f, 8.f }));
+		pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
+		pGameobject->SetParent(pColliderObject);
+
+		pScene.AddGameObject(pGameobject);
+
+	}
+
+	for (int i = 0; i < 8; ++i)
+	{
+		pGameobject = new GameObject("Collider " + std::to_string(17 + i));
+		pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 32.f + (i * 48.f), 90.f, 0.f }));
+		pGameobject->AddComponent(new ColliderComponent(pGameobject, 16.f, 16.f, glm::vec2{ 8.f, 8.f }));
+		pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
+		pGameobject->SetParent(pColliderObject);
+
+		pScene.AddGameObject(pGameobject);
+
+	}
+
+	for (int i = 0; i < 8; ++i)
+	{
+		pGameobject = new GameObject("Collider " + std::to_string(25 + i));
+		pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 32.f + (i * 48.f), 42.f, 0.f }));
+		pGameobject->AddComponent(new ColliderComponent(pGameobject, 16.f, 16.f, glm::vec2{ 8.f, 8.f }));
+		pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
+		pGameobject->SetParent(pColliderObject);
+
+		pScene.AddGameObject(pGameobject);
+
+	}
+
+	pGameobject = new GameObject("Collider 23");
+	pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 0.f, 0.f, 0.f }));
+	pGameobject->AddComponent(new ColliderComponent(pGameobject, 416.f, 8.f, glm::vec2{ 0.f, 0.f }));
+	pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
+	pGameobject->SetParent(pColliderObject);
 	
-	//
-	//pGameobject = new GameObject("Collider 1");
-	//pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 0.f, 186.f, 0.f }));
-	//pGameobject->AddComponent(new ColliderComponent(pGameobject, 48.f, 16.f, glm::vec2{ 24.f, 8.f }));
-	//pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
-	//pGameobject->SetParent(pColliderObject);
-	//
-	//pScene.AddGameObject(pGameobject);
-	//
-	//pGameobject = new GameObject("Collider 2");
-	//pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 80.f, 186.f, 0.f }));
-	//pGameobject->AddComponent(new ColliderComponent(pGameobject, 64.f, 16.f, glm::vec2{ 32.f, 8.f }));
-	//pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
-	//pGameobject->SetParent(pColliderObject);
-	//
-	//pScene.AddGameObject(pGameobject);
-	//
-	//pGameobject = new GameObject("Collider 3");
-	//pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 176.f, 186.f, 0.f }));
-	//pGameobject->AddComponent(new ColliderComponent(pGameobject, 64.f, 16.f, glm::vec2{ 32.f, 8.f }));
-	//pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
-	//pGameobject->SetParent(pColliderObject);
-	//
-	//pScene.AddGameObject(pGameobject);
-	//
-	//pGameobject = new GameObject("Collider 4");
-	//pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 272.f, 186.f, 0.f }));
-	//pGameobject->AddComponent(new ColliderComponent(pGameobject, 64.f, 16.f, glm::vec2{ 32.f, 8.f }));
-	//pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
-	//pGameobject->SetParent(pColliderObject);
-	//
-	//pScene.AddGameObject(pGameobject);
-	//
-	//pGameobject = new GameObject("Collider 5");
-	//pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 368.f, 186.f, 0.f }));
-	//pGameobject->AddComponent(new ColliderComponent(pGameobject, 48.f, 16.f, glm::vec2{ 24.f, 8.f }));
-	//pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
-	//pGameobject->SetParent(pColliderObject);
-	//
-	//pScene.AddGameObject(pGameobject);
-	//
-	//
-	//pGameobject = new GameObject("Collider 6");
-	//pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 32.f, 138.f, 0.f }));
-	//pGameobject->AddComponent(new ColliderComponent(pGameobject, 64.f, 16.f, glm::vec2{ 32.f, 8.f }));
-	//pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
-	//pGameobject->SetParent(pColliderObject);
-	//
-	//pScene.AddGameObject(pGameobject);
-	//
-	//pGameobject = new GameObject("Collider 7");
-	//pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 128.f, 138.f, 0.f }));
-	//pGameobject->AddComponent(new ColliderComponent(pGameobject, 64.f, 16.f, glm::vec2{ 32.f, 8.f }));
-	//pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
-	//pGameobject->SetParent(pColliderObject);
-	//
-	//pScene.AddGameObject(pGameobject);
-	//
-	//pGameobject = new GameObject("Collider 8");
-	//pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 224.f, 138.f, 0.f }));
-	//pGameobject->AddComponent(new ColliderComponent(pGameobject, 64.f, 16.f, glm::vec2{ 32.f, 8.f }));
-	//pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
-	//pGameobject->SetParent(pColliderObject);
-	//
-	//pScene.AddGameObject(pGameobject);
-	//
-	//
-	//pGameobject = new GameObject("Collider 9");
-	//pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 320.f, 138.f, 0.f }));
-	//pGameobject->AddComponent(new ColliderComponent(pGameobject, 64.f, 16.f, glm::vec2{ 32.f, 8.f }));
-	//pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
-	//pGameobject->SetParent(pColliderObject);
-	//
-	//pScene.AddGameObject(pGameobject);
-	//
-	//
-	//pGameobject = new GameObject("Collider 1");
-	//pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 0.f, 90.f, 0.f }));
-	//pGameobject->AddComponent(new ColliderComponent(pGameobject, 48.f, 16.f, glm::vec2{ 24.f, 8.f }));
-	//pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
-	//pGameobject->SetParent(pColliderObject);
-	//
-	//pScene.AddGameObject(pGameobject);
-	//
-	//pGameobject = new GameObject("Collider 2");
-	//pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 80.f, 90.f, 0.f }));
-	//pGameobject->AddComponent(new ColliderComponent(pGameobject, 64.f, 16.f, glm::vec2{ 32.f, 8.f }));
-	//pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
-	//pGameobject->SetParent(pColliderObject);
-	//
-	//pScene.AddGameObject(pGameobject);
-	//
-	//pGameobject = new GameObject("Collider 3");
-	//pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 176.f, 90.f, 0.f }));
-	//pGameobject->AddComponent(new ColliderComponent(pGameobject, 64.f, 16.f, glm::vec2{ 32.f, 8.f }));
-	//pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
-	//pGameobject->SetParent(pColliderObject);
-	//
-	//pScene.AddGameObject(pGameobject);
-	//
-	//pGameobject = new GameObject("Collider 4");
-	//pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 272.f, 90.f, 0.f }));
-	//pGameobject->AddComponent(new ColliderComponent(pGameobject, 64.f, 16.f, glm::vec2{ 32.f, 8.f }));
-	//pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
-	//pGameobject->SetParent(pColliderObject);
-	//
-	//pScene.AddGameObject(pGameobject);
-	//
-	//pGameobject = new GameObject("Collider 5");
-	//pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 368.f, 90.f, 0.f }));
-	//pGameobject->AddComponent(new ColliderComponent(pGameobject, 48.f, 16.f, glm::vec2{ 24.f, 8.f }));
-	//pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
-	//pGameobject->SetParent(pColliderObject);
-	//
-	//pScene.AddGameObject(pGameobject);
-	//
-	//
-	//pGameobject = new GameObject("Collider 6");
-	//pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 32.f, 42.f, 0.f }));
-	//pGameobject->AddComponent(new ColliderComponent(pGameobject, 64.f, 16.f, glm::vec2{ 32.f, 8.f }));
-	//pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
-	//pGameobject->SetParent(pColliderObject);
-	//
-	//pScene.AddGameObject(pGameobject);
-	//
-	//pGameobject = new GameObject("Collider 7");
-	//pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 128.f, 42.f, 0.f }));
-	//pGameobject->AddComponent(new ColliderComponent(pGameobject, 64.f, 16.f, glm::vec2{ 32.f, 8.f }));
-	//pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
-	//pGameobject->SetParent(pColliderObject);
-	//
-	//pScene.AddGameObject(pGameobject);
-	//
-	//pGameobject = new GameObject("Collider 8");
-	//pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 224.f, 42.f, 0.f }));
-	//pGameobject->AddComponent(new ColliderComponent(pGameobject, 64.f, 16.f, glm::vec2{ 32.f, 8.f }));
-	//pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
-	//pGameobject->SetParent(pColliderObject);
-	//
-	//pScene.AddGameObject(pGameobject);
-	//
-	//
-	//pGameobject = new GameObject("Collider 9");
-	//pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 320.f, 42.f, 0.f }));
-	//pGameobject->AddComponent(new ColliderComponent(pGameobject, 64.f, 16.f, glm::vec2{ 32.f, 8.f }));
-	//pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
-	//pGameobject->SetParent(pColliderObject);
-	//
-	//pScene.AddGameObject(pGameobject);
-	//
-	////
-	////pGameobject = new GameObject("Collider 10");
-	////pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 320.f, 152.f, 0.f }));
-	////pGameobject->AddComponent(new ColliderComponent(pGameobject, 16.f, 32.f, glm::vec2{ 8.f, 32.f }));
-	////pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
-	////pGameobject->SetParent(pColliderObject);
-	////
-	////pScene.AddGameObject(pGameobject);
-	////
-	////pGameobject = new GameObject("Collider 11");
-	////pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 368.f, 152.f, 0.f }));
-	////pGameobject->AddComponent(new ColliderComponent(pGameobject, 48.f, 32.f, glm::vec2{ 24.f, 32.f }));
-	////pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
-	////pGameobject->SetParent(pColliderObject);
-	////
-	////pScene.AddGameObject(pGameobject);
-	////
-	////pGameobject = new GameObject("Collider 12");
-	////pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 344.f, 112.f, 0.f }));
-	////pGameobject->AddComponent(new ColliderComponent(pGameobject, 64.f, 16.f, glm::vec2{ 8.f, 16.f }));
-	////pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
-	////pGameobject->SetParent(pColliderObject);
-	////
-	////pScene.AddGameObject(pGameobject);
-	////
-	////pGameobject = new GameObject("Collider 13");
-	////pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 344.f, 16.f, 0.f }));
-	////pGameobject->AddComponent(new ColliderComponent(pGameobject, 64.f, 48.f, glm::vec2{ 8.f, 48.f }));
-	////pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
-	////pGameobject->SetParent(pColliderObject);
-	////
-	////pScene.AddGameObject(pGameobject);
-	////
-	////pGameobject = new GameObject("Collider 14");
-	////pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 248.f, 16.f, 0.f }));
-	////pGameobject->AddComponent(new ColliderComponent(pGameobject, 64.f, 48.f, glm::vec2{ 8.f, 48.f }));
-	////pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
-	////pGameobject->SetParent(pColliderObject);
-	////
-	////pScene.AddGameObject(pGameobject);
-	////
-	////pGameobject = new GameObject("Collider 15");
-	////pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 224.f, 96.f, 0.f }));
-	////pGameobject->AddComponent(new ColliderComponent(pGameobject, 16.f, 48.f, glm::vec2{ 8.f, 48.f }));
-	////pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
-	////pGameobject->SetParent(pColliderObject);
-	////
-	////pScene.AddGameObject(pGameobject);
-	////
-	////pGameobject = new GameObject("Collider 16");
-	////pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 272.f, 96.f, 0.f }));
-	////pGameobject->AddComponent(new ColliderComponent(pGameobject, 16.f, 48.f, glm::vec2{ 8.f, 48.f }));
-	////pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
-	////pGameobject->SetParent(pColliderObject);
-	////
-	////pScene.AddGameObject(pGameobject);
-	////
-	////
-	////pGameobject = new GameObject("Collider 17");
-	////pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 32.f, 104.f, 0.f }));
-	////pGameobject->AddComponent(new ColliderComponent(pGameobject, 16.f, 32.f, glm::vec2{ 8.f, 32.f }));
-	////pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
-	////pGameobject->SetParent(pColliderObject);
-	////
-	////pScene.AddGameObject(pGameobject);
-	////
-	////pGameobject = new GameObject("Collider 18");
-	////pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 80.f, 104.f, 0.f }));
-	////pGameobject->AddComponent(new ColliderComponent(pGameobject, 16.f, 32.f, glm::vec2{ 8.f, 32.f }));
-	////pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
-	////pGameobject->SetParent(pColliderObject);
-	////
-	////pScene.AddGameObject(pGameobject);
-	////
-	////pGameobject = new GameObject("Collider 19");
-	////pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 0.f, 16.f, 0.f }));
-	////pGameobject->AddComponent(new ColliderComponent(pGameobject, 64.f, 48.f, glm::vec2{ 64.f, 48.f }));
-	////pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
-	////pGameobject->SetParent(pColliderObject);
-	////
-	////pScene.AddGameObject(pGameobject);
-	////
-	////pGameobject = new GameObject("Collider 20");
-	////pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 96.f, 144.f, 0.f }));
-	////pGameobject->AddComponent(new ColliderComponent(pGameobject, 64.f, 16.f, glm::vec2{ 64.f, 16.f }));
-	////pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
-	////pGameobject->SetParent(pColliderObject);
-	////
-	////pScene.AddGameObject(pGameobject);
-	////
-	////pGameobject = new GameObject("Collider 21");
-	////pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 128.f, 16.f, 0.f }));
-	////pGameobject->AddComponent(new ColliderComponent(pGameobject, 16.f, 80.f, glm::vec2{ 8.f, 64.f }));
-	////pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
-	////pGameobject->SetParent(pColliderObject);
-	////
-	////pScene.AddGameObject(pGameobject);
-	////
-	////pGameobject = new GameObject("Collider 22");
-	////pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 176.f, 16.f, 0.f }));
-	////pGameobject->AddComponent(new ColliderComponent(pGameobject, 16.f, 80.f, glm::vec2{ 8.f, 64.f }));
-	////pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
-	////pGameobject->SetParent(pColliderObject);
-	////
-	////pScene.AddGameObject(pGameobject);
-	////
-	//pGameobject = new GameObject("Collider 23");
-	//pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 0.f, 0.f, 0.f }));
-	//pGameobject->AddComponent(new ColliderComponent(pGameobject, 416.f, 8.f, glm::vec2{ 0.f, 0.f }));
-	//pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
-	//pGameobject->SetParent(pColliderObject);
-	//
-	//pScene.AddGameObject(pGameobject);
-	//
-	//pGameobject = new GameObject("Collider 23");
-	//pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 416.f, 0.f, 0.f }));
-	//pGameobject->AddComponent(new ColliderComponent(pGameobject, 64.f, 416.f, glm::vec2{ 0.f, 0.f }));
-	//pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
-	//pGameobject->SetParent(pColliderObject);
-	//pScene.AddGameObject(pGameobject);
-	//
-	//pGameobject = new GameObject("Collider 24");
-	//pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ -64.f, 0.f, 0.f }));
-	//pGameobject->AddComponent(new ColliderComponent(pGameobject, 64.f, 416.f, glm::vec2{ 0.f, 0.f }));
-	//pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
-	//pGameobject->SetParent(pColliderObject);
-	//
-	//pScene.AddGameObject(pGameobject);
-	//
+	pScene.AddGameObject(pGameobject);
+	
+	pGameobject = new GameObject("Collider 23");
+	pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ 416.f, 0.f, 0.f }));
+	pGameobject->AddComponent(new ColliderComponent(pGameobject, 64.f, 416.f, glm::vec2{ 0.f, 0.f }));
+	pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
+	pGameobject->SetParent(pColliderObject);
+	pScene.AddGameObject(pGameobject);
+	
+	pGameobject = new GameObject("Collider 24");
+	pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3{ -64.f, 0.f, 0.f }));
+	pGameobject->AddComponent(new ColliderComponent(pGameobject, 64.f, 416.f, glm::vec2{ 0.f, 0.f }));
+	pGameobject->AddComponent(new RigidbodyComponent(pGameobject, b2_staticBody));
+	pGameobject->SetParent(pColliderObject);
+	
+	pScene.AddGameObject(pGameobject);
+	
 	// Ingredients
 	
 	auto pIngridientParent = new GameObject("Ingredient_Parent");

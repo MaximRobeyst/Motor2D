@@ -15,7 +15,7 @@
 
 void VersusState::OnEnter()
 {
-	auto scene = dae::Scene::Deserialize("Level01");
+	auto scene = dae::Scene::Deserialize("Level1");
 
 	auto pPeperGameObject = new dae::GameObject("MrHotDog_Player2");
 	auto pPlayerTransform = new dae::TransformComponent(pPeperGameObject, glm::vec3{ 256.f, 296.f, 0 }, glm::vec3{ 2.f });
@@ -64,5 +64,4 @@ void VersusState::OnEnter()
 void VersusState::OnExit()
 {
 	dae::SceneManager::GetInstance().RemoveScene(0);
-	dae::InputManager::GetInstance().ClearInputs();
 }

@@ -35,6 +35,8 @@ public:
 	void SetVerticalAxis(const std::string& verticalAxis);
 	void SetHorizontalAxis(const std::string& horizontalAxis);
 
+	void SpawnPlayer();
+
 private:
 	void UpdateDefault();
 	void UpdatePeper();

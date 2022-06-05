@@ -75,6 +75,8 @@ namespace dae
 		bool IsDone() const;
 		bool IsLooping() const;
 
+		void Reset();
+
 	private:
 		AnimationKeyframe m_CurrentKeyframe;
 

@@ -10,7 +10,7 @@ namespace dae
 class LeaderboardComponent : public dae::Component
 {
 public:
-	LeaderboardComponent() = default;
+	LeaderboardComponent();
 	LeaderboardComponent(dae::GameObject* pGameobject, int targetScore);
 
 	void Start() override;

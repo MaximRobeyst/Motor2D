@@ -15,7 +15,7 @@ class LevelComponent : public dae::Component, Observer
 {
 public:
 	LevelComponent() = default;
-	LevelComponent(dae::GameObject* m_pGameobject, int width, int height, std::vector<std::vector<char>> level, std::string nextLevel);
+	LevelComponent(dae::GameObject* m_pGameobject, int width, int height, std::vector<std::vector<char>> level, std::string nextLevel, glm::vec3 playerPosition = glm::vec3{192.f, 296.f, 0.f});
 
 	void Start() override;
 	void RenderGUI() override;
@@ -31,6 +31,7 @@ public:
 	virtual void Notify(const dae::GameObject& gameObject, const Event& action) override;
 
 	std::string GetNextLevel() const;
+	glm::vec3 GetStartPosition() const;
 
 
 private:
@@ -43,5 +44,7 @@ private:
 
 	std::vector<dae::GameObject*> m_pPlates{};
 	std::vector<dae::GameObject*> m_pIngredients{};
+
+	glm::vec3 m_Playerposition;
 };
 

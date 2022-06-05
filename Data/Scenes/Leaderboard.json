@@ -42,7 +42,7 @@
                         },
                         {
                             "name": "class dae::TextComponent",
-                            "Text": "Player: 0",
+                            "Text": "thedude: 3500",
                             "Color": {
                                 "r": 255,
                                 "g": 255,
@@ -83,7 +83,7 @@
                         },
                         {
                             "name": "class dae::TextComponent",
-                            "Text": "Player: 100",
+                            "Text": "seinfeld: 1750",
                             "Color": {
                                 "r": 255,
                                 "g": 255,
@@ -124,7 +124,7 @@
                         },
                         {
                             "name": "class dae::TextComponent",
-                            "Text": "Player: 200",
+                            "Text": "test: 1550",
                             "Color": {
                                 "r": 255,
                                 "g": 255,
@@ -165,7 +165,7 @@
                         },
                         {
                             "name": "class dae::TextComponent",
-                            "Text": "Player: 300",
+                            "Text": "Player: 550",
                             "Color": {
                                 "r": 255,
                                 "g": 255,
@@ -206,7 +206,7 @@
                         },
                         {
                             "name": "class dae::TextComponent",
-                            "Text": ": 0",
+                            "Text": "st: 50",
                             "Color": {
                                 "r": 255,
                                 "g": 255,

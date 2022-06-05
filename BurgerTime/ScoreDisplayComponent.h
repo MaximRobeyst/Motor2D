@@ -18,14 +18,14 @@ public:
 	void Notify(const dae::GameObject& gameObject, const Event& action);
 	void ChangeText(int number);
 
-	int GetScore() const;
+	static int GetScore();
 
 	std::unique_ptr<Subject>& GetSubject();
 private:
 	dae::TextComponent* m_pTextComponent;
 	std::string m_ExtraDisplayText;
 
-	int m_Score{};
+	static int m_Score;
 
 	std::unique_ptr<Subject> m_pSubject;
 };

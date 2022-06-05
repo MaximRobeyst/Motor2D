@@ -91,8 +91,8 @@ namespace dae
 		int GetId() const;
 
 
-	private:
 		void SaveAsPrefab();
+	private:
 
 		void AddChild(GameObject* pChild);
 		void RemoveChild(GameObject* pChild);

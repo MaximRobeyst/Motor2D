@@ -73,7 +73,7 @@ void FoodComponent::Start()
 			plateComp->AddIngredient(pTriggeredBody->GetGameObject()->GetComponent<FoodComponent>());
 			for (size_t i = 0; i < m_pEnemies.size(); ++i)
 			{
-				m_pGameObject->GetScene()->RemoveGameObject(m_pEnemies[i]);
+				m_pEnemies[i]->SetEnabled(false);
 			}
 
 			foodComp->GetSubject()->Notify(*pTriggeredBody->GetGameObject(), Event::Burger_Drop);
@@ -172,7 +172,9 @@ void FoodComponent::Deserialize(dae::GameObject* pGameobject, rapidjson::Value& 
 
 	for (auto iter = value["Observers"].Begin(); iter != value["Observers"].End(); ++iter)
 	{
-		auto pObserver = pGameobject->GetScene()->GetGameobjectFromId(iter->GetInt());
+		auto id = iter->GetInt();
+		auto pObserver = pGameobject->GetScene()->GetGameobjectFromId(id);
+		if (pObserver == nullptr) continue;
 
 		m_pSubject->AddObserver(pObserver->GetComponent<Observer>());
 		
@@ -261,7 +263,7 @@ void FoodComponent::CollidingWithPlayer()
 	//auto playerComponent = pOtherGO->GetComponent<PlayerComponent>();
 	float width = colliderComp->GetSize().x;
 	float playerX = m_pPlayer->GetComponent<dae::TransformComponent>()->GetPosition().x;
-	float startX = transform->GetPosition().x - (colliderComp->GetSize().x / 2);
+	float startX = transform->GetPosition().x;
 	float partWidths = width / m_Parts;
 
 	for (int i = 0; i < m_Parts; ++i)

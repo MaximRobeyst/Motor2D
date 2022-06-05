@@ -40,7 +40,7 @@ struct SwitchToLevelState : ButtonFunction
 
 void SwitchToLevelState::operator()()
 {
-	GameStateManager::GetInstance().SwitchGameState(new Level1State());
+	GameStateManager::GetInstance().SwitchGameState(new SingleplayerState());
 }
 
 struct SwitchToMultiplayer : ButtonFunction

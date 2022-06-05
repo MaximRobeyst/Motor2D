@@ -87,6 +87,9 @@ void Scene::AddGameObject(dae::GameObject* object)
 
 void dae::Scene::RemoveGameObject(dae::GameObject* object)
 {
+	if (object == m_pSelectedObject)
+		m_pSelectedObject = nullptr;
+
 	for (int i = 0; i < object->GetAmountOfChildren(); ++i)
 	{
 		RemoveGameObject(object->GetChildFromIndex(i));
@@ -111,10 +114,15 @@ GameObject* dae::Scene::FindGameobjectWithTag(const std::string& tag)
 
 GameObject* dae::Scene::GetGameobjectFromId(int id)
 {
-	return *std::find_if(m_pObjects.begin(), m_pObjects.end(), [&](GameObject* pGameobject)
+	auto pGameobjectWithId = std::find_if(m_pObjects.begin(), m_pObjects.end(), [&](GameObject* pGameobject)
 		{
 			return pGameobject->GetId() == id;
 		});
+
+	if (pGameobjectWithId == m_pObjects.end())
+		return nullptr;
+
+	return *pGameobjectWithId;
 }
 
 std::shared_ptr<b2World> dae::Scene::GetPhysicsWorld() const

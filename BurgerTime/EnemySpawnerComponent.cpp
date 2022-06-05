@@ -44,6 +44,7 @@ void EnemySpawnerComponent::Start()
 
 void EnemySpawnerComponent::Update()
 {
+	
 	if (m_Count < m_MaxCount && m_Timer >= m_TimebetweenSpawns)
 	{
 		m_Timer = 0;

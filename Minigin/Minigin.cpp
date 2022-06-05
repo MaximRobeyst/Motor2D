@@ -115,6 +115,7 @@ void dae::Minigin::Run()
 		}
 
 		GameStateManager::GetInstance().SwitchGameState(nullptr);
+		GameStateManager::GetInstance().Update();
 		InputManager::GetInstance().ClearInputs();
 		SceneManager::GetInstance().Cleanup();
 		delete GameTime::GetInstance();

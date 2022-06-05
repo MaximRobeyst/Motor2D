@@ -12,12 +12,13 @@
 
 const dae::Creator<dae::Component, LevelComponent> g_LevelComponentCreator{};
 
-LevelComponent::LevelComponent(dae::GameObject* pGameobject, int width, int height, std::vector<std::vector<char>> level, std::string nextLevel)
+LevelComponent::LevelComponent(dae::GameObject* pGameobject, int width, int height, std::vector<std::vector<char>> level, std::string nextLevel, glm::vec3 startPosition)
 	: dae::Component(pGameobject)
 	, m_Width{width}
 	, m_Height{height}
 	, m_Level{level}
 	, m_NextLevel{nextLevel}
+	, m_Playerposition{startPosition}
 {
 }
 
@@ -53,6 +54,17 @@ void LevelComponent::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>&
 	writer.String(typeid(*this).name());
 	writer.Key("NextLevel");
 	writer.String(m_NextLevel.c_str());
+	writer.Key("StartPosition");
+	writer.StartObject();
+
+	writer.Key("X");
+	writer.Double(static_cast<double>(m_Playerposition.x));
+	writer.Key("Y");
+	writer.Double(static_cast<double>(m_Playerposition.y));
+	writer.Key("Z");
+	writer.Double(static_cast<double>(m_Playerposition.z));
+	
+	writer.EndObject();
 	writer.EndObject();
 }
 
@@ -60,6 +72,13 @@ void LevelComponent::Deserialize(dae::GameObject* pGameobject, rapidjson::Value&
 {
 	m_pGameObject = pGameobject;
 	m_NextLevel = value["NextLevel"].GetString();
+
+	auto& pos = value["StartPosition"];
+	m_Playerposition = glm::vec3{
+		static_cast<float>(pos["X"].GetDouble()),
+		static_cast<float>(pos["Y"].GetDouble()),
+		static_cast<float>(pos["Z"].GetDouble())
+		};
 }
 
 void LevelComponent::RemoveLevel()
@@ -86,4 +105,9 @@ void LevelComponent::Notify(const dae::GameObject& /*gameObject*/, const Event& 
 std::string LevelComponent::GetNextLevel() const
 {
 	return m_NextLevel;
+}
+
+glm::vec3 LevelComponent::GetStartPosition() const
+{
+	return m_Playerposition;
 }

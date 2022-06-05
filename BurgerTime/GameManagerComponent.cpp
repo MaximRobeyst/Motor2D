@@ -10,6 +10,8 @@
 #include <string>
 #include <Factory.h>
 
+#include "ScoreDisplayComponent.h"
+
 const dae::Creator<dae::Component, GameManagerComponent> g_GamemanagerCoponentFactor{};
 
 GameManagerComponent::GameManagerComponent(dae::GameObject* pGameobject, dae::GameObject* pPlayer, int burgerAmount)
@@ -22,14 +24,33 @@ GameManagerComponent::GameManagerComponent(dae::GameObject* pGameobject, dae::Ga
 void GameManagerComponent::Start()
 {
 	SetId(m_pGameObject->GetId());
+
+	if (m_pLevelComponent == nullptr)
+		m_pLevelComponent = m_pGameObject->GetScene()->FindGameobjectWithTag("Level")->GetComponent<LevelComponent>();
 }
 
 void GameManagerComponent::Update()
 {
 	if (!m_LoadNext) return;
 
-	m_pGameObject->GetScene()->AddGameObject(dae::GameObject::Deserialize(m_pGameObject->GetScene(), m_NextLevel));
+
+	dae::Scene::Deserialize(m_NextLevel);
 	m_LoadNext = false;
+}
+
+void GameManagerComponent::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>& writer)
+{
+	writer.StartObject();
+	writer.Key("name");
+	writer.String(typeid(*this).name());
+	writer.Key("AmountOfBurgers");
+	writer.Int(m_AmountOfBurgers);
+	writer.EndObject();
+}
+void GameManagerComponent::Deserialize(dae::GameObject* pGameobject, rapidjson::Value& value)
+{
+	m_pGameObject = pGameobject;
+	m_AmountOfBurgers = value["AmountOfBurgers"].GetInt();
 }
 
 void GameManagerComponent::Notify(const dae::GameObject& /*gameObject*/, const Event& action)
@@ -46,11 +67,12 @@ void GameManagerComponent::Notify(const dae::GameObject& /*gameObject*/, const E
 
 				if (m_NextLevel != "Level-1")
 				{
+					dae::SceneManager::GetInstance().RemoveScene(m_pGameObject->GetScene()->GetName());
 					m_LoadNext = true;
 				}
 				else
 				{
-					GameStateManager::GetInstance().SwitchGameState(new LeaderboardState(100));
+					GameStateManager::GetInstance().SwitchGameState(new LeaderboardState(ScoreDisplayComponent::GetScore()));
 				}
 			}
 			break;

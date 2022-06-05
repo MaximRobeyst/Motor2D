@@ -12,6 +12,9 @@ public:
 	void Start() override;
 	void Update() override;
 
+	void Serialize(rapidjson::PrettyWriter< rapidjson::StringBuffer>& writer) override;
+	void Deserialize(dae::GameObject* pGameobject, rapidjson::Value& /*value*/) override;
+
 	virtual void Notify(const dae::GameObject& gameObject, const Event& action) override;
 
 	void SetLevelComponent(LevelComponent* pLevelComponent);

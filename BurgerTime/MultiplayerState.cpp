@@ -17,7 +17,7 @@
 
 void MultiplayerState::OnEnter()
 {
-	auto scene = dae::Scene::Deserialize("Level01");
+	auto scene = dae::Scene::Deserialize("Level1");
 
 	auto pPeperGameObject = new dae::GameObject("PeterPete_Player2");
 	auto pPlayerTransform = new dae::TransformComponent(pPeperGameObject, glm::vec3{ 224.f, 296.f, 0 }, glm::vec3{ 2.f });
@@ -47,6 +47,6 @@ void MultiplayerState::OnEnter()
 
 void MultiplayerState::OnExit()
 {
-	dae::SceneManager::GetInstance().RemoveScene("Level01", true);
-	dae::InputManager::GetInstance().ClearInputs();
+	//dae::InputManager::GetInstance().ClearInputs();
+	dae::SceneManager::GetInstance().RemoveScene(0);
 }

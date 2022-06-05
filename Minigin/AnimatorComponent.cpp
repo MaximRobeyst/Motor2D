@@ -91,6 +91,8 @@ void dae::AnimatorComponent::SetAnimation(const std::string& name)
 	if (m_CurrentAnimation == m_pAnimations[name]) return;
 
 	m_CurrentAnimation = m_pAnimations[name];
+	if(m_CurrentAnimation != nullptr)
+		m_CurrentAnimation->Reset();
 }
 
 
@@ -189,4 +191,9 @@ bool dae::Animation::IsDone() const
 bool dae::Animation::IsLooping() const
 {
 	return m_Looping;
+}
+
+void dae::Animation::Reset()
+{
+	m_CurrentKeyIndex = 0;
 }

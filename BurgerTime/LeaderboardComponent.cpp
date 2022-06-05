@@ -4,12 +4,18 @@
 #include <TextObject.h>
 
 #include <sstream>
+#include "ScoreDisplayComponent.h"
 
 const dae::Creator<dae::Component, LeaderboardComponent> g_LeaderboardCreater;
 
-LeaderboardComponent::LeaderboardComponent(dae::GameObject* pGameobject, int targetScore)
+LeaderboardComponent::LeaderboardComponent()
+	: m_PlayerScore{ScoreDisplayComponent::GetScore()}
+{
+}
+
+LeaderboardComponent::LeaderboardComponent(dae::GameObject* pGameobject, int /*targetScore*/)
 	: dae::Component(pGameobject)
-	, m_PlayerScore{ targetScore }
+	, m_PlayerScore{ ScoreDisplayComponent::GetScore()}
 {
 }
 
