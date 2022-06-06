@@ -39,6 +39,11 @@ Scene::Scene(const std::string& name, const b2Vec2& gravity)
 	m_pPhysicsDebugDraw->SetFlags(flags);
 	
 	m_PhysicsWorld->SetDebugDraw(m_pPhysicsDebugDraw);
+#ifndef _DEBUG
+	m_DebugPhysics = false;
+#endif // !_DEBUG
+
+
 }
 
 #ifdef _DEBUG

@@ -194,11 +194,6 @@ void EnemyComponent::Update()
 void EnemyComponent::Render() const
 {
 	m_pEnemyStateMachine->Render();
-
-	SpaceDown();
-	SpaceUp();
-	SpaceLeft();
-	SpaceRight();
 }
 
 void EnemyComponent::RenderGUI()

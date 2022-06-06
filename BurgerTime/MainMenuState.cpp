@@ -71,7 +71,6 @@ dae::Creator<ButtonFunction, SwitchToVersusState> g_SwitchToVersusState{};
 void MainMenuState::OnEnter()
 {
 	ScoreDisplayComponent::ResetScore();
-
 	auto& scene = SceneManager::GetInstance().CreateScene("Main_Menu");
 	auto& input = InputManager::GetInstance();
 

@@ -47,9 +47,10 @@ namespace dae
 #ifdef _DEBUG
 		void RenderGameObjectGUI(GameObject* pGameobject);
 		
-		GameObject* m_pSelectedObject;
 
 #endif // _DEBUG
+
+		GameObject* m_pSelectedObject;
 
 		std::string m_Name;
 		std::vector < dae::GameObject*> m_pObjects{};
