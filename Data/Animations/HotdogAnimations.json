@@ -1,5 +1,28 @@
 [
     {
+        
+        "name" : "Idle",
+        "duration" : 0.5,
+        "framesPerSeconds" : 5,
+        "looping" : true,
+        "keyframes" : 
+        [
+            {
+                "x" : 32,
+                "y" : 32,
+                "w" : 16,
+                "h" : 16
+            },
+            {
+                "x" : 48,
+                "y" : 32,
+                "w" : 16,
+                "h" : 16
+            }
+        ]
+    },
+    {
+        
         "name" : "Death",
         "duration" : 0.5,
         "framesPerSeconds" : 5,

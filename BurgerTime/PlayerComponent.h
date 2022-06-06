@@ -8,7 +8,6 @@
 class LifeComponent;
 class PlayerComponent : public dae::Component
 {
-	// I use the enum and switch aproach because making a state machine would be a bit overkill i think
 	enum class PlayerState
 	{
 		State_Default,
@@ -23,6 +22,7 @@ public:
 
 	void Start() override;
 	void Update() override;
+	void Render() const override;
 
 	void RenderGUI() override;
 
@@ -35,7 +35,7 @@ public:
 	void SetVerticalAxis(const std::string& verticalAxis);
 	void SetHorizontalAxis(const std::string& horizontalAxis);
 
-	void SpawnPlayer();
+	void SpawnPepper();
 
 private:
 	void UpdateDefault();
@@ -44,11 +44,18 @@ private:
 
 	PlayerState m_CurrentState{};
 	glm::vec3 m_StartPosition{};
+	glm::vec3 m_LastDirection{};
 
 	dae::RigidbodyComponent* m_pRigidbody{};
 	dae::TransformComponent* m_pTranformComponent{};
 	dae::AnimatorComponent* m_pAnimatorComponent{};
 	LifeComponent* m_pLifeComponent{};
+
+	dae::GameObject* m_pPepperGameobject{};
+	int m_Peppers{5};
+	
+	float m_PepperTime{1.5f};
+	float m_PepperTimer{};
 
 	std::string m_pHorizontalAxis{};
 	std::string m_pVerticalAxis{};

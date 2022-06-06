@@ -11,6 +11,7 @@
 #include <Factory.h>
 
 #include "ScoreDisplayComponent.h"
+#include "MainMenuState.h"
 
 const dae::Creator<dae::Component, GameManagerComponent> g_GamemanagerCoponentFactor{};
 
@@ -65,14 +66,18 @@ void GameManagerComponent::Notify(const dae::GameObject& /*gameObject*/, const E
 				m_pLevelComponent->RemoveLevel();
 
 
-				if (m_NextLevel != "Level-1")
+				if (m_NextLevel == "Level-1")
 				{
-					dae::SceneManager::GetInstance().RemoveScene(m_pGameObject->GetScene()->GetName());
-					m_LoadNext = true;
+					GameStateManager::GetInstance().SwitchGameState(new LeaderboardState(ScoreDisplayComponent::GetScore()));
+				}
+				else if (m_NextLevel == "Main_Menu")
+				{
+					GameStateManager::GetInstance().SwitchGameState(new MainMenuState());
 				}
 				else
 				{
-					GameStateManager::GetInstance().SwitchGameState(new LeaderboardState(ScoreDisplayComponent::GetScore()));
+					dae::SceneManager::GetInstance().RemoveScene(m_pGameObject->GetScene()->GetName());
+					m_LoadNext = true;
 				}
 			}
 			break;

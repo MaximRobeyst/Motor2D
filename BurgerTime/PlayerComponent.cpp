@@ -8,6 +8,12 @@
 #include <ServiceLocator.h>
 #include <imgui.h>
 
+#include <Collider.h>
+#include "MrHotDogComponent.h"
+#include <Scene.h>
+#include <RaycastCallback.h>
+#include <Renderer.h>
+
 dae::Creator<dae::Component, PlayerComponent> s_TranformComponentCreate{};
 
 PlayerComponent::PlayerComponent(dae::GameObject* pGameobject)
@@ -51,6 +57,13 @@ void PlayerComponent::Update()
 		UpdateDying();
 		break;
 	}
+}
+
+void PlayerComponent::Render() const
+{
+	b2Vec2 startPosition = b2Vec2{ m_pTranformComponent->GetPosition().x + 16.f, m_pTranformComponent->GetPosition().y + 16.f };
+	b2Vec2 endPosition = startPosition + b2Vec2{ m_LastDirection.x * 32.f, m_LastDirection.y * 32.f };
+	dae::Renderer::GetInstance().RenderLine(startPosition, endPosition, SDL_Color{ 255, 255, 0, 255 });
 }
 
 void PlayerComponent::RenderGUI()
@@ -102,6 +115,36 @@ void PlayerComponent::SetHorizontalAxis(const std::string& horizontalAxis)
 	m_pHorizontalAxis = horizontalAxis;
 }
 
+void PlayerComponent::SpawnPepper()
+{
+	if (m_Peppers == 0) return;
+	m_CurrentState = PlayerState::State_Peper;
+	
+
+	m_pPepperGameobject = new dae::GameObject("Pepper");
+	m_pPepperGameobject->AddComponent(new dae::TransformComponent(m_pPepperGameobject, m_pTranformComponent->GetPosition() +( m_LastDirection * 32.f ), glm::vec2{2.f}));
+	m_pPepperGameobject->AddComponent(new dae::SpriteRendererComponent(m_pPepperGameobject, "BurgerTime_SpriteSheet.png", SDL_FRect{ 180, 16, 16, 16 }));
+	auto pAnimation = new dae::AnimatorComponent(m_pPepperGameobject, "../Data/Animations/PepperAnimation.json");
+	m_pPepperGameobject->AddComponent(pAnimation);
+	pAnimation->SetAnimation("Idle");
+
+	dae::RaycastCallback callback{ };
+
+	b2Vec2 startPosition = b2Vec2{ m_pTranformComponent->GetPosition().x + 16.f, m_pTranformComponent->GetPosition().y + 16.f};
+	b2Vec2 endPosition = startPosition + b2Vec2{ m_LastDirection.x * 32.f, m_LastDirection.y * 32.f };
+	m_pGameObject->GetScene()->GetPhysicsWorld()->RayCast(&callback, startPosition, endPosition);
+	if (dae::GameObject* lastHit = callback.GetLatestHit().pHitObject; lastHit != nullptr && lastHit->GetTag() == "Enemy")
+	{
+		lastHit->GetComponent<EnemyComponent>()->EnemyDeath();
+	}
+
+	m_pGameObject->GetScene()->AddGameObject(m_pPepperGameobject);
+
+	--m_Peppers;
+
+
+}
+
 void PlayerComponent::UpdateDefault()
 {
 	auto keyboard = dae::InputManager::GetInstance().GetKeyboard();
@@ -110,11 +153,7 @@ void PlayerComponent::UpdateDefault()
 	b2Vec2 vel{};
 
 	assert(m_pHorizontalAxis != "" && m_pVerticalAxis != "");
-	// TODO: make axis support
-	// TODO: give transform & rigidbody struct to make it easier to change values within them
 
-	//int horAxis = (int)(keyboard->IsPressed(SDLK_d) - keyboard->IsPressed(SDLK_a));
-	//int verAxis = (int)(keyboard->IsPressed(SDLK_s) - keyboard->IsPressed(SDLK_w));
 	int horAxis = dae::InputManager::GetInstance().GetAxis(m_pHorizontalAxis)->GetAxisValue();
 	int verAxis = dae::InputManager::GetInstance().GetAxis(m_pVerticalAxis)->GetAxisValue();
 
@@ -125,6 +164,9 @@ void PlayerComponent::UpdateDefault()
 	{
 		m_pAnimatorComponent->SetAnimation("WalkLeft");
 		vel.x = horAxis * 64.f /** GameTime::GetInstance()->GetElapsed()*/;
+
+		m_LastDirection.x = static_cast<float>(horAxis);
+		m_LastDirection.y = 0.f;
 	}
 	else if (verAxis != 0)
 	{
@@ -132,6 +174,9 @@ void PlayerComponent::UpdateDefault()
 		else if (verAxis <= -1) m_pAnimatorComponent->SetAnimation("WalkUp");
 
 		vel .y = verAxis * 64.f /** GameTime::GetInstance()->GetElapsed()*/;
+
+		m_LastDirection.x = 0.f;
+		m_LastDirection.y = static_cast<float>(verAxis);
 	}
 	else m_pAnimatorComponent->SetAnimation("Idle");
 
@@ -140,6 +185,14 @@ void PlayerComponent::UpdateDefault()
 
 void PlayerComponent::UpdatePeper()
 {
+	m_PepperTimer += GameTime::GetInstance()->GetElapsed();
+
+	if (m_PepperTimer >= m_PepperTime)
+	{
+		m_PepperTimer = 0.0f;
+		m_pGameObject->GetScene()->RemoveGameObject(m_pPepperGameobject);
+		m_CurrentState = PlayerState::State_Default;
+	}
 }
 
 void PlayerComponent::UpdateDying()

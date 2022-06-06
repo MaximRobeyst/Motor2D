@@ -1,5 +1,10 @@
 #pragma once
 #include <IGameState.h>
+#include <Command.h>
+#include <prettywriter.h>
+
+#include <rapidjson.h>
+#include <document.h>
 
 namespace dae
 {
@@ -8,6 +13,7 @@ namespace dae
 }
 class GameManagerComponent;
 class ScoreDisplayComponent;
+class PlayerComponent;
 
 class SingleplayerState : public IGameState
 {
@@ -26,5 +32,18 @@ private:
 	dae::GameObject* m_pPlayerObject;
 	ScoreDisplayComponent* m_pScoreDisplay;
 	GameManagerComponent* m_pManagerComponent;
+};
+
+class PepperCommand : public Command
+{
+public:
+	PepperCommand() = default;
+	PepperCommand(PlayerComponent* pMenuComp);
+	void Execute() override;
+
+	virtual void Serialize(rapidjson::PrettyWriter< rapidjson::StringBuffer>&) override;
+	virtual void Deserialize(rapidjson::Value&, dae::Scene* pScene) override;
+private:
+	PlayerComponent* m_pPlayerComponent;
 };
 

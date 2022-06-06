@@ -30,7 +30,6 @@ public:
 	void AddSpawnPosition(glm::vec3 spawnPosition);
 
 private:
-	void SpawnEnemyAtLocation(glm::vec3 position);
 
 	dae::GameObject* CreateMrHotDog(glm::vec3 position);
 	dae::GameObject* CreateMrEgg(glm::vec3 position);
@@ -40,6 +39,11 @@ private:
 	int m_Count{};
 	int m_MaxCount{ 4 };
 	int m_CurrentIndex{};
+
+	int m_AmountOfHotDogs{ 3 };
+	int m_AmountOfEggs{ 1 };
+	int m_AmountOfPicles{ 0 };
+
 
 	float m_TimebetweenSpawns{ 1.5f };
 	float m_Timer{ 0.0f };

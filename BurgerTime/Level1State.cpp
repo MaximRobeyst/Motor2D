@@ -44,135 +44,136 @@
 
 using namespace dae;
 
+const dae::Creator<Command, PepperCommand> g_PepperCommandCreate{};
+
 void SingleplayerState::OnEnter()
 {
+	dae::Scene::Deserialize("Level1");
+
 	//dae::InputManager::GetInstance().ClearInputs();
 
-	auto& scene = dae::SceneManager::GetInstance().CreateScene("SinglePlayer");
-	auto& input = InputManager::GetInstance();
-	//input.ClearInputs();
-
-	auto font = ResourceManager::GetInstance().LoadFont("Early GameBoy.ttf", 17);
-
-	m_pPlayerObject = new GameObject("PeterPete_Player");
-	auto pPlayerTransform = new TransformComponent(m_pPlayerObject, glm::vec3{ 192.f, 296.f, 0 }, glm::vec3{ 2.f });
-	m_pPlayerObject->AddComponent(pPlayerTransform);
-	m_pPlayerObject->AddComponent(new SpriteRendererComponent(m_pPlayerObject, "BurgerTime_SpriteSheet.png"));
-	m_pPlayerObject->AddComponent(new AnimatorComponent(m_pPlayerObject, "../Data/Animations/PlayerAnimations.json"));
-	//pPeperGameObject->AddComponent(new MovementComponent(pPeperGameObject, 100.f));
-	auto pLifeComponent = new LifeComponent{ m_pPlayerObject, 3 };
-	m_pPlayerObject->AddComponent(pLifeComponent);
-	m_pPlayerObject->AddComponent(new ColliderComponent(m_pPlayerObject, 15.f, 15.f, glm::vec2{ 8.0f, 8.0f }));
-	m_pPlayerObject->AddComponent(new RigidbodyComponent(m_pPlayerObject, b2_dynamicBody, 1.f, 0.3f));
-	auto pPlayerComp = new PlayerComponent(m_pPlayerObject);
-	m_pPlayerObject->AddComponent(pPlayerComp);
-
-	auto go = new GameObject("Score_Display");
-	go->AddComponent(new TransformComponent(go, glm::vec3(0.f, 680.f, 0.f)));
-	go->AddComponent(new SpriteRendererComponent(go, "logo.png"));
-	go->AddComponent(new TextComponent(go, "Score:", font, SDL_Color{ 255, 255, 255 }));
-	m_pScoreDisplay = new ScoreDisplayComponent(go, 3, "Score: ");
-	go->AddComponent(m_pScoreDisplay);
-	scene.AddGameObject(go);
-
-	GameObject* pGameManager = new GameObject("GameManager");
-	pGameManager->AddComponent(new TransformComponent(pGameManager));
-	m_pManagerComponent = new GameManagerComponent(pGameManager, m_pPlayerObject, 1);
-	pGameManager->AddComponent(m_pManagerComponent);
-	scene.AddGameObject(pGameManager);
-
-	MakeLevel(scene);
-	//MakeLevel2(scene);
-	//MakeLevel3(scene);
-
-
-	std::cout << std::endl << std::endl;
-	std::cout << "=== How To Play ====" << std::endl;
-	std::cout << "Use the WASD to move around" << std::endl;
-	std::cout << "Press 'Space' to play a sound" << std::endl;
-	std::cout << "Press 'Up' and 'Down' to change the volume" << std::endl;
-	std::cout << "Press 'Right' to stop the sounds" << std::endl;
-	std::cout << "Press 'Left' to Resume the sounds" << std::endl;
-	std::cout << "===================" << std::endl;
-
-	go = new GameObject("Logo");
-	go->AddComponent(new TransformComponent(go, glm::vec3(10.f, 5.f, 0.f)));
-	go->AddComponent(new SpriteRendererComponent(go, "logo.png"));
-	go->AddComponent(new TextComponent(go, "Score:", font, SDL_Color{ 255, 255, 255 }));
-	m_pScoreDisplay = new ScoreDisplayComponent(go, 0);
-	//pScoreDisplay->GetSubject()->AddObserver(pAchievmentComponent);
-	go->AddComponent(m_pScoreDisplay);
-	go->SetTag("Score");
-	scene.AddGameObject(go);
-	
-	InputManager::GetInstance().AddAxis("keyboard_horizontal", new KeyboardAxis(SDLK_d, SDLK_a, InputManager::GetInstance().GetKeyboard()));
-	InputManager::GetInstance().AddAxis("keyboard_vertical", new KeyboardAxis(SDLK_s, SDLK_w, InputManager::GetInstance().GetKeyboard()));
-	
-	pPlayerComp->SetHorizontalAxis("keyboard_horizontal");
-	pPlayerComp->SetVerticalAxis("keyboard_vertical");
-	
-	m_pPlayerObject->SetTag("Player");
-	scene.AddGameObject(m_pPlayerObject);
-
-	
-	go = new GameObject("Live display");
-	go->AddComponent(new TransformComponent(go, glm::vec3{ 0.f, 700.f, 0.f }));
-	go->AddComponent(new SpriteRendererComponent(go, "logo.png"));
-	go->AddComponent(new TextComponent(go, "Lives: ", font, SDL_Color{ 255, 255, 0 }));
-	auto pLifeDisplay = new LifeDisplayComponent(go, 3, "Lives: ");
-	pLifeComponent->GetSubject()->AddObserver(pLifeDisplay);
-	go->AddComponent(pLifeDisplay);
-	scene.AddGameObject(go);
-
-
-	//go = new GameObject();
-	//go->AddComponent(new TransformComponent(go, glm::vec3{ 1100.f, 500.f, 0.f }));
-	////go->AddComponent(new SpriteRendererComponent(go, "logo.png"));
-	////go->AddComponent(new TextComponent(go, "", font, SDL_Color{ 0, 255, 0 }));
-	//pLifeDisplay = new LifeDisplayComponent(go, 3, " ");
-	//pLifeComponent2->GetSubject()->AddObserver(pLifeDisplay);
+	//auto& scene = dae::SceneManager::GetInstance().CreateScene("SinglePlayer");
+	//auto& input = InputManager::GetInstance();
+	////input.ClearInputs();
+	//
+	//auto font = ResourceManager::GetInstance().LoadFont("Early GameBoy.ttf", 17);
+	//
+	//m_pPlayerObject = new GameObject("PeterPete_Player");
+	//auto pPlayerTransform = new TransformComponent(m_pPlayerObject, glm::vec3{ 192.f, 296.f, 0 }, glm::vec3{ 2.f });
+	//m_pPlayerObject->AddComponent(pPlayerTransform);
+	//m_pPlayerObject->AddComponent(new SpriteRendererComponent(m_pPlayerObject, "BurgerTime_SpriteSheet.png"));
+	//m_pPlayerObject->AddComponent(new AnimatorComponent(m_pPlayerObject, "../Data/Animations/PlayerAnimations.json"));
+	////pPeperGameObject->AddComponent(new MovementComponent(pPeperGameObject, 100.f));
+	//auto pLifeComponent = new LifeComponent{ m_pPlayerObject, 3 };
+	//m_pPlayerObject->AddComponent(pLifeComponent);
+	//m_pPlayerObject->AddComponent(new ColliderComponent(m_pPlayerObject, 15.f, 15.f, glm::vec2{ 8.0f, 8.0f }));
+	//m_pPlayerObject->AddComponent(new RigidbodyComponent(m_pPlayerObject, b2_dynamicBody, 1.f, 0.3f));
+	//auto pPlayerComp = new PlayerComponent(m_pPlayerObject);
+	//m_pPlayerObject->AddComponent(pPlayerComp);
+	//
+	//auto go = new GameObject("Score_Display");
+	//go->SetTag("Score");
+	//go->AddComponent(new TransformComponent(go, glm::vec3(0.f, 680.f, 0.f)));
+	//go->AddComponent(new SpriteRendererComponent(go, "logo.png"));
+	//go->AddComponent(new TextComponent(go, "Score:", font, SDL_Color{ 255, 255, 255 }));
+	//m_pScoreDisplay = new ScoreDisplayComponent(go, 3, "Score: ");
+	//go->AddComponent(m_pScoreDisplay);
+	//scene.AddGameObject(go);
+	//
+	//GameObject* pGameManager = new GameObject("GameManager");
+	//pGameManager->AddComponent(new TransformComponent(pGameManager));
+	//m_pManagerComponent = new GameManagerComponent(pGameManager, m_pPlayerObject, 1);
+	//pGameManager->AddComponent(m_pManagerComponent);
+	//scene.AddGameObject(pGameManager);
+	//
+	////MakeLevel(scene);
+	////MakeLevel2(scene);
+	////MakeLevel3(scene);
+	//
+	//
+	//std::cout << std::endl << std::endl;
+	//std::cout << "=== How To Play ====" << std::endl;
+	//std::cout << "Use the WASD to move around" << std::endl;
+	//std::cout << "Press 'Space' to play a sound" << std::endl;
+	//std::cout << "Press 'Up' and 'Down' to change the volume" << std::endl;
+	//std::cout << "Press 'Right' to stop the sounds" << std::endl;
+	//std::cout << "Press 'Left' to Resume the sounds" << std::endl;
+	//std::cout << "===================" << std::endl;
+	//
+	//InputManager::GetInstance().AddAxis("keyboard_horizontal", new KeyboardAxis(SDLK_d, SDLK_a, InputManager::GetInstance().GetKeyboard()));
+	//InputManager::GetInstance().AddAxis("keyboard_vertical", new KeyboardAxis(SDLK_s, SDLK_w, InputManager::GetInstance().GetKeyboard()));
+	//
+	//pPlayerComp->SetHorizontalAxis("keyboard_horizontal");
+	//pPlayerComp->SetVerticalAxis("keyboard_vertical");
+	//
+	//m_pPlayerObject->SetTag("Player");
+	//scene.AddGameObject(m_pPlayerObject);
+	//
+	//
+	//go = new GameObject("Live display");
+	//go->AddComponent(new TransformComponent(go, glm::vec3{ 0.f, 700.f, 0.f }));
+	//go->AddComponent(new SpriteRendererComponent(go, "logo.png"));
+	//go->AddComponent(new TextComponent(go, "Lives: ", font, SDL_Color{ 255, 255, 0 }));
+	//auto pLifeDisplay = new LifeDisplayComponent(go, 3, "Lives: ");
+	//pLifeComponent->GetSubject()->AddObserver(pLifeDisplay);
 	//go->AddComponent(pLifeDisplay);
 	//scene.AddGameObject(go);
-
-	auto keyboard = input.GetKeyboard();
-	////keyboard->AddKeyboardMapping(KeyboardKeyData{ SDLK_q, KeyState::JustUp }, std::make_unique<KillCommand>(pLifeComponent2));
-	keyboard->AddKeyboardMapping(
-		KeyboardKeyData{ SDLK_SPACE, KeyState::JustUp },
-		new PlayAudioCommand()
-	);
-
-	keyboard->AddKeyboardMapping(
-		KeyboardKeyData{ SDLK_UP, KeyState::JustUp },
-		new VolumeChangeCommand(1)
-	);
-
-	keyboard->AddKeyboardMapping(
-		KeyboardKeyData{ SDLK_DOWN, KeyState::JustUp },
-		new VolumeChangeCommand(-1)
-	);
-
-	keyboard->AddKeyboardMapping(
-		KeyboardKeyData{ SDLK_RIGHT, KeyState::JustUp },
-		new StopAudioCommand()
-	);
-
-	keyboard->AddKeyboardMapping(
-		KeyboardKeyData{ SDLK_LEFT, KeyState::JustUp },
-		new ResumeAudioCommand()
-	);
-
-	keyboard->AddKeyboardMapping(
-		KeyboardKeyData{ SDLK_ESCAPE, KeyState::JustUp },
-		new SwitchMenuStateCommand()
-	);
-	go = new GameObject("FPS_Counter");
-	go->AddComponent(new TransformComponent(go, glm::vec3{ 800, 750, 0 }));
-	go->AddComponent(new SpriteRendererComponent(go, "logo.png"));
-	go->AddComponent(new TextComponent(go, "Programming 4 Assignment", font, { 255,255,0 }));
-	go->AddComponent(new FPSComponent(go));
-
-	scene.AddGameObject(go);
-	scene.Start();
+	//
+	//
+	////go = new GameObject();
+	////go->AddComponent(new TransformComponent(go, glm::vec3{ 1100.f, 500.f, 0.f }));
+	//////go->AddComponent(new SpriteRendererComponent(go, "logo.png"));
+	//////go->AddComponent(new TextComponent(go, "", font, SDL_Color{ 0, 255, 0 }));
+	////pLifeDisplay = new LifeDisplayComponent(go, 3, " ");
+	////pLifeComponent2->GetSubject()->AddObserver(pLifeDisplay);
+	////go->AddComponent(pLifeDisplay);
+	////scene.AddGameObject(go);
+	//
+	//auto keyboard = input.GetKeyboard();
+	//////keyboard->AddKeyboardMapping(KeyboardKeyData{ SDLK_q, KeyState::JustUp }, std::make_unique<KillCommand>(pLifeComponent2));
+	//keyboard->AddKeyboardMapping(
+	//	KeyboardKeyData{ SDLK_SPACE, KeyState::JustUp },
+	//	new PlayAudioCommand()
+	//);
+	//
+	//keyboard->AddKeyboardMapping(
+	//	KeyboardKeyData{ SDLK_UP, KeyState::JustUp },
+	//	new VolumeChangeCommand(1)
+	//);
+	//
+	//keyboard->AddKeyboardMapping(
+	//	KeyboardKeyData{ SDLK_DOWN, KeyState::JustUp },
+	//	new VolumeChangeCommand(-1)
+	//);
+	//
+	//keyboard->AddKeyboardMapping(
+	//	KeyboardKeyData{ SDLK_RIGHT, KeyState::JustUp },
+	//	new StopAudioCommand()
+	//);
+	//
+	//keyboard->AddKeyboardMapping(
+	//	KeyboardKeyData{ SDLK_LEFT, KeyState::JustUp },
+	//	new ResumeAudioCommand()
+	//);
+	//
+	//keyboard->AddKeyboardMapping(
+	//	KeyboardKeyData{ SDLK_ESCAPE, KeyState::JustUp },
+	//	new SwitchMenuStateCommand()
+	//);
+	//
+	//keyboard->AddKeyboardMapping(
+	//	KeyboardKeyData{ SDLK_q, KeyState::JustUp },
+	//	new PepperCommand(m_pPlayerObject->GetComponent<PlayerComponent>())
+	//);
+	//
+	//go = new GameObject("FPS_Counter");
+	//go->AddComponent(new TransformComponent(go, glm::vec3{ 800, 750, 0 }));
+	//go->AddComponent(new SpriteRendererComponent(go, "logo.png"));
+	//go->AddComponent(new TextComponent(go, "Programming 4 Assignment", font, { 255,255,0 }));
+	//go->AddComponent(new FPSComponent(go));
+	//
+	//scene.AddGameObject(go);
+	//scene.Start();
 }
 
 void SingleplayerState::OnExit()
@@ -2151,4 +2152,30 @@ void SingleplayerState::MakeLevel3(dae::Scene& pScene)
 	pScene.AddGameObject(pPlate);
 	pPlate->SetParent(pPlates);
 	pPlateComponent->GetSubject()->AddObserver(m_pManagerComponent);
+}
+
+PepperCommand::PepperCommand(PlayerComponent* pPlayerComp)
+	: m_pPlayerComponent{pPlayerComp}
+{
+}
+
+void PepperCommand::Execute()
+{
+	m_pPlayerComponent->SpawnPepper();
+}
+
+void PepperCommand::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>& writer)
+{
+	writer.StartObject();
+	writer.Key("Name");
+	writer.String(typeid(*this).name());
+
+	writer.Key("PlayerComponent");
+	writer.Int(m_pPlayerComponent->GetGameObject()->GetId());
+	writer.EndObject();
+}
+
+void PepperCommand::Deserialize(rapidjson::Value& value, dae::Scene* pScene)
+{
+	m_pPlayerComponent = pScene->GetGameobjectFromId(value["PlayerComponent"].GetInt())->GetComponent<PlayerComponent>();
 }

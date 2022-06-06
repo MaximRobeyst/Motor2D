@@ -55,9 +55,12 @@ void dae::SceneManager::RenderGUI(SDL_Window* /*window*/)
 
 void dae::SceneManager::FinalRemoveScene(int index)
 {
+	if (m_Scenes.size() == 0) return;
+
 	if (m_Scenes.size() == 1)
 	{
 		m_Scenes.clear();
+		return;
 	}
 
 	if (index == static_cast<int>( m_Scenes.size()) - 1)

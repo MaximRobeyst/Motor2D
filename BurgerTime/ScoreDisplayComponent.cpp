@@ -10,6 +10,8 @@
 #include <Factory.h>
 #include <Scene.h>
 
+#include "LifeComponent.h"
+
 const dae::Creator<dae::Component, ScoreDisplayComponent> g_ScoredisplayCreator{};
 
 int ScoreDisplayComponent::m_Score{};
@@ -101,6 +103,11 @@ void ScoreDisplayComponent::ChangeText(int number)
 int ScoreDisplayComponent::GetScore()
 {
 	return m_Score;
+}
+
+void ScoreDisplayComponent::ResetScore()
+{
+	m_Score = 0;
 }
 
 std::unique_ptr<Subject>& ScoreDisplayComponent::GetSubject()

@@ -5,6 +5,8 @@
 #include "TextObject.h"
 
 enum class Event;
+
+class LifeComponent;
 class LifeDisplayComponent : public dae::Component, public Observer
 {
 public:
@@ -22,9 +24,7 @@ public:
 	void ChangeText(int number);
 private:
 	dae::TextComponent* m_pTextComponent;
+	LifeComponent* m_pLifeComponent;
 	std::string m_ExtraDisplayText;
-	int m_NumberOfLives{};
-
-	std::vector<dae::GameObject*> m_pLifeSprites;
 };
 

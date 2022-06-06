@@ -18,10 +18,9 @@
 
 const dae::Creator<dae::Component, LifeDisplayComponent> g_LifeDisplayComponent{};
 
-LifeDisplayComponent::LifeDisplayComponent(dae::GameObject* pGameObject, int number, const std::string& extraDisplayText)
+LifeDisplayComponent::LifeDisplayComponent(dae::GameObject* pGameObject, int /*number*/, const std::string& extraDisplayText)
 	: dae::Component{pGameObject}
 	, m_ExtraDisplayText{extraDisplayText}
-	, m_NumberOfLives{number}
 {
 }
 
@@ -29,7 +28,8 @@ void LifeDisplayComponent::Start()
 {
 	SetId(m_pGameObject->GetId());
 	m_pTextComponent = m_pGameObject->GetComponent<dae::TextComponent>();
-	ChangeText(m_NumberOfLives);
+	m_pLifeComponent = m_pGameObject->GetScene()->FindGameobjectWithTag("Player")->GetComponent<LifeComponent>();
+	ChangeText(m_pLifeComponent->GetLives());
 }
 
 void LifeDisplayComponent::Render() const

@@ -1,6 +1,6 @@
 {
     "sceneName": "Level3",
-    "gameobjectCount": 365,
+    "gameobjectCount": 360,
     "Gravity": {
         "X": 0.0,
         "Y": 0.0
@@ -9,7 +9,7 @@
         {
             "Id": 1,
             "Name": "Score_Display",
-            "Tag": "",
+            "Tag": "Score",
             "Children": [],
             "Components": [
                 {
@@ -73,7 +73,7 @@
                 },
                 {
                     "name": "class GameManagerComponent",
-                    "AmountOfBurgers": 1
+                    "AmountOfBurgers": 4
                 }
             ]
         },
@@ -10697,7 +10697,10 @@
                                     "Z": 0.0
                                 }
                             ],
-                            "TimeBetweenSpawns": 1.5
+                            "TimeBetweenSpawns": 1.5,
+                            "AmountOfHotDogs": 2,
+                            "AmountOfEggs": 1,
+                            "AmountOfPickels": 1
                         }
                     ]
                 },
@@ -11889,52 +11892,6 @@
         },
         {
             "Id": 358,
-            "Name": "Logo",
-            "Tag": "Score",
-            "Children": [],
-            "Components": [
-                {
-                    "name": "class dae::TransformComponent",
-                    "Position": {
-                        "x": 10.0,
-                        "y": 5.0,
-                        "z": 0.0
-                    },
-                    "Rotation": 0.0,
-                    "Scale": {
-                        "x": 1.0,
-                        "y": 1.0
-                    }
-                },
-                {
-                    "name": "class dae::SpriteRendererComponent",
-                    "Path": "logo.png",
-                    "SampleRect": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "w": 0.0,
-                        "h": 0.0
-                    }
-                },
-                {
-                    "name": "class dae::TextComponent",
-                    "Text": "0",
-                    "Color": {
-                        "r": 255,
-                        "g": 255,
-                        "b": 255,
-                        "a": 0
-                    }
-                },
-                {
-                    "name": "class ScoreDisplayComponent",
-                    "extraDisplayText": "",
-                    "Observers": []
-                }
-            ]
-        },
-        {
-            "Id": 359,
             "Name": "PeterPete_Player",
             "Tag": "Player",
             "Children": [],
@@ -11998,7 +11955,7 @@
             ]
         },
         {
-            "Id": 360,
+            "Id": 359,
             "Name": "Live display",
             "Tag": "",
             "Children": [],
@@ -12042,7 +11999,7 @@
             ]
         },
         {
-            "Id": 361,
+            "Id": 360,
             "Name": "FPS_Counter",
             "Tag": "",
             "Children": [],
@@ -12072,7 +12029,7 @@
                 },
                 {
                     "name": "class dae::TextComponent",
-                    "Text": "60 FPS",
+                    "Text": "59 FPS",
                     "Color": {
                         "r": 255,
                         "g": 255,
@@ -12101,6 +12058,14 @@
                 "State": 0,
                 "Command": {
                     "Name": "class PlayAudioCommand"
+                }
+            },
+            {
+                "Key": 113,
+                "State": 0,
+                "Command": {
+                    "Name": "class PepperCommand",
+                    "PlayerComponent": 358
                 }
             },
             {

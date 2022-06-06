@@ -36,34 +36,48 @@ void EnemySpawnerComponent::Start()
 {
 	SetId(m_pGameObject->GetId());
 	m_pScoreDisplay = m_pGameObject->GetScene()->FindGameobjectWithTag("Score")->GetComponent<ScoreDisplayComponent>();
-	for (int i = 0; i < m_MaxCount; ++i)
+	int index{};
+	for (int i = 0; i < m_AmountOfHotDogs; ++i)
 	{
-		SpawnEnemyAtLocation(m_SpawnPoints[i]);
+		m_pGameObject->GetScene()->AddGameObject(CreateMrHotDog(m_SpawnPoints[index]));
+		++index %= m_SpawnPoints.size();
+	}
+	
+	for (int i = 0; i < m_AmountOfEggs; ++i)
+	{
+		m_pGameObject->GetScene()->AddGameObject(CreateMrEgg(m_SpawnPoints[index]));
+		++index %= m_SpawnPoints.size();
+	}
+	
+	for (int i = 0; i < m_AmountOfPicles; ++i)
+	{
+		m_pGameObject->GetScene()->AddGameObject(CreateMrPickle(m_SpawnPoints[index]));
+		++index %= m_SpawnPoints.size();
 	}
 }
 
 void EnemySpawnerComponent::Update()
 {
-	
 	if (m_Count < m_MaxCount && m_Timer >= m_TimebetweenSpawns)
 	{
-		m_Timer = 0;
-		++m_Count;
-
+	
 		// find disabled object 
 		auto iter = std::find_if(m_SpawnedObjects.begin(), m_SpawnedObjects.end(), [](dae::GameObject* pGameobject) {
 				return !pGameobject->IsEnabled();
 			});
 		if (iter == m_SpawnedObjects.end())
 			return;
-
+	
 		(*iter)->GetComponent<dae::TransformComponent>()->SetPosition(m_SpawnPoints[m_CurrentIndex]);
 		++m_CurrentIndex %= m_MaxCount;
-
+	
 		(*iter)->SetEnabled(true);
-
+		(*iter)->GetComponent<EnemyComponent>()->Respawn();
+		m_Timer = 0;
+		++m_Count;
+	
 	}
-
+	
 	m_Timer += GameTime::GetInstance()->GetElapsed();
 }
 
@@ -102,6 +116,14 @@ void EnemySpawnerComponent::Serialize(rapidjson::PrettyWriter<rapidjson::StringB
 	writer.Key("TimeBetweenSpawns");
 	writer.Double(static_cast<double>(m_TimebetweenSpawns));
 
+	writer.Key("AmountOfHotDogs");
+	writer.Int(m_AmountOfEggs);
+	
+	writer.Key("AmountOfEggs");
+	writer.Int(m_AmountOfEggs);
+	
+	writer.Key("AmountOfPickels");
+	writer.Int(m_AmountOfPicles);
 
 
 	writer.EndObject();
@@ -125,18 +147,14 @@ void EnemySpawnerComponent::Deserialize(dae::GameObject* pGameobject, rapidjson:
 		});
 	}
 
+	
+
 	m_TimebetweenSpawns = static_cast<float>(value["TimeBetweenSpawns"].GetDouble());
 }
 
 void EnemySpawnerComponent::AddSpawnPosition(glm::vec3 spawnPosition)
 {
 	m_SpawnPoints.push_back(spawnPosition);
-}
-
-void EnemySpawnerComponent::SpawnEnemyAtLocation(glm::vec3 position)
-{
-	// Spawn Enemy
-	m_pGameObject->GetScene()->AddGameObject(CreateMrHotDog(position));
 }
 
 dae::GameObject* EnemySpawnerComponent::CreateMrHotDog(glm::vec3 position)
@@ -173,7 +191,7 @@ dae::GameObject* EnemySpawnerComponent::CreateMrEgg(glm::vec3 position)
 	pEggGameObject->AddComponent(new dae::TransformComponent(pEggGameObject, position, glm::vec3{ 2.f }));
 	pEggGameObject->AddComponent(new dae::SpriteRendererComponent(pEggGameObject, "BurgerTime_SpriteSheet.png"));
 	pEggGameObject->AddComponent(new dae::AnimatorComponent(pEggGameObject, "../Data/Animations/EggAnimations.json"));
-	pEggGameObject->AddComponent(new dae::ColliderComponent(pEggGameObject, 15.f, 15.f, glm::vec2{ 8.f, 8.5f }));
+	pEggGameObject->AddComponent(new dae::ColliderComponent(pEggGameObject, 14.f, 14.f, glm::vec2{ 7.f, 7.f }));
 
 	uint16 mask = 0;
 	mask |= static_cast<uint16>(dae::PhysicsLayers::DefaultLayer);
@@ -200,7 +218,7 @@ dae::GameObject* EnemySpawnerComponent::CreateMrPickle(glm::vec3 position)
 	pPickleObject->AddComponent(new dae::TransformComponent(pPickleObject, position, glm::vec3{ 2.f }));
 	pPickleObject->AddComponent(new dae::SpriteRendererComponent(pPickleObject, "BurgerTime_SpriteSheet.png"));
 	pPickleObject->AddComponent(new dae::AnimatorComponent(pPickleObject, "../Data/Animations/PickleAnimations.json"));
-	pPickleObject->AddComponent(new dae::ColliderComponent(pPickleObject, 15.f, 15.f, glm::vec2{ 8.f, 8.5f }));
+	pPickleObject->AddComponent(new dae::ColliderComponent(pPickleObject, 14.f, 14.f, glm::vec2{ 7.f, 7.f }));
 
 	uint16 mask = 0;
 	mask |= static_cast<uint16>(dae::PhysicsLayers::DefaultLayer);

@@ -19,6 +19,7 @@ public:
 	void ChangeText(int number);
 
 	static int GetScore();
+	static void ResetScore();
 
 	std::unique_ptr<Subject>& GetSubject();
 private:

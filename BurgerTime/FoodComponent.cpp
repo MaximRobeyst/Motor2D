@@ -83,7 +83,7 @@ void FoodComponent::Start()
 		{
 			if (m_pEnemies.size() > 0)
 			{
-				m_pGameObject->GetScene()->RemoveGameObject(m_pEnemies.back());
+				m_pEnemies.back()->SetEnabled(false);
 				m_pEnemies.pop_back();
 				return;
 			}

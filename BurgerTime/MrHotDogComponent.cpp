@@ -233,6 +233,12 @@ void EnemyComponent::Deserialize(dae::GameObject* pGameObject, rapidjson::Value&
 	}
 }
 
+void EnemyComponent::Respawn()
+{
+	m_Dead = false;
+	m_pAnimatorComponent->SetAnimation("WalkLeft");
+}
+
 void EnemyComponent::EnemyDeath()
 {
 	ServiceLocator::GetAudio()->PlaySound("../Data/Audio/death_2.wav");

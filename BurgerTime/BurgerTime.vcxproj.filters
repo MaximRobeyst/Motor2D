@@ -78,9 +78,6 @@
     <ClCompile Include="VersusState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="LevelComponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="LeaderboardState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -88,6 +85,9 @@
       <Filter>Components</Filter>
     </ClCompile>
     <ClCompile Include="LeaderboardComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelComponent.cpp">
       <Filter>Components</Filter>
     </ClCompile>
   </ItemGroup>

@@ -32,6 +32,7 @@ public:
 	void Serialize(rapidjson::PrettyWriter< rapidjson::StringBuffer>& writer) override;
 	void Deserialize(dae::GameObject* /*pGameobject*/, rapidjson::Value& /*value*/) override;
 
+	void Respawn(); 
 	void EnemyDeath();
 	void EnemyDrop();
 	
