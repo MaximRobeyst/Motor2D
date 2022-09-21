@@ -57,6 +57,8 @@ private:
 	float m_PepperTime{1.5f};
 	float m_PepperTimer{};
 
+	float m_Speed{100.0f};
+
 	std::string m_pHorizontalAxis{};
 	std::string m_pVerticalAxis{};
 };

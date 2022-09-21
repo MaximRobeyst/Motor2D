@@ -31,6 +31,8 @@ void dae::Renderer::Init(SDL_Window * window)
 		throw std::runtime_error(std::string("SDL_CreateRenderer Error: ") + SDL_GetError());
 	}
 
+	SDL_GetWindowSize(m_Window, &m_WindowWidth, &m_WindowHeight);
+
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
 	ImGui_ImplSDL2_InitForOpenGL(window, SDL_GL_GetCurrentContext());
@@ -43,8 +45,11 @@ void dae::Renderer::Render() const
 	SDL_SetRenderDrawColor(m_Renderer, color.r, color.g, color.b, color.a);
 	SDL_RenderClear(m_Renderer);
 
-	SceneManager::GetInstance().RenderDebug();
-	SceneManager::GetInstance().Render();
+	glPushMatrix();
+		SceneManager::GetInstance().RenderDebug();
+		SceneManager::GetInstance().Render();
+	glPopMatrix();
+
 #ifdef _DEBUG
 
 	ImGui_ImplOpenGL2_NewFrame();
@@ -194,4 +199,14 @@ void dae::Renderer::RenderLine(glm::vec2 p1, glm::vec2 p2, SDL_Color color, floa
 void dae::Renderer::RenderLine(const b2Vec2& p1, const b2Vec2& p2, SDL_Color color, float )
 {
 	RenderLine(glm::vec2{ p1.x, p1.y }, glm::vec2{ p2.x, p2.y }, color);
+}
+
+int dae::Renderer::GetWindowHeight() const
+{
+	return m_WindowHeight;
+}
+
+int dae::Renderer::GetWindowWidth() const
+{
+	return m_WindowWidth;
 }

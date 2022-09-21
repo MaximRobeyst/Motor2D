@@ -42,6 +42,7 @@
 #include "MenuCommands.h"
 #include "LevelComponent.h"
 #include "PlayerComponent.h"
+#include "CameraComponent.h"
 
 using namespace dae;
 
@@ -53,6 +54,18 @@ void SingleplayerState::OnEnter()
 	auto& scene = dae::SceneManager::GetInstance().CreateScene("SinglePlayer");
 	auto& input = InputManager::GetInstance();
 
+	auto pCamera = new GameObject("Camera");
+	pCamera->AddComponent(new TransformComponent(pCamera, glm::vec3{}, glm::vec2{ 2,2 }));
+	auto pCameraComponent = pCamera->AddComponent<CameraComponent>();
+
+	scene.AddGameObject(pCamera);
+
+	auto pLevel = new GameObject("Level");
+	pLevel->AddComponent(new TransformComponent(pLevel));
+	pLevel->AddComponent(new SpriteRendererComponent(pLevel, "Scenes/Level.png"));
+	scene.AddGameObject(pLevel);
+
+
 	auto pPlayer = new GameObject("Player");
 	pPlayer->AddComponent(new TransformComponent(pPlayer, glm::vec3{ 100.f, 100.f , 0 }));
 	pPlayer->AddComponent(new SpriteRendererComponent(pPlayer, "Sprites/Player/PlayerUnarmed.png", SDL_FRect{13,0,13,24}));
@@ -61,14 +74,23 @@ void SingleplayerState::OnEnter()
 	pPlayer->AddComponent(new RigidbodyComponent(pPlayer));
 	pPlayer->AddComponent(new ColliderComponent(pPlayer, 13, 24));
 
+	pCameraComponent->SetTarget(pPlayer->GetComponent<TransformComponent>());
+
 	input.AddAxis("keyboard_horizontal", new KeyboardAxis(SDLK_d, SDLK_a, input.GetKeyboard()));
 	input.AddAxis("keyboard_vertical", new KeyboardAxis(SDLK_s, SDLK_w, input.GetKeyboard()));
 
 	pPlayerComp->SetHorizontalAxis("keyboard_horizontal");
 	pPlayerComp->SetVerticalAxis("keyboard_vertical");
-	
+
 	pPlayer->SetTag("Player");
 	scene.AddGameObject(pPlayer);
+
+	auto pLegs = new GameObject("Legs");
+	pLegs->AddComponent(new TransformComponent(pLegs, glm::vec3{ 0, 0 ,0} ));
+	pLegs->AddComponent(new SpriteRendererComponent(pLegs, "Sprites/Player/PlayerLegs.png", SDL_FRect{ 0,0,12,14 }));
+
+	pLegs->SetParent(pPlayer);
+	scene.AddGameObject(pLegs);
 
 	scene.Start();
 }

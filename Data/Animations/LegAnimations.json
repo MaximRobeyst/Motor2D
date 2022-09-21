@@ -2,6 +2,21 @@
     {
         "name" : "Idle",
         "duration" : 1,
+        "framesPerSeconds" : 5,
+        "looping" : true,
+        "keyframes" : 
+        [
+            {
+                "x" : 0,
+                "y" : 0,
+                "w" : 12,
+                "h" : 14
+            }
+        ]
+    },
+    {
+        "name" : "Walk",
+        "duration" : 1.25,
         "framesPerSeconds" : 30,
         "looping" : true,
         "keyframes" : 
@@ -9,23 +24,8 @@
             {
                 "x" : 0,
                 "y" : 0,
-                "w" : 13,
-                "h" : 24
-            }
-        ]
-    },
-    {
-        "name" : "Walk",
-        "duration" : 1,
-        "framesPerSeconds" : 15,
-        "looping" : true,
-        "keyframes" : 
-        [
-            {
-                "x" : 0,
-                "y" : 0,
-                "w" : 13,
-                "h" : 24
+                "w" : 12,
+                "h" : 14
             },
             {
                 "x" : 13,

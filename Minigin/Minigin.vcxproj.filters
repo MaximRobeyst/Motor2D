@@ -168,6 +168,9 @@
     <ClInclude Include="..\3rdParty\imgui\backends\imgui_impl_sdl.h">
       <Filter>ImGui</Filter>
     </ClInclude>
+    <ClInclude Include="CameraComponent.h">
+      <Filter>Component Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MiniginPCH.cpp">
@@ -295,6 +298,9 @@
     </ClCompile>
     <ClCompile Include="..\3rdParty\imgui\backends\imgui_impl_sdl.cpp">
       <Filter>ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraComponent.cpp">
+      <Filter>Component Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

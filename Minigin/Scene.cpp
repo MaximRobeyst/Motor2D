@@ -15,6 +15,8 @@
 #include "InputManager.h"
 
 #include "PhysicsDebugDraw.h"
+#include <gl/GL.h>
+#include "CameraComponent.h"
 
 using namespace dae;
 
@@ -189,7 +191,15 @@ void Scene::Render() const
 void dae::Scene::RenderDebug() const
 {
 	if (m_DebugPhysics)
+	{
+		glPushMatrix();
+
+		auto pCamera = dae::CameraComponent::GetMainCamera();
+		if(pCamera != nullptr)
+			pCamera->Render();
 		m_PhysicsWorld->DebugDraw();
+		glPopMatrix();
+	}
 }
 
 #ifdef _DEBUG

@@ -225,6 +225,7 @@
     <ClInclude Include="..\3rdParty\imgui\imstb_truetype.h" />
     <ClInclude Include="AnimatorComponent.h" />
     <ClInclude Include="AudioSystem.h" />
+    <ClInclude Include="CameraComponent.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="CollisionHandler.h" />
     <ClInclude Include="Command.h" />
@@ -307,6 +308,7 @@
     </ClCompile>
     <ClCompile Include="AnimatorComponent.cpp" />
     <ClCompile Include="AudioSystem.cpp" />
+    <ClCompile Include="CameraComponent.cpp" />
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="CollisionHandler.cpp" />
     <ClCompile Include="Command.cpp" />

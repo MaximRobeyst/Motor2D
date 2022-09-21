@@ -11,9 +11,6 @@ namespace dae
 	 */
 	class Renderer final : public Singleton<Renderer>
 	{
-		SDL_Renderer* m_Renderer{};
-		SDL_Window* m_Window{};
-		SDL_Color m_clearColor{};	
 	public:
 		void Init(SDL_Window* window);
 		void Render() const;
@@ -35,11 +32,20 @@ namespace dae
 		void RenderLine(glm::vec2 p1, glm::vec2 p2, SDL_Color color, float linewidth = 1.0f);
 		void RenderLine(const b2Vec2& p1, const b2Vec2& p2, SDL_Color color, float linewidth = 1.0f);
 
+		int GetWindowHeight() const;
+		int GetWindowWidth() const;
+
 		SDL_Renderer* GetSDLRenderer() const { return m_Renderer; }
 
 		const SDL_Color& GetBackgroundColor() const { return m_clearColor; }
 		void SetBackgroundColor(const SDL_Color& color) { m_clearColor = color; }
 	private:
+		SDL_Renderer* m_Renderer{};
+		SDL_Window* m_Window{};
+		SDL_Color m_clearColor{};
+
+		int m_WindowHeight;
+		int m_WindowWidth;
 	};
 }
 

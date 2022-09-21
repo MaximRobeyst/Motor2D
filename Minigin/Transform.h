@@ -16,8 +16,7 @@ namespace dae
 	public:
 		struct Transform
 		{
-			glm::vec3 worldPosition{};
-			glm::vec3 localPosition{};
+			glm::vec3 position{};
 			float rotation{};
 			glm::vec2 scale{};
 		};
@@ -37,11 +36,11 @@ namespace dae
 		void Move(const glm::vec3& moveVector);
 
 		//Scale
-		const glm::vec2& GetScale() const { return m_Transform.scale; }
+		const glm::vec2& GetScale() const { return m_WorldTransform.scale; }
 		void SetScale(float x, float y);
 		void SetScale(const glm::vec2& scale);
 
-		const float GetRotation() const { return m_Transform.rotation; }
+		const float GetRotation() const { return m_WorldTransform.rotation; }
 		void SetRotation(float rot);
 
 		void SetDirty();
@@ -56,13 +55,19 @@ namespace dae
 		void Serialize(rapidjson::PrettyWriter< rapidjson::StringBuffer>& writer) override;
 		void Deserialize(GameObject* /*pGameobject*/, rapidjson::Value& /*value*/) override;
 
+		// Returns world transform
 		Transform& GetTransform();
+		Transform& GetWorldTransform();
+		Transform& GetLocalTransform();
 		const Transform& GetTransformConst() const;
+		const Transform& GetWorldTransformConst() const;
+		const Transform& GetLocalTransformConst() const;
 
 	private:
 		bool m_Dirty{true};
 
-		Transform m_Transform;
+		Transform m_WorldTransform;
+		Transform m_LocalTransform;
 		TransformComponent* m_pParentComponent;
 		RigidbodyComponent* m_pRigidbodyComponent;
 		
