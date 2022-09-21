@@ -181,7 +181,10 @@ dae::GameObject* dae::GameObject::Deserialize(Scene* pScene, const std::string& 
 void dae::GameObject::AddComponent(Component* component)
 {
 	m_pComponents.push_back(component);
+	component->SetGameObject(this);
 }
+
+
 
 void dae::GameObject::SetParent(GameObject* pParent, bool /*worldPositionStays*/)
 {

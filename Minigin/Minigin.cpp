@@ -96,6 +96,7 @@ void dae::Minigin::Run()
 			float elapsedSec{ std::chrono::duration<float>(t2 - t1).count() };
 			t1 = t2;
 			lag += elapsedSec;
+			GameTime::GetInstance()->SetElapsed(elapsedSec);
 
 			//doContinue = input.ProcessInput();
 			doContinue = input.ProcessInput();
@@ -108,7 +109,6 @@ void dae::Minigin::Run()
 			}
 
 			sceneManager.Update();
-			GameTime::GetInstance()->SetElapsed(elapsedSec);
 			renderer.Render();
 
 			//SteamAPI_RunCallbacks();

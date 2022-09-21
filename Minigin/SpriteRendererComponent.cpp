@@ -49,12 +49,13 @@ void dae::SpriteRendererComponent::Render() const
 {
 	const auto& pos{ m_pTransformComponent->GetPosition() };
 	const auto& scale{ m_pTransformComponent->GetScale() };
+	const auto& rotation{ static_cast<double>(m_pTransformComponent->GetRotation()) };
 	const auto& textureSize{ m_pTexture->GetSize() };
 
 	if (IsSampleRectEmpty())
 		Renderer::GetInstance().RenderTexture(*m_pTexture, pos.x, pos.y, textureSize.x * scale.x, textureSize.y * scale.y);
 	else
-		Renderer::GetInstance().RenderTexture(*m_pTexture, m_SampleRectangle, pos.x, pos.y, m_SampleRectangle.w * abs(scale.x), m_SampleRectangle.h * abs(scale.y), scale.x < 0);
+		Renderer::GetInstance().RenderTexture(*m_pTexture, m_SampleRectangle, pos.x, pos.y, m_SampleRectangle.w * abs(scale.x), m_SampleRectangle.h * abs(scale.y), rotation, scale.x < 0);
 }
 
 void dae::SpriteRendererComponent::RenderGUI()

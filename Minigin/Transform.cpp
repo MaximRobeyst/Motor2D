@@ -82,6 +82,13 @@ void dae::TransformComponent::SetPosition(const glm::vec3& position)
 	m_Transform.worldPosition = position;
 }
 
+void dae::TransformComponent::SetPosition(const b2Vec2& position)
+{
+	m_Dirty = true;
+	m_Transform.worldPosition.x = position.x;
+	m_Transform.worldPosition.y = position.y;
+}
+
 void dae::TransformComponent::Move(const glm::vec3& moveVector)
 {
 	m_Dirty = true;
@@ -99,6 +106,12 @@ void dae::TransformComponent::SetScale(const glm::vec2& scale)
 {
 	m_Dirty = true;
 	m_Transform.scale = scale;
+}
+
+void dae::TransformComponent::SetRotation(float rot)
+{
+	m_Dirty = true;
+	m_Transform.rotation = rot;
 }
 
 void dae::TransformComponent::SetDirty()
@@ -120,9 +133,12 @@ void dae::TransformComponent::Update()
 {
 	if (m_pRigidbodyComponent)
 	{
-		if (m_Dirty)
+		if (m_Dirty && m_Transform.rotation != 0)
 		{
-			m_pRigidbodyComponent->GetBody()->SetTransform(b2Vec2{ m_Transform.worldPosition.x, m_Transform.worldPosition.y }, m_Transform.rotation);
+			auto body = m_pRigidbodyComponent->GetBody()->GetTransform();
+
+
+			m_pRigidbodyComponent->GetBody()->SetTransform(b2Vec2{ body.p.x ,body.p.y}, m_Transform.rotation);
 			m_Dirty = false;
 		}
 		else

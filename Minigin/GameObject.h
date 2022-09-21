@@ -38,7 +38,6 @@ namespace dae
 		static GameObject* Deserialize(Scene* pScene, rapidjson::Value& value);
 		static GameObject* Deserialize(Scene* pScene,const std::string& filename);
 
-
 		void AddComponent(Component* component);
 
 		template<typename T>

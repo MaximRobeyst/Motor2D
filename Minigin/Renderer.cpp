@@ -101,8 +101,10 @@ void dae::Renderer::RenderTexture(const Texture2D& texture, const SDL_FRect& src
 	SDL_RenderCopy(GetSDLRenderer(), texture.GetSDLTexture(), &src, &dst);
 }
 
-void dae::Renderer::RenderTexture(const Texture2D& texture, const SDL_FRect& srcRect, float x, float y, float width, float height, bool flipHorizontal) const
+void dae::Renderer::RenderTexture(const Texture2D& texture, const SDL_FRect& srcRect, float x, float y, float width, float height, double rotation, bool flipHorizontal) const
 {
+	constexpr double rad2deg = 180.0f / M_PI;
+
 	SDL_RendererFlip flip;
 	if (flipHorizontal)
 		flip = SDL_FLIP_HORIZONTAL;
@@ -116,7 +118,7 @@ void dae::Renderer::RenderTexture(const Texture2D& texture, const SDL_FRect& src
 	dst.h = static_cast<int>(height);
 	SDL_Rect src{ static_cast<int>(srcRect.x), static_cast<int>(srcRect.y),static_cast<int>(srcRect.w),static_cast<int>(srcRect.h) };
 
-	SDL_RenderCopyEx(GetSDLRenderer(), texture.GetSDLTexture(), &src, &dst, 0.0, nullptr, flip);
+	SDL_RenderCopyEx(GetSDLRenderer(), texture.GetSDLTexture(), &src, &dst, rotation * rad2deg, nullptr, flip);
 }
 
 void dae::Renderer::RenderBox(float x, float y, float width, float height, SDL_Color color) const
@@ -186,7 +188,7 @@ void dae::Renderer::RenderCircle(b2Vec2 position, float radius, SDL_Color color)
 void dae::Renderer::RenderLine(glm::vec2 p1, glm::vec2 p2, SDL_Color color, float )
 {
 	SDL_SetRenderDrawColor(m_Renderer, color.r, color.g, color.b, color.a);
-	SDL_RenderDrawLineF(m_Renderer, p1.x, p1.y, p2.x, p2.y);
+	SDL_RenderDrawLine(m_Renderer, static_cast<int>(p1.x), static_cast<int>(p1.y), static_cast<int>(p2.x), static_cast<int>(p2.y));
 }
 
 void dae::Renderer::RenderLine(const b2Vec2& p1, const b2Vec2& p2, SDL_Color color, float )

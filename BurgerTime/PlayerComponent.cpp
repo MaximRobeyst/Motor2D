@@ -61,9 +61,6 @@ void PlayerComponent::Update()
 
 void PlayerComponent::Render() const
 {
-	b2Vec2 startPosition = b2Vec2{ m_pTranformComponent->GetPosition().x + 16.f, m_pTranformComponent->GetPosition().y + 16.f };
-	b2Vec2 endPosition = startPosition + b2Vec2{ m_LastDirection.x * 32.f, m_LastDirection.y * 32.f };
-	dae::Renderer::GetInstance().RenderLine(startPosition, endPosition, SDL_Color{ 255, 255, 0, 255 });
 }
 
 void PlayerComponent::RenderGUI()
@@ -150,6 +147,10 @@ void PlayerComponent::UpdateDefault()
 	auto keyboard = dae::InputManager::GetInstance().GetKeyboard();
 	auto& transform = m_pTranformComponent->GetTransformConst();
 
+	auto mousePosition = dae::InputManager::GetInstance().GetMousePosition();
+
+	m_pTranformComponent->SetRotation(atan2f(mousePosition.y - transform.worldPosition.y, mousePosition.x - transform.worldPosition.x));
+
 	b2Vec2 vel{};
 
 	assert(m_pHorizontalAxis != "" && m_pVerticalAxis != "");
@@ -157,12 +158,9 @@ void PlayerComponent::UpdateDefault()
 	int horAxis = dae::InputManager::GetInstance().GetAxis(m_pHorizontalAxis)->GetAxisValue();
 	int verAxis = dae::InputManager::GetInstance().GetAxis(m_pVerticalAxis)->GetAxisValue();
 
-
-	if ((horAxis >= 0 && transform.scale.x > 0) || (horAxis <= -1 && transform.scale.x < 0)) m_pTranformComponent->GetTransform().scale.x *= -1;
-
 	if (horAxis != 0)
 	{
-		m_pAnimatorComponent->SetAnimation("WalkLeft");
+		m_pAnimatorComponent->SetAnimation("Walk");
 		vel.x = horAxis * 64.f /** GameTime::GetInstance()->GetElapsed()*/;
 
 		m_LastDirection.x = static_cast<float>(horAxis);
@@ -170,9 +168,7 @@ void PlayerComponent::UpdateDefault()
 	}
 	else if (verAxis != 0)
 	{
-		if (verAxis >= 1) m_pAnimatorComponent->SetAnimation("WalkDown");
-		else if (verAxis <= -1) m_pAnimatorComponent->SetAnimation("WalkUp");
-
+		m_pAnimatorComponent->SetAnimation("Walk");
 		vel .y = verAxis * 64.f /** GameTime::GetInstance()->GetElapsed()*/;
 
 		m_LastDirection.x = 0.f;
@@ -181,6 +177,7 @@ void PlayerComponent::UpdateDefault()
 	else m_pAnimatorComponent->SetAnimation("Idle");
 
 	m_pRigidbody->GetBody()->SetLinearVelocity(vel);
+
 }
 
 void PlayerComponent::UpdatePeper()

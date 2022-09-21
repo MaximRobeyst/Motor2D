@@ -6,6 +6,7 @@
 #pragma warning(pop)
 
 #include "Factory.h"
+#include <box2d.h>
 
 namespace dae
 {
@@ -31,6 +32,7 @@ namespace dae
 		const glm::vec3& GetPosition() const;
 		void SetPosition(float x, float y);
 		void SetPosition(const glm::vec3& position);
+		void SetPosition(const b2Vec2& position);
 
 		void Move(const glm::vec3& moveVector);
 
@@ -38,6 +40,9 @@ namespace dae
 		const glm::vec2& GetScale() const { return m_Transform.scale; }
 		void SetScale(float x, float y);
 		void SetScale(const glm::vec2& scale);
+
+		const float GetRotation() const { return m_Transform.rotation; }
+		void SetRotation(float rot);
 
 		void SetDirty();
 		bool IsDirty() const;

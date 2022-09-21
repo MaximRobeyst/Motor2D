@@ -40,6 +40,7 @@ void dae::RigidbodyComponent::Start()
 
 void dae::RigidbodyComponent::Update()
 {
+	m_pTransformComponent->SetPosition(m_pBody->GetTransform().p);
 }
 
 void dae::RigidbodyComponent::Render() const
@@ -56,8 +57,6 @@ void dae::RigidbodyComponent::Render() const
 void dae::RigidbodyComponent::RenderGUI()
 {
 	m_pBody->GetTransform();
-
-
 	ImGui::Text(("Current Velocity: [" + std::to_string(m_pBody->GetLinearVelocity().x) + ", " + std::to_string(m_pBody->GetLinearVelocity().y) + "] ").c_str());
 
 }

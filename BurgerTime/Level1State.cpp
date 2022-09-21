@@ -41,6 +41,7 @@
 #include "GameManagerComponent.h"
 #include "MenuCommands.h"
 #include "LevelComponent.h"
+#include "PlayerComponent.h"
 
 using namespace dae;
 
@@ -48,7 +49,28 @@ const dae::Creator<Command, PepperCommand> g_PepperCommandCreate{};
 
 void SingleplayerState::OnEnter()
 {
-	dae::Scene::Deserialize("Level1");
+
+	auto& scene = dae::SceneManager::GetInstance().CreateScene("SinglePlayer");
+	auto& input = InputManager::GetInstance();
+
+	auto pPlayer = new GameObject("Player");
+	pPlayer->AddComponent(new TransformComponent(pPlayer, glm::vec3{ 100.f, 100.f , 0 }));
+	pPlayer->AddComponent(new SpriteRendererComponent(pPlayer, "Sprites/Player/PlayerUnarmed.png", SDL_FRect{13,0,13,24}));
+	auto pPlayerComp = pPlayer->AddComponent<PlayerComponent>();
+	pPlayer->AddComponent(new AnimatorComponent(pPlayer, "../Data/Animations/PlayerAnimations.json"));
+	pPlayer->AddComponent(new RigidbodyComponent(pPlayer));
+	pPlayer->AddComponent(new ColliderComponent(pPlayer, 13, 24));
+
+	input.AddAxis("keyboard_horizontal", new KeyboardAxis(SDLK_d, SDLK_a, input.GetKeyboard()));
+	input.AddAxis("keyboard_vertical", new KeyboardAxis(SDLK_s, SDLK_w, input.GetKeyboard()));
+
+	pPlayerComp->SetHorizontalAxis("keyboard_horizontal");
+	pPlayerComp->SetVerticalAxis("keyboard_vertical");
+	
+	pPlayer->SetTag("Player");
+	scene.AddGameObject(pPlayer);
+
+	scene.Start();
 }
 
 void SingleplayerState::OnExit()

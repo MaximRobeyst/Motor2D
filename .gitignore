@@ -326,6 +326,7 @@ __pycache__/
 *.btm.cs
 *.odx.cs
 *.xsd.cs
+*.tlog
 
 # OpenCover UI analysis results
 OpenCover/
@@ -356,3 +357,10 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+x64/Release
+x64/Debug
+
+Minigin/x64/Debug/
+Minigin/x64/Release/
+Minigin/x86/
