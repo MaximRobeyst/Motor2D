@@ -168,6 +168,7 @@
     <ClCompile Include="FoodComponent.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameManagerComponent.cpp" />
+    <ClCompile Include="InteractComponent.cpp" />
     <ClCompile Include="LeaderboardComponent.cpp" />
     <ClCompile Include="LeaderboardState.cpp" />
     <ClCompile Include="Level1State.cpp" />
@@ -181,11 +182,13 @@
     <ClCompile Include="MultiplayerState.cpp" />
     <ClCompile Include="PlateComponent.cpp" />
     <ClCompile Include="PlayAudioCommand.cpp" />
+    <ClCompile Include="PlayerCommands.cpp" />
     <ClCompile Include="PlayerComponent.cpp" />
     <ClCompile Include="ScoreDisplayComponent.cpp" />
     <ClCompile Include="MenuCommands.cpp" />
     <ClCompile Include="UIButtonComponent.cpp" />
     <ClCompile Include="VersusState.cpp" />
+    <ClCompile Include="WeaponComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AchievementComponent.h" />
@@ -193,6 +196,7 @@
     <ClInclude Include="Event.h" />
     <ClInclude Include="FoodComponent.h" />
     <ClInclude Include="GameManagerComponent.h" />
+    <ClInclude Include="InteractComponent.h" />
     <ClInclude Include="LeaderboardComponent.h" />
     <ClInclude Include="LeaderboardState.h" />
     <ClInclude Include="Level1State.h" />
@@ -206,11 +210,13 @@
     <ClInclude Include="MultiplayerState.h" />
     <ClInclude Include="PlateComponent.h" />
     <ClInclude Include="PlayAudioCommand.h" />
+    <ClInclude Include="PlayerCommands.h" />
     <ClInclude Include="PlayerComponent.h" />
     <ClInclude Include="ScoreDisplayComponent.h" />
     <ClInclude Include="MenuCommands.h" />
     <ClInclude Include="UIButtonComponent.h" />
     <ClInclude Include="VersusState.h" />
+    <ClInclude Include="WeaponComponent.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

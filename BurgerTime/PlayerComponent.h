@@ -6,12 +6,13 @@
 #include <InputManager.h>
 
 class LifeComponent;
+class WeaponComponent;
 class PlayerComponent : public dae::Component
 {
 	enum class PlayerState
 	{
 		State_Default,
-		State_Peper,
+		State_Attack,
 		State_Dying,
 	};
 
@@ -22,7 +23,6 @@ public:
 
 	void Start() override;
 	void Update() override;
-	void Render() const override;
 
 	void RenderGUI() override;
 
@@ -35,11 +35,11 @@ public:
 	void SetVerticalAxis(const std::string& verticalAxis);
 	void SetHorizontalAxis(const std::string& horizontalAxis);
 
-	void SpawnPepper();
+	void Attack();
 
 private:
 	void UpdateDefault();
-	void UpdatePeper();
+	void UpdateAttack();
 	void UpdateDying();
 
 	PlayerState m_CurrentState{};
@@ -52,7 +52,9 @@ private:
 	LifeComponent* m_pLifeComponent{};
 
 	dae::GameObject* m_pPepperGameobject{};
-	int m_Peppers{5};
+
+	WeaponComponent* m_pCurrentInteractable{};
+	WeaponComponent* m_pCurrentWeapon{};
 	
 	float m_PepperTime{1.5f};
 	float m_PepperTimer{};

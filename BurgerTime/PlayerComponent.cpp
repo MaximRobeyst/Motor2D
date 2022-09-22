@@ -5,6 +5,8 @@
 #include "Transform.h"
 #include "GameTime.h"
 #include "LifeComponent.h"
+#include "WeaponComponent.h"
+
 #include <ServiceLocator.h>
 #include <imgui.h>
 
@@ -48,23 +50,15 @@ void PlayerComponent::Update()
 {
 	switch (m_CurrentState)
 	{
+	case PlayerState::State_Attack:
+		UpdateAttack();
 	case PlayerState::State_Default:
 		UpdateDefault();
-		break;
-	case PlayerState::State_Peper:
-		UpdatePeper();
 		break;
 	case PlayerState::State_Dying:
 		UpdateDying();
 		break;
 	}
-}
-
-void PlayerComponent::Render() const
-{
-	b2Vec2 startPosition = b2Vec2{ m_pTranformComponent->GetPosition().x + 16.f, m_pTranformComponent->GetPosition().y + 16.f };
-	b2Vec2 endPosition = startPosition + b2Vec2{ m_LastDirection.x * 32.f, m_LastDirection.y * 32.f };
-	dae::Renderer::GetInstance().RenderLine(startPosition, endPosition, SDL_Color{ 255, 255, 0, 255 });
 }
 
 void PlayerComponent::RenderGUI()
@@ -116,34 +110,10 @@ void PlayerComponent::SetHorizontalAxis(const std::string& horizontalAxis)
 	m_pHorizontalAxis = horizontalAxis;
 }
 
-void PlayerComponent::SpawnPepper()
+void PlayerComponent::Attack()
 {
-	if (m_Peppers == 0) return;
-	m_CurrentState = PlayerState::State_Peper;
-	
-
-	m_pPepperGameobject = new dae::GameObject("Pepper");
-	m_pPepperGameobject->AddComponent(new dae::TransformComponent(m_pPepperGameobject, m_pTranformComponent->GetPosition() +( m_LastDirection * 32.f ), glm::vec2{2.f}));
-	m_pPepperGameobject->AddComponent(new dae::SpriteRendererComponent(m_pPepperGameobject, "BurgerTime_SpriteSheet.png", SDL_FRect{ 180, 16, 16, 16 }));
-	auto pAnimation = new dae::AnimatorComponent(m_pPepperGameobject, "../Data/Animations/PepperAnimation.json");
-	m_pPepperGameobject->AddComponent(pAnimation);
-	pAnimation->SetAnimation("Idle");
-
-	dae::RaycastCallback callback{ };
-
-	b2Vec2 startPosition = b2Vec2{ m_pTranformComponent->GetPosition().x + 16.f, m_pTranformComponent->GetPosition().y + 16.f};
-	b2Vec2 endPosition = startPosition + b2Vec2{ m_LastDirection.x * 32.f, m_LastDirection.y * 32.f };
-	m_pGameObject->GetScene()->GetPhysicsWorld()->RayCast(&callback, startPosition, endPosition);
-	if (dae::GameObject* lastHit = callback.GetLatestHit().pHitObject; lastHit != nullptr && lastHit->GetTag() == "Enemy")
-	{
-		lastHit->GetComponent<EnemyComponent>()->EnemyDeath();
-	}
-
-	m_pGameObject->GetScene()->AddGameObject(m_pPepperGameobject);
-
-	--m_Peppers;
-
-
+	m_CurrentState = PlayerState::State_Attack;
+	m_pAnimatorComponent->SetAnimation("Attack");
 }
 
 void PlayerComponent::UpdateDefault()
@@ -161,31 +131,25 @@ void PlayerComponent::UpdateDefault()
 	int horAxis = dae::InputManager::GetInstance().GetAxis(m_pHorizontalAxis)->GetAxisValue();
 	int verAxis = dae::InputManager::GetInstance().GetAxis(m_pVerticalAxis)->GetAxisValue();
 
-	if (horAxis != 0 || verAxis != 0)
-	{
-		m_pAnimatorComponent->SetAnimation("Walk");
-		vel.x = horAxis * m_Speed /** GameTime::GetInstance()->GetElapsed()*/;
-		vel.y = verAxis * m_Speed /** GameTime::GetInstance()->GetElapsed()*/;
+	vel.x = horAxis * m_Speed /** GameTime::GetInstance()->GetElapsed()*/;
+	vel.y = verAxis * m_Speed /** GameTime::GetInstance()->GetElapsed()*/;
 
-		m_LastDirection.x = static_cast<float>(horAxis);
-		m_LastDirection.y = static_cast<float>(verAxis);
-	}
-	else m_pAnimatorComponent->SetAnimation("Idle");
+	m_LastDirection.x = static_cast<float>(horAxis);
+	m_LastDirection.y = static_cast<float>(verAxis);
 
 	m_pRigidbody->GetBody()->SetLinearVelocity(vel);
 
+	if (m_CurrentState == PlayerState::State_Attack) return;
+
+	if(vel.LengthSquared() > 0)
+		m_pAnimatorComponent->SetAnimation("Walk");
+	else
+		m_pAnimatorComponent->SetAnimation("Idle");
 }
 
-void PlayerComponent::UpdatePeper()
+void PlayerComponent::UpdateAttack()
 {
-	m_PepperTimer += GameTime::GetInstance()->GetElapsed();
-
-	if (m_PepperTimer >= m_PepperTime)
-	{
-		m_PepperTimer = 0.0f;
-		m_pGameObject->GetScene()->RemoveGameObject(m_pPepperGameobject);
-		m_CurrentState = PlayerState::State_Default;
-	}
+	if (m_pAnimatorComponent->IsAnimationDone()) m_CurrentState = PlayerState::State_Default;
 }
 
 void PlayerComponent::UpdateDying()

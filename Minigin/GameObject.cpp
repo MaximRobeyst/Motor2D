@@ -25,9 +25,11 @@ dae::GameObject::GameObject(GameObject* pParent, std::vector<GameObject*> pChild
 
 dae::GameObject::~GameObject()
 {
-	if (m_pParent != nullptr)
-		SetParent(nullptr);
+	//if (m_pParent != nullptr)
+	//	SetParent(nullptr);
 
+	for (auto child : m_pChildren)
+		delete child;
 	m_pChildren.clear();
 	
 	for (int i = 0; i < static_cast<int>(m_pComponents.size()); ++i)
@@ -35,7 +37,6 @@ dae::GameObject::~GameObject()
 
 	m_pComponents.clear();
 
-	m_pChildren.clear();
 }
 
 void dae::GameObject::Start()
@@ -44,6 +45,13 @@ void dae::GameObject::Start()
 	{
 		(*iter)->Start();
 	}
+
+	for (auto iter = m_pChildren.begin(); iter != m_pChildren.end(); ++iter)
+	{
+		(*iter)->Start();
+	}
+
+	m_pTransformComponent = GetComponent<TransformComponent>();
 }
 
 void dae::GameObject::Update()
@@ -55,6 +63,12 @@ void dae::GameObject::Update()
 	{
 		(*iter)->Update();
 	}
+
+	for (auto iter = m_pChildren.begin(); iter != m_pChildren.end(); ++iter)
+	{
+		(*iter)->Update();
+	}
+
 }
 
 void dae::GameObject::Render() const
@@ -67,6 +81,10 @@ void dae::GameObject::Render() const
 		(*iter)->Render();
 	}
 
+	for (auto iter = m_pChildren.begin(); iter != m_pChildren.end(); ++iter)
+	{
+		(*iter)->Render();
+	}
 }
 
 #ifdef _DEBUG
@@ -92,6 +110,7 @@ void dae::GameObject::RenderGUI()
 		if (ImGui::CollapsingHeader(typeid(**iter).name()))
 			(*iter)->RenderGUI();
 	}
+
 	ImGui::EndChild();
 }
 #endif // _DEBUG
@@ -125,6 +144,11 @@ void dae::GameObject::Serialize(rapidjson::PrettyWriter< rapidjson::StringBuffer
 	{
 		component->Serialize(writer);
 	}
+
+	for (auto iter = m_pChildren.begin(); iter != m_pChildren.end(); ++iter)
+	{
+		(*iter)->Serialize(writer);
+	}
 	writer.EndArray();
 
 	writer.EndObject();
@@ -141,7 +165,6 @@ dae::GameObject* dae::GameObject::Deserialize(Scene* pScene, rapidjson::Value& v
 	{
 		//std::cout << gameobject["Name"].GetString() << std::endl;
 		auto pChild = GameObject::Deserialize(pScene, gameobject);
-		pScene->AddGameObject(pChild);
 		pChild->SetParent(pGameobject);
 	}
 
@@ -186,22 +209,28 @@ void dae::GameObject::AddComponent(Component* component)
 
 
 
-void dae::GameObject::SetParent(GameObject* pParent, bool /*worldPositionStays*/)
+void dae::GameObject::SetParent(GameObject* pParent, bool worldPositionStays)
 {
 	if (pParent == this) return;
+	if (m_pCurrentScene == nullptr) m_pCurrentScene = dae::SceneManager::GetInstance().GetScene(0);
 
 	// Remove itself as a child from the previous parent
 	if (m_pParent != nullptr)
 		m_pParent->RemoveChild(this);
+	else
+		m_pCurrentScene->RemoveGameObject(this);
 
 	// Set The given parent on itself
 	m_pParent = pParent;
 
 	// Add itself as a child to the given parent
-	if(pParent != nullptr)
+	if (pParent != nullptr)
 		pParent->AddChild(this);
+	else
+		m_pCurrentScene->AddGameObject(this);
 
-	// TODO: Update position transform
+	GetTransform()->SetParent(pParent, worldPositionStays);
+	
 }
 
 dae::GameObject* dae::GameObject::GetParent() const
@@ -239,9 +268,7 @@ void dae::GameObject::RemoveChild(GameObject* pGameObject)
 {
 	if (m_pChildren.size() <= 0) return;
 
-	auto it = std::remove_if(m_pChildren.begin(), m_pChildren.end(), [&](GameObject* pChild) {
-		return pChild == pGameObject;
-		});
+	m_pChildren.erase(std::remove(m_pChildren.begin(), m_pChildren.end(), pGameObject), m_pChildren.end());
 	//m_pChildren.erase()
 
 	//pGameObject->SetParent(nullptr);
@@ -289,6 +316,14 @@ std::string dae::GameObject::GetName() const
 void dae::GameObject::SetName(const std::string& newName)
 {
 	m_Name = newName;
+}
+
+dae::TransformComponent* dae::GameObject::GetTransform()
+{
+	if (m_pTransformComponent == nullptr)
+		m_pTransformComponent = GetComponent<TransformComponent>();
+
+	return m_pTransformComponent;
 }
 
 bool dae::GameObject::IsEnabled() const

@@ -30,11 +30,11 @@ private:
 	GameManagerComponent* m_pManagerComponent;
 };
 
-class PepperCommand : public Command
+class AttackCommand : public Command
 {
 public:
-	PepperCommand() = default;
-	PepperCommand(PlayerComponent* pMenuComp);
+	AttackCommand() = default;
+	AttackCommand(PlayerComponent* pMenuComp);
 	void Execute() override;
 
 	virtual void Serialize(rapidjson::PrettyWriter< rapidjson::StringBuffer>&) override;

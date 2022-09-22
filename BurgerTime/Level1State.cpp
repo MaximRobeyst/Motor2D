@@ -35,18 +35,24 @@
 #include <LoggedAudio.h>
 
 #include <GameStateManager.h>
+
 #include "MainMenuState.h"
 
 #include <iostream>
+
 #include "GameManagerComponent.h"
-#include "MenuCommands.h"
 #include "LevelComponent.h"
 #include "PlayerComponent.h"
 #include "CameraComponent.h"
+#include "WeaponComponent.h"
+#include "InteractComponent.h"
+
+#include "MenuCommands.h"
+#include "PlayerCommands.h"
 
 using namespace dae;
 
-const dae::Creator<Command, PepperCommand> g_PepperCommandCreate{};
+const dae::Creator<Command, AttackCommand> g_PepperCommandCreate{};
 
 void SingleplayerState::OnEnter()
 {
@@ -73,6 +79,7 @@ void SingleplayerState::OnEnter()
 	pPlayer->AddComponent(new AnimatorComponent(pPlayer, "../Data/Animations/PlayerAnimations.json"));
 	pPlayer->AddComponent(new RigidbodyComponent(pPlayer));
 	pPlayer->AddComponent(new ColliderComponent(pPlayer, 13, 24));
+	auto pInteractComp = pPlayer->AddComponent<InteractComponent>();
 
 	pCameraComponent->SetTarget(pPlayer->GetComponent<TransformComponent>());
 
@@ -90,7 +97,17 @@ void SingleplayerState::OnEnter()
 	pLegs->AddComponent(new SpriteRendererComponent(pLegs, "Sprites/Player/PlayerLegs.png", SDL_FRect{ 0,0,12,14 }));
 
 	pLegs->SetParent(pPlayer);
-	scene.AddGameObject(pLegs);
+
+	auto pWeapon = new GameObject("Weapon_M16");
+	pWeapon->AddComponent(new TransformComponent(pWeapon));
+	pWeapon->AddComponent(new SpriteRendererComponent(pWeapon, "Sprites/Pickups/pickupM16.png"));
+	pWeapon->AddComponent(new RigidbodyComponent(pWeapon,b2_dynamicBody, 1.0f, 1.0f, true));
+	pWeapon->AddComponent(new ColliderComponent(pWeapon));
+	pWeapon->AddComponent(new WeaponComponent());
+	scene.AddGameObject(pWeapon);
+
+	input.GetKeyboard()->AddKeyboardMapping(KeyboardKeyData{ SDLK_SPACE, KeyState::Down }, new AttackCommand(pPlayerComp));
+	input.GetKeyboard()->AddKeyboardMapping(KeyboardKeyData{ SDLK_e,	 KeyState::Down }, new InteractCommand(pInteractComp));
 
 	scene.Start();
 }
@@ -100,17 +117,17 @@ void SingleplayerState::OnExit()
 	SceneManager::GetInstance().RemoveScene(0);
 }
 
-PepperCommand::PepperCommand(PlayerComponent* pPlayerComp)
+AttackCommand::AttackCommand(PlayerComponent* pPlayerComp)
 	: m_pPlayerComponent{pPlayerComp}
 {
 }
 
-void PepperCommand::Execute()
+void AttackCommand::Execute()
 {
-	m_pPlayerComponent->SpawnPepper();
+	m_pPlayerComponent->Attack();
 }
 
-void PepperCommand::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>& writer)
+void AttackCommand::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>& writer)
 {
 	writer.StartObject();
 	writer.Key("Name");
@@ -121,7 +138,7 @@ void PepperCommand::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>& 
 	writer.EndObject();
 }
 
-void PepperCommand::Deserialize(rapidjson::Value& value, dae::Scene* pScene)
+void AttackCommand::Deserialize(rapidjson::Value& value, dae::Scene* pScene)
 {
 	m_pPlayerComponent = pScene->GetGameobjectFromId(value["PlayerComponent"].GetInt())->GetComponent<PlayerComponent>();
 }

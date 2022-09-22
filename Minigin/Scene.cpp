@@ -100,15 +100,12 @@ void dae::Scene::RemoveGameObject(dae::GameObject* object)
 	if (object == m_pSelectedObject)
 		m_pSelectedObject = nullptr;
 
-	for (int i = 0; i < object->GetAmountOfChildren(); ++i)
-	{
-		RemoveGameObject(object->GetChildFromIndex(i));
-	}
+	m_pObjects.erase(std::remove(m_pObjects.begin(), m_pObjects.end(), object), m_pObjects.end());
 
-	auto objectToRemove = std::find(m_pObjects.begin(), m_pObjects.end(), object);
-	if (objectToRemove == m_pObjects.end()) return;
-	m_pObjectsToDelete.emplace_back(object);
-	m_pObjects.erase(std::remove(m_pObjects.begin(), m_pObjects.end(), object));
+	//auto objectToRemove = std::find(m_pObjects.begin(), m_pObjects.end(), object);
+	//if (objectToRemove == m_pObjects.end()) return;
+	//m_pObjectsToDelete.emplace_back(object);
+	//m_pObjects.erase(std::remove(m_pObjects.begin(), m_pObjects.end(), object));
 }
 
 GameObject* dae::Scene::FindGameobjectWithTag(const std::string& tag)

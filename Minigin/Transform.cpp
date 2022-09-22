@@ -60,9 +60,32 @@ void dae::TransformComponent::Deserialize(GameObject* pGameObject, rapidjson::Va
 	};
 }
 
-const glm::vec3& dae::TransformComponent::GetPosition() const 
+void dae::TransformComponent::SetParent(dae::GameObject* pParent, bool keepPos)
 {
-	return m_WorldTransform.position; 
+	if (m_pGameObject->GetParent() != pParent) { m_pGameObject->SetParent(pParent); return; }
+
+
+	if (keepPos)
+	{
+		m_WorldTransform.position = GetPosition();
+		m_WorldTransform.rotation = GetRotation();
+		m_WorldTransform.scale = GetScale();
+	}
+
+	if (pParent != nullptr)
+		m_pParentComponent = pParent->GetTransform();
+	else
+		m_pParentComponent = nullptr;
+
+
+}
+
+const glm::vec3 dae::TransformComponent::GetPosition() const
+{
+	auto pos = m_WorldTransform.position;
+	if (m_pParentComponent) pos += m_pParentComponent->GetPosition();
+
+	return pos; 
 }
 
 void dae::TransformComponent::SetPosition(const float x, const float y)
@@ -95,6 +118,13 @@ void dae::TransformComponent::Move(const glm::vec3& moveVector)
 	m_WorldTransform.position += moveVector;
 }
 
+const glm::vec2 dae::TransformComponent::GetScale() const
+{ 
+	auto scale = m_WorldTransform.scale;
+	if (m_pParentComponent) scale *= m_WorldTransform.scale;
+	return scale;
+}
+
 void dae::TransformComponent::SetScale(float x, float y)
 {
 	m_Dirty = true;
@@ -106,6 +136,13 @@ void dae::TransformComponent::SetScale(const glm::vec2& scale)
 {
 	m_Dirty = true;
 	m_WorldTransform.scale = scale;
+}
+
+const float dae::TransformComponent::GetRotation() const
+{
+	auto rotation = m_WorldTransform.rotation;
+	if (m_pParentComponent) rotation += m_pParentComponent->GetRotation();
+	return rotation;
 }
 
 void dae::TransformComponent::SetRotation(float rot)
@@ -133,7 +170,7 @@ void dae::TransformComponent::Update()
 {
 	if (m_pRigidbodyComponent)
 	{
-		if (m_Dirty && m_WorldTransform.rotation != 0)
+		if (m_Dirty && GetRotation() != 0)
 		{
 			auto body = m_pRigidbodyComponent->GetBody();
 			auto position = body->GetTransform().p;
@@ -141,7 +178,7 @@ void dae::TransformComponent::Update()
 			// Offset rotation
 
 
-			m_pRigidbodyComponent->GetBody()->SetTransform(b2Vec2{ position.x ,position.y}, m_WorldTransform.rotation);
+			m_pRigidbodyComponent->GetBody()->SetTransform(b2Vec2{ position.x ,position.y}, GetRotation());
 			m_Dirty = false;
 		}
 		else

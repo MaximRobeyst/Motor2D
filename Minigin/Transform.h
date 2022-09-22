@@ -27,8 +27,10 @@ namespace dae
 		TransformComponent& operator=(const TransformComponent& other) = delete;
 		TransformComponent& operator=(TransformComponent&& other) = delete;
 
+		void SetParent(dae::GameObject* pParent, bool keepPos = true);
+
 		// Position
-		const glm::vec3& GetPosition() const;
+		const glm::vec3 GetPosition() const;
 		void SetPosition(float x, float y);
 		void SetPosition(const glm::vec3& position);
 		void SetPosition(const b2Vec2& position);
@@ -36,11 +38,11 @@ namespace dae
 		void Move(const glm::vec3& moveVector);
 
 		//Scale
-		const glm::vec2& GetScale() const { return m_WorldTransform.scale; }
+		const glm::vec2 GetScale() const;
 		void SetScale(float x, float y);
 		void SetScale(const glm::vec2& scale);
 
-		const float GetRotation() const { return m_WorldTransform.rotation; }
+		const float GetRotation() const;
 		void SetRotation(float rot);
 
 		void SetDirty();

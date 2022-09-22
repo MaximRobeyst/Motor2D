@@ -15,14 +15,14 @@
                 {
                     "name": "class dae::TransformComponent",
                     "Position": {
-                        "x": 448.0,
-                        "y": 200.0,
+                        "x": 456.0,
+                        "y": 150.0,
                         "z": 0.0
                     },
                     "Rotation": 0.0,
                     "Scale": {
-                        "x": 2.0,
-                        "y": 2.0
+                        "x": 1.5,
+                        "y": 1.5
                     }
                 },
                 {
@@ -51,8 +51,8 @@
                         {
                             "name": "class dae::TransformComponent",
                             "Position": {
-                                "x": 480.0,
-                                "y": 200.0,
+                                "x": 0.0,
+                                "y": 50.0,
                                 "z": 0.0
                             },
                             "Rotation": 0.0,
@@ -96,8 +96,8 @@
                         {
                             "name": "class dae::TransformComponent",
                             "Position": {
-                                "x": 480.0,
-                                "y": 250.0,
+                                "x": 0.0,
+                                "y": 75.0,
                                 "z": 0.0
                             },
                             "Rotation": 0.0,
@@ -141,8 +141,8 @@
                         {
                             "name": "class dae::TransformComponent",
                             "Position": {
-                                "x": 480.0,
-                                "y": 300.0,
+                                "x": 0.0,
+                                "y": 100.0,
                                 "z": 0.0
                             },
                             "Rotation": 0.0,

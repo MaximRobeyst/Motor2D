@@ -63,6 +63,19 @@ namespace dae
 			return nullptr;
 		}
 
+		template<typename T>
+		std::vector<T*> GetComponents() const
+		{
+			std::vector<T*> components;
+			for (size_t i = 0; i < m_pComponents.size(); ++i)
+			{
+				T* comp{ dynamic_cast<T*>(m_pComponents[i]) };
+				if (comp != nullptr)
+					components.emplace_back(comp);
+			}
+			return components;
+		}
+
 
 		// SceneGraph
 		void SetParent(GameObject* pParent, bool worldPositionStays = true);
@@ -79,6 +92,8 @@ namespace dae
 
 		std::string GetName() const;
 		void SetName(const std::string& newName);
+
+		TransformComponent* GetTransform();
 
 		bool IsEnabled() const;
 		void SetEnabled(bool newValue, bool AffectChildren = true);
@@ -108,6 +123,7 @@ namespace dae
 
 		// Components
 		std::vector<Component*> m_pComponents{};
+		TransformComponent* m_pTransformComponent;
 
 		// Scene Graph
 		GameObject* m_pParent{};

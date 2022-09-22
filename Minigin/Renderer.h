@@ -17,7 +17,7 @@ namespace dae
 		void Destroy();
 
 		void RenderTexture(const Texture2D& texture, float x, float y) const;
-		void RenderTexture(const Texture2D& texture, float x, float y, float width, float height) const;
+		void RenderTexture(const Texture2D& texture, float x, float y, float width, float height, double rotation) const;
 		void RenderTexture(const Texture2D& texture, const SDL_FRect& srcRect, const SDL_FRect& dstRect, bool flipHorizontal = false) const;
 		void RenderTexture(const Texture2D& texture, const SDL_FRect& srcRect, float x, float y, float width, float height, double rotation, bool flipHorizontal = false) const;
 
