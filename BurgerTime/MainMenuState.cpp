@@ -79,7 +79,7 @@ void MainMenuState::OnEnter()
 	pMenupointer->AddComponent(pTransform);
 	auto pSpriteRenderer = new dae::SpriteRendererComponent(pMenupointer, "MainCharacter.png");
 	pMenupointer->AddComponent(pSpriteRenderer);
-	pTransform->SetPosition(glm::vec3{ 480.f, 50.f, 0.f } - glm::vec3{ pSpriteRenderer->GetSampleRectangle().w * pTransform->GetScale().x, 0.f, 0.f });
+	pTransform->SetPosition(glm::vec3{ 480.f, 150.f, 0.f } - glm::vec3{ pSpriteRenderer->GetSampleRectangle().w * pTransform->GetScale().x, 0.f, 0.f });
 
 
 	scene.AddGameObject(pMenupointer);

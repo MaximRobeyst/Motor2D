@@ -5,6 +5,7 @@
 #include "ResourceManager.h"
 #include "Transform.h"
 #include "Texture2D.h"
+#include "RapidjsonHelpers.h"
 
 dae::Creator<dae::Component, dae::SpriteRendererComponent> s_TranformComponentCreate{};
 
@@ -68,21 +69,9 @@ void dae::SpriteRendererComponent::RenderGUI()
 void dae::SpriteRendererComponent::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>& writer)
 {
 	writer.StartObject();
-	writer.Key("name");
-	writer.String(typeid(*this).name());
-	writer.Key("Path");
-	writer.String(m_Path.c_str());
-	writer.Key("SampleRect");
-	writer.StartObject();
-	writer.Key("x");
-	writer.Double(static_cast<double>(m_SampleRectangle.x));
-	writer.Key("y");
-	writer.Double(static_cast<double>(m_SampleRectangle.y));
-	writer.Key("w");
-	writer.Double(static_cast<double>(m_SampleRectangle.w));
-	writer.Key("h");
-	writer.Double(static_cast<double>(m_SampleRectangle.h));
-	writer.EndObject();
+	rapidjson::SerializeValue(writer, "name", typeid(*this).name());
+	rapidjson::SerializeValue(writer, "Path", m_pTexture.get());
+	rapidjson::SerializeValue(writer, "SampleRect", m_SampleRectangle);
 	writer.EndObject();
 }
 
@@ -91,6 +80,8 @@ void dae::SpriteRendererComponent::Deserialize(GameObject* pGameObject, rapidjso
 	m_pGameObject = pGameObject;
 	m_Path = value["Path"].GetString();
 	m_pTexture = ResourceManager::GetInstance().LoadTexture(m_Path);
+
+	
 	m_SampleRectangle = SDL_FRect{
 		static_cast<float>(value["SampleRect"]["x"].GetDouble()),
 		static_cast<float>(value["SampleRect"]["y"].GetDouble()),

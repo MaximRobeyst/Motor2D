@@ -237,6 +237,7 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameStateManager.h" />
     <ClInclude Include="IGameState.h" />
+    <ClInclude Include="imgui_helpers.h" />
     <ClInclude Include="Keyboard.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="LoggedAudio.h" />
@@ -245,6 +246,7 @@
     <ClInclude Include="NullAudioSystem.h" />
     <ClInclude Include="Observer.h" />
     <ClInclude Include="PhysicsDebugDraw.h" />
+    <ClInclude Include="RapidjsonHelpers.h" />
     <ClInclude Include="RaycastCallback.h" />
     <ClInclude Include="RigidbodyComponent.h" />
     <ClInclude Include="SceneObject.h" />
@@ -320,6 +322,7 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameStateManager.cpp" />
     <ClCompile Include="IGameState.cpp" />
+    <ClCompile Include="imgui_helpers.cpp" />
     <ClCompile Include="Keyboard.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="LoggedAudio.cpp" />
@@ -333,6 +336,7 @@
     </ClCompile>
     <ClCompile Include="NullAudioSystem.cpp" />
     <ClCompile Include="PhysicsDebugDraw.cpp" />
+    <ClCompile Include="RapidjsonHelpers.cpp" />
     <ClCompile Include="RaycastCallback.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="ResourceManager.cpp" />

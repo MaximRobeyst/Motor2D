@@ -9,7 +9,7 @@ namespace dae
 	{
 	public:
 		SDL_Texture* GetSDLTexture() const;
-		explicit Texture2D(SDL_Texture* texture);
+		explicit Texture2D(SDL_Texture* texture, const std::string& path);
 		~Texture2D();
 
 		Texture2D(const Texture2D &) = delete;
@@ -18,8 +18,10 @@ namespace dae
 		Texture2D & operator= (const Texture2D &&) = delete;
 
 		glm::vec2 GetSize() const;
+		std::string GetPath() const;
 
 	private:
-		SDL_Texture* m_Texture;
+		SDL_Texture* m_pTexture;
+		std::string m_Path;
 	};
 }

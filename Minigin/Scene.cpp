@@ -17,6 +17,7 @@
 #include "PhysicsDebugDraw.h"
 #include <gl/GL.h>
 #include "CameraComponent.h"
+#include "RapidjsonHelpers.h"
 
 using namespace dae;
 
@@ -189,13 +190,7 @@ void dae::Scene::RenderDebug() const
 {
 	if (m_DebugPhysics)
 	{
-		glPushMatrix();
-
-		auto pCamera = dae::CameraComponent::GetMainCamera();
-		if(pCamera != nullptr)
-			pCamera->Render();
 		m_PhysicsWorld->DebugDraw();
-		glPopMatrix();
 	}
 }
 
@@ -284,18 +279,10 @@ void dae::Scene::Serialize(const std::string& name)
 	rapidjson::PrettyWriter< rapidjson::StringBuffer> writer(outputFile);
 
 	writer.StartObject();
-	writer.Key("sceneName");
-	writer.String((name == " " ? m_Name : name).c_str());
+	rapidjson::SerializeValue(writer, "sceneName", (name == " " ? m_Name : name).c_str());
 
-	writer.Key("gameobjectCount");
-	writer.Int((int) m_pObjects.size());
-	writer.Key("Gravity");
-	writer.StartObject();
-	writer.Key("X");
-	writer.Double((double)m_PhysicsWorld->GetGravity().x);
-	writer.Key("Y");
-	writer.Double((double)m_PhysicsWorld->GetGravity().y);
-	writer.EndObject();
+	rapidjson::SerializeValue(writer, "gameobjectCount", static_cast<int>(m_pObjects.size()));
+	rapidjson::SerializeValue(writer, "Gravity", m_PhysicsWorld->GetGravity());
 
 	writer.Key("gameobjects");
 	writer.StartArray();

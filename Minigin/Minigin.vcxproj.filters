@@ -28,6 +28,9 @@
     <Filter Include="Observer">
       <UniqueIdentifier>{2ce718b3-975b-40d5-aa35-aaf12e00b65a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Helpers">
+      <UniqueIdentifier>{df70af3e-ac65-4343-9a06-c1f4556cc1f5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Transform.h">
@@ -171,6 +174,12 @@
     <ClInclude Include="CameraComponent.h">
       <Filter>Component Files</Filter>
     </ClInclude>
+    <ClInclude Include="imgui_helpers.h">
+      <Filter>Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="RapidjsonHelpers.h">
+      <Filter>Helpers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MiniginPCH.cpp">
@@ -301,6 +310,12 @@
     </ClCompile>
     <ClCompile Include="CameraComponent.cpp">
       <Filter>Component Files</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_helpers.cpp">
+      <Filter>Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="RapidjsonHelpers.cpp">
+      <Filter>Helpers</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

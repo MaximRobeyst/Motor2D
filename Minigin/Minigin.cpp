@@ -64,6 +64,7 @@ void dae::Minigin::Cleanup()
 {
 	Renderer::GetInstance().Destroy();
 	ServiceLocator::Cleanup();
+	ResourceManager::GetInstance().CleanUp();
 
 	SDL_DestroyWindow(m_Window);
 	m_Window = nullptr;
