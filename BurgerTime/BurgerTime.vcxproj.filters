@@ -96,8 +96,11 @@
     <ClCompile Include="PlayerCommands.cpp">
       <Filter>Commands</Filter>
     </ClCompile>
+    <ClCompile Include="ProjectileComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
     <ClCompile Include="InteractComponent.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -177,6 +180,9 @@
       <Filter>Commands</Filter>
     </ClInclude>
     <ClInclude Include="InteractComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="ProjectileComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
   </ItemGroup>

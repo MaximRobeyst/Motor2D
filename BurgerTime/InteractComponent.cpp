@@ -19,3 +19,8 @@ void InteractComponent::InteractWithCurrentInteractable()
 	if (m_pCurrentInteractible == nullptr) return;
 	m_pCurrentInteractible->Interact(this);
 }
+
+WeaponComponent* InteractComponent::GetInteractable()
+{
+	return m_pCurrentInteractible;
+}

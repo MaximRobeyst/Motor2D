@@ -6,6 +6,7 @@
 #include "GameTime.h"
 #include "LifeComponent.h"
 #include "WeaponComponent.h"
+#include "InteractComponent.h"
 
 #include <ServiceLocator.h>
 #include <imgui.h>
@@ -16,6 +17,7 @@
 #include <RaycastCallback.h>
 #include <Renderer.h>
 #include <CameraComponent.h>
+#include <RapidjsonHelpers.h>
 
 dae::Creator<dae::Component, PlayerComponent> s_TranformComponentCreate{};
 
@@ -29,6 +31,8 @@ void PlayerComponent::Start()
 	m_pRigidbody = m_pGameObject->GetComponent<dae::RigidbodyComponent>();
 	m_pTranformComponent = m_pGameObject->GetComponent<dae::TransformComponent>();
 	m_pAnimatorComponent = m_pGameObject->GetComponent<dae::AnimatorComponent>();
+
+	m_pInteractComponent = m_pGameObject->GetComponent<InteractComponent>();
 	m_pLifeComponent = m_pGameObject->GetComponent<LifeComponent>();
 
 	m_StartPosition = m_pTranformComponent->GetPosition();
@@ -68,12 +72,9 @@ void PlayerComponent::RenderGUI()
 void PlayerComponent::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>& writer)
 {
 	writer.StartObject();
-	writer.Key("name");
-	writer.String(typeid(*this).name());
-	writer.Key("horizontalAxis");
-	writer.String(m_pHorizontalAxis.c_str());
-	writer.Key("VerticalAxis");
-	writer.String(m_pVerticalAxis.c_str());
+	rapidjson::SerializeValue(writer, "Name", typeid(*this).name());
+	rapidjson::SerializeValue(writer, "HorizontalAxis", m_pHorizontalAxis);
+	rapidjson::SerializeValue(writer, "VerticalAxis", m_pVerticalAxis);
 	writer.EndObject();
 }
 
@@ -81,8 +82,8 @@ void PlayerComponent::Deserialize(dae::GameObject* pGameobject, rapidjson::Value
 {
 	m_pGameObject = pGameobject;
 
-	m_pHorizontalAxis = value["horizontalAxis"].GetString();
-	m_pVerticalAxis = value["VerticalAxis"].GetString();
+	rapidjson::DeserializeValue(value, "HorizontalAxis", m_pHorizontalAxis);
+	rapidjson::DeserializeValue(value, "VerticalAxis", m_pHorizontalAxis);
 }
 
 void PlayerComponent::PlayerDeath()
@@ -113,6 +114,12 @@ void PlayerComponent::SetHorizontalAxis(const std::string& horizontalAxis)
 void PlayerComponent::Attack()
 {
 	m_CurrentState = PlayerState::State_Attack;
+
+	if (m_pInteractComponent->GetInteractable())
+	{
+		m_pInteractComponent->GetInteractable()->Attack(m_pInteractComponent);
+	}
+
 	m_pAnimatorComponent->SetAnimation("Attack");
 }
 

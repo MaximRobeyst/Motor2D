@@ -1,12 +1,12 @@
 #pragma once
 #include <box2d.h>
+#include <SDL.h>
 
 namespace dae
 {
 	class GameObject;
 	class Component;
 	class Texture2D;
-
 }
 
 namespace ImGui

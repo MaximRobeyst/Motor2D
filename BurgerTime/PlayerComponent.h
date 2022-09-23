@@ -7,6 +7,7 @@
 
 class LifeComponent;
 class WeaponComponent;
+class InteractComponent;
 class PlayerComponent : public dae::Component
 {
 	enum class PlayerState
@@ -49,6 +50,8 @@ private:
 	dae::RigidbodyComponent* m_pRigidbody{};
 	dae::TransformComponent* m_pTranformComponent{};
 	dae::AnimatorComponent* m_pAnimatorComponent{};
+
+	InteractComponent* m_pInteractComponent{};
 	LifeComponent* m_pLifeComponent{};
 
 	dae::GameObject* m_pPepperGameobject{};

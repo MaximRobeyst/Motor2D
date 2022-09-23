@@ -76,6 +76,8 @@ namespace dae
 			return components;
 		}
 
+		static void Destroy(GameObject* pGameobject);
+
 
 		// SceneGraph
 		void SetParent(GameObject* pParent, bool worldPositionStays = true);
@@ -108,6 +110,8 @@ namespace dae
 		void SaveAsPrefab();
 	private:
 
+		static void ImmidiateDestroy(GameObject* gameobject);
+
 		void AddChild(GameObject* pChild);
 		void RemoveChild(GameObject* pChild);
 
@@ -118,6 +122,7 @@ namespace dae
 
 		bool m_Enabled{ true };
 		bool m_Serialize{ true };
+		bool m_MarkedDelete{ false };
 
 		Scene* m_pCurrentScene{};
 

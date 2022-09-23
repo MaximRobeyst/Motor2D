@@ -15,6 +15,8 @@ public:
 	void SetCurrentInteractible(WeaponComponent* pCurrentInteractible);
 	void InteractWithCurrentInteractable();
 
+	WeaponComponent* GetInteractable();
+
 private:
 	WeaponComponent* m_pCurrentInteractible;
 };

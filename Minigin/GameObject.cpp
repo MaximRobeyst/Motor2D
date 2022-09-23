@@ -69,6 +69,7 @@ void dae::GameObject::Update()
 		(*iter)->Update();
 	}
 
+	if (m_MarkedDelete) ImmidiateDestroy(this);
 }
 
 void dae::GameObject::Render() const
@@ -209,6 +210,17 @@ void dae::GameObject::AddComponent(Component* component)
 
 
 
+void dae::GameObject::Destroy(GameObject* pGameobject)
+{
+	if (pGameobject->m_pParent != nullptr)
+		pGameobject->SetParent(nullptr);
+
+	pGameobject->GetScene()->RemoveGameObject(pGameobject);
+
+	pGameobject->m_MarkedDelete = true;
+
+}
+
 void dae::GameObject::SetParent(GameObject* pParent, bool worldPositionStays)
 {
 	if (pParent == this) return;
@@ -253,6 +265,11 @@ void dae::GameObject::SaveAsPrefab()
 
 	prefabFile << outputFile.GetString();
 	prefabFile.close();
+}
+
+void dae::GameObject::ImmidiateDestroy(GameObject* gameobject)
+{
+	delete gameobject;
 }
 
 void dae::GameObject::AddChild(GameObject* pChild)

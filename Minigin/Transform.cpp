@@ -96,6 +96,16 @@ void dae::TransformComponent::Move(const glm::vec3& moveVector)
 	m_WorldTransform.position += moveVector;
 }
 
+glm::vec2 dae::TransformComponent::GetForward() const
+{
+	return glm::vec2{cosf(GetRotation()), sinf(GetRotation())};
+}
+
+glm::vec2 dae::TransformComponent::GetRight() const
+{
+	return glm::vec2();
+}
+
 const glm::vec2 dae::TransformComponent::GetScale() const
 { 
 	auto scale = m_WorldTransform.scale;

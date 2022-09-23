@@ -37,6 +37,9 @@ namespace dae
 
 		void Move(const glm::vec3& moveVector);
 
+		glm::vec2 GetForward() const;
+		glm::vec2 GetRight() const;
+
 		//Scale
 		const glm::vec2 GetScale() const;
 		void SetScale(float x, float y);

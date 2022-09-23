@@ -5,6 +5,9 @@
 #include "PlayerComponent.h"
 #include "InteractComponent.h"
 #include "Transform.h"
+#include "ProjectileComponent.h"
+
+#include <Scene.h>
 
 WeaponComponent::WeaponComponent()
 {
@@ -70,5 +73,12 @@ void WeaponComponent::Interact(InteractComponent* m_pCaller)
 
 void WeaponComponent::Attack(InteractComponent* /*m_pCaller*/)
 {
+	auto pProjectile = new dae::GameObject("Bullet");
+	pProjectile->AddComponent(new dae::TransformComponent(pProjectile, m_pTransformComponent->GetPosition()));
+	pProjectile->AddComponent(new dae::SpriteRendererComponent(pProjectile, "Sprites/Arrow.png"));
+	pProjectile->AddComponent(new dae::ColliderComponent(pProjectile));
+	pProjectile->AddComponent(new dae::RigidbodyComponent(pProjectile, b2_dynamicBody, 1.0f, 1.0f, false));
+	pProjectile->AddComponent(new ProjectileComponent());
 
+	m_pGameObject->GetScene()->AddGameObject(pProjectile);
 }

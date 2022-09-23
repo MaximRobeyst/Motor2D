@@ -184,6 +184,7 @@
     <ClCompile Include="PlayAudioCommand.cpp" />
     <ClCompile Include="PlayerCommands.cpp" />
     <ClCompile Include="PlayerComponent.cpp" />
+    <ClCompile Include="ProjectileComponent.cpp" />
     <ClCompile Include="ScoreDisplayComponent.cpp" />
     <ClCompile Include="MenuCommands.cpp" />
     <ClCompile Include="UIButtonComponent.cpp" />
@@ -212,6 +213,7 @@
     <ClInclude Include="PlayAudioCommand.h" />
     <ClInclude Include="PlayerCommands.h" />
     <ClInclude Include="PlayerComponent.h" />
+    <ClInclude Include="ProjectileComponent.h" />
     <ClInclude Include="ScoreDisplayComponent.h" />
     <ClInclude Include="MenuCommands.h" />
     <ClInclude Include="UIButtonComponent.h" />
