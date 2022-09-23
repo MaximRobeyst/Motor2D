@@ -46,8 +46,8 @@ void dae::Renderer::Render() const
 	SDL_RenderClear(m_Renderer);
 
 	glPushMatrix();
-		SceneManager::GetInstance().Render();
 		SceneManager::GetInstance().RenderDebug();
+		SceneManager::GetInstance().Render();
 	glPopMatrix();
 
 #ifdef _DEBUG

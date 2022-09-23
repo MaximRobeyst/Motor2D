@@ -57,15 +57,14 @@ void WeaponComponent::Interact(InteractComponent* m_pCaller)
 		
 		m_pTransformComponent->SetPosition(glm::vec3{});
 		m_pTransformComponent->SetRotation(0);
-		m_pTransformComponent->SetScale(glm::vec2{});
-
-
+		m_pTransformComponent->SetScale(glm::vec2{1});
 		return;
 	}
 
 	// Equip
 	m_pOwner = m_pCaller;
 	m_pGameObject->SetParent(m_pCaller->GetGameObject());
+
 
 }
 

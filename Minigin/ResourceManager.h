@@ -12,8 +12,10 @@ namespace dae
 	public:
 		void Init(const std::string& data);
 		void CleanUp();
-		Texture2D* LoadTexture(const std::string& file) const;
-		Font* LoadFont(const std::string& file, unsigned int size) const;
+		Texture2D* LoadTexture(const std::string& file);
+		Font* LoadFont(const std::string& file, unsigned int size);
+
+		std::vector<std::string> GetTextureNames() const;
 
 	private:
 		friend class Singleton<ResourceManager>;

@@ -180,6 +180,9 @@
     <ClInclude Include="RapidjsonHelpers.h">
       <Filter>Helpers</Filter>
     </ClInclude>
+    <ClInclude Include="..\3rdParty\imgui\misc\cpp\imgui_stdlib.h">
+      <Filter>ImGui</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MiniginPCH.cpp">
@@ -316,6 +319,9 @@
     </ClCompile>
     <ClCompile Include="RapidjsonHelpers.cpp">
       <Filter>Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\3rdParty\imgui\misc\cpp\imgui_stdlib.cpp">
+      <Filter>ImGui</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

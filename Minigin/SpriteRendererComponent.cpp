@@ -7,6 +7,8 @@
 #include "Texture2D.h"
 #include "RapidjsonHelpers.h"
 
+#include "imgui_helpers.h"
+
 dae::Creator<dae::Component, dae::SpriteRendererComponent> s_TranformComponentCreate{};
 
 dae::SpriteRendererComponent::SpriteRendererComponent(GameObject* pGameObject,const std::string& spritePath, SDL_FRect sampleRect)
@@ -17,11 +19,11 @@ dae::SpriteRendererComponent::SpriteRendererComponent(GameObject* pGameObject,co
 {
 }
 
-void dae::SpriteRendererComponent::SetTexture(const std::shared_ptr<Texture2D>& texture)
+void dae::SpriteRendererComponent::SetTexture(Texture2D* texture)
 {
 	m_pTexture = texture;
 }
-const std::shared_ptr<dae::Texture2D>& dae::SpriteRendererComponent::GetTexture() const
+dae::Texture2D* dae::SpriteRendererComponent::GetTexture() const
 {
 	return m_pTexture;
 }
@@ -61,16 +63,15 @@ void dae::SpriteRendererComponent::Render() const
 
 void dae::SpriteRendererComponent::RenderGUI()
 {
-	float rect[4] = { m_SampleRectangle.x, m_SampleRectangle.y, m_SampleRectangle.w, m_SampleRectangle.h };
-	if (ImGui::InputFloat4("Sample rect", rect))
-		m_SampleRectangle = SDL_FRect{ rect[0], rect[1], rect[2], rect[3] };
+	ImGui::InputValue("Texture", m_pTexture);
+	ImGui::InputValue("Sample Rect", m_SampleRectangle);
 }
 
 void dae::SpriteRendererComponent::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>& writer)
 {
 	writer.StartObject();
 	rapidjson::SerializeValue(writer, "name", typeid(*this).name());
-	rapidjson::SerializeValue(writer, "Path", m_pTexture.get());
+	rapidjson::SerializeValue(writer, "Path", m_pTexture);
 	rapidjson::SerializeValue(writer, "SampleRect", m_SampleRectangle);
 	writer.EndObject();
 }
@@ -81,13 +82,7 @@ void dae::SpriteRendererComponent::Deserialize(GameObject* pGameObject, rapidjso
 	m_Path = value["Path"].GetString();
 	m_pTexture = ResourceManager::GetInstance().LoadTexture(m_Path);
 
-	
-	m_SampleRectangle = SDL_FRect{
-		static_cast<float>(value["SampleRect"]["x"].GetDouble()),
-		static_cast<float>(value["SampleRect"]["y"].GetDouble()),
-		static_cast<float>(value["SampleRect"]["w"].GetDouble()),
-		static_cast<float>(value["SampleRect"]["h"].GetDouble())
-	};
+	rapidjson::DeserializeValue(value, "SampleRect", m_SampleRectangle);
 }
 
 bool dae::SpriteRendererComponent::IsSampleRectEmpty() const

@@ -4,6 +4,9 @@
 #include "RigidbodyComponent.h"
 #include <imgui.h>
 
+#include "RapidjsonHelpers.h"
+#include "imgui_helpers.h"
+
 dae::Creator<dae::Component, dae::TransformComponent> s_TranformComponentCreate{};
 
 dae::TransformComponent::TransformComponent(GameObject* pGameobject, glm::vec3 position, glm::vec2 scale)
@@ -19,45 +22,20 @@ dae::TransformComponent::TransformComponent(GameObject* pGameobject, glm::vec3 p
 void dae::TransformComponent::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>& writer)
 {
 	writer.StartObject();
-	writer.Key("name");
-	writer.String(typeid(*this).name());
-	writer.Key("Position");
-	writer.StartObject();
-	writer.Key("x");
-	writer.Double(static_cast<double>(m_WorldTransform.position.x));
-	writer.Key("y");
-	writer.Double(static_cast<double>(m_WorldTransform.position.y));
-	writer.Key("z");
-	writer.Double(static_cast<double>(m_WorldTransform.position.z));
-	writer.EndObject();
-	writer.Key("Rotation");
-	writer.Double(static_cast<double>(m_WorldTransform.rotation));
-	writer.Key("Scale");
-	writer.StartObject();
-	writer.Key("x");
-	writer.Double(static_cast<double>(m_WorldTransform.scale.x));
-	writer.Key("y");
-	writer.Double(static_cast<double>(m_WorldTransform.scale.y));
-	writer.EndObject();
+	rapidjson::SerializeValue(writer, "Name", typeid(*this).name());
+	rapidjson::SerializeValue(writer, "Position", m_WorldTransform.position);
+	rapidjson::SerializeValue(writer, "Rotation", m_WorldTransform.rotation);
+	rapidjson::SerializeValue(writer, "Scale", m_WorldTransform.scale);
 	writer.EndObject();
 }
 
 void dae::TransformComponent::Deserialize(GameObject* pGameObject, rapidjson::Value& value)
 {
 	m_pGameObject = pGameObject;
-	m_WorldTransform.position =
-		glm::vec3{ 
-		static_cast<float>(value["Position"]["x"].GetDouble()),
-		static_cast<float>(value["Position"]["y"].GetDouble()),
-		static_cast<float>(value["Position"]["z"].GetDouble())
-	};
-	m_WorldTransform.rotation = static_cast<float>(value["Rotation"].GetDouble());
 
-	m_WorldTransform.scale =
-		glm::vec2{
-		static_cast<float>(value["Scale"]["x"].GetDouble()),
-		static_cast<float>(value["Scale"]["y"].GetDouble())
-	};
+	rapidjson::DeserializeValue(value, "Position", m_WorldTransform.position);
+	rapidjson::DeserializeValue(value, "Rotation", m_WorldTransform.rotation);
+	rapidjson::DeserializeValue(value, "Scale", m_WorldTransform.scale);
 }
 
 void dae::TransformComponent::SetParent(dae::GameObject* pParent, bool keepPos)
@@ -195,23 +173,14 @@ void dae::TransformComponent::Render() const
 
 void dae::TransformComponent::RenderGUI()
 {
-	float position[3] = { m_WorldTransform.position.x, m_WorldTransform.position.y, m_WorldTransform.position.z };
-	if (ImGui::InputFloat3("Position", position))
+	if (ImGui::InputValue("Position", m_WorldTransform.position))
 	{
-		m_WorldTransform.position = glm::vec3{ position[0], position[1], position[2] };
 		if (m_pRigidbodyComponent != nullptr)
-			m_pRigidbodyComponent->GetBody()->SetTransform(b2Vec2{ position[0], position[1] }, 0.0f);
+			m_pRigidbodyComponent->GetBody()->SetTransform(b2Vec2{ m_WorldTransform.position.x , m_WorldTransform.position.y }, 0.0f);
 	}
 
-	float rotation = { m_WorldTransform.rotation };
-	if (ImGui::InputFloat("Rotation", &rotation))
-		m_WorldTransform.rotation = rotation;
-
-	float scale[2] = { m_WorldTransform.scale.x, m_WorldTransform.scale.y};
-	if (ImGui::InputFloat2("Scale", scale))
-		m_WorldTransform.scale = glm::vec2{ scale[0], scale[1]};
-	//ImGui::InputFloat("Rotation", &m_Transform.rotation);
-	//ImGui::InputFloat2("Scale", glm::value_ptr(m_Transform.scale));
+	ImGui::InputValue("Rotation", m_WorldTransform.rotation);
+	ImGui::InputValue("Scale", m_WorldTransform.scale);
 }
 
 dae::TransformComponent::Transform& dae::TransformComponent::GetTransform()

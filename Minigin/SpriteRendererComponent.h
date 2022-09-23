@@ -18,8 +18,8 @@ namespace dae
 		SpriteRendererComponent& operator=(const SpriteRendererComponent& other) = delete;
 		SpriteRendererComponent& operator=(SpriteRendererComponent&& other) = delete;
 
-		void SetTexture(const std::shared_ptr<Texture2D>& texture);
-		const std::shared_ptr<Texture2D>& GetTexture() const;
+		void SetTexture(Texture2D* texture);
+		Texture2D* GetTexture() const;
 
 		void SetSampleRectangle(const SDL_FRect& sampleRect);
 		SDL_FRect GetSampleRectangle();
@@ -40,7 +40,7 @@ namespace dae
 
 		// member variables
 		TransformComponent* m_pTransformComponent;
-		std::shared_ptr<Texture2D> m_pTexture;
+		Texture2D* m_pTexture;
 		SDL_FRect m_SampleRectangle{};
 		std::string m_Path;
 		

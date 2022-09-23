@@ -190,7 +190,12 @@ void dae::Scene::RenderDebug() const
 {
 	if (m_DebugPhysics)
 	{
+		glPushMatrix();
+		auto pCamera = dae::CameraComponent::GetMainCamera();
+		if(pCamera)
+			pCamera->Render();
 		m_PhysicsWorld->DebugDraw();
+		glPopMatrix();
 	}
 }
 
@@ -316,10 +321,10 @@ dae::Scene* dae::Scene::Deserialize(const std::string& sceneFile)
 	levelDocument.ParseStream(isw);
 
 
-	std::string sceneName = levelDocument["sceneName"].GetString();
+	std::string sceneName{};
+	rapidjson::DeserializeValue(levelDocument, "SceneName", sceneName);
 	b2Vec2 gravity{};
-	gravity.x = static_cast<float>(levelDocument["Gravity"]["X"].GetDouble());
-	gravity.y = static_cast<float>( levelDocument["Gravity"]["Y"].GetDouble());
+	rapidjson::DeserializeValue(levelDocument, "Gravity", gravity);
 
 	dae::Scene* pScene = new dae::Scene(sceneName, gravity);
 	for (auto& gamobject : levelDocument["gameobjects"].GetArray())

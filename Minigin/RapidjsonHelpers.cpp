@@ -196,5 +196,5 @@ void rapidjson::DeserializeValue(rapidjson::Value& value, const std::string& key
 
 void rapidjson::DeserializeValue(rapidjson::Value& value, const std::string& key, dae::Texture2D** extract)
 {
-	extract = dae::ResourceManager::GetInstance().LoadTexture(value[key.c_str()].GetString());
+	*extract = dae::ResourceManager::GetInstance().LoadTexture(value[key.c_str()].GetString());
 }

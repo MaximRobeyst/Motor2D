@@ -18,8 +18,8 @@ namespace dae
 	public:
 		//TextComponent(dae::GameObject* pGameObject, const std::string& text, const std::shared_ptr<Font>& font);
 		TextComponent() = default;
-		explicit TextComponent(GameObject* pGameObject, const std::string& text, const std::shared_ptr<Font>& font, const SDL_Color& color = {255,255,255});
-		virtual ~TextComponent() = default;
+		explicit TextComponent(GameObject* pGameObject, const std::string& text, Font* font, const SDL_Color& color = {255,255,255});
+		virtual ~TextComponent();
 		TextComponent(const TextComponent & other) = delete;
 		TextComponent(TextComponent && other) = delete;
 		TextComponent& operator=(const TextComponent & other) = delete;
@@ -40,7 +40,7 @@ namespace dae
 		bool m_NeedsUpdate{true};
 		std::string m_Text;
 		Font* m_Font;
-		Texture2D* m_TextTexture;
+		Texture2D* m_pTextTexture;
 		SDL_Color m_Color;
 	};
 }

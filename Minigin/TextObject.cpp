@@ -10,14 +10,19 @@
 
 dae::Creator<dae::Component, dae::TextComponent> g_TextComponentCreator{};
 
-dae::TextComponent::TextComponent(GameObject* pGameObject, const std::string& text, const std::shared_ptr<Font>& font, const SDL_Color& color)
+dae::TextComponent::TextComponent(GameObject* pGameObject, const std::string& text, Font* font, const SDL_Color& color)
 	: dae::Component{ pGameObject }
 	, m_NeedsUpdate{ true }
 	, m_Text{ text }
 	, m_Font{ font }
-	, m_TextTexture{ nullptr }
+	, m_pTextTexture{ nullptr }
 	, m_Color{color}
 {
+}
+
+dae::TextComponent::~TextComponent()
+{
+	delete m_pTextTexture;
 }
 
 void dae::TextComponent::Update()
@@ -36,17 +41,17 @@ void dae::TextComponent::Update()
 			throw std::runtime_error(std::string("Create text texture from surface failed: ") + SDL_GetError());
 		}
 		SDL_FreeSurface(surf);
-		m_TextTexture = std::make_shared<Texture2D>(texture);
+		m_pTextTexture = new Texture2D(texture, "");
 		m_NeedsUpdate = false;
 
 		auto comp = m_pGameObject->GetComponent<dae::SpriteRendererComponent>();
-		comp->SetTexture(m_TextTexture);
+		comp->SetTexture(m_pTextTexture);
 	}
 }
 
 void dae::TextComponent::Render() const
 {
-	if (m_TextTexture != nullptr)
+	if (m_pTextTexture != nullptr)
 	{
 		//const auto& pos = m_pGameObject->GetComponent<Transform>()->GetPosition();
 		//Renderer::GetInstance().RenderTexture(*m_TextTexture, pos.x, pos.y);

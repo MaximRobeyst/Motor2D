@@ -45,8 +45,10 @@ void dae::ResourceManager::CleanUp()
 	m_pFonts.clear();
 }
 
-dae::Texture2D* dae::ResourceManager::LoadTexture(const std::string& file) const
+dae::Texture2D* dae::ResourceManager::LoadTexture(const std::string& file)
 {
+	if (m_pTextures[file] != nullptr) return m_pTextures[file];
+
 	const auto fullPath = m_DataPath + file;
 	auto texture = IMG_LoadTexture(Renderer::GetInstance().GetSDLRenderer(), fullPath.c_str());
 	if (texture == nullptr) 
@@ -58,8 +60,20 @@ dae::Texture2D* dae::ResourceManager::LoadTexture(const std::string& file) const
 	return m_pTextures[file];
 }
 
-dae::Font* dae::ResourceManager::LoadFont(const std::string& file, unsigned int size) const
+dae::Font* dae::ResourceManager::LoadFont(const std::string& file, unsigned int size)
 {
+	if (m_pFonts[file] != nullptr) return m_pFonts[file];
+
 	m_pFonts[file] = new Font(m_DataPath + file, size);
 	return m_pFonts[file];
+}
+
+std::vector<std::string> dae::ResourceManager::GetTextureNames() const
+{
+	std::vector<std::string> textureNames{};
+
+	for (auto pair : m_pTextures)
+		textureNames.emplace_back(pair.first);
+
+	return textureNames;
 }
