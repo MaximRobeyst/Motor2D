@@ -30,12 +30,14 @@ void PlayerComponent::Start()
 {
 	m_pRigidbody = m_pGameObject->GetComponent<dae::RigidbodyComponent>();
 	m_pTranformComponent = m_pGameObject->GetComponent<dae::TransformComponent>();
-	m_pAnimatorComponent = m_pGameObject->GetComponent<dae::AnimatorComponent>();
+	//m_pAnimatorComponent = m_pGameObject->GetComponent<dae::AnimatorComponent>();
 
 	m_pInteractComponent = m_pGameObject->GetComponent<InteractComponent>();
 	m_pLifeComponent = m_pGameObject->GetComponent<LifeComponent>();
 
 	m_StartPosition = m_pTranformComponent->GetPosition();
+
+	m_pCurrentWeapon = m_pGameObject->GetComponentInChildren<WeaponComponent>();
 
 	//if (m_pVerticalAxis == nullptr)
 	//{
@@ -90,9 +92,9 @@ void PlayerComponent::PlayerDeath()
 {
 	if (m_CurrentState == PlayerState::State_Dying) return;
 
-	m_CurrentState = PlayerState::State_Dying;
-	m_pLifeComponent->Hit();
-	m_pLifeComponent->SetEnabled(false);
+	//m_CurrentState = PlayerState::State_Dying;
+	//m_pLifeComponent->Hit();
+	//m_pLifeComponent->SetEnabled(false);
 	ServiceLocator::GetAudio()->PlaySound("../Data/Audio/death_1.wav");
 }
 
@@ -113,24 +115,22 @@ void PlayerComponent::SetHorizontalAxis(const std::string& horizontalAxis)
 
 void PlayerComponent::Attack()
 {
-	m_CurrentState = PlayerState::State_Attack;
-
-	if (m_pInteractComponent->GetInteractable())
-	{
-		m_pInteractComponent->GetInteractable()->Attack(m_pInteractComponent);
-	}
-
-	m_pAnimatorComponent->SetAnimation("Attack");
+	m_pCurrentWeapon->Attack();
 }
 
 void PlayerComponent::UpdateDefault()
 {
+	auto position = m_pTranformComponent->GetPosition();
 	auto keyboard = dae::InputManager::GetInstance().GetKeyboard();
-	auto& transform = m_pTranformComponent->GetTransformConst();
 
-	auto mousePosition =  dae::CameraComponent::GetMainCamera()->WindowToGameWorld(dae::InputManager::GetInstance().GetMousePosition());
+	auto mousePosition = dae::InputManager::GetInstance().GetMousePosition();
+	float angle = atan2f(mousePosition.y - position.y, mousePosition.x - position.x);
 
-	m_pTranformComponent->SetRotation(atan2f(mousePosition.y - transform.position.y, mousePosition.x - transform.position.x));
+	m_pCurrentWeapon->GetGameObject()->GetTransform()->SetRotation(angle);
+	m_pCurrentWeapon->GetGameObject()->GetTransform()->SetPosition(glm::vec3{ cosf(angle) * m_WeaponDistance, sinf(angle) * m_WeaponDistance, 0});
+
+
+	//m_pTranformComponent->SetRotation(atan2f(mousePosition.y - transform.position.y, mousePosition.x - transform.position.x));
 
 	assert(m_pHorizontalAxis != "" && m_pVerticalAxis != "");
 	b2Vec2 vel{};
@@ -147,25 +147,19 @@ void PlayerComponent::UpdateDefault()
 	m_pRigidbody->GetBody()->SetLinearVelocity(vel);
 
 	if (m_CurrentState == PlayerState::State_Attack) return;
-
-	if(vel.LengthSquared() > 0)
-		m_pAnimatorComponent->SetAnimation("Walk");
-	else
-		m_pAnimatorComponent->SetAnimation("Idle");
 }
 
 void PlayerComponent::UpdateAttack()
 {
-	if (m_pAnimatorComponent->IsAnimationDone()) m_CurrentState = PlayerState::State_Default;
 }
 
 void PlayerComponent::UpdateDying()
 {
-	m_pAnimatorComponent->SetAnimation("Death");
-	if (m_pAnimatorComponent->IsAnimationDone())
-	{
-		m_pLifeComponent->SetEnabled(true);
-		m_pTranformComponent->SetPosition(m_StartPosition);
-		m_CurrentState = PlayerState::State_Default;
-	}
+	//m_pAnimatorComponent->SetAnimation("Death");
+	//if (m_pAnimatorComponent->IsAnimationDone())
+	//{
+	//	m_pLifeComponent->SetEnabled(true);
+	//	m_pTranformComponent->SetPosition(m_StartPosition);
+	//	m_CurrentState = PlayerState::State_Default;
+	//}
 }

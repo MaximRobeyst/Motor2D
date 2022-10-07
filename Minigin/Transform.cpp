@@ -9,6 +9,13 @@
 
 dae::Creator<dae::Component, dae::TransformComponent> s_TranformComponentCreate{};
 
+dae::TransformComponent::TransformComponent()
+	: Component{}
+	, m_WorldTransform{ glm::vec3{}, 0.0f, glm::vec2{1.0f} }
+{
+
+}
+
 dae::TransformComponent::TransformComponent(GameObject* pGameobject, glm::vec3 position, glm::vec2 scale)
 	: Component{pGameobject}
 	, m_WorldTransform{ position, 0.0f, scale }
@@ -109,7 +116,7 @@ glm::vec2 dae::TransformComponent::GetRight() const
 const glm::vec2 dae::TransformComponent::GetScale() const
 { 
 	auto scale = m_WorldTransform.scale;
-	if (m_pParentComponent) scale *= m_WorldTransform.scale;
+	if (m_pParentComponent) scale *= m_pParentComponent->m_WorldTransform.scale;
 	return scale;
 }
 

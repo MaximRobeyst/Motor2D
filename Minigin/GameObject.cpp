@@ -69,7 +69,8 @@ void dae::GameObject::Update()
 		(*iter)->Update();
 	}
 
-	if (m_MarkedDelete) ImmidiateDestroy(this);
+	if (m_MarkedDelete) 
+		ImmidiateDestroy(this);
 }
 
 void dae::GameObject::Render() const
@@ -218,7 +219,16 @@ void dae::GameObject::Destroy(GameObject* pGameobject)
 	pGameobject->GetScene()->RemoveGameObject(pGameobject);
 
 	pGameobject->m_MarkedDelete = true;
+}
 
+void dae::GameObject::DestroyInstant(GameObject* pGameobject)
+{
+	if (pGameobject->m_pParent != nullptr)
+		pGameobject->SetParent(nullptr);
+
+	pGameobject->GetScene()->RemoveGameObject(pGameobject);
+
+	dae::GameObject::ImmidiateDestroy(pGameobject);
 }
 
 void dae::GameObject::SetParent(GameObject* pParent, bool worldPositionStays)
@@ -312,6 +322,9 @@ void dae::GameObject::SetScene(Scene* pScene)
 
 dae::Scene* dae::GameObject::GetScene() const
 {
+	if (m_pCurrentScene == nullptr)
+		return m_pParent->GetScene();
+
 	return m_pCurrentScene;
 }
 

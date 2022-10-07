@@ -264,6 +264,7 @@
     <ClInclude Include="Texture2D.h" />
     <ClInclude Include="GameTime.h" />
     <ClInclude Include="Transform.h" />
+    <ClInclude Include="Utils.h" />
     <ClInclude Include="Xbox360Controller.h" />
   </ItemGroup>
   <ItemGroup>

@@ -49,6 +49,8 @@
 
 #include "MenuCommands.h"
 #include "PlayerCommands.h"
+#include "Renderer.h"
+#include <Utils.h>
 
 using namespace dae;
 
@@ -61,54 +63,103 @@ void SingleplayerState::OnEnter()
 	auto& input = InputManager::GetInstance();
 
 	auto pCamera = new GameObject("Camera");
-	pCamera->AddComponent(new TransformComponent(pCamera, glm::vec3{}, glm::vec2{ 2,2 }));
-	auto pCameraComponent = pCamera->AddComponent<CameraComponent>();
-
+	pCamera->AddComponent(new TransformComponent(pCamera, glm::vec3{}, glm::vec2{ 1,1 }));
+	pCamera->AddComponent<CameraComponent>();
+	
 	scene.AddGameObject(pCamera);
-
-	auto pLevel = new GameObject("Level");
-	pLevel->AddComponent(new TransformComponent(pLevel));
-	pLevel->AddComponent(new SpriteRendererComponent(pLevel, "Scenes/Level.png"));
-	scene.AddGameObject(pLevel);
 
 
 	auto pPlayer = new GameObject("Player");
-	pPlayer->AddComponent(new TransformComponent(pPlayer, glm::vec3{ 100.f, 100.f , 0 }));
-	pPlayer->AddComponent(new SpriteRendererComponent(pPlayer, "Sprites/Player/PlayerUnarmed.png", SDL_FRect{13,0,13,24}));
+	pPlayer->AddComponent(new TransformComponent(pPlayer, glm::vec3{ dae::Renderer::GetInstance().GetWindowWidth() / 2.0f, dae::Renderer::GetInstance().GetWindowHeight() / 2.0f , 0}, glm::vec2{0.25f}));
+	pPlayer->AddComponent(new SpriteRendererComponent(pPlayer, "Sprites/player.png", SDL_FRect{0,0,100.f,100.f}));
 	auto pPlayerComp = pPlayer->AddComponent<PlayerComponent>();
-	pPlayer->AddComponent(new AnimatorComponent(pPlayer, "../Data/Animations/PlayerAnimations.json"));
+	//pPlayer->AddComponent(new AnimatorComponent(pPlayer, "../Data/Animations/PlayerAnimations.json"));
 	pPlayer->AddComponent(new RigidbodyComponent(pPlayer));
-	pPlayer->AddComponent(new ColliderComponent(pPlayer, 13, 24));
+	pPlayer->AddComponent(new ColliderComponent(pPlayer, 100.f, 100.f));
+	pPlayer->AddComponent(new LifeComponent(pPlayer, 1));
 	auto pInteractComp = pPlayer->AddComponent<InteractComponent>();
+	
+	auto pWeapon = new GameObject("Weapon");
+	pWeapon->AddComponent(new TransformComponent(pWeapon, glm::vec3{}, glm::vec2{ 5.f }));
+	pWeapon->AddComponent(new SpriteRendererComponent(pWeapon, "Sprites/Arrow.png"));
+	pWeapon->AddComponent(new WeaponComponent(
+			Random(5, 20),
+			Random(1, 10),
+			Random(0.0f, static_cast<float>(M_PI)),
+			10,
+			Random(1.0f, 5.0f)
+		));
+	
+	pWeapon->SetParent(pPlayer);
+	
+	auto pAmmoDisplay = new GameObject("Ammo_Display");
+	pAmmoDisplay->AddComponent(new TransformComponent(pAmmoDisplay, glm::vec3{-2.f, -20.f, 0}, glm::vec2{4.f}));
+	pAmmoDisplay->AddComponent(new SpriteRendererComponent());
+	auto font = ResourceManager::GetInstance().LoadFont("Early GameBoy.ttf", 17);
+	pAmmoDisplay->AddComponent(new TextComponent(pAmmoDisplay, "00", font));
+	
+	pAmmoDisplay->SetParent(pPlayer);
 
-	pCameraComponent->SetTarget(pPlayer->GetComponent<TransformComponent>());
+	auto pLevelObject = new GameObject("Level");
+	pLevelObject->AddComponent(new TransformComponent());
+
+	float textureSize = 100.f;
+	float scale = 0.25f;
+
+	for (int i = 0; i < (dae::Renderer::GetInstance().GetWindowWidth() / (textureSize * scale)); ++i)
+	{
+		auto pWallObject = new GameObject("Wall");
+		pWallObject->AddComponent(new TransformComponent(pWallObject, glm::vec3{ i * (textureSize * scale), 0.f, 0.f }, glm::vec2{scale}));
+		pWallObject->AddComponent(new SpriteRendererComponent(pWallObject, "Sprites/wall.png"));
+		pWallObject->AddComponent(new RigidbodyComponent(pWallObject, b2_staticBody));
+		pWallObject->AddComponent(new ColliderComponent(pWallObject, 100.f, 100.f));
+
+		pWallObject->SetParent(pLevelObject);
+
+		pWallObject = new GameObject("Wall");
+		pWallObject->AddComponent(new TransformComponent(pWallObject, glm::vec3{ i * (textureSize * scale), dae::Renderer::GetInstance().GetWindowHeight() - (textureSize * scale), 0.f}, glm::vec2{scale}));
+		pWallObject->AddComponent(new SpriteRendererComponent(pWallObject, "Sprites/wall.png"));
+		pWallObject->AddComponent(new RigidbodyComponent(pWallObject, b2_staticBody));
+		pWallObject->AddComponent(new ColliderComponent(pWallObject, 100.f, 100.f));
+
+		pWallObject->SetParent(pLevelObject);
+	}
+
+	for (int i = 0; i < (dae::Renderer::GetInstance().GetWindowHeight() / (textureSize * scale)); ++i)
+	{
+		auto pWallObject = new GameObject("Wall");
+		pWallObject->AddComponent(new TransformComponent(pWallObject, glm::vec3{ 0.f, i * (textureSize * scale), 0.f }, glm::vec2{ scale }));
+		pWallObject->AddComponent(new SpriteRendererComponent(pWallObject, "Sprites/wall.png"));
+		pWallObject->AddComponent(new RigidbodyComponent(pWallObject, b2_staticBody));
+		pWallObject->AddComponent(new ColliderComponent(pWallObject, 100.f, 100.f));
+
+		pWallObject->SetParent(pLevelObject);
+
+		pWallObject = new GameObject("Wall");
+		pWallObject->AddComponent(new TransformComponent(pWallObject, glm::vec3{ dae::Renderer::GetInstance().GetWindowWidth() - (textureSize * scale),  i * (textureSize * scale), 0.f}, glm::vec2{scale}));
+		pWallObject->AddComponent(new SpriteRendererComponent(pWallObject, "Sprites/wall.png"));
+		pWallObject->AddComponent(new RigidbodyComponent(pWallObject, b2_staticBody));
+		pWallObject->AddComponent(new ColliderComponent(pWallObject, 100.f, 100.f));
+
+		pWallObject->SetParent(pLevelObject);
+	}
+
+	scene.AddGameObject(pLevelObject);
+
+	//pCameraComponent->SetTarget(pPlayer->GetComponent<TransformComponent>());
 
 	input.AddAxis("keyboard_horizontal", new KeyboardAxis(SDLK_d, SDLK_a, input.GetKeyboard()));
 	input.AddAxis("keyboard_vertical", new KeyboardAxis(SDLK_s, SDLK_w, input.GetKeyboard()));
-
+	
 	pPlayerComp->SetHorizontalAxis("keyboard_horizontal");
 	pPlayerComp->SetVerticalAxis("keyboard_vertical");
-
+	
 	pPlayer->SetTag("Player");
 	scene.AddGameObject(pPlayer);
-
-	auto pLegs = new GameObject("Legs");
-	pLegs->AddComponent(new TransformComponent(pLegs, glm::vec3{ 0, 0 ,0} ));
-	pLegs->AddComponent(new SpriteRendererComponent(pLegs, "Sprites/Player/PlayerLegs.png", SDL_FRect{ 0,0,12,14 }));
-
-	pLegs->SetParent(pPlayer);
-
-	auto pWeapon = new GameObject("Weapon_M16");
-	pWeapon->AddComponent(new TransformComponent(pWeapon));
-	pWeapon->AddComponent(new SpriteRendererComponent(pWeapon, "Sprites/Pickups/pickupM16.png"));
-	pWeapon->AddComponent(new RigidbodyComponent(pWeapon,b2_dynamicBody, 1.0f, 1.0f, true));
-	pWeapon->AddComponent(new ColliderComponent(pWeapon));
-	pWeapon->AddComponent(new WeaponComponent());
-	scene.AddGameObject(pWeapon);
-
+	
 	input.GetKeyboard()->AddKeyboardMapping(KeyboardKeyData{ SDLK_SPACE, KeyState::Down }, new AttackCommand(pPlayerComp));
 	input.GetKeyboard()->AddKeyboardMapping(KeyboardKeyData{ SDLK_e,	 KeyState::Down }, new InteractCommand(pInteractComp));
-
+	
 	scene.Start();
 }
 

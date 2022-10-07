@@ -6,79 +6,75 @@
 #include "InteractComponent.h"
 #include "Transform.h"
 #include "ProjectileComponent.h"
+#include "GameTime.h"
+#include "TextObject.h"
 
 #include <Scene.h>
+#include <Renderer.h>
+#include <Utils.h>
 
 WeaponComponent::WeaponComponent()
 {
 }
 
+WeaponComponent::WeaponComponent(int ammo, int shellPieces, float maxOffsetAngle, float barrelLength, float fireRate)
+	: m_Ammo{ammo}
+	, m_ShellPieces{shellPieces}
+	, m_MaxOffsetAngle{maxOffsetAngle}
+	, m_BarrelLength{barrelLength}
+	, m_FireRate{fireRate}
+{
+}
+
 void WeaponComponent::Start()
 {
-	m_pRigidbodyComponent = m_pGameObject->GetComponent<dae::RigidbodyComponent>();
-	m_pTransformComponent = m_pGameObject->GetTransform();
+	m_pTransformComponent = m_pGameObject->GetComponent<dae::TransformComponent>();
+	m_pPlayerComponent = m_pGameObject->GetComponent<PlayerComponent>();
 
-	std::function<void(dae::RigidbodyComponent*, dae::RigidbodyComponent*, b2Contact*)> enterFunction = [this](dae::RigidbodyComponent* , dae::RigidbodyComponent* pOtherBody, b2Contact*)
-	{
-		if (m_pOwner != nullptr) return;
-
-		auto pInteractComponent = pOtherBody->GetGameObject()->GetComponent<InteractComponent>();
-		if (pInteractComponent != nullptr)
-		{
-			pInteractComponent->SetCurrentInteractible(this);
-		}
-	};
-
-	std::function<void(dae::RigidbodyComponent*, dae::RigidbodyComponent*, b2Contact*)> exitFunction = [this](dae::RigidbodyComponent* , dae::RigidbodyComponent* pOtherBody, b2Contact*)
-	{
-		if (m_pOwner != nullptr) return;
-
-		auto pInteractComponent = pOtherBody->GetGameObject()->GetComponent<InteractComponent>();
-		if (pOtherBody->GetGameObject()->GetTag() == "Player")
-		{
-			pInteractComponent->SetCurrentInteractible(nullptr);
-		}
-	};
-
-	m_pRigidbodyComponent->SetOnEnterFunction(enterFunction);
-	m_pRigidbodyComponent->SetOnExitFunction(exitFunction);
+	m_pTextComponent = m_pGameObject->GetParent()->GetComponentInChildren<dae::TextComponent>();
 }
 
 void WeaponComponent::Update()
 {
-
+	m_WaitTillNextShot -= GameTime::GetInstance()->GetElapsed() * m_FireRate;
 }
 
-void WeaponComponent::Interact(InteractComponent* m_pCaller)
+void WeaponComponent::Render() const
 {
-	if (m_pOwner != nullptr)
+	//glm::vec2 position = m_pTransformComponent->GetPosition();
+	//float angle = m_pTransformComponent->GetRotation();
+	//
+	//float lineLength{ 10 };
+	//float triangleAngles = (static_cast<float>(M_PI) / 6);
+	//static std::vector<glm::vec2> points;
+	//points.resize(3);
+	//points.push_back( { position.x + cosf(angle) * m_BarrelLength, position.y + sinf(angle) * m_BarrelLength});
+	//points.push_back( { position.x - cosf(angle - triangleAngles) * lineLength, position.y - sinf(angle - triangleAngles) * lineLength });
+	//points.push_back( { position.x - cosf(angle + triangleAngles) * lineLength, position.y - sinf(angle + triangleAngles) * lineLength });
+	//
+	//dae::Renderer::GetInstance().RenderPolygon(points.data(), 3, SDL_Color{ 255, 255, 255, 255 });
+}
+
+void WeaponComponent::Attack()
+{
+	if (m_WaitTillNextShot > 0.0f) return;
+	//if (m_Ammo <= 0) return;
+
+	for (int i = 0; i < m_ShellPieces; ++i)
 	{
-		// Throw away
-		m_pOwner->SetCurrentInteractible(nullptr);
-		m_pOwner = nullptr;
-		m_pGameObject->SetParent(nullptr);
-		
-		m_pTransformComponent->SetPosition(glm::vec3{});
-		m_pTransformComponent->SetRotation(0);
-		m_pTransformComponent->SetScale(glm::vec2{1});
-		return;
+		auto pProjectile = new dae::GameObject("Bullet" + std::to_string(i));
+		pProjectile->SetTag("Projectile");
+
+		pProjectile->AddComponent(new dae::TransformComponent(pProjectile, m_pTransformComponent->GetPosition()));
+		pProjectile->GetTransform()->SetRotation(m_pTransformComponent->GetRotation() + Random(-m_MaxOffsetAngle, m_MaxOffsetAngle));
+		pProjectile->AddComponent(new dae::SpriteRendererComponent(pProjectile, "Sprites/Arrow.png"));
+		pProjectile->AddComponent(new dae::ColliderComponent(pProjectile));
+		pProjectile->AddComponent(new dae::RigidbodyComponent(pProjectile, b2_dynamicBody, 1.0f, 1.0f, false));
+		pProjectile->AddComponent(new ProjectileComponent());
+
+		GetGameObject()->GetScene()->AddGameObject(pProjectile);
 	}
 
-	// Equip
-	m_pOwner = m_pCaller;
-	m_pGameObject->SetParent(m_pCaller->GetGameObject());
+	--m_Ammo;
 
-
-}
-
-void WeaponComponent::Attack(InteractComponent* /*m_pCaller*/)
-{
-	auto pProjectile = new dae::GameObject("Bullet");
-	pProjectile->AddComponent(new dae::TransformComponent(pProjectile, m_pTransformComponent->GetPosition()));
-	pProjectile->AddComponent(new dae::SpriteRendererComponent(pProjectile, "Sprites/Arrow.png"));
-	pProjectile->AddComponent(new dae::ColliderComponent(pProjectile));
-	pProjectile->AddComponent(new dae::RigidbodyComponent(pProjectile, b2_dynamicBody, 1.0f, 1.0f, false));
-	pProjectile->AddComponent(new ProjectileComponent());
-
-	m_pGameObject->GetScene()->AddGameObject(pProjectile);
 }

@@ -54,13 +54,11 @@ private:
 	InteractComponent* m_pInteractComponent{};
 	LifeComponent* m_pLifeComponent{};
 
-	dae::GameObject* m_pPepperGameobject{};
+	dae::GameObject* m_pWeaponObject{};
 
-	WeaponComponent* m_pCurrentInteractable{};
 	WeaponComponent* m_pCurrentWeapon{};
 	
-	float m_PepperTime{1.5f};
-	float m_PepperTimer{};
+	float m_WeaponDistance{ 65.f };
 
 	float m_Speed{100.0f};
 

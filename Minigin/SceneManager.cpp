@@ -119,6 +119,9 @@ void dae::SceneManager::Cleanup()
 
 dae::Scene* dae::SceneManager::GetScene(int index)
 {
+	if (std::find(m_ScenesToRemove.begin(), m_ScenesToRemove.end(), index) != m_ScenesToRemove.end())
+		return GetScene(index + 1);
+
 	return m_Scenes[index];
 }
 

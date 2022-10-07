@@ -20,7 +20,7 @@ namespace dae
 			float rotation{};
 			glm::vec2 scale{};
 		};
-		TransformComponent() = default;
+		TransformComponent();
 		TransformComponent(GameObject* pGameobject, glm::vec3 position = glm::vec3{}, glm::vec2 scale = glm::vec2{ 1 });
 		TransformComponent(const TransformComponent& other) = delete;
 		TransformComponent(TransformComponent&& other) = delete;

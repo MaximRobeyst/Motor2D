@@ -9,7 +9,7 @@ namespace dae
 class ProjectileComponent : public dae::Component
 {
 public:
-	ProjectileComponent() = default;
+	ProjectileComponent(float speed = 500.f, bool bounce = false);
 
 	void Start() override;
 	void Update() override;
@@ -23,5 +23,6 @@ private:
 	float m_Speed = 500.0f;
 	float m_CurrentTimer = 0.0f;
 
+	bool m_Bounce{ false };
 };
 

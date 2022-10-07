@@ -1,4 +1,6 @@
 #include "ProjectileComponent.h"
+#include "PlayerComponent.h"
+#include "MrHotDogComponent.h"
 
 #include <GameObject.h>
 
@@ -8,12 +10,39 @@
 
 #include <imgui_helpers.h>
 
+ProjectileComponent::ProjectileComponent(float speed, bool bounce)
+	: m_Speed{speed}
+	, m_Bounce{bounce}
+{
+}
+
 void ProjectileComponent::Start()
 {
 	m_pRigidbodyComponent = m_pGameObject->GetComponent<dae::RigidbodyComponent>();
+	std::function<void(dae::RigidbodyComponent*, dae::RigidbodyComponent*, b2Contact*)> newFunction = [this](dae::RigidbodyComponent* pTriggeredbody, dae::RigidbodyComponent* otherBody, b2Contact*)
+	{
+		if (m_CurrentTimer <= 0.1f) return;
+
+		auto pOtherGO = otherBody->GetGameObject();
+
+		if (pOtherGO->GetTag() == "Player")
+		{
+			auto playerComponent = pOtherGO->GetComponent<PlayerComponent>();
+			playerComponent->PlayerDeath();
+		}
+		else if (pOtherGO->GetTag() == "Enemy")
+		{
+			auto enemyComp = pTriggeredbody->GetGameObject()->GetComponent<EnemyComponent>();
+			enemyComp->EnemyDeath();
+		}
+
+		if (!m_Bounce && pOtherGO->GetTag() != "Projectile") m_pGameObject->SetEnabled(false); //dae::GameObject::DestroyInstant(m_pGameObject);
+		else m_pRigidbodyComponent->GetBody()->SetLinearVelocity(b2Vec2{ m_pGameObject->GetTransform()->GetForward().x, m_pGameObject->GetTransform()->GetForward().y });
+	};
+	m_pRigidbodyComponent->SetOnEnterFunction(newFunction);
 
 	auto forward = m_pGameObject->GetTransform()->GetForward();
-	m_pRigidbodyComponent->GetBody()->SetLinearVelocity(b2Vec2{forward.x, forward.y});
+	m_pRigidbodyComponent->GetBody()->SetLinearVelocity(b2Vec2{forward.x * m_Speed, forward.y * m_Speed});
 }
 
 void ProjectileComponent::Update()

@@ -63,6 +63,29 @@ namespace dae
 			return nullptr;
 		}
 
+		template <typename T>
+		T* GetComponentInChildren() const
+		{
+			T* comp = nullptr;
+			for (size_t i = 0; i < GetAmountOfChildren(); ++i)
+			{
+				comp = m_pChildren[i]->GetComponent<T>();
+				if (comp != nullptr)
+					return comp;
+			}
+
+			return comp;
+		}
+
+		template <typename T>
+		T* GetComponentInParents() const
+		{
+			if (m_pParent == nullptr)
+				return GetComponent<T>();
+			
+			return m_pParent->GetComponent<T>();
+		}
+
 		template<typename T>
 		std::vector<T*> GetComponents() const
 		{
@@ -77,6 +100,7 @@ namespace dae
 		}
 
 		static void Destroy(GameObject* pGameobject);
+		static void DestroyInstant(GameObject* pGameobject);
 
 
 		// SceneGraph
@@ -124,7 +148,7 @@ namespace dae
 		bool m_Serialize{ true };
 		bool m_MarkedDelete{ false };
 
-		Scene* m_pCurrentScene{};
+		Scene* m_pCurrentScene{nullptr};
 
 		// Components
 		std::vector<Component*> m_pComponents{};
