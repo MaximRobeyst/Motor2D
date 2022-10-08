@@ -25,6 +25,8 @@ public:
 
 
 private:
+	void SpawnPickup();
+
 	dae::TransformComponent* m_pTransformComponent;
 	dae::TextComponent* m_pTextComponent;
 	PlayerComponent* m_pPlayerComponent;

@@ -26,23 +26,16 @@ public:
 	void Serialize(rapidjson::PrettyWriter< rapidjson::StringBuffer>& /*writer*/);
 	void Deserialize(dae::GameObject* /*pGameobject*/, rapidjson::Value& /*value*/);
 
-	// Enemy Spawner functions
-	void AddSpawnPosition(glm::vec3 spawnPosition);
-
 private:
+	dae::GameObject* SpawnEnemy(glm::vec3 position);
 
-	dae::GameObject* CreateMrHotDog(glm::vec3 position);
-	dae::GameObject* CreateMrEgg(glm::vec3 position);
-	dae::GameObject* CreateMrPickle(glm::vec3 position);
-
-	std::vector<glm::vec3> m_SpawnPoints{};
 	int m_Count{};
 	int m_MaxCount{ 4 };
 	int m_CurrentIndex{};
 
-	int m_AmountOfHotDogs{ 3 };
-	int m_AmountOfEggs{ 1 };
-	int m_AmountOfPicles{ 0 };
+	int m_AmountOfEnemies{ 1 };
+
+	float m_BorderOffset{ 50.f };
 
 
 	float m_TimebetweenSpawns{ 1.5f };

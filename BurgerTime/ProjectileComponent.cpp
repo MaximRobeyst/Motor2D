@@ -21,8 +21,6 @@ void ProjectileComponent::Start()
 	m_pRigidbodyComponent = m_pGameObject->GetComponent<dae::RigidbodyComponent>();
 	std::function<void(dae::RigidbodyComponent*, dae::RigidbodyComponent*, b2Contact*)> newFunction = [this](dae::RigidbodyComponent* pTriggeredbody, dae::RigidbodyComponent* otherBody, b2Contact*)
 	{
-		if (m_CurrentTimer <= 0.1f) return;
-
 		auto pOtherGO = otherBody->GetGameObject();
 
 		if (pOtherGO->GetTag() == "Player")
@@ -36,7 +34,7 @@ void ProjectileComponent::Start()
 			enemyComp->EnemyDeath();
 		}
 
-		if (!m_Bounce && pOtherGO->GetTag() != "Projectile") m_pGameObject->SetEnabled(false); //dae::GameObject::DestroyInstant(m_pGameObject);
+		if (!m_Bounce && pOtherGO->GetTag() != "Projectile") dae::GameObject::Destroy(m_pGameObject);
 		else m_pRigidbodyComponent->GetBody()->SetLinearVelocity(b2Vec2{ m_pGameObject->GetTransform()->GetForward().x, m_pGameObject->GetTransform()->GetForward().y });
 	};
 	m_pRigidbodyComponent->SetOnEnterFunction(newFunction);

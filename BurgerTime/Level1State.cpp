@@ -6,14 +6,12 @@
 #include <InputManager.h>
 
 #include "AchievementComponent.h"
-#include "FoodComponent.h"
 #include "LifeComponent.h"
 #include "LifeDisplayComponent.h"
 #include "MovementComponent.h"
 #include "PlayerComponent.h"
 #include "ScoreDisplayComponent.h"
 #include "MrHotDogComponent.h"
-#include "PlateComponent.h"
 #include "EnemySpawnerComponent.h"
 
 #include <SpriteRendererComponent.h>
@@ -85,7 +83,7 @@ void SingleplayerState::OnEnter()
 	pWeapon->AddComponent(new WeaponComponent(
 			Random(5, 20),
 			Random(1, 10),
-			Random(0.0f, static_cast<float>(M_PI)),
+			Random(0.0f, static_cast<float>(M_PI / 2)),
 			10,
 			Random(1.0f, 5.0f)
 		));
@@ -145,6 +143,22 @@ void SingleplayerState::OnEnter()
 	}
 
 	scene.AddGameObject(pLevelObject);
+
+
+	auto pEnemySpawner = new GameObject("EnemySpawwner");
+	pEnemySpawner->AddComponent(new TransformComponent());
+	pEnemySpawner->AddComponent(new EnemySpawnerComponent());
+
+	scene.AddGameObject(pEnemySpawner);
+
+	auto pScoreDisplay = new GameObject("ScoreDisplay");
+	pScoreDisplay->SetTag("Score");
+	pScoreDisplay->AddComponent(new TransformComponent(pScoreDisplay, glm::vec3{ 0.f, dae::Renderer::GetInstance().GetWindowWidth() /2, 0}, glm::vec2{1.f}));
+	pScoreDisplay->AddComponent(new SpriteRendererComponent());
+	pScoreDisplay->AddComponent(new TextComponent(pScoreDisplay, "0", font));
+	pScoreDisplay->AddComponent(new ScoreDisplayComponent());
+	
+	scene.AddGameObject(pScoreDisplay);
 
 	//pCameraComponent->SetTarget(pPlayer->GetComponent<TransformComponent>());
 

@@ -58,7 +58,7 @@ private:
 
 	WeaponComponent* m_pCurrentWeapon{};
 	
-	float m_WeaponDistance{ 65.f };
+	float m_WeaponDistance{ 45.f };
 
 	float m_Speed{100.0f};
 

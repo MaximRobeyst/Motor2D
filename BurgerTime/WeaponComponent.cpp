@@ -58,7 +58,7 @@ void WeaponComponent::Render() const
 void WeaponComponent::Attack()
 {
 	if (m_WaitTillNextShot > 0.0f) return;
-	//if (m_Ammo <= 0) return;
+	if (m_Ammo <= 0) return;
 
 	for (int i = 0; i < m_ShellPieces; ++i)
 	{
@@ -69,12 +69,63 @@ void WeaponComponent::Attack()
 		pProjectile->GetTransform()->SetRotation(m_pTransformComponent->GetRotation() + Random(-m_MaxOffsetAngle, m_MaxOffsetAngle));
 		pProjectile->AddComponent(new dae::SpriteRendererComponent(pProjectile, "Sprites/Arrow.png"));
 		pProjectile->AddComponent(new dae::ColliderComponent(pProjectile));
-		pProjectile->AddComponent(new dae::RigidbodyComponent(pProjectile, b2_dynamicBody, 1.0f, 1.0f, false));
+
+
+		uint16 mask = 0;
+		mask |= static_cast<uint16>(dae::PhysicsLayers::DefaultLayer);
+		mask |= static_cast<uint16>(dae::PhysicsLayers::layer2);
+		mask |= static_cast<uint16>(dae::PhysicsLayers::layer3);
+		pProjectile->AddComponent(new dae::RigidbodyComponent(pProjectile, b2_dynamicBody, 1.0f, 1.0f, false, dae::PhysicsLayers::layer1, mask));
 		pProjectile->AddComponent(new ProjectileComponent());
 
 		GetGameObject()->GetScene()->AddGameObject(pProjectile);
 	}
 
-	--m_Ammo;
 
+	--m_Ammo;
+	if (m_Ammo <= 0)
+	{
+		SpawnPickup();
+	}
+
+	m_pTextComponent->SetText(std::to_string(m_Ammo));
+
+}
+
+void WeaponComponent::SpawnPickup()
+{
+	auto pGameobject = new dae::GameObject();
+	pGameobject->SetTag("Pickup");
+	pGameobject->AddComponent(new dae::TransformComponent(pGameobject, glm::vec3{
+		Random(50.f, dae::Renderer::GetInstance().GetWindowWidth() - 50.f),
+		Random(50.f, dae::Renderer::GetInstance().GetWindowHeight() - 50.f),0 },
+		glm::vec2{0.25f}));
+
+	pGameobject->AddComponent(new dae::SpriteRendererComponent(pGameobject, "Sprites/pickup.png", SDL_FRect{ 0, 255, 0, 255 }));
+	pGameobject->AddComponent(new dae::ColliderComponent(pGameobject));
+	auto pRigidbody = new dae::RigidbodyComponent(pGameobject, b2_dynamicBody, 1.0f, 1.0f, true);
+	pGameobject->AddComponent(pRigidbody);
+
+
+	std::function<void(dae::RigidbodyComponent*, dae::RigidbodyComponent*, b2Contact*)> newFunction = [this](dae::RigidbodyComponent* pTriggeredbody, dae::RigidbodyComponent* otherBody, b2Contact*)
+	{
+		if (otherBody->GetGameObject()->GetTag() == "Player")
+		{
+			m_Ammo = Random(5, 20);
+			m_ShellPieces = Random(1, 10);
+			m_MaxOffsetAngle = Random(0.0f, static_cast<float>(M_PI / 2));
+			m_BarrelLength = 10;
+			m_FireRate = Random(1.0f, 5.0f);
+
+
+			m_pTextComponent->SetText(std::to_string(m_Ammo));
+
+			dae::GameObject::Destroy(pTriggeredbody->GetGameObject());
+		}
+	};
+
+	pRigidbody->SetOnEnterFunction(newFunction);
+
+
+	m_pGameObject->GetScene()->AddGameObject(pGameobject);
 }

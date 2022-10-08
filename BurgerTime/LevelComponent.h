@@ -8,8 +8,6 @@ namespace dae
 {
 	class GameObject;
 }
-class PlateComponent;
-class FoodComponent;
 
 class LevelComponent : public dae::Component, Observer
 {
@@ -25,9 +23,6 @@ public:
 
 	void RemoveLevel();
 
-	void AddPlates(PlateComponent* pPlateComponent);
-	void AddIngredient(FoodComponent* pFoodcomponent);
-
 	virtual void Notify(const dae::GameObject& gameObject, const Event& action) override;
 
 	std::string GetNextLevel() const;
@@ -41,9 +36,6 @@ private:
 	std::string m_NextLevel{};
 
 	std::vector<std::vector<char>> m_Level{};
-
-	std::vector<dae::GameObject*> m_pPlates{};
-	std::vector<dae::GameObject*> m_pIngredients{};
 
 	glm::vec3 m_Playerposition;
 };

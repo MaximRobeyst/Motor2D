@@ -41,6 +41,9 @@ void dae::TextComponent::Update()
 			throw std::runtime_error(std::string("Create text texture from surface failed: ") + SDL_GetError());
 		}
 		SDL_FreeSurface(surf);
+		if (m_pTextTexture != nullptr)
+			delete m_pTextTexture;
+
 		m_pTextTexture = new Texture2D(texture, "");
 		m_NeedsUpdate = false;
 
@@ -99,6 +102,8 @@ void dae::TextComponent::Deserialize(GameObject* pGameobect, rapidjson::Value& v
 // This implementation uses the "dirty flag" pattern
 void dae::TextComponent::SetText(const std::string& text)
 {
+	if (m_Text == text) return;
+
 	m_Text = text;
 	m_NeedsUpdate = true;
 }

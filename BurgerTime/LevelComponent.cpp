@@ -5,9 +5,6 @@
 #include <GameObject.h>
 #include <Scene.h>
 
-#include "PlateComponent.h"
-#include "FoodComponent.h"
-
 #include "Event.h"
 
 const dae::Creator<dae::Component, LevelComponent> g_LevelComponentCreator{};
@@ -84,18 +81,6 @@ void LevelComponent::Deserialize(dae::GameObject* pGameobject, rapidjson::Value&
 void LevelComponent::RemoveLevel()
 {
 	m_pGameObject->GetScene()->RemoveGameObject(m_pGameObject);
-}
-
-void LevelComponent::AddPlates(PlateComponent* pPlateComponent)
-{
-	pPlateComponent->GetSubject()->AddObserver(this);
-	m_pPlates.emplace_back(pPlateComponent->GetGameObject());
-}
-
-void LevelComponent::AddIngredient(FoodComponent* pFoodcomponent)
-{
-	pFoodcomponent->GetSubject()->AddObserver(this);
-	m_pPlates.emplace_back(pFoodcomponent->GetGameObject());
 }
 
 void LevelComponent::Notify(const dae::GameObject& /*gameObject*/, const Event& /*action*/)

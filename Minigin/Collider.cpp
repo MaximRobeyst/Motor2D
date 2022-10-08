@@ -11,6 +11,11 @@
 
 dae::Creator<dae::Component, dae::ColliderComponent> s_TranformComponentCreate{};
 
+dae::ColliderComponent::ColliderComponent()
+
+{
+}
+
 dae::ColliderComponent::ColliderComponent(dae::GameObject* pGameObject)
 	: Component(pGameObject)
 	, m_DynamicBox{new b2PolygonShape()}

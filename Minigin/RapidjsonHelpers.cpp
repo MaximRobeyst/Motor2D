@@ -100,10 +100,7 @@ void rapidjson::SerializeValue(rapidjson::PrettyWriter<rapidjson::StringBuffer>&
 
 void rapidjson::SerializeValue(rapidjson::PrettyWriter<rapidjson::StringBuffer>& writer, const std::string& key, dae::GameObject* value)
 {
-	writer.Key(key.c_str());
-	writer.StartObject();
-	value->Serialize(writer);
-	writer.EndObject();
+	SerializeValue(writer, key.c_str(), value->GetId());
 }
 
 void rapidjson::SerializeValue(rapidjson::PrettyWriter<rapidjson::StringBuffer>& writer, const std::string& key, dae::Component* value)

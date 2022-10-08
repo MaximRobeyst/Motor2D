@@ -138,8 +138,8 @@ void PlayerComponent::UpdateDefault()
 	int horAxis = dae::InputManager::GetInstance().GetAxis(m_pHorizontalAxis)->GetAxisValue();
 	int verAxis = dae::InputManager::GetInstance().GetAxis(m_pVerticalAxis)->GetAxisValue();
 
-	vel.x = horAxis * m_Speed /** GameTime::GetInstance()->GetElapsed()*/;
-	vel.y = verAxis * m_Speed /** GameTime::GetInstance()->GetElapsed()*/;
+	vel.x = horAxis * m_Speed;
+	vel.y = verAxis * m_Speed;
 
 	m_LastDirection.x = static_cast<float>(horAxis);
 	m_LastDirection.y = static_cast<float>(verAxis);

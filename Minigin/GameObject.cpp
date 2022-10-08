@@ -56,6 +56,7 @@ void dae::GameObject::Start()
 
 void dae::GameObject::Update()
 {
+
 	if (!m_Enabled)
 		return;
 
@@ -69,7 +70,7 @@ void dae::GameObject::Update()
 		(*iter)->Update();
 	}
 
-	if (m_MarkedDelete) 
+	if (m_MarkedDelete)
 		ImmidiateDestroy(this);
 }
 
@@ -213,11 +214,6 @@ void dae::GameObject::AddComponent(Component* component)
 
 void dae::GameObject::Destroy(GameObject* pGameobject)
 {
-	if (pGameobject->m_pParent != nullptr)
-		pGameobject->SetParent(nullptr);
-
-	pGameobject->GetScene()->RemoveGameObject(pGameobject);
-
 	pGameobject->m_MarkedDelete = true;
 }
 
@@ -279,6 +275,10 @@ void dae::GameObject::SaveAsPrefab()
 
 void dae::GameObject::ImmidiateDestroy(GameObject* gameobject)
 {
+	if (gameobject->m_pParent != nullptr)
+		gameobject->SetParent(nullptr);
+
+	gameobject->GetScene()->RemoveGameObject(gameobject);
 	delete gameobject;
 }
 

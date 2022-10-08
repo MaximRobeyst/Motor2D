@@ -6,7 +6,6 @@
 
 #include <GameObject.h>
 #include <string>
-#include "FoodComponent.h"
 #include <Factory.h>
 #include <Scene.h>
 
@@ -69,24 +68,13 @@ void ScoreDisplayComponent::Deserialize(dae::GameObject* pGameobject, rapidjson:
 
 }
 
-void ScoreDisplayComponent::Notify(const dae::GameObject& gameObject, const Event& action)
+void ScoreDisplayComponent::Notify(const dae::GameObject& /*gameObject*/, const Event& action)
 {
 	switch (action)
 	{
 	case Event::Enemy_Died:
 	{
-		auto pEnemyComponent = gameObject.GetComponent<EnemyComponent>();
-
-		m_Score += pEnemyComponent->GetScore();
-		ChangeText(m_Score);
-		break;
-	}
-	case Event::Burger_Drop:
-	{
-		if (auto foodComp = gameObject.GetComponent<FoodComponent>(); foodComp->GetAmountOfEnemies() > 0)
-			m_Score += foodComp->GetAmountOfEnemies() * 500;
-		else
-			m_Score += 50;
+		m_Score += 100;
 		ChangeText(m_Score);
 		break;
 	}

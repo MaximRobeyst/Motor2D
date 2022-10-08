@@ -27,9 +27,6 @@
     <ClCompile Include="AchievementComponent.cpp">
       <Filter>Components</Filter>
     </ClCompile>
-    <ClCompile Include="FoodComponent.cpp">
-      <Filter>Components</Filter>
-    </ClCompile>
     <ClCompile Include="LifeComponent.cpp">
       <Filter>Components</Filter>
     </ClCompile>
@@ -40,9 +37,6 @@
       <Filter>Components</Filter>
     </ClCompile>
     <ClCompile Include="MrHotDogComponent.cpp">
-      <Filter>Components</Filter>
-    </ClCompile>
-    <ClCompile Include="PlateComponent.cpp">
       <Filter>Components</Filter>
     </ClCompile>
     <ClCompile Include="PlayerComponent.cpp">
@@ -107,9 +101,6 @@
     <ClInclude Include="AchievementComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
-    <ClInclude Include="FoodComponent.h">
-      <Filter>Components</Filter>
-    </ClInclude>
     <ClInclude Include="LifeComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
@@ -126,9 +117,6 @@
       <Filter>Components</Filter>
     </ClInclude>
     <ClInclude Include="MrHotDogComponent.h">
-      <Filter>Components</Filter>
-    </ClInclude>
-    <ClInclude Include="PlateComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
     <ClInclude Include="PlayAudioCommand.h">

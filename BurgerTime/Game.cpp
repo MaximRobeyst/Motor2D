@@ -25,14 +25,12 @@
 #include <SDLAudioSystem.h>
 
 #include "AchievementComponent.h"
-#include "FoodComponent.h"
 #include "LifeComponent.h"
 #include "LifeDisplayComponent.h"
 #include "MovementComponent.h"
 #include "PlayerComponent.h"
 #include "ScoreDisplayComponent.h"
 #include "MrHotDogComponent.h"
-#include "PlateComponent.h"
 
 #include <stdio.h>
 #include <iostream> // std::cout
