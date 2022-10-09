@@ -19,7 +19,7 @@ ProjectileComponent::ProjectileComponent(float speed, bool bounce)
 void ProjectileComponent::Start()
 {
 	m_pRigidbodyComponent = m_pGameObject->GetComponent<dae::RigidbodyComponent>();
-	std::function<void(dae::RigidbodyComponent*, dae::RigidbodyComponent*, b2Contact*)> newFunction = [this](dae::RigidbodyComponent* pTriggeredbody, dae::RigidbodyComponent* otherBody, b2Contact*)
+	std::function<void(dae::RigidbodyComponent*, dae::RigidbodyComponent*, b2Contact*)> newFunction = [this](dae::RigidbodyComponent* pTriggeredbody, dae::RigidbodyComponent* otherBody, b2Contact* contact)
 	{
 		auto pOtherGO = otherBody->GetGameObject();
 
@@ -35,7 +35,11 @@ void ProjectileComponent::Start()
 		}
 
 		if (!m_Bounce && pOtherGO->GetTag() != "Projectile") dae::GameObject::Destroy(m_pGameObject);
-		else m_pRigidbodyComponent->GetBody()->SetLinearVelocity(b2Vec2{ m_pGameObject->GetTransform()->GetForward().x, m_pGameObject->GetTransform()->GetForward().y });
+		else
+		{
+
+			m_pRigidbodyComponent->GetBody()->SetLinearVelocity(b2Vec2{ -m_pGameObject->GetTransform()->GetForward().x * m_Speed, -m_pGameObject->GetTransform()->GetForward().y * m_Speed });
+		}
 	};
 	m_pRigidbodyComponent->SetOnEnterFunction(newFunction);
 
@@ -47,7 +51,7 @@ void ProjectileComponent::Update()
 {
 	m_CurrentTimer += GameTime::GetInstance()->GetElapsed();
 
-	if (m_CurrentTimer >= m_TimeAlive)
+	if (m_CurrentTimer >= m_TimeAlive && !m_Bounce)
 	{
 		dae::GameObject::Destroy(m_pGameObject);
 	}

@@ -32,6 +32,8 @@ void WeaponComponent::Start()
 	m_pPlayerComponent = m_pGameObject->GetComponent<PlayerComponent>();
 
 	m_pTextComponent = m_pGameObject->GetParent()->GetComponentInChildren<dae::TextComponent>();
+
+	m_pTextComponent->SetText(std::to_string(m_Ammo));
 }
 
 void WeaponComponent::Update()
@@ -41,18 +43,6 @@ void WeaponComponent::Update()
 
 void WeaponComponent::Render() const
 {
-	//glm::vec2 position = m_pTransformComponent->GetPosition();
-	//float angle = m_pTransformComponent->GetRotation();
-	//
-	//float lineLength{ 10 };
-	//float triangleAngles = (static_cast<float>(M_PI) / 6);
-	//static std::vector<glm::vec2> points;
-	//points.resize(3);
-	//points.push_back( { position.x + cosf(angle) * m_BarrelLength, position.y + sinf(angle) * m_BarrelLength});
-	//points.push_back( { position.x - cosf(angle - triangleAngles) * lineLength, position.y - sinf(angle - triangleAngles) * lineLength });
-	//points.push_back( { position.x - cosf(angle + triangleAngles) * lineLength, position.y - sinf(angle + triangleAngles) * lineLength });
-	//
-	//dae::Renderer::GetInstance().RenderPolygon(points.data(), 3, SDL_Color{ 255, 255, 255, 255 });
 }
 
 void WeaponComponent::Attack()
@@ -83,6 +73,7 @@ void WeaponComponent::Attack()
 
 
 	--m_Ammo;
+	m_WaitTillNextShot = 1.0f;
 	if (m_Ammo <= 0)
 	{
 		SpawnPickup();

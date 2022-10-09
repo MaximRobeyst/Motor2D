@@ -4,9 +4,8 @@ enum class Event
 {
 	Player_Died,
 	Enemy_Died,
-
-	Burger_Drop,
-	Burger_Made,
+	Score_Changed,
+	Second_Survived,
 
 	Game_Won
 };

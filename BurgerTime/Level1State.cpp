@@ -146,6 +146,7 @@ void SingleplayerState::OnEnter()
 
 
 	auto pEnemySpawner = new GameObject("EnemySpawwner");
+	pEnemySpawner->SetTag("Spawner");
 	pEnemySpawner->AddComponent(new TransformComponent());
 	pEnemySpawner->AddComponent(new EnemySpawnerComponent());
 
@@ -153,7 +154,7 @@ void SingleplayerState::OnEnter()
 
 	auto pScoreDisplay = new GameObject("ScoreDisplay");
 	pScoreDisplay->SetTag("Score");
-	pScoreDisplay->AddComponent(new TransformComponent(pScoreDisplay, glm::vec3{ 0.f, dae::Renderer::GetInstance().GetWindowWidth() /2, 0}, glm::vec2{1.f}));
+	pScoreDisplay->AddComponent(new TransformComponent(pScoreDisplay, glm::vec3{ dae::Renderer::GetInstance().GetWindowWidth() / 2, 0.f, 0}, glm::vec2{1.f}));
 	pScoreDisplay->AddComponent(new SpriteRendererComponent());
 	pScoreDisplay->AddComponent(new TextComponent(pScoreDisplay, "0", font));
 	pScoreDisplay->AddComponent(new ScoreDisplayComponent());

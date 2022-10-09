@@ -19,6 +19,10 @@
 #include <CameraComponent.h>
 #include <RapidjsonHelpers.h>
 
+#include <GameStateManager.h>
+#include "LeaderboardState.h"
+#include "ScoreDisplayComponent.h"
+
 dae::Creator<dae::Component, PlayerComponent> s_TranformComponentCreate{};
 
 PlayerComponent::PlayerComponent(dae::GameObject* pGameobject)
@@ -92,10 +96,9 @@ void PlayerComponent::PlayerDeath()
 {
 	if (m_CurrentState == PlayerState::State_Dying) return;
 
-	//m_CurrentState = PlayerState::State_Dying;
-	//m_pLifeComponent->Hit();
-	//m_pLifeComponent->SetEnabled(false);
 	ServiceLocator::GetAudio()->PlaySound("../Data/Audio/death_1.wav");
+
+	GameStateManager::GetInstance().SwitchGameState(new LeaderboardState(ScoreDisplayComponent::GetScore()));
 }
 
 bool PlayerComponent::IsDead() const

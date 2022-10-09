@@ -54,34 +54,34 @@ void GameManagerComponent::Deserialize(dae::GameObject* pGameobject, rapidjson::
 	m_AmountOfBurgers = value["AmountOfBurgers"].GetInt();
 }
 
-void GameManagerComponent::Notify(const dae::GameObject& /*gameObject*/, const Event& action)
+void GameManagerComponent::Notify(const dae::GameObject& /*gameObject*/, const Event& /*action*/)
 {
-	switch (action)
-	{
-		case Event::Burger_Made:
-			++m_CurrentBurgers;
-			if (m_CurrentBurgers == m_AmountOfBurgers)
-			{
-				m_NextLevel = m_pLevelComponent->GetNextLevel();
-				m_pLevelComponent->RemoveLevel();
-
-
-				if (m_NextLevel == "Level-1")
-				{
-					GameStateManager::GetInstance().SwitchGameState(new LeaderboardState(ScoreDisplayComponent::GetScore()));
-				}
-				else if (m_NextLevel == "Main_Menu")
-				{
-					GameStateManager::GetInstance().SwitchGameState(new MainMenuState());
-				}
-				else
-				{
-					dae::SceneManager::GetInstance().RemoveScene(m_pGameObject->GetScene()->GetName());
-					m_LoadNext = true;
-				}
-			}
-			break;
-	}
+	//switch (action)
+	//{
+	//	case Event::Burger_Made:
+	//		++m_CurrentBurgers;
+	//		if (m_CurrentBurgers == m_AmountOfBurgers)
+	//		{
+	//			m_NextLevel = m_pLevelComponent->GetNextLevel();
+	//			m_pLevelComponent->RemoveLevel();
+	//
+	//
+	//			if (m_NextLevel == "Level-1")
+	//			{
+	//				GameStateManager::GetInstance().SwitchGameState(new LeaderboardState(ScoreDisplayComponent::GetScore()));
+	//			}
+	//			else if (m_NextLevel == "Main_Menu")
+	//			{
+	//				GameStateManager::GetInstance().SwitchGameState(new MainMenuState());
+	//			}
+	//			else
+	//			{
+	//				dae::SceneManager::GetInstance().RemoveScene(m_pGameObject->GetScene()->GetName());
+	//				m_LoadNext = true;
+	//			}
+	//		}
+	//		break;
+	//}
 }
 
 void GameManagerComponent::SetLevelComponent(LevelComponent* pLevelComponent)
