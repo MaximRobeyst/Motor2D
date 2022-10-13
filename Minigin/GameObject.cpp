@@ -147,11 +147,6 @@ void dae::GameObject::Serialize(rapidjson::PrettyWriter< rapidjson::StringBuffer
 	{
 		component->Serialize(writer);
 	}
-
-	for (auto iter = m_pChildren.begin(); iter != m_pChildren.end(); ++iter)
-	{
-		(*iter)->Serialize(writer);
-	}
 	writer.EndArray();
 
 	writer.EndObject();
@@ -173,8 +168,8 @@ dae::GameObject* dae::GameObject::Deserialize(Scene* pScene, rapidjson::Value& v
 
 	for (auto& component : value["Components"].GetArray())
 	{
-		std::cout << component["name"].GetString() << std::endl;
-		auto comp = Factory<Component>::GetInstance().Create(component["name"].GetString());
+		std::cout << component["Name"].GetString() << std::endl;
+		auto comp = Factory<Component>::GetInstance().Create(component["Name"].GetString());
 		if (comp == nullptr)
 			continue;
 

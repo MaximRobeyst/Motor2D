@@ -78,7 +78,7 @@ void PlayerComponent::RenderGUI()
 void PlayerComponent::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>& writer)
 {
 	writer.StartObject();
-	rapidjson::SerializeValue(writer, "Name", typeid(*this).name());
+	rapidjson::SerializeValue(writer, "Name", std::string(typeid(*this).name()));
 	rapidjson::SerializeValue(writer, "HorizontalAxis", m_pHorizontalAxis);
 	rapidjson::SerializeValue(writer, "VerticalAxis", m_pVerticalAxis);
 	writer.EndObject();
@@ -89,7 +89,7 @@ void PlayerComponent::Deserialize(dae::GameObject* pGameobject, rapidjson::Value
 	m_pGameObject = pGameobject;
 
 	rapidjson::DeserializeValue(value, "HorizontalAxis", m_pHorizontalAxis);
-	rapidjson::DeserializeValue(value, "VerticalAxis", m_pHorizontalAxis);
+	rapidjson::DeserializeValue(value, "VerticalAxis", m_pVerticalAxis);
 }
 
 void PlayerComponent::PlayerDeath()

@@ -34,11 +34,13 @@ void ProjectileComponent::Start()
 			enemyComp->EnemyDeath();
 		}
 
-		if (!m_Bounce && pOtherGO->GetTag() != "Projectile") dae::GameObject::Destroy(m_pGameObject);
+		if (!m_Bounce) dae::GameObject::Destroy(m_pGameObject);
 		else
 		{
-
-			m_pRigidbodyComponent->GetBody()->SetLinearVelocity(b2Vec2{ -m_pGameObject->GetTransform()->GetForward().x * m_Speed, -m_pGameObject->GetTransform()->GetForward().y * m_Speed });
+			auto normal = contact->GetManifold()->localNormal;
+			m_pRigidbodyComponent->GetBody()->SetLinearVelocity(b2Vec2{ 
+				m_pGameObject->GetTransform()->GetForward().x * normal.x * m_Speed, 
+				m_pGameObject->GetTransform()->GetForward().y * normal.y * m_Speed });
 		}
 	};
 	m_pRigidbodyComponent->SetOnEnterFunction(newFunction);

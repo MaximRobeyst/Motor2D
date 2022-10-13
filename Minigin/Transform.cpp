@@ -29,7 +29,7 @@ dae::TransformComponent::TransformComponent(GameObject* pGameobject, glm::vec3 p
 void dae::TransformComponent::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>& writer)
 {
 	writer.StartObject();
-	rapidjson::SerializeValue(writer, "Name", typeid(*this).name());
+	rapidjson::SerializeValue(writer, "Name", std::string(typeid(*this).name()));
 	rapidjson::SerializeValue(writer, "Position", m_WorldTransform.position);
 	rapidjson::SerializeValue(writer, "Rotation", m_WorldTransform.rotation);
 	rapidjson::SerializeValue(writer, "Scale", m_WorldTransform.scale);

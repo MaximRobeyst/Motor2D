@@ -34,7 +34,10 @@ EnemySpawnerComponent::~EnemySpawnerComponent()
 void EnemySpawnerComponent::Notify(const dae::GameObject& /*gameObject*/, const Event& action)
 {
 	if (action == Event::Enemy_Died)
+	{
 		--m_Count;
+		m_Timer = 0.0f;
+	}
 }
 
 void EnemySpawnerComponent::Start()
@@ -61,7 +64,7 @@ void EnemySpawnerComponent::Update()
 		if (iter == m_SpawnedObjects.end())
 			return;
 	
-		(*iter)->GetComponent<dae::TransformComponent>()->SetPosition(glm::vec3{
+ 		(*iter)->GetComponent<dae::TransformComponent>()->SetPosition(glm::vec3{
 			Random(m_BorderOffset, dae::Renderer::GetInstance().GetWindowWidth() - m_BorderOffset),
 			Random(m_BorderOffset, dae::Renderer::GetInstance().GetWindowHeight() - m_BorderOffset), 0 }
 		);

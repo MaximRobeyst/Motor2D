@@ -43,7 +43,9 @@ void ScoreDisplayComponent::Start()
 	m_pTextComponent = m_pGameObject->GetComponent<dae::TextComponent>();
 	m_pTextComponent->SetText(m_ExtraDisplayText + std::to_string(m_Score));
 
-	m_EnemySpawnerComponent = m_pGameObject->GetScene()->FindGameobjectWithTag("Spawner")->GetComponent<EnemySpawnerComponent>();
+	auto spawner = m_pGameObject->GetScene()->FindGameobjectWithTag("Spawner");
+	if(spawner != nullptr)
+		m_EnemySpawnerComponent =spawner->GetComponent<EnemySpawnerComponent>();
 }
 
 void ScoreDisplayComponent::Update()
@@ -70,7 +72,7 @@ void ScoreDisplayComponent::Update()
 void ScoreDisplayComponent::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>& writer)
 {
 	writer.StartObject();
-	writer.Key("name");
+	writer.Key("Name");
 	writer.String(typeid(*this).name());
 	writer.Key("extraDisplayText");
 	writer.String(m_ExtraDisplayText.c_str());

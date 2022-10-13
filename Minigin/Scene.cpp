@@ -284,7 +284,7 @@ void dae::Scene::Serialize(const std::string& name)
 	rapidjson::PrettyWriter< rapidjson::StringBuffer> writer(outputFile);
 
 	writer.StartObject();
-	rapidjson::SerializeValue(writer, "sceneName", (name == " " ? m_Name : name).c_str());
+	rapidjson::SerializeValue(writer, "SceneName",  (name == " " ? m_Name : name));
 
 	rapidjson::SerializeValue(writer, "gameobjectCount", static_cast<int>(m_pObjects.size()));
 	rapidjson::SerializeValue(writer, "Gravity", m_PhysicsWorld->GetGravity());

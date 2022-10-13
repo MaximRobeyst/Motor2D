@@ -13,6 +13,10 @@
 #include <Renderer.h>
 #include <Utils.h>
 
+const dae::Creator<dae::Component, WeaponComponent> g_WeaponCreator{};
+
+
+
 WeaponComponent::WeaponComponent()
 {
 }

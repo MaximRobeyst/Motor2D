@@ -5,6 +5,7 @@ class InteractComponent;
 class InteractCommand : public Command
 {
 public:
+	InteractCommand();
 	InteractCommand(InteractComponent* pInteractComponent);
 	void Execute() override;
 

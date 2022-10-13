@@ -24,6 +24,12 @@ dae::CameraComponent::CameraComponent(GameObject* pGameobject)
 {
 }
 
+dae::CameraComponent::~CameraComponent()
+{
+	if (dae::CameraComponent::m_MainCamera == this)
+		dae::CameraComponent::m_MainCamera = nullptr;
+}
+
 void dae::CameraComponent::Start()
 {
 	m_pTransformComponent = m_pGameObject->GetComponent<TransformComponent>();

@@ -1,6 +1,6 @@
 {
-    "sceneName": "Main_Menu",
-    "gameobjectCount": 5,
+    "SceneName": "Main_Menu",
+    "gameobjectCount": 2,
     "Gravity": {
         "X": 0.0,
         "Y": 0.0
@@ -13,26 +13,26 @@
             "Children": [],
             "Components": [
                 {
-                    "name": "class dae::TransformComponent",
+                    "Name": "class dae::TransformComponent",
                     "Position": {
-                        "x": 456.0,
-                        "y": 150.0,
-                        "z": 0.0
+                        "X": 455.0,
+                        "Y": 150.0,
+                        "Z": 0.0
                     },
                     "Rotation": 0.0,
                     "Scale": {
-                        "x": 1.5,
-                        "y": 1.5
+                        "X": 0.25,
+                        "Y": 0.25
                     }
                 },
                 {
-                    "name": "class dae::SpriteRendererComponent",
-                    "Path": "MainCharacter.png",
+                    "Name": "class dae::SpriteRendererComponent",
+                    "Path": "Sprites/player.png",
                     "SampleRect": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "w": 0.0,
-                        "h": 0.0
+                        "X": 0.0,
+                        "Y": 0.0,
+                        "W": 0.0,
+                        "H": 0.0
                     }
                 }
             ]
@@ -43,36 +43,36 @@
             "Tag": "",
             "Children": [
                 {
-                    "Id": 3,
+                    "Id": 0,
                     "Name": "Singleplayer button",
                     "Tag": "",
                     "Children": [],
                     "Components": [
                         {
-                            "name": "class dae::TransformComponent",
+                            "Name": "class dae::TransformComponent",
                             "Position": {
-                                "x": 0.0,
-                                "y": 50.0,
-                                "z": 0.0
+                                "X": 0.0,
+                                "Y": 50.0,
+                                "Z": 0.0
                             },
                             "Rotation": 0.0,
                             "Scale": {
-                                "x": 1.0,
-                                "y": 1.0
+                                "X": 1.0,
+                                "Y": 1.0
                             }
                         },
                         {
-                            "name": "class dae::SpriteRendererComponent",
-                            "Path": "logo.png",
+                            "Name": "class dae::SpriteRendererComponent",
+                            "Path": "",
                             "SampleRect": {
-                                "x": 0.0,
-                                "y": 0.0,
-                                "w": 0.0,
-                                "h": 0.0
+                                "X": 0.0,
+                                "Y": 0.0,
+                                "W": 0.0,
+                                "H": 0.0
                             }
                         },
                         {
-                            "name": "class dae::TextComponent",
+                            "Name": "class dae::TextComponent",
                             "Text": "1 Player",
                             "Color": {
                                 "r": 255,
@@ -88,37 +88,37 @@
                     ]
                 },
                 {
-                    "Id": 4,
+                    "Id": 0,
                     "Name": "Multiplayer button",
                     "Tag": "",
                     "Children": [],
                     "Components": [
                         {
-                            "name": "class dae::TransformComponent",
+                            "Name": "class dae::TransformComponent",
                             "Position": {
-                                "x": 0.0,
-                                "y": 75.0,
-                                "z": 0.0
+                                "X": 0.0,
+                                "Y": 100.0,
+                                "Z": 0.0
                             },
                             "Rotation": 0.0,
                             "Scale": {
-                                "x": 1.0,
-                                "y": 1.0
+                                "X": 1.0,
+                                "Y": 1.0
                             }
                         },
                         {
-                            "name": "class dae::SpriteRendererComponent",
-                            "Path": "logo.png",
+                            "Name": "class dae::SpriteRendererComponent",
+                            "Path": "",
                             "SampleRect": {
-                                "x": 0.0,
-                                "y": 0.0,
-                                "w": 0.0,
-                                "h": 0.0
+                                "X": 0.0,
+                                "Y": 0.0,
+                                "W": 0.0,
+                                "H": 0.0
                             }
                         },
                         {
-                            "name": "class dae::TextComponent",
-                            "Text": "2 Players",
+                            "Name": "class dae::TextComponent",
+                            "Text": "Serializer test",
                             "Color": {
                                 "r": 255,
                                 "g": 255,
@@ -131,75 +131,40 @@
                             "FunctionName": "struct SwitchToMultiplayer"
                         }
                     ]
-                },
-                {
-                    "Id": 5,
-                    "Name": "Versus button",
-                    "Tag": "",
-                    "Children": [],
-                    "Components": [
-                        {
-                            "name": "class dae::TransformComponent",
-                            "Position": {
-                                "x": 0.0,
-                                "y": 100.0,
-                                "z": 0.0
-                            },
-                            "Rotation": 0.0,
-                            "Scale": {
-                                "x": 1.0,
-                                "y": 1.0
-                            }
-                        },
-                        {
-                            "name": "class dae::SpriteRendererComponent",
-                            "Path": "logo.png",
-                            "SampleRect": {
-                                "x": 0.0,
-                                "y": 0.0,
-                                "w": 0.0,
-                                "h": 0.0
-                            }
-                        },
-                        {
-                            "name": "class dae::TextComponent",
-                            "Text": "Versus mode",
-                            "Color": {
-                                "r": 255,
-                                "g": 255,
-                                "b": 255,
-                                "a": 0
-                            }
-                        },
-                        {
-                            "name": "class UIButtonComponent",
-                            "FunctionName": "struct SwitchToVersusState"
-                        }
-                    ]
                 }
             ],
             "Components": [
                 {
-                    "name": "class dae::TransformComponent",
+                    "Name": "class dae::TransformComponent",
                     "Position": {
-                        "x": 480.0,
-                        "y": 100.0,
-                        "z": 0.0
+                        "X": 480.0,
+                        "Y": 100.0,
+                        "Z": 0.0
                     },
                     "Rotation": 0.0,
                     "Scale": {
-                        "x": 1.0,
-                        "y": 1.0
+                        "X": 1.0,
+                        "Y": 1.0
                     }
                 },
                 {
-                    "name": "class dae::SpriteRendererComponent",
-                    "Path": "logo.png",
+                    "Name": "class dae::SpriteRendererComponent",
+                    "Path": "",
                     "SampleRect": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "w": 0.0,
-                        "h": 0.0
+                        "X": 0.0,
+                        "Y": 0.0,
+                        "W": 0.0,
+                        "H": 0.0
+                    }
+                },
+                {
+                    "Name": "class dae::TextComponent",
+                    "Text": "Squared up!",
+                    "Color": {
+                        "r": 255,
+                        "g": 0,
+                        "b": 0,
+                        "a": 0
                     }
                 },
                 {

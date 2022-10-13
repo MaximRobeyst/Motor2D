@@ -1,6 +1,12 @@
 #include "PlayerCommands.h"
 #include "InteractComponent.h"
 
+dae::Creator<Command, InteractCommand> g_InteractCommand;
+
+InteractCommand::InteractCommand()
+{
+}
+
 InteractCommand::InteractCommand(InteractComponent* pInteractComponent)
 	: m_pInteractComponent{ pInteractComponent }
 {
@@ -8,5 +14,6 @@ InteractCommand::InteractCommand(InteractComponent* pInteractComponent)
 
 void InteractCommand::Execute()
 {
-	m_pInteractComponent->InteractWithCurrentInteractable();
+	if(m_pInteractComponent != nullptr)
+		m_pInteractComponent->InteractWithCurrentInteractable();
 }

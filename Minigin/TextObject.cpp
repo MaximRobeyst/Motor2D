@@ -64,7 +64,7 @@ void dae::TextComponent::Render() const
 void dae::TextComponent::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>& writer)
 {
 	writer.StartObject();
-	writer.Key("name");
+	writer.Key("Name");
 	writer.String(typeid(*this).name());
 	writer.Key("Text");
 	writer.String(m_Text.c_str());

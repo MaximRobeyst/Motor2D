@@ -75,18 +75,20 @@ void MainMenuState::OnEnter()
 	auto& input = InputManager::GetInstance();
 
 	auto pMenupointer = new dae::GameObject("Pointer");
-	auto pTransform = new dae::TransformComponent(pMenupointer, glm::vec3{}, glm::vec2{ 2.f });
+	auto pTransform = new dae::TransformComponent(pMenupointer, glm::vec3{}, glm::vec2{ 0.25f });
 	pMenupointer->AddComponent(pTransform);
-	auto pSpriteRenderer = new dae::SpriteRendererComponent(pMenupointer, "MainCharacter.png");
+	auto pSpriteRenderer = new dae::SpriteRendererComponent(pMenupointer, "Sprites/player.png");
 	pMenupointer->AddComponent(pSpriteRenderer);
 	pTransform->SetPosition(glm::vec3{ 480.f, 150.f, 0.f } - glm::vec3{ pSpriteRenderer->GetSampleRectangle().w * pTransform->GetScale().x, 0.f, 0.f });
 
 
 	scene.AddGameObject(pMenupointer);
 
+	auto font = ResourceManager::GetInstance().LoadFont("Early GameBoy.ttf", 17);
 	GameObject* pLogo = new GameObject("Logo");
 	pLogo->AddComponent(new TransformComponent(pLogo, glm::vec3{ 480.f, 100.f, 0.f}));
 	pLogo->AddComponent(new SpriteRendererComponent(pLogo, "logo.png"));
+	pLogo->AddComponent(new TextComponent(pLogo, "Squared up!", font, SDL_Color{ 255, 0, 0 }));
 	auto pMenuComp = new MenuComponent(pLogo, pMenupointer);
 	pLogo->AddComponent(pMenuComp);
 	scene.AddGameObject(pLogo);
@@ -94,7 +96,6 @@ void MainMenuState::OnEnter()
 	auto pGameobject = new GameObject("Singleplayer button");
 	pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3(0, 50, 0.f)));
 	pGameobject->AddComponent(new SpriteRendererComponent(pGameobject, "logo.png"));
-	auto font = ResourceManager::GetInstance().LoadFont("Early GameBoy.ttf", 17);
 	pGameobject->AddComponent(new TextComponent(pGameobject, "1 Player", font, SDL_Color{ 255, 255, 255 }));
 	auto pUIButtonComp = new UIButtonComponent(pGameobject);
 	pGameobject->AddComponent(pUIButtonComp);
@@ -106,24 +107,13 @@ void MainMenuState::OnEnter()
 	pGameobject = new GameObject("Multiplayer button");
 	pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3(0, 100.f, 0.f)));
 	pGameobject->AddComponent(new SpriteRendererComponent(pGameobject, "logo.png"));
-	pGameobject->AddComponent(new TextComponent(pGameobject, "2 Players", font, SDL_Color{ 255, 255, 255 }));
+	pGameobject->AddComponent(new TextComponent(pGameobject, "Serializer test", font, SDL_Color{ 255, 255, 255 }));
 	pUIButtonComp = new UIButtonComponent(pGameobject);
 	pGameobject->AddComponent(pUIButtonComp);
 	pGameobject->SetParent(pLogo);
 	//newOnClickFunction = []() {GameStateManager::GetInstance().SwitchGameState(new MultiplayerState()); };
 
 	pUIButtonComp->SetOnClickFunction(new SwitchToMultiplayer());
-
-	pGameobject = new GameObject("Versus button");
-	pGameobject->AddComponent(new TransformComponent(pGameobject, glm::vec3(0, 150, 0.f)));
-	pGameobject->AddComponent(new SpriteRendererComponent(pGameobject, "logo.png"));
-	pGameobject->AddComponent(new TextComponent(pGameobject, "Versus mode", font, SDL_Color{ 255, 255, 255 }));
-	pUIButtonComp = new UIButtonComponent(pGameobject);
-	pGameobject->AddComponent(pUIButtonComp);
-	pGameobject->SetParent(pLogo);
-	//newOnClickFunction = []() {GameStateManager::GetInstance().SwitchGameState(new VersusState()); };
-
-	pUIButtonComp->SetOnClickFunction(new SwitchToVersusState());
 
 	auto controller = std::make_shared<dae::Xbox360Controller>(0);
 	dae::InputManager::GetInstance().AddController(controller);

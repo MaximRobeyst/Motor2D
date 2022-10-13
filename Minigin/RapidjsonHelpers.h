@@ -6,6 +6,8 @@
 #include <box2d.h>
 #include <SDL.h>
 
+#include <string>
+
 namespace dae
 {
 	class GameObject;
@@ -22,6 +24,7 @@ namespace rapidjson
 	void SerializeValue(rapidjson::PrettyWriter<rapidjson::StringBuffer>& writer, const std::string& key, char value);
 	void SerializeValue(rapidjson::PrettyWriter<rapidjson::StringBuffer>& writer, const std::string& key, float value);
 	void SerializeValue(rapidjson::PrettyWriter<rapidjson::StringBuffer>& writer, const std::string& key, double value);
+	void SerializeValue(rapidjson::PrettyWriter<rapidjson::StringBuffer>& writer, const std::string& key, bool value);
 	void SerializeValue(rapidjson::PrettyWriter<rapidjson::StringBuffer>& writer, const std::string& key, std::string value);
 
 	// Vectors & shapes
@@ -43,6 +46,7 @@ namespace rapidjson
 	void DeserializeValue(rapidjson::Value& value, const std::string& key, char& extract);
 	void DeserializeValue(rapidjson::Value& value, const std::string& key, float& extract);
 	void DeserializeValue(rapidjson::Value& value, const std::string& key, double& extract);
+	void DeserializeValue(rapidjson::Value& value, const std::string& key, bool& extract);
 	void DeserializeValue(rapidjson::Value& value, const std::string& key, std::string& extract);
 
 	// Vectors & shapes

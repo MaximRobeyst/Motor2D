@@ -5,6 +5,7 @@
 #include "Collider.h"
 #include "Renderer.h"
 #include "RigidbodyComponent.h"
+#include "RapidjsonHelpers.h"
 
 const dae::Creator<dae::Component, dae::RigidbodyComponent> g_RigidbodyCreator{};
 
@@ -64,16 +65,11 @@ void dae::RigidbodyComponent::RenderGUI()
 void dae::RigidbodyComponent::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>& writer)
 {
 	writer.StartObject();
-	writer.Key("name");
-	writer.String(typeid(*this).name());
-	writer.Key("Density");
-	writer.Double(static_cast<double>(m_Density));
-	writer.Key("Friction");
-	writer.Double(static_cast<double>(m_Friction));
-	writer.Key("IsSensor");
-	writer.Bool(m_IsSensor);
-	writer.Key("BodyDef");
-	writer.Int(static_cast<int>(m_Bodydef));
+	rapidjson::SerializeValue(writer, "Name", std::string(typeid(*this).name()));
+	rapidjson::SerializeValue(writer, "Density", m_Density);
+	rapidjson::SerializeValue(writer, "Friction", m_Friction);
+	rapidjson::SerializeValue(writer, "IsSensor", m_IsSensor);
+	rapidjson::SerializeValue(writer, "BodyDef", m_Bodydef);
 	writer.Key("Layer");
 	writer.Uint(static_cast<uint16>(m_PhysicsLayer));
 	writer.Key("Mask");
@@ -85,8 +81,9 @@ void dae::RigidbodyComponent::Deserialize(GameObject* pGameObject, rapidjson::Va
 {
 	m_pGameObject = pGameObject;
 
-	m_Density = static_cast<float>(value["Density"].GetDouble());
-	m_Friction = static_cast<float>(value["Friction"].GetDouble());
+	rapidjson::DeserializeValue(value, "Density", m_Density);
+	rapidjson::DeserializeValue(value, "Friction", m_Friction);
+	rapidjson::DeserializeValue(value, "Density", m_Density);
 	m_IsSensor = value["IsSensor"].GetBool();
 	m_Bodydef = static_cast<b2BodyType>(value["BodyDef"].GetInt());
 	m_PhysicsLayer = static_cast<PhysicsLayers>(value["Layer"].GetUint());

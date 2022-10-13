@@ -83,7 +83,7 @@ void dae::ColliderComponent::Render() const
 void dae::ColliderComponent::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>& writer)
 {
 	writer.StartObject();
-	writer.Key("name");
+	writer.Key("Name");
 	writer.String(typeid(*this).name());
 	writer.Key("Box");
 	writer.StartObject();

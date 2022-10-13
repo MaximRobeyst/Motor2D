@@ -31,6 +31,12 @@ void rapidjson::SerializeValue(rapidjson::PrettyWriter<rapidjson::StringBuffer>&
 	writer.Double(value);
 }
 
+void rapidjson::SerializeValue(rapidjson::PrettyWriter<rapidjson::StringBuffer>& writer, const std::string& key, bool value)
+{
+	writer.Key(key.c_str());
+	writer.Bool(value);
+}
+
 void rapidjson::SerializeValue(rapidjson::PrettyWriter<rapidjson::StringBuffer>& writer, const std::string& key, std::string value)
 {
 	writer.Key(key.c_str());
@@ -135,6 +141,11 @@ void rapidjson::DeserializeValue(rapidjson::Value& value, const std::string& key
 void rapidjson::DeserializeValue(rapidjson::Value& value, const std::string& key, double& extract)
 {
 	extract = value[key.c_str()].GetDouble();
+}
+
+void rapidjson::DeserializeValue(rapidjson::Value& value, const std::string& key, bool& extract)
+{
+	extract = value[key.c_str()].GetBool();
 }
 
 void rapidjson::DeserializeValue(rapidjson::Value& value, const std::string& key, std::string& extract)

@@ -9,6 +9,7 @@ namespace dae
 	public:
 		CameraComponent();
 		CameraComponent(GameObject* pGameobject);
+		~CameraComponent();
 		
 		void Start() override;
 		void Update() override;

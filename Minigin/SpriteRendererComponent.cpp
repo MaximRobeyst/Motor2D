@@ -70,7 +70,7 @@ void dae::SpriteRendererComponent::RenderGUI()
 void dae::SpriteRendererComponent::Serialize(rapidjson::PrettyWriter<rapidjson::StringBuffer>& writer)
 {
 	writer.StartObject();
-	rapidjson::SerializeValue(writer, "name", typeid(*this).name());
+	rapidjson::SerializeValue(writer, "Name", std::string(typeid(*this).name()));
 	rapidjson::SerializeValue(writer, "Path", m_pTexture);
 	rapidjson::SerializeValue(writer, "SampleRect", m_SampleRectangle);
 	writer.EndObject();
@@ -80,7 +80,8 @@ void dae::SpriteRendererComponent::Deserialize(GameObject* pGameObject, rapidjso
 {
 	m_pGameObject = pGameObject;
 	m_Path = value["Path"].GetString();
-	m_pTexture = ResourceManager::GetInstance().LoadTexture(m_Path);
+	if(!m_Path.empty())
+		m_pTexture = ResourceManager::GetInstance().LoadTexture(m_Path);
 
 	rapidjson::DeserializeValue(value, "SampleRect", m_SampleRectangle);
 }
